@@ -13,7 +13,7 @@ type TriState = boolean | 'mixed' | undefined;
  *
  * The label should not change when the state changes. Use `simpleToggle` if needed.
  */
-export const createPreToggle = (options?: { pressed?: TriState }) => {
+export const createPressToggle = (options?: { pressed?: TriState }) => {
 	let pressed: TriState = $state(options?.pressed ?? false);
 	let element: HTMLElement | undefined;
 
