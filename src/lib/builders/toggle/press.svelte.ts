@@ -28,7 +28,7 @@ export const createPressToggle = (options?: { pressed?: TriState; disabled?: boo
 		if (e.key === key.ENTER || e.key === key.SPACE) handleClick();
 	};
 
-	$effect.root(() => {
+	const cleanup = $effect.root(() => {
 		$effect(() => {
 			updateAttribute(element, 'aria-pressed', pressed);
 			updateBooleanAttribute(element, 'disabled', disabled);
@@ -64,6 +64,7 @@ export const createPressToggle = (options?: { pressed?: TriState; disabled?: boo
 				destroy() {
 					node.removeEventListener('click', handleClick);
 					node.removeEventListener('keydown', handleKeydown);
+					cleanup();
 				}
 			};
 		}) satisfies Action,
