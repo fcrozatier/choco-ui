@@ -57,6 +57,9 @@ export const createPressToggle = (options?: { pressed?: TriState; disabled?: boo
 		action: ((node) => {
 			element = node;
 
+			updateAttribute(element, 'aria-pressed', pressed);
+			updateBooleanAttribute(element, 'disabled', disabled);
+
 			node.addEventListener('click', handleClick);
 			node.addEventListener('keydown', handleKeydown);
 
