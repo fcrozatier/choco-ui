@@ -1,3 +1,4 @@
+import { updateAttribute, updateBooleanAttribute } from '$lib/internal/helpers';
 import { key } from '$lib/utils/keyboard';
 import type { Action } from 'svelte/action';
 
@@ -13,40 +14,48 @@ type TriState = boolean | 'mixed' | undefined;
  *
  * The label should not change when the state changes. Use `simpleToggle` if needed.
  */
-export const createPressToggle = (options?: { pressed?: TriState }) => {
+export const createPressToggle = (options?: { pressed?: TriState; disabled?: boolean }) => {
 	let pressed: TriState = $state(options?.pressed ?? false);
+	let disabled: boolean = $state(options?.disabled ?? false);
 	let element: HTMLElement | undefined;
 
 	const handleClick = () => {
+		if (disabled) return;
 		pressed = !pressed;
-		updateAttributes();
 	};
 
 	const handleKeydown = (e: KeyboardEvent) => {
 		if (e.key === key.ENTER || e.key === key.SPACE) handleClick();
 	};
 
-	const updateAttributes = () => {
-		if (pressed !== undefined) {
-			element?.setAttribute('aria-pressed', String(pressed));
-		} else {
-			element?.removeAttribute('aria-pressed');
-		}
-	};
+	$effect.root(() => {
+		$effect(() => {
+			updateAttribute(element, 'aria-pressed', pressed);
+			updateBooleanAttribute(element, 'disabled', disabled);
+		});
+	});
 
 	return {
-		get pressed() {
-			return pressed;
-		},
+		states: {
+			get pressed() {
+				return pressed;
+			},
 
-		set pressed(newVal) {
-			pressed = newVal;
-			updateAttributes();
+			set pressed(newVal) {
+				pressed = newVal;
+			},
+
+			get disabled() {
+				return disabled;
+			},
+
+			set disabled(newVal) {
+				disabled = newVal;
+			}
 		},
 
 		action: ((node) => {
 			element = node;
-			node.setAttribute('aria-pressed', String(pressed));
 
 			node.addEventListener('click', handleClick);
 			node.addEventListener('keydown', handleKeydown);
@@ -57,6 +66,8 @@ export const createPressToggle = (options?: { pressed?: TriState }) => {
 					node.removeEventListener('keydown', handleKeydown);
 				}
 			};
-		}) satisfies Action
+		}) satisfies Action,
+
+		options
 	};
 };
