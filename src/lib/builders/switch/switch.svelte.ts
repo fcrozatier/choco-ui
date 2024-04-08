@@ -36,7 +36,7 @@ export const createSwitchToggle = (options?: CreateSwitch) => {
 	const cleanup = $effect.root(() => {
 		$effect(() => {
 			if (element instanceof HTMLInputElement) {
-				updateAttribute(element, "checked", checked);
+				updateBooleanAttribute(element, "checked", checked);
 			} else {
 				updateAttribute(element, "aria-checked", checked);
 			}
@@ -69,9 +69,9 @@ export const createSwitchToggle = (options?: CreateSwitch) => {
 
 			if (node instanceof HTMLInputElement) {
 				node.setAttribute("type", "checkbox");
-				node.setAttribute("checked", String(checked));
+				updateBooleanAttribute(element, "checked", checked);
 			} else {
-				node.setAttribute("aria-checked", String(checked));
+				updateAttribute(element, "aria-checked", checked);
 			}
 
 			node.addEventListener("click", handleClick);

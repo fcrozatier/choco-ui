@@ -1,28 +1,66 @@
 <script lang="ts">
-	import { Switch as SwitchPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js.js";
+	import { createSwitchToggle } from "$lib/builders/switch/switch.svelte";
+	import { cn } from "$lib/utils/styles.js";
+	import type { SwitchProps } from ".";
 
-	type $$Props = SwitchPrimitive.Props;
-	type $$Events = SwitchPrimitive.Events;
+	let {
+		class: className,
+		element = "input",
+		checked,
+		disabled,
+		children,
+		...restProps
+	}: SwitchProps = $props();
 
-	let className: $$Props["class"] = undefined;
-	export let checked: $$Props["checked"] = undefined;
-	export { className as class };
+	let toggle = createSwitchToggle({ checked, disabled });
 </script>
 
-<SwitchPrimitive.Root
-	bind:checked
+<!-- "      transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0" -->
+<!-- <svelte:element
+	this={element}
 	class={cn(
-		"peer inline-flex h-[24px] w-[44px] shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input",
-		className
+		"handle h-6 w-12 shrink-0 cursor-pointer appearance-none rounded-full border border-gray-500 bg-gray-500 transition-shadow",
+		className,
 	)}
-	{...$$restProps}
-	on:click
-	on:keydown
->
-	<SwitchPrimitive.Thumb
+	use:toggle.action
+/> -->
+
+{#if element === "input"}
+	<input
 		class={cn(
-			"pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"
+			"handle h-6 w-12 shrink-0 cursor-pointer appearance-none rounded-full border border-gray-500 bg-gray-500 transition-shadow",
+			className,
 		)}
+		use:toggle.action
 	/>
-</SwitchPrimitive.Root>
+{:else}
+	<button
+		class={cn(
+			"handle h-6 w-12 shrink-0 cursor-pointer appearance-none rounded-full border border-gray-500 bg-gray-500 transition-shadow",
+			className,
+		)}
+		use:toggle.action
+	>
+		{@render children?.()}
+	</button>
+{/if}
+
+<style>
+	.handle {
+		--handle-offset: 1.5rem;
+		--handle-offset-calculator: calc(var(--handle-offset) * -1);
+		--toggle-handle-border: 0 0;
+
+		box-shadow:
+			var(--handle-offset-calculator) 0 0 2px var(--color-white) inset,
+			0 0 0 2px var(--color-white) inset;
+
+		&:checked,
+		&[checked="true"],
+		&[aria-checked="true"] {
+			--handle-offset-calculator: var(--handle-offset);
+			--tw-border-opacity: 1;
+			--tw-bg-opacity: 1;
+		}
+	}
+</style>
