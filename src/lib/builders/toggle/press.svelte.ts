@@ -7,6 +7,8 @@ import type { Action } from 'svelte/action';
 
 type TriState = boolean | 'mixed' | undefined;
 
+export type CreateToggle = { pressed?: TriState; disabled?: boolean | undefined | null };
+
 /**
  * Toggle button
  *
@@ -14,7 +16,7 @@ type TriState = boolean | 'mixed' | undefined;
  *
  * The label should not change when the state changes. Use `simpleToggle` if needed.
  */
-export const createPressToggle = (options?: { pressed?: TriState; disabled?: boolean }) => {
+export const createPressToggle = (options?: CreateToggle) => {
 	let pressed: TriState = $state(options?.pressed ?? false);
 	let disabled: boolean = $state(options?.disabled ?? false);
 	let element: HTMLElement | undefined;
