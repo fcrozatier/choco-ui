@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { toggleVariants, type ToggleProps } from './index.js';
-	import { createPressToggle } from '$lib/builders/toggle/press.svelte.js';
+	import { toggleVariants, type ToggleProps } from "./index.js";
+	import { createPressToggle } from "$lib/builders/toggle/press.svelte.js";
 
 	let {
 		class: className,

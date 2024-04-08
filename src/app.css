@@ -3,7 +3,7 @@
 
 /* Preflight */
 /* https://github.com/tailwindlabs/tailwindcss/blob/master/src/css/preflight.css */
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
 	/* Colors */

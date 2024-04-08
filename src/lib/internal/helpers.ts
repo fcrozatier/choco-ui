@@ -1,4 +1,4 @@
-import type { AriaAttributes, Booleanish, HTMLAttributes } from 'svelte/elements';
+import type { AriaAttributes, Booleanish, HTMLAttributes } from "svelte/elements";
 
 type KeysMatching<T, U> = {
 	[P in keyof T]: T[P] extends U ? P : never;
@@ -12,10 +12,10 @@ type AriaBooleanAttributes = Exclude<
 export function updateBooleanAttribute(
 	element: HTMLElement | undefined,
 	attribute: AriaBooleanAttributes | (string & NonNullable<unknown>),
-	value: Booleanish | undefined | null
+	value: Booleanish | undefined | null,
 ) {
-	if (value === true || value === 'true') {
-		element?.setAttribute(attribute, '');
+	if (value === true || value === "true") {
+		element?.setAttribute(attribute, "");
 	} else {
 		element?.removeAttribute(attribute);
 	}
@@ -27,7 +27,7 @@ export function updateAttribute(
 		| keyof AriaAttributes
 		| keyof HTMLAttributes<EventTarget>
 		| (string & NonNullable<unknown>),
-	value: string | number | boolean | undefined
+	value: string | number | boolean | undefined,
 ) {
 	if (value !== undefined) {
 		element?.setAttribute(attribute, String(value));

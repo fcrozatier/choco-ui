@@ -1,11 +1,11 @@
-import { updateAttribute, updateBooleanAttribute } from '$lib/internal/helpers';
-import { key } from '$lib/utils/keyboard';
-import type { Action } from 'svelte/action';
+import { updateAttribute, updateBooleanAttribute } from "$lib/internal/helpers";
+import { key } from "$lib/utils/keyboard";
+import type { Action } from "svelte/action";
 
 // Regarding ARIA you can achieve the same thing with only a checkbox
 // https://www.accessibility-developer-guide.com/examples/sensible-aria-usage/pressed/#alternative-technique-using-checkbox
 
-type TriState = boolean | 'mixed' | undefined;
+type TriState = boolean | "mixed" | undefined;
 
 export type CreateToggle = { pressed?: TriState; disabled?: boolean | undefined | null };
 
@@ -32,8 +32,8 @@ export const createPressToggle = (options?: CreateToggle) => {
 
 	const cleanup = $effect.root(() => {
 		$effect(() => {
-			updateAttribute(element, 'aria-pressed', pressed);
-			updateBooleanAttribute(element, 'disabled', disabled);
+			updateAttribute(element, "aria-pressed", pressed);
+			updateBooleanAttribute(element, "disabled", disabled);
 		});
 	});
 
@@ -53,27 +53,27 @@ export const createPressToggle = (options?: CreateToggle) => {
 
 			set disabled(newVal) {
 				disabled = newVal;
-			}
+			},
 		},
 
 		action: ((node) => {
 			element = node;
 
-			updateAttribute(element, 'aria-pressed', pressed);
-			updateBooleanAttribute(element, 'disabled', disabled);
+			updateAttribute(element, "aria-pressed", pressed);
+			updateBooleanAttribute(element, "disabled", disabled);
 
-			node.addEventListener('click', handleClick);
-			node.addEventListener('keydown', handleKeydown);
+			node.addEventListener("click", handleClick);
+			node.addEventListener("keydown", handleKeydown);
 
 			return {
 				destroy() {
-					node.removeEventListener('click', handleClick);
-					node.removeEventListener('keydown', handleKeydown);
+					node.removeEventListener("click", handleClick);
+					node.removeEventListener("keydown", handleKeydown);
 					cleanup();
-				}
+				},
 			};
 		}) satisfies Action,
 
-		options
+		options,
 	};
 };

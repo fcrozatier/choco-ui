@@ -1,11 +1,11 @@
 <script>
-	import { createPressToggle } from '$lib/builders/toggle/press.svelte';
-	import Toggle from '$lib/ui/toggle/toggle.svelte';
+	import { createPressToggle } from "$lib/builders/toggle/press.svelte";
+	import Toggle from "$lib/ui/toggle/toggle.svelte";
 
 	let checked = $state(false);
 
 	const toggle = createPressToggle({
-		pressed: false
+		pressed: false,
 	});
 
 	$effect(() => {
@@ -18,7 +18,7 @@
 	<input type="checkbox" bind:checked />
 </label>
 
-<button use:toggle.action> I'm {toggle.state.pressed ? '' : 'not'} pressed</button>
+<button use:toggle.action> I'm {toggle.state.pressed ? "" : "not"} pressed</button>
 
 <button
 	use:toggle.action
