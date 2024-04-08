@@ -36,7 +36,7 @@ export const createPressToggle = (options?: { pressed?: TriState; disabled?: boo
 	});
 
 	return {
-		states: {
+		state: {
 			get pressed() {
 				return pressed;
 			},
