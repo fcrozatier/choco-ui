@@ -4,7 +4,7 @@ import type { HTMLButtonAttributes } from "svelte/elements";
 import type { CreateToggle } from "$lib/builders/toggle/press.svelte";
 
 export const toggleVariants = tv({
-	base: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [aria-pressed='true']:bg-accent [aria-pressed='true']:text-accent-foreground",
+	base: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 aria-pressed:bg-accent aria-pressed:text-accent-foreground",
 	variants: {
 		variant: {
 			default: "bg-transparent",
