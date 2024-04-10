@@ -16,6 +16,7 @@ const defaults = { open: false, position: "top" } satisfies CreateTooltip;
 /**
  * Tooltip
  *
+ * Convention: the tooltip must be a direct child of it's owning element
  *
  * Documentation:
  *
