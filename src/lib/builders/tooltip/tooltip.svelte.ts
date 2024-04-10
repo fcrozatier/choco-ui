@@ -100,8 +100,11 @@ export const createTooltip = (options?: CreateTooltip) => {
 
 			return {
 				destroy() {
+					document.removeEventListener("keydown", handleKeydown);
+					document.removeEventListener("mousemove", handleMouse);
 					parent?.removeEventListener("mouseenter", openTooltip);
 					parent?.removeEventListener("focusin", openTooltip);
+					parent?.removeEventListener("focusout", closeTooltip);
 				},
 			};
 		}) satisfies Action,
