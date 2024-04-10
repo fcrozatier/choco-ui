@@ -27,7 +27,11 @@ export const createPressToggle = (options?: CreateToggle) => {
 	};
 
 	const handleKeydown = (e: KeyboardEvent) => {
-		if (e.key === key.ENTER || e.key === key.SPACE) handleClick();
+		if (e.key === key.ENTER || e.key === key.SPACE) {
+			// Avoid firing a synthetic click event when pressing Space on button (over-firing)
+			e.preventDefault();
+			handleClick();
+		}
 	};
 
 	const cleanup = $effect.root(() => {
