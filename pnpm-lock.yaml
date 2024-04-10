@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@fcrozatier/ts-helpers':
+    specifier: ^0.0.18
+    version: 0.0.18
   '@tailwindcss/vite':
     specifier: 4.0.0-alpha.13
     version: 4.0.0-alpha.13(vite@5.2.8)
@@ -322,6 +325,10 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@fcrozatier/ts-helpers@0.0.18:
+    resolution: {integrity: sha512-3EevfyOaksFcGRZarQ0kY5cQqwwCcpwaDT8glZwffgCCcR5eSwgezivd7T82BnJiWZD873SIpli3ZEoP/4rGAw==}
+    dev: false
 
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
