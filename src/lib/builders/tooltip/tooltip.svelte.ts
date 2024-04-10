@@ -44,7 +44,7 @@ export const createTooltip = (options?: CreateTooltip) => {
 		}
 	}, 100);
 
-	const openTooltip = (e: MouseEvent | FocusEvent) => {
+	const openTooltip = (e?: MouseEvent | FocusEvent) => {
 		if (e instanceof MouseEvent) {
 			if (element && parent && !hull) {
 				hull = makeConvexHullFromElements([element, parent]);
@@ -78,7 +78,7 @@ export const createTooltip = (options?: CreateTooltip) => {
 			},
 
 			set open(newVal) {
-				open = newVal;
+				newVal ? openTooltip() : closeTooltip();
 			},
 		},
 
