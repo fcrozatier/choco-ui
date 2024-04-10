@@ -1,5 +1,7 @@
 <script lang="ts">
 	import Tooltip from "$lib/ui/tooltip/tooltip.svelte";
+
+	let show = $state(false);
 </script>
 
 <p>
@@ -8,9 +10,10 @@
 	vel qui pariatur eos doloremque?
 </p>
 
-<button>button</button>
+<label for="checkbox">show tooltip</label>
+<input id="checkbox" type="checkbox" bind:checked={show} />
 
 <span class="">
 	HTML
-	<Tooltip position="right">Hyper Text Markup Language</Tooltip>
+	<Tooltip bind:open={show} position="right">Hyper Text Markup Language</Tooltip>
 </span>
