@@ -30,6 +30,7 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 
 	let root: HTMLElement | undefined = $state();
 	let pressed = $derived(items.filter((i) => i.state.pressed).map((i) => i.value));
+	let mixed = $derived(items.filter((i) => i.state.pressed === "mixed").map((i) => i.value));
 
 	const handleKeydown = (e: KeyboardEvent) => {
 		const index = items.findIndex((i) => i?.element === e.currentTarget);
@@ -110,6 +111,10 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 
 			get pressed() {
 				return pressed;
+			},
+
+			get mixed() {
+				return mixed;
 			},
 		},
 
