@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@fcrozatier/ts-helpers':
-    specifier: ^0.0.18
-    version: 0.0.18
+    specifier: ^0.0.19
+    version: 0.0.19
   '@tailwindcss/vite':
     specifier: 4.0.0-alpha.13
     version: 4.0.0-alpha.13(vite@5.2.8)
@@ -38,8 +38,8 @@ devDependencies:
     specifier: ^3.1.0
     version: 3.1.0(svelte@5.0.0-next.97)(vite@5.2.8)
   '@types/eslint':
-    specifier: ^8.56.7
-    version: 8.56.7
+    specifier: ^8.56.8
+    version: 8.56.8
   '@typescript-eslint/eslint-plugin':
     specifier: ^7.6.0
     version: 7.6.0(@typescript-eslint/parser@7.6.0)(eslint@9.0.0)(typescript@5.4.5)
@@ -326,8 +326,8 @@ packages:
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     dev: true
 
-  /@fcrozatier/ts-helpers@0.0.18:
-    resolution: {integrity: sha512-3EevfyOaksFcGRZarQ0kY5cQqwwCcpwaDT8glZwffgCCcR5eSwgezivd7T82BnJiWZD873SIpli3ZEoP/4rGAw==}
+  /@fcrozatier/ts-helpers@0.0.19:
+    resolution: {integrity: sha512-NxRvntoTi/lrTX3PkjWWB5hnd27c9G/j22EZ3G6TtEOqiAstdeY6d9zKe0VOy9Hjt4ft7J7s/0C1CL0wk/lIYw==}
     dev: false
 
   /@humanwhocodes/config-array@0.12.3:
@@ -722,8 +722,8 @@ packages:
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
     dev: true
 
-  /@types/eslint@8.56.7:
-    resolution: {integrity: sha512-SjDvI/x3zsZnOkYZ3lCt9lOZWZLB2jIlNKz+LBgCtDurK0JZcwucxYHn1w2BJkD34dgX9Tjnak0txtq4WTggEA==}
+  /@types/eslint@8.56.8:
+    resolution: {integrity: sha512-LdDdQVDzDXf3ijhhMnE27C5vc0QEknD8GiMR/Hi+fVbdZNfAfCy2j69m0LjUd2MAy0+kIgnOtd5ndTmDk/VWCA==}
     dependencies:
       '@types/estree': 1.0.5
       '@types/json-schema': 7.0.15
