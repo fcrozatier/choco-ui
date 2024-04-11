@@ -19,7 +19,7 @@ export type CreateToggle = { pressed?: TriState; disabled?: boolean | undefined 
 export const createPressToggle = (options?: CreateToggle) => {
 	let pressed: TriState = $state(options?.pressed ?? false);
 	let disabled: boolean = $state(options?.disabled ?? false);
-	let element: HTMLElement | undefined;
+	let element: HTMLElement | undefined = $state();
 
 	const handleClick = () => {
 		if (disabled) return;
@@ -79,5 +79,9 @@ export const createPressToggle = (options?: CreateToggle) => {
 		}) satisfies Action,
 
 		options,
+
+		get element() {
+			return element;
+		},
 	};
 };
