@@ -8,11 +8,12 @@
 		variant,
 		pressed,
 		disabled,
+		builder = createPressToggle,
 		children,
 		...restProps
 	}: ToggleProps = $props();
 
-	const toggle = createPressToggle({ pressed, disabled });
+	const toggle = builder({ pressed, disabled });
 </script>
 
 <button use:toggle.action class={toggleVariants({ variant, size, className })} {...restProps}>
