@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { createToggleGroup } from "$lib/builders/toggle-group/toggle-group.svelte";
 	import type { Orientation } from "$lib/internal/types";
 	import * as ToggleGroup from "$lib/ui/toggle-group";
+	import { nanoId } from "$lib/utils/nano";
 
 	let disabled: boolean | undefined = $state();
 	let variant: "outline" | "default" = $state("default");
@@ -9,19 +11,25 @@
 	let pressed: (() => []) | undefined = $state();
 
 	let group = $state([]);
+
+	const { action: toggleGroup, createItem } = createToggleGroup();
 </script>
 
-<fieldset>
+{#snippet toggleItem({ id = nanoId(), value, disabled })}
+	{@const item = createItem({ value, disabled })}
+	<input use:item.action bind:group type="checkbox" {id} {value} name="toggle-group" />
+	<label for={id}>{value}</label>
+{/snippet}
+
+<fieldset use:toggleGroup>
 	<legend>toggle group</legend>
-	<input bind:group type="checkbox" id="bold" value="bold" name="toggle-group" />
-	<label for="bold">bold</label>
-	<input bind:group type="checkbox" id="italic" value="italic" name="toggle-group" />
-	<label for="italic">italic</label>
-	<input bind:group type="checkbox" id="underline" value="underline" name="toggle-group" />
-	<label for="underline">underline</label>
+	{@render toggleItem({ value: "bold" })}
+	{@render toggleItem({ value: "underline" })}
+	{@render toggleItem({ value: "italic" })}
 </fieldset>
 
-<pre>{JSON.stringify(group, null, 2)}</pre>
+checked
+<pre>{group}</pre>
 
 <label>
 	disable
