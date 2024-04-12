@@ -57,7 +57,7 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 		let value = $state(options.value);
 		const toggle = createPressToggle({ disabled: state.disabled, ...options });
 
-		const item: ToggleGroupItem = $derived(Object.assign(toggle, { value }));
+		const item: ToggleGroupItem = $state(Object.assign(toggle, { value }));
 
 		$effect(() => {
 			element?.setAttribute("data-value", value);
@@ -83,9 +83,8 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 
 	const cleanup = $effect.root(() => {
 		$effect(() => {
+			updateBooleanAttribute(root, "disabled", state.disabled);
 			if (state.disabled !== undefined) {
-				updateBooleanAttribute(root, "disabled", state.disabled);
-
 				for (const item of items) {
 					item.state.disabled = state.disabled;
 				}
