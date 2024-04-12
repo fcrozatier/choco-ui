@@ -9,6 +9,8 @@ type TriState = boolean | "mixed" | undefined;
 
 export type CreateToggle = { pressed?: TriState; disabled?: boolean | undefined | null };
 
+const defaults = { pressed: false, disabled: false } satisfies CreateToggle;
+
 /**
  * Toggle button
  *
@@ -17,13 +19,12 @@ export type CreateToggle = { pressed?: TriState; disabled?: boolean | undefined 
  * The label should not change when the state changes. Use `simpleToggle` if needed.
  */
 export const createPressToggle = (options?: CreateToggle) => {
-	let pressed: TriState = $state(options?.pressed ?? false);
-	let disabled: boolean = $state(options?.disabled ?? false);
+	let state = $state({ ...defaults, ...options });
 	let element: HTMLElement | undefined = $state();
 
 	const handleClick = () => {
-		if (disabled) return;
-		pressed = !pressed;
+		if (state.disabled) return;
+		state.pressed = !state.pressed;
 	};
 
 	const handleKeydown = (e: KeyboardEvent) => {
@@ -36,35 +37,25 @@ export const createPressToggle = (options?: CreateToggle) => {
 
 	const cleanup = $effect.root(() => {
 		$effect(() => {
-			updateAttribute(element, "aria-pressed", pressed);
-			updateBooleanAttribute(element, "disabled", disabled);
+			updateAttribute(element, "aria-pressed", state.pressed);
+			updateBooleanAttribute(element, "disabled", state.disabled);
 		});
 	});
 
 	return {
-		state: {
-			get pressed() {
-				return pressed;
-			},
+		get state() {
+			return state;
+		},
 
-			set pressed(newVal) {
-				pressed = newVal;
-			},
-
-			get disabled() {
-				return disabled;
-			},
-
-			set disabled(newVal) {
-				disabled = newVal;
-			},
+		set state(newState: CreateToggle) {
+			state = { ...state, ...newState };
 		},
 
 		action: ((node) => {
 			element = node;
 
-			updateAttribute(element, "aria-pressed", pressed);
-			updateBooleanAttribute(element, "disabled", disabled);
+			updateAttribute(element, "aria-pressed", state.pressed);
+			updateBooleanAttribute(element, "disabled", state.disabled);
 
 			node.addEventListener("click", handleClick);
 			node.addEventListener("keydown", handleKeydown);
