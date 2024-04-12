@@ -34,6 +34,7 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 	let mixed = $derived(items.filter((i) => i.state.pressed === "mixed").map((i) => i.value));
 
 	const handleKeydown = (e: KeyboardEvent) => {
+		e.preventDefault();
 		const index = items.findIndex((i) => i?.element === e.currentTarget);
 		let newIndex = index;
 
@@ -57,7 +58,7 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 		let value = $state(options.value);
 		const toggle = createPressToggle({ disabled: state.disabled, ...options });
 
-		const item: ToggleGroupItem = $state(Object.assign(toggle, { value }));
+		const item: ToggleGroupItem = Object.assign(toggle, { value });
 
 		$effect(() => {
 			element?.setAttribute("data-value", value);
