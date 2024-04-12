@@ -1,3 +1,5 @@
+import type { Action, ActionReturn } from "svelte/action";
+
 /**
  * Helps keep two reactive values in sync.
  *
@@ -25,4 +27,25 @@ export function sync<T>(
 			setA(newB);
 		}
 	});
+}
+
+/**
+ * Turn many parameter-less actions into one action
+ */
+export function combineActions<T extends Action>(...actions: T[]) {
+	return ((node) => {
+		const cleanups: (void | ActionReturn)[] = [];
+		for (const action of actions) {
+			const cleanup = action(node);
+			cleanups.push(cleanup);
+		}
+
+		return {
+			destroy() {
+				for (const cleanup of cleanups) {
+					cleanup?.destroy?.();
+				}
+			},
+		};
+	}) satisfies Action;
 }
