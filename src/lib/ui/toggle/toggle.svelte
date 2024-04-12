@@ -8,14 +8,14 @@
 		variant,
 		pressed,
 		disabled,
-		builder = createPressToggle,
+		builder = createPressToggle(),
 		children,
 		...restProps
 	}: ToggleProps = $props();
 
-	const toggle = builder({ pressed, disabled });
+	builder.state = { disabled, pressed };
 </script>
 
-<button use:toggle.action class={toggleVariants({ variant, size, className })} {...restProps}>
+<button use:builder.action class={toggleVariants({ variant, size, className })} {...restProps}>
 	{@render children?.()}
 </button>

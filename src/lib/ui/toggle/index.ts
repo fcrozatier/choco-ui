@@ -26,7 +26,7 @@ export interface ToggleProps
 	extends HTMLButtonAttributes,
 		CreateToggle,
 		Partial<VariantProps<typeof toggleVariants>> {
-	builder?: typeof createPressToggle;
+	builder?: ReturnType<typeof createPressToggle>;
 }
 
 export {
