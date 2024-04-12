@@ -13,7 +13,10 @@
 		...restProps
 	}: ToggleProps = $props();
 
-	builder.state = { disabled, pressed };
+	builder.state = {
+		disabled: disabled ?? builder.options?.disabled,
+		pressed: pressed ?? builder.options?.pressed,
+	};
 </script>
 
 <button use:builder.action class={toggleVariants({ variant, size, className })} {...restProps}>

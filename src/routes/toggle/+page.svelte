@@ -18,8 +18,8 @@
 	});
 
 	const toggle3 = createPressToggle({
-		pressed: false,
-		disabled: true,
+		pressed: true,
+		disabled: false,
 	});
 
 	$effect(() => {
@@ -68,4 +68,4 @@
 	I
 </button>
 
-<Toggle builder={toggle3} variant="outline">toggle</Toggle>
+<Toggle builder={toggle3} variant="outline" disabled>toggle</Toggle>
