@@ -3,7 +3,8 @@ import { key } from "$lib/utils/keyboard";
 import type { Action } from "svelte/action";
 import { createPressToggle, type CreateToggle } from "../toggle/press.svelte";
 import { nanoId } from "$lib/utils/nano";
-import { once, modulo } from "@fcrozatier/ts-helpers";
+import { modulo } from "@fcrozatier/ts-helpers";
+import { combineActions } from "$lib/utils/runes.svelte";
 
 export type CreateToggleGroup = {
 	name?: string;
@@ -12,7 +13,7 @@ export type CreateToggleGroup = {
 };
 
 export type CreateToggleGroupItem = ReturnType<typeof createToggleGroup>["createItem"];
-type ToggleGroupItem = ReturnType<typeof createPressToggle> & { value: string };
+export type ToggleGroupItem = ReturnType<typeof createPressToggle> & { value: string };
 
 const defaults = {
 	loop: true,
@@ -25,7 +26,7 @@ const defaults = {
  */
 export const createToggleGroup = (options?: CreateToggleGroup) => {
 	const name = "toggle-group-" + nanoId();
-	const state = $state({ ...defaults, name, ...options });
+	const state = $state({ ...defaults, ...options, name: options?.name ?? name });
 	const items: ToggleGroupItem[] = $state([]);
 
 	let root: HTMLElement | undefined = $state();
@@ -51,38 +52,33 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 		items[newIndex]?.element?.focus();
 	};
 
-	const createItem = () => {
-		let value: string;
-		let item: ReturnType<typeof createPressToggle> | undefined = $state();
+	const createItem = (options: CreateToggle & { value: string }) => {
+		let element: HTMLElement | undefined = $state();
+		let value = $state(options.value);
+		const toggle = createPressToggle({ disabled: state.disabled, ...options });
 
-		const toggleBuilder = (options?: CreateToggle) => {
-			item = createPressToggle({ disabled: state.disabled, ...options });
+		const item: ToggleGroupItem = $derived(Object.assign(toggle, { value }));
 
-			Object.defineProperty(item, "value", { value });
+		$effect(() => {
+			element?.setAttribute("data-value", value);
+			element?.setAttribute("name", state.name);
+		});
 
-			const configureItem = once(() => {
-				item?.element?.setAttribute("data-value", value);
-				item?.element?.setAttribute("name", state.name);
+		const action = ((node) => {
+			items.push(item);
+			element = node;
+			node.addEventListener("keydown", handleKeydown);
 
-				item?.element?.addEventListener("keydown", handleKeydown);
-			});
+			return {
+				destroy() {
+					node.removeEventListener("keydown", handleKeydown);
+				},
+			};
+		}) satisfies Action;
 
-			$effect(() => configureItem());
+		item.action = combineActions(item.action, action);
 
-			items.push(item as ToggleGroupItem);
-
-			return item;
-		};
-
-		return {
-			builder: toggleBuilder,
-			set value(v) {
-				value = v;
-			},
-			get value() {
-				return value;
-			},
-		};
+		return item;
 	};
 
 	const cleanup = $effect.root(() => {
@@ -91,9 +87,7 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 				updateBooleanAttribute(root, "disabled", state.disabled);
 
 				for (const item of items) {
-					if (item) {
-						item.state.disabled = state.disabled;
-					}
+					item.state.disabled = state.disabled;
 				}
 			}
 		});
@@ -135,9 +129,6 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 
 			return {
 				destroy() {
-					for (const item of items) {
-						item.element?.removeEventListener("keydown", handleKeydown);
-					}
 					cleanup();
 				},
 			};

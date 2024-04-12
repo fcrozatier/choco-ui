@@ -11,12 +11,12 @@
 		...restProps
 	}: ToggleProps & { value: string; children: Snippet } = $props();
 
-	const item = getContext<CreateToggleGroupItem>("choco-createItem")();
+	const item = getContext<CreateToggleGroupItem>("choco-createItem")({
+		value,
+	});
 	const ctxVariant = getContext("choco-variant") as ToggleProps["variant"] | undefined;
-
-	item.value = value;
 </script>
 
-<Toggle builder={item.builder} variant={variant ?? ctxVariant} {...restProps}>
+<Toggle builder={item} variant={variant ?? ctxVariant} {...restProps}>
 	{@render children?.()}
 </Toggle>

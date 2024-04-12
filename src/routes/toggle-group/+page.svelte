@@ -45,7 +45,7 @@
 </label>
 
 {#key variant}
-	<ToggleGroup.Root {orientation} {variant} {disabled} loop={false} bind:pressed>
+	<ToggleGroup.Root {orientation} {variant} {disabled} loop={true} bind:pressed>
 		<ToggleGroup.Item value="B" pressed disabled>B</ToggleGroup.Item>
 		<ToggleGroup.Item value="I" variant="outline">I</ToggleGroup.Item>
 		<ToggleGroup.Item value="U">U</ToggleGroup.Item>
