@@ -6,7 +6,6 @@
 
 	const toggle = createPressToggle({
 		pressed: true,
-		disabled: true,
 	});
 
 	const toggle1 = createPressToggle({
@@ -19,13 +18,6 @@
 
 	const toggle3 = createPressToggle({
 		pressed: true,
-		disabled: false,
-	});
-
-	$effect(() => {
-		toggle.state.disabled = disabled;
-		toggle1.state.disabled = disabled;
-		toggle2.state.disabled = disabled;
 	});
 </script>
 
@@ -39,7 +31,7 @@
 <h2>Button</h2>
 
 <p>
-	<button use:toggle.action> I'm {toggle.state.pressed ? "" : "not"} pressed</button>
+	<button use:toggle.action {disabled}> I'm {toggle.state.pressed ? "" : "not"} pressed</button>
 </p>
 
 <h2>Input</h2>
@@ -68,4 +60,4 @@
 	I
 </button>
 
-<Toggle builder={toggle3} variant="outline" disabled>toggle</Toggle>
+<Toggle builder={toggle3} variant="outline">toggle</Toggle>
