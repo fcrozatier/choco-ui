@@ -25,7 +25,7 @@
 			children: Snippet;
 		} = $props();
 
-	const toggleGroup = createToggleGroup({ name, loop, disabled });
+	const toggleGroup = createToggleGroup({ name, loop });
 
 	export const pressed = () => toggleGroup.state.pressed;
 

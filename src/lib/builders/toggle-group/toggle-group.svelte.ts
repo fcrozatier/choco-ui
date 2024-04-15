@@ -1,7 +1,6 @@
-import { updateBooleanAttribute } from "$lib/internal/helpers";
 import { key } from "$lib/utils/keyboard";
 import type { Action } from "svelte/action";
-import { createPressToggle, type CreateToggle } from "../toggle/press.svelte";
+import { createPressToggle, type CreateToggle, type ToggleElement } from "../toggle/press.svelte";
 import { nanoId } from "$lib/utils/nano";
 import { modulo } from "@fcrozatier/ts-helpers";
 import { combineActions } from "$lib/utils/runes.svelte";
@@ -9,7 +8,6 @@ import { combineActions } from "$lib/utils/runes.svelte";
 export type CreateToggleGroup = {
 	name?: string;
 	loop?: boolean;
-	disabled?: boolean | undefined;
 };
 
 export type CreateToggleGroupItem = ReturnType<typeof createToggleGroup>["createItem"];
@@ -17,7 +15,6 @@ export type ToggleGroupItem = ReturnType<typeof createPressToggle> & { value: st
 
 const defaults = {
 	loop: true,
-	disabled: undefined,
 } satisfies CreateToggleGroup;
 
 /**
@@ -28,10 +25,10 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 	const name = "toggle-group-" + nanoId();
 	const state = $state({ ...defaults, ...options, name: options?.name ?? name });
 	const items: ToggleGroupItem[] = $state([]);
+	let root: HTMLFieldSetElement | undefined = $state();
 
-	let root: HTMLElement | undefined = $state();
-	let pressed = $derived(items.filter((i) => i.state.pressed).map((i) => i.value));
-	let mixed = $derived(items.filter((i) => i.state.pressed === "mixed").map((i) => i.value));
+	const pressed = $derived(items.filter((i) => i.state.pressed === true).map((i) => i.value));
+	const mixed = $derived(items.filter((i) => i.state.pressed === "mixed").map((i) => i.value));
 
 	const handleKeydown = (e: KeyboardEvent) => {
 		const keys = [key.ARROW_LEFT, key.ARROW_RIGHT, key.HOME, key.END];
@@ -57,55 +54,42 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 
 	const createItem = (options: CreateToggle & { value: string }) => {
 		const value = options.value;
-		const toggle = createPressToggle({ disabled: state.disabled, ...options });
+		const toggle = createPressToggle({ ...options });
 
 		const item: ToggleGroupItem = Object.assign(toggle, { value });
 
 		const action = ((node) => {
 			items.push(item);
 
-			if (node instanceof HTMLInputElement) {
-				node.setAttribute("value", value);
-			} else {
-				node.setAttribute("data-value", value);
-			}
+			node.value = value;
+			node.name = state.name;
 
-			node.setAttribute("name", state.name);
-			node.addEventListener("keydown", handleKeydown);
+			(node as HTMLElement).addEventListener("keydown", handleKeydown);
 
 			return {
 				destroy() {
-					node.removeEventListener("keydown", handleKeydown);
+					(node as HTMLElement).removeEventListener("keydown", handleKeydown);
 				},
 			};
-		}) satisfies Action;
+		}) satisfies Action<NonNullable<ToggleElement>>;
 
 		item.action = combineActions(item.action, action);
 
 		return item;
 	};
 
-	const cleanup = $effect.root(() => {
-		$effect(() => {
-			updateBooleanAttribute(root, "disabled", state.disabled);
-			if (state.disabled !== undefined) {
-				for (const item of items) {
-					item.state.disabled = state.disabled;
+	$effect(() => {
+		if (root?.disabled !== undefined) {
+			for (const item of items) {
+				if (item.element) {
+					item.element.disabled = root.disabled;
 				}
 			}
-		});
+		}
 	});
 
 	return {
 		state: {
-			get disabled() {
-				return state.disabled;
-			},
-
-			set disabled(newVal) {
-				state.disabled = newVal;
-			},
-
 			get pressed() {
 				return pressed;
 			},
@@ -123,19 +107,7 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 
 		action: ((node) => {
 			root = node;
-
-			if (!(root instanceof HTMLFieldSetElement)) {
-				root.setAttribute("role", "group");
-			}
-
-			updateBooleanAttribute(root, "disabled", state.disabled);
-
-			return {
-				destroy() {
-					cleanup();
-				},
-			};
-		}) satisfies Action,
+		}) satisfies Action<HTMLFieldSetElement>,
 
 		options,
 		element: root,
