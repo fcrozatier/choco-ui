@@ -1,12 +1,12 @@
-import { updateAttribute, updateBooleanAttribute } from "$lib/internal/helpers";
-import { key } from "$lib/utils/keyboard";
-
 import type { Action } from "svelte/action";
+import type { ToggleElement } from "../toggle/press.svelte";
+import { updateAttribute } from "$lib/internal/helpers";
 
 export type CreateSwitch = {
 	checked?: boolean;
-	disabled?: boolean | undefined | null;
 };
+
+const defaults = { checked: false } satisfies CreateSwitch;
 
 /**
  * Switch Toggle
@@ -20,72 +20,57 @@ export type CreateSwitch = {
  *
  */
 export const createSwitchToggle = (options?: CreateSwitch) => {
-	let checked: boolean = $state(options?.checked ?? false);
-	let disabled: boolean = $state(options?.disabled ?? false);
-	let element: HTMLElement | undefined;
+	let state = $state({ ...defaults, ...options });
+	let element: ToggleElement | undefined = $state();
 
-	const handleClick = () => {
-		if (disabled) return;
-		checked = !checked;
+	const handler = () => {
+		state.checked = !state.checked;
 	};
 
-	const handleKeydown = (e: KeyboardEvent) => {
-		if (e.key === key.ENTER || e.key === key.SPACE) handleClick();
-	};
-
-	const cleanup = $effect.root(() => {
-		$effect(() => {
-			if (element instanceof HTMLInputElement) {
-				updateBooleanAttribute(element, "checked", checked);
-			} else {
-				updateAttribute(element, "aria-checked", checked);
-			}
-			updateBooleanAttribute(element, "disabled", disabled);
-		});
+	$effect(() => {
+		if (!element) return;
+		if (element instanceof HTMLInputElement) {
+			state.checked = element.checked;
+		} else {
+			updateAttribute(element, "aria-checked", state.checked);
+		}
+		updateAttribute(element, "data-checked", state.checked);
 	});
 
 	return {
-		state: {
-			get checked() {
-				return checked;
-			},
+		get state() {
+			return state;
+		},
 
-			set checked(newVal) {
-				checked = newVal;
-			},
-
-			get disabled() {
-				return disabled;
-			},
-
-			set disabled(v) {
-				disabled = v;
-			},
+		set state(newState: CreateSwitch) {
+			state = { ...state, ...newState };
 		},
 
 		action: ((node) => {
 			element = node;
-			node.setAttribute("role", "switch");
+
+			node.role = "switch";
 
 			if (node instanceof HTMLInputElement) {
-				node.setAttribute("type", "checkbox");
-				updateBooleanAttribute(element, "checked", checked);
-			} else {
-				updateAttribute(element, "aria-checked", checked);
+				node.type = "checkbox";
+				node.checked = state.checked;
 			}
 
-			node.addEventListener("click", handleClick);
-			node.addEventListener("keydown", handleKeydown);
+			if (node instanceof HTMLButtonElement) {
+				node.addEventListener("click", handler);
+			}
 
 			return {
 				destroy() {
-					node.removeEventListener("click", handleClick);
-					node.removeEventListener("keydown", handleKeydown);
-					cleanup();
+					node.removeEventListener("click", handler);
 				},
 			};
-		}) satisfies Action,
+		}) satisfies Action<ToggleElement>,
 
 		options,
+
+		get element() {
+			return element;
+		},
 	};
 };

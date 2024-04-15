@@ -20,6 +20,6 @@
 </form>
 
 <div class="flex items-center space-x-2">
-	<Switch element="button" id="airplane-mode" />
+	<Switch id="airplane-mode" />
 	<!-- <Label for="airplane-mode">Airplane Mode</Label> -->
 </div>

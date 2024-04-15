@@ -3,16 +3,9 @@
 	import { cn } from "$lib/utils/styles.js";
 	import type { SwitchProps } from ".";
 
-	let {
-		class: className,
-		element = "input",
-		checked,
-		disabled,
-		children,
-		...restProps
-	}: SwitchProps = $props();
+	let { class: className, checked, children, ...restProps }: SwitchProps = $props();
 
-	let toggle = createSwitchToggle({ checked, disabled });
+	let toggle = createSwitchToggle({ checked });
 </script>
 
 <!-- "      transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0" -->
@@ -25,7 +18,7 @@
 	use:toggle.action
 /> -->
 
-{#if element === "input"}
+<!-- {#if element === "input"}
 	<input
 		class={cn(
 			"handle h-6 w-12 shrink-0 cursor-pointer appearance-none rounded-full border border-gray-500 bg-gray-500 transition-shadow",
@@ -33,17 +26,19 @@
 		)}
 		use:toggle.action
 	/>
-{:else}
-	<button
-		class={cn(
-			"handle h-6 w-12 shrink-0 cursor-pointer appearance-none rounded-full border border-gray-500 bg-gray-500 transition-shadow",
-			className,
-		)}
-		use:toggle.action
-	>
-		{@render children?.()}
-	</button>
-{/if}
+{:else if element === "button"} -->
+<button
+	class={cn(
+		"handle h-6 w-12 shrink-0 cursor-pointer appearance-none rounded-full border border-gray-500 bg-gray-500 transition-shadow",
+		className,
+	)}
+	use:toggle.action
+	{...restProps}
+>
+	{@render children?.()}
+</button>
+
+<!-- {/if} -->
 
 <style>
 	.handle {
