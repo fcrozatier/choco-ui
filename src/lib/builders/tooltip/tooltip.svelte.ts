@@ -14,15 +14,17 @@ export type CreateTooltip = { open?: boolean; position: "top" | "bottom" | "left
 const defaults = { open: false, position: "top" } satisfies CreateTooltip;
 
 /**
- * Tooltip
+ * ## Tooltip
  *
  * Convention: the tooltip must be a direct child of it's owning element
  *
  * Documentation:
  *
- * ARIA tooltip role: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role
- * Tooltip pattern: https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/
- * More: https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html
+ * [ARIA tooltip role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role)
+ *
+ * [WAI ARIA Tooltip pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/)
+ *
+ * [WCAG Content on Hover or Focus](https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html)
  */
 export const createTooltip = (options?: CreateTooltip) => {
 	let open: boolean = $state(options?.open ?? defaults.open);
