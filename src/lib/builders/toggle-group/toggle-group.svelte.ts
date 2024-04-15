@@ -67,7 +67,7 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 					(node as HTMLElement).removeEventListener("keydown", handleKeydown);
 				},
 			};
-		}) satisfies Action<NonNullable<ToggleElement>>;
+		}) satisfies Action<ToggleElement>;
 
 		item.action = combineActions(item.action, action);
 

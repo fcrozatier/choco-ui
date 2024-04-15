@@ -1,3 +1,4 @@
+import { updateAttribute, updateBooleanAttribute } from "$lib/internal/helpers";
 import { key } from "$lib/utils/keyboard";
 import type { Action } from "svelte/action";
 
@@ -6,7 +7,7 @@ import type { Action } from "svelte/action";
 
 type TriState = boolean | "mixed" | undefined;
 
-export type ToggleElement = HTMLButtonElement | HTMLInputElement | undefined;
+export type ToggleElement = HTMLButtonElement | HTMLInputElement;
 
 export type CreateToggle = { pressed?: TriState };
 
@@ -23,7 +24,7 @@ const defaults = { pressed: false } satisfies CreateToggle;
  */
 export const createPressToggle = (options?: CreateToggle) => {
 	let state = $state({ ...defaults, ...options });
-	let element: ToggleElement = $state();
+	let element: ToggleElement | undefined = $state();
 
 	const handler = (e: Event) => {
 		if (e instanceof KeyboardEvent) {
@@ -37,12 +38,12 @@ export const createPressToggle = (options?: CreateToggle) => {
 	$effect(() => {
 		if (!element) return;
 		if (element instanceof HTMLInputElement) {
-			element.checked = state.pressed === true;
-			element.indeterminate = state.pressed === "mixed";
+			updateBooleanAttribute(element, "checked", state.pressed === true);
+			updateBooleanAttribute(element, "indeterminate", state.pressed === "mixed");
 		} else {
-			element.ariaPressed = String(state.pressed);
+			updateAttribute(element, "aria-pressed", state.pressed);
 		}
-		element.dataset.pressed = String(state.pressed);
+		updateAttribute(element, "data-pressed", state.pressed);
 	});
 
 	return {
@@ -57,6 +58,10 @@ export const createPressToggle = (options?: CreateToggle) => {
 		action: ((node) => {
 			element = node;
 
+			if (node instanceof HTMLInputElement) {
+				node.type = "checkbox";
+			}
+
 			node.addEventListener("click", handler);
 			node.addEventListener("keydown", handler);
 
@@ -66,7 +71,7 @@ export const createPressToggle = (options?: CreateToggle) => {
 					node.removeEventListener("keydown", handler);
 				},
 			};
-		}) satisfies Action<NonNullable<ToggleElement>>,
+		}) satisfies Action<ToggleElement>,
 
 		options,
 
