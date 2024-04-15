@@ -13,9 +13,7 @@
 		class: className,
 		orientation = "horizontal",
 		variant,
-		name,
 		loop,
-		disabled,
 		children,
 		...rest
 	}: HTMLFieldsetAttributes &
@@ -25,7 +23,7 @@
 			children: Snippet;
 		} = $props();
 
-	const toggleGroup = createToggleGroup({ name, loop });
+	const toggleGroup = createToggleGroup({ loop });
 
 	export const pressed = () => toggleGroup.state.pressed;
 
@@ -33,11 +31,6 @@
 	setContext("choco-variant", variant);
 </script>
 
-<fieldset
-	class={toggleGroupVariants({ orientation, className })}
-	use:toggleGroup.action
-	{disabled}
-	{...rest}
->
+<fieldset class={toggleGroupVariants({ orientation, className })} use:toggleGroup.action {...rest}>
 	{@render children?.()}
 </fieldset>

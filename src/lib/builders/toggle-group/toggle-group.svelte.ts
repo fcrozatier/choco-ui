@@ -1,12 +1,10 @@
 import { key } from "$lib/utils/keyboard";
 import type { Action } from "svelte/action";
 import { createPressToggle, type CreateToggle, type ToggleElement } from "../toggle/press.svelte";
-import { nanoId } from "$lib/utils/nano";
 import { modulo } from "@fcrozatier/ts-helpers";
 import { combineActions } from "$lib/utils/runes.svelte";
 
 export type CreateToggleGroup = {
-	name?: string;
 	loop?: boolean;
 };
 
@@ -22,8 +20,7 @@ const defaults = {
  *
  */
 export const createToggleGroup = (options?: CreateToggleGroup) => {
-	const name = "toggle-group-" + nanoId();
-	const state = $state({ ...defaults, ...options, name: options?.name ?? name });
+	const state = $state({ ...defaults, ...options });
 	const items: ToggleGroupItem[] = $state([]);
 	let root: HTMLFieldSetElement | undefined = $state();
 
@@ -62,7 +59,6 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 			items.push(item);
 
 			node.value = value;
-			node.name = state.name;
 
 			(node as HTMLElement).addEventListener("keydown", handleKeydown);
 
