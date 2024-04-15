@@ -15,8 +15,8 @@
 	const { action: toggleGroup, createItem } = createToggleGroup();
 </script>
 
-{#snippet toggleItem({ id = nanoId(), value, disabled })}
-	{@const item = createItem({ value, disabled })}
+{#snippet toggleItem({ id = nanoId(), value })}
+	{@const item = createItem({ value })}
 	<input use:item.action bind:group type="checkbox" {id} {value} name="toggle-group" />
 	<label for={id}>{value}</label>
 {/snippet}
