@@ -7,9 +7,11 @@ import type { Action } from "svelte/action";
 
 type TriState = boolean | "mixed" | undefined;
 
-export type CreateToggle = { pressed?: TriState; disabled?: boolean | undefined | null };
+type ToggleElement = HTMLButtonElement | HTMLInputElement | undefined;
 
-const defaults = { pressed: false, disabled: false } satisfies CreateToggle;
+export type CreateToggle = { pressed?: TriState };
+
+const defaults = { pressed: false } satisfies CreateToggle;
 
 /**
  * ## Toggle
@@ -22,27 +24,26 @@ const defaults = { pressed: false, disabled: false } satisfies CreateToggle;
  */
 export const createPressToggle = (options?: CreateToggle) => {
 	let state = $state({ ...defaults, ...options });
-	let element: HTMLElement | undefined = $state();
+	let element: ToggleElement = $state();
 
-	const handler = (e: MouseEvent | KeyboardEvent) => {
-		if (state.disabled) return;
+	const handler = (e: Event) => {
 		if (e instanceof KeyboardEvent) {
 			if (e.key !== key.ENTER && e.key !== key.SPACE) return;
 			// Prevent triggering the synthetic click event on input elements
-			else e.preventDefault();
+			e.preventDefault();
 		}
 		state.pressed = !state.pressed;
 	};
 
-	const cleanup = $effect.root(() => {
-		$effect(() => {
-			if (element instanceof HTMLInputElement) {
-				updateBooleanAttribute(element, "checked", state.pressed === true);
-				updateBooleanAttribute(element, "indeterminate", state.pressed === "mixed");
-			}
+	$effect(() => {
+		if (!element) return;
+		if (element instanceof HTMLInputElement) {
+			updateBooleanAttribute(element, "checked", state.pressed === true);
+			updateBooleanAttribute(element, "indeterminate", state.pressed === "mixed");
+		} else {
 			updateAttribute(element, "aria-pressed", state.pressed);
-			updateBooleanAttribute(element, "disabled", state.disabled);
-		});
+		}
+		updateAttribute(element, "data-pressed", state.pressed);
 	});
 
 	return {
@@ -57,15 +58,6 @@ export const createPressToggle = (options?: CreateToggle) => {
 		action: ((node) => {
 			element = node;
 
-			if (node instanceof HTMLInputElement) {
-				node.setAttribute("type", "checkbox");
-				updateBooleanAttribute(element, "checked", state.pressed === true);
-				updateBooleanAttribute(element, "indeterminate", state.pressed === "mixed");
-			}
-
-			updateAttribute(element, "aria-pressed", state.pressed);
-			updateBooleanAttribute(element, "disabled", state.disabled);
-
 			node.addEventListener("click", handler);
 			node.addEventListener("keydown", handler);
 
@@ -73,10 +65,9 @@ export const createPressToggle = (options?: CreateToggle) => {
 				destroy() {
 					node.removeEventListener("click", handler);
 					node.removeEventListener("keydown", handler);
-					cleanup();
 				},
 			};
-		}) satisfies Action,
+		}) satisfies Action<NonNullable<ToggleElement>>,
 
 		options,
 

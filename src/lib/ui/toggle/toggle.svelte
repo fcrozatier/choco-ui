@@ -7,14 +7,12 @@
 		size,
 		variant,
 		pressed,
-		disabled,
 		builder = createPressToggle(),
 		children,
 		...restProps
 	}: ToggleProps = $props();
 
 	builder.state = {
-		disabled: disabled ?? builder.options?.disabled,
 		pressed: pressed ?? builder.options?.pressed,
 	};
 </script>
