@@ -1,4 +1,3 @@
-import { updateAttribute, updateBooleanAttribute } from "$lib/internal/helpers";
 import { key } from "$lib/utils/keyboard";
 import type { Action } from "svelte/action";
 
@@ -7,7 +6,7 @@ import type { Action } from "svelte/action";
 
 type TriState = boolean | "mixed" | undefined;
 
-type ToggleElement = HTMLButtonElement | HTMLInputElement | undefined;
+export type ToggleElement = HTMLButtonElement | HTMLInputElement | undefined;
 
 export type CreateToggle = { pressed?: TriState };
 
@@ -38,12 +37,12 @@ export const createPressToggle = (options?: CreateToggle) => {
 	$effect(() => {
 		if (!element) return;
 		if (element instanceof HTMLInputElement) {
-			updateBooleanAttribute(element, "checked", state.pressed === true);
-			updateBooleanAttribute(element, "indeterminate", state.pressed === "mixed");
+			element.checked = state.pressed === true;
+			element.indeterminate = state.pressed === "mixed";
 		} else {
-			updateAttribute(element, "aria-pressed", state.pressed);
+			element.ariaPressed = String(state.pressed);
 		}
-		updateAttribute(element, "data-pressed", state.pressed);
+		element.dataset.pressed = String(state.pressed);
 	});
 
 	return {
