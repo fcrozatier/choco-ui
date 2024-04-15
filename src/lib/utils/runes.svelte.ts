@@ -32,7 +32,7 @@ export function sync<T>(
 /**
  * Turn many parameter-less actions into one action
  */
-export function combineActions<T extends Action>(...actions: T[]) {
+export function combineActions<T extends Action<any>[]>(...actions: T) {
 	return ((node) => {
 		const cleanups: (void | ActionReturn)[] = [];
 		for (const action of actions) {
