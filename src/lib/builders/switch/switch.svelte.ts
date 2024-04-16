@@ -16,6 +16,9 @@ const defaults = { checked: false } satisfies CreateSwitch;
  * Semantics: on or off
  *
  * All descendants of an element with role `switch` have role `presentation`
+ *
+ * [WAI-ARIA Switch Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/switch/)
+ *
  * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Switch_role#all_descendants_are_presentational
  *
  */

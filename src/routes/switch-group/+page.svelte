@@ -10,7 +10,11 @@
 
 	let selected: (() => string) | undefined = $state();
 
-	const { action: switchGroup, createItem, state: switchState } = createSwitchGroup();
+	const {
+		action: switchGroup,
+		createItem,
+		state: switchState,
+	} = createSwitchGroup({ single: true });
 </script>
 
 {#snippet toggleItem({ id = nanoId(), value })}

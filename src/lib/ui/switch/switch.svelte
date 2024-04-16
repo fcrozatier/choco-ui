@@ -51,7 +51,6 @@
 			0 0 0 2px var(--color-white) inset;
 
 		&:checked,
-		&[checked="true"],
 		&[aria-checked="true"] {
 			--handle-offset-calculator: var(--handle-offset);
 			--tw-border-opacity: 1;

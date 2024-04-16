@@ -2,29 +2,42 @@ import { key } from "$lib/utils/keyboard";
 import type { Action } from "svelte/action";
 import { modulo } from "@fcrozatier/ts-helpers";
 import { combineActions } from "$lib/utils/runes.svelte";
-import type { CreateToggleGroup } from "../toggle-group/toggle-group.svelte";
 import { createSwitchToggle, type CreateSwitch } from "../switch/switch.svelte";
 import type { ToggleElement } from "../toggle/press.svelte";
 
+export type CreateSwitchGroup = {
+	loop?: boolean;
+	/**
+	 * Whether only one input of the group can be on at a time
+	 */
+	single?: boolean;
+};
+
 export type CreateSwitchGroupItem = typeof createSwitchToggle;
-export type SwitchGroupItem = ReturnType<typeof createSwitchToggle>;
+type SwitchGroupItem = ReturnType<typeof createSwitchToggle>;
 
 const defaults = {
 	loop: true,
-} satisfies CreateToggleGroup;
+	single: false,
+} satisfies CreateSwitchGroup;
 
 /**
  * Switch Group
  *
  * If you use radio buttons then this feature is for free.
  *
+ * [WAI-ARIA Switch Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/switch/)
  */
-export const createSwitchGroup = (options?: CreateToggleGroup) => {
+export const createSwitchGroup = (options?: CreateSwitchGroup) => {
 	const state = $state({ ...defaults, ...options });
 	const items: SwitchGroupItem[] = $state([]);
 
 	let root: HTMLFieldSetElement | undefined = $state();
-	let selected: string | undefined = $state();
+	let selected = $derived(
+		items
+			.filter((item) => item.state.checked === true)
+			.map((item) => (item.element as ToggleElement).value),
+	);
 
 	const handleKeydown = (e: KeyboardEvent) => {
 		const keys = [key.ARROW_LEFT, key.ARROW_RIGHT, key.HOME, key.END];
@@ -45,19 +58,19 @@ export const createSwitchGroup = (options?: CreateToggleGroup) => {
 		if (e.key === key.END) {
 			newIndex = items.length - 1;
 		}
-		items[newIndex]?.element?.focus();
+		items[newIndex]?.element?.focus(); // Synthetic click event
 	};
 
 	const handleClick = (e: Event) => {
 		const target = e.currentTarget as ToggleElement;
 
-		items.forEach((item) => {
-			if (item.element !== target) {
-				item.state.checked = false;
-			}
-		});
-
-		selected = items.find((item) => item.state.checked)?.element?.value;
+		if (state.single === true) {
+			items.forEach((item) => {
+				if (item.element !== target) {
+					item.state.checked = false;
+				}
+			});
+		}
 	};
 
 	const createItem = (options?: CreateSwitch) => {
@@ -67,10 +80,10 @@ export const createSwitchGroup = (options?: CreateToggleGroup) => {
 			items.push(item);
 
 			if (node instanceof HTMLInputElement) {
-				node.type = "radio";
+				node.type = state.single ? "radio" : "checkbox";
 			}
 
-			if (node instanceof HTMLButtonElement) {
+			if (node.type !== "radio") {
 				(node as HTMLElement).addEventListener("keydown", handleKeydown);
 			}
 
@@ -102,6 +115,9 @@ export const createSwitchGroup = (options?: CreateToggleGroup) => {
 	return {
 		state: {
 			get selected() {
+				if (state.single) {
+					return selected[0];
+				}
 				return selected;
 			},
 		},

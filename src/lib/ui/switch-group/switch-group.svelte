@@ -1,27 +1,30 @@
 <script lang="ts">
-	import type { CreateToggleGroup } from "$lib/builders/toggle-group/toggle-group.svelte";
 	import type { Orientation } from "$lib/internal/types";
 	import { setContext, type Snippet } from "svelte";
 	import type { HTMLFieldsetAttributes } from "svelte/elements";
 	import type { ToggleProps } from "../toggle";
 	import { toggleGroupVariants } from "../toggle-group";
-	import { createSwitchGroup } from "$lib/builders/switch-group/switch-group.svelte";
+	import {
+		createSwitchGroup,
+		type CreateSwitchGroup,
+	} from "$lib/builders/switch-group/switch-group.svelte";
 
 	let {
 		class: className,
 		orientation = "horizontal",
 		variant,
 		loop,
+		single,
 		children,
 		...rest
 	}: HTMLFieldsetAttributes &
-		CreateToggleGroup & {
+		CreateSwitchGroup & {
 			orientation?: Orientation;
 			variant?: ToggleProps["variant"];
 			children: Snippet;
 		} = $props();
 
-	const switchGroup = createSwitchGroup({ loop });
+	const switchGroup = createSwitchGroup({ loop, single });
 
 	export const selected = () => switchGroup.state.selected;
 
