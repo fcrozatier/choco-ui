@@ -1,7 +1,6 @@
 import type { Action } from "svelte/action";
 import type { ToggleElement } from "../toggle/press.svelte";
 import { updateAttribute } from "$lib/internal/helpers";
-import { key } from "$lib/utils/keyboard";
 
 export type CreateSwitch = {
 	checked?: boolean;
@@ -24,12 +23,7 @@ export const createSwitchToggle = (options?: CreateSwitch) => {
 	let state = $state({ ...defaults, ...options });
 	let element: ToggleElement | undefined = $state();
 
-	const handler = (e: Event) => {
-		if (e instanceof KeyboardEvent) {
-			if (e.key !== key.ENTER && e.key !== key.SPACE) return;
-			// Prevent triggering the synthetic click event on input elements
-			e.preventDefault();
-		}
+	const handler = () => {
 		state.checked = !state.checked;
 	};
 
@@ -62,7 +56,6 @@ export const createSwitchToggle = (options?: CreateSwitch) => {
 			}
 
 			node.addEventListener("click", handler);
-			node.addEventListener("keydown", handler);
 
 			return {
 				destroy() {
