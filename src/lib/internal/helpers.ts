@@ -21,12 +21,9 @@ export function updateBooleanAttribute(
 	}
 }
 
-export function updateAttribute(
-	element: HTMLElement | undefined,
-	attribute:
-		| keyof AriaAttributes
-		| keyof HTMLAttributes<EventTarget>
-		| (string & NonNullable<unknown>),
+export function updateAttribute<T extends HTMLElement>(
+	element: T | undefined,
+	attribute: keyof AriaAttributes | keyof HTMLAttributes<T> | (string & NonNullable<unknown>),
 	value: string | number | boolean | undefined,
 ) {
 	if (value !== undefined) {
