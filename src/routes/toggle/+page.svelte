@@ -1,24 +1,27 @@
 <script lang="ts">
-	import { createPressToggle } from "$lib/builders/toggle/press.svelte";
+	import { t } from "$lib/ui/theme";
+	import { createToggle } from "$lib/builders/toggle/toggle.svelte";
 	import Toggle from "$lib/ui/toggle/toggle.svelte";
 
 	let disabled = $state(false);
 
-	const toggle = createPressToggle({
+	const toggle = createToggle({
 		pressed: true,
 	});
 
-	const toggle1 = createPressToggle({
+	const toggle1 = createToggle({
 		pressed: false,
 	});
 
-	const toggle2 = createPressToggle({
+	const toggle2 = createToggle({
 		pressed: false,
 	});
 
-	const toggle3 = createPressToggle({
+	const toggle3 = createToggle({
 		pressed: true,
 	});
+
+	const toggle4 = createToggle();
 </script>
 
 <h1>Toggle</h1>
@@ -61,3 +64,5 @@
 </button>
 
 <Toggle builder={toggle3} variant="outline">toggle</Toggle>
+
+<button class={t.toggle()} use:toggle4.action>toggle</button>

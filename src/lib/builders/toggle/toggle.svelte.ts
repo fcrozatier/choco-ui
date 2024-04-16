@@ -21,7 +21,7 @@ const defaults = { pressed: false } satisfies CreateToggle;
  *
  * The label should not change when the state changes. Use `simpleToggle` if needed.
  */
-export const createPressToggle = (options?: CreateToggle) => {
+export const createToggle = (options?: CreateToggle) => {
 	let state = $state({ ...defaults, ...options });
 	let element: ToggleElement | undefined = $state();
 

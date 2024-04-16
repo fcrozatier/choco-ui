@@ -1,6 +1,6 @@
 import { key } from "$lib/utils/keyboard";
 import type { Action } from "svelte/action";
-import { createPressToggle, type CreateToggle, type ToggleElement } from "../toggle/press.svelte";
+import { createToggle, type CreateToggle, type ToggleElement } from "../toggle/toggle.svelte";
 import { modulo } from "@fcrozatier/ts-helpers";
 import { combineActions } from "$lib/utils/runes.svelte";
 
@@ -8,8 +8,8 @@ export type CreateToggleGroup = {
 	loop?: boolean;
 };
 
-export type CreateToggleGroupItem = typeof createPressToggle;
-export type ToggleGroupItem = ReturnType<typeof createPressToggle>;
+export type CreateToggleGroupItem = typeof createToggle;
+export type ToggleGroupItem = ReturnType<typeof createToggle>;
 
 const defaults = {
 	loop: true,
@@ -54,7 +54,7 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 	};
 
 	const createItem = (options?: CreateToggle) => {
-		const item = createPressToggle({ ...options });
+		const item = createToggle({ ...options });
 
 		const action = ((node) => {
 			items.push(item);

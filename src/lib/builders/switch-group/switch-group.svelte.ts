@@ -3,7 +3,7 @@ import type { Action } from "svelte/action";
 import { modulo } from "@fcrozatier/ts-helpers";
 import { combineActions } from "$lib/utils/runes.svelte";
 import { createSwitchToggle, type CreateSwitch } from "../switch/switch.svelte";
-import type { ToggleElement } from "../toggle/press.svelte";
+import type { ToggleElement } from "../toggle/toggle.svelte";
 
 export type CreateSwitchGroup = {
 	loop?: boolean;

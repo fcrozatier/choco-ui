@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { toggleVariants, type ToggleProps } from "./index.js";
-	import { createPressToggle } from "$lib/builders/toggle/press.svelte.js";
+	import { createToggle } from "$lib/builders/toggle/toggle.svelte.js";
 
 	let {
 		class: className,
 		size,
 		variant,
 		pressed,
-		builder = createPressToggle(),
+		builder = createToggle(),
 		children,
 		...restProps
 	}: ToggleProps = $props();

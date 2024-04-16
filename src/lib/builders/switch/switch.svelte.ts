@@ -1,5 +1,5 @@
 import type { Action } from "svelte/action";
-import type { ToggleElement } from "../toggle/press.svelte";
+import type { ToggleElement } from "../toggle/toggle.svelte";
 import { updateAttribute } from "$lib/internal/helpers";
 
 export type CreateSwitch = {
