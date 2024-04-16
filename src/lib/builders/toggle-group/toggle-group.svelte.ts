@@ -8,7 +8,7 @@ export type CreateToggleGroup = {
 	loop?: boolean;
 };
 
-export type CreateToggleGroupItem = ReturnType<typeof createToggleGroup>["createItem"];
+export type CreateToggleGroupItem = typeof createPressToggle;
 export type ToggleGroupItem = ReturnType<typeof createPressToggle>;
 
 const defaults = {

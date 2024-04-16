@@ -6,7 +6,7 @@ import type { CreateToggleGroup } from "../toggle-group/toggle-group.svelte";
 import { createSwitchToggle, type CreateSwitch } from "../switch/switch.svelte";
 import type { ToggleElement } from "../toggle/press.svelte";
 
-export type CreateSwitchGroupItem = ReturnType<typeof createSwitchGroup>["createItem"];
+export type CreateSwitchGroupItem = typeof createSwitchToggle;
 export type SwitchGroupItem = ReturnType<typeof createSwitchToggle>;
 
 const defaults = {
