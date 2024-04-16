@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { t } from "$lib/ui/theme";
 	import { createToggleGroup } from "$lib/builders/toggle-group/toggle-group.svelte";
 	import type { Orientation } from "$lib/internal/types";
 	import * as ToggleGroup from "$lib/ui/toggle-group";
@@ -13,15 +14,15 @@
 	let group = $state([]);
 
 	const { action: toggleGroup, createItem } = createToggleGroup();
+	const { action: toggleGroup2, createItem: createItem2 } = createToggleGroup();
 </script>
 
-{#snippet toggleItem({ id = nanoId(), value })}
-	{@const item = createItem()}
-	<input use:item.action bind:group type="checkbox" {id} {value} name="toggle-group" />
+{#snippet toggleItem({ value, id = nanoId(), item = createItem() })}
+	<input use:item.action bind:group {id} {value} name="toggle-group" />
 	<label for={id}>{value}</label>
 {/snippet}
 
-<fieldset use:toggleGroup>
+<fieldset class={t.toggleGroup.root({ orientation: "horizontal" })} use:toggleGroup>
 	<legend>toggle group</legend>
 	{@render toggleItem({ value: "bold" })}
 	{@render toggleItem({ value: "underline" })}
@@ -62,3 +63,15 @@ checked
 
 pressed
 <pre>{pressed?.()}</pre>
+
+{#snippet toggleItem2({ value, item = createItem2() })}
+	<button use:item.action class={t.toggleGroup.item()} {value}>{value}</button>
+{/snippet}
+
+<fieldset class={t.toggleGroup.root()} use:toggleGroup2>
+	<legend>toggle group</legend>
+
+	{#each ["B", "I", "U"] as value}
+		{@render toggleItem2({ value })}
+	{/each}
+</fieldset>
