@@ -16,6 +16,8 @@ const defaults = {
 /**
  * Switch Group
  *
+ * If you use radio buttons then this feature is for free.
+ *
  */
 export const createSwitchGroup = (options?: CreateToggleGroup) => {
 	const state = $state({ ...defaults, ...options });
@@ -64,7 +66,14 @@ export const createSwitchGroup = (options?: CreateToggleGroup) => {
 		const action = ((node) => {
 			items.push(item);
 
-			(node as HTMLElement).addEventListener("keydown", handleKeydown);
+			if (node instanceof HTMLInputElement) {
+				node.type = "radio";
+			}
+
+			if (node instanceof HTMLButtonElement) {
+				(node as HTMLElement).addEventListener("keydown", handleKeydown);
+			}
+
 			node.addEventListener("click", handleClick);
 
 			return {

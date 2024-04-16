@@ -15,7 +15,9 @@
 
 {#snippet toggleItem({ id = nanoId(), value })}
 	{@const item = createItem()}
-	<button use:item.action {id} {value} name="toggle-group">{value}</button>
+	<!-- <button use:item.action {id} {value} name="toggle-group">{value}</button> -->
+	<input use:item.action {id} {value} name="toggle-group" />
+	<label for={id}>{value}</label>
 {/snippet}
 
 <fieldset use:switchGroup>
