@@ -1,4 +1,4 @@
-import { updateAttribute, updateBooleanAttribute } from "$lib/internal/helpers";
+import { updateAttribute } from "$lib/internal/helpers";
 import { key } from "$lib/utils/keyboard";
 import type { Action } from "svelte/action";
 
@@ -38,8 +38,8 @@ export const createPressToggle = (options?: CreateToggle) => {
 	$effect(() => {
 		if (!element) return;
 		if (element instanceof HTMLInputElement) {
-			updateBooleanAttribute(element, "checked", state.pressed === true);
-			updateBooleanAttribute(element, "indeterminate", state.pressed === "mixed");
+			element.checked = state.pressed === true;
+			element.indeterminate = state.pressed === "mixed";
 		} else {
 			updateAttribute(element, "aria-pressed", state.pressed);
 		}

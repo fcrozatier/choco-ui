@@ -1,6 +1,6 @@
 import type { Action } from "svelte/action";
 import type { ToggleElement } from "../toggle/press.svelte";
-import { updateAttribute, updateBooleanAttribute } from "$lib/internal/helpers";
+import { updateAttribute } from "$lib/internal/helpers";
 import { key } from "$lib/utils/keyboard";
 
 export type CreateSwitch = {
@@ -36,7 +36,7 @@ export const createSwitchToggle = (options?: CreateSwitch) => {
 	$effect(() => {
 		if (!element) return;
 		if (element instanceof HTMLInputElement) {
-			updateBooleanAttribute(element, "checked", state.checked);
+			element.checked = state.checked;
 		} else {
 			updateAttribute(element, "aria-checked", state.checked);
 		}
