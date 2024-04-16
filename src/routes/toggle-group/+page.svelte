@@ -16,7 +16,7 @@
 </script>
 
 {#snippet toggleItem({ id = nanoId(), value })}
-	{@const item = createItem({ value })}
+	{@const item = createItem()}
 	<input use:item.action bind:group type="checkbox" {id} {value} name="toggle-group" />
 	<label for={id}>{value}</label>
 {/snippet}

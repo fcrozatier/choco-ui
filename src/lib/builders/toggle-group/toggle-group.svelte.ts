@@ -9,7 +9,7 @@ export type CreateToggleGroup = {
 };
 
 export type CreateToggleGroupItem = ReturnType<typeof createToggleGroup>["createItem"];
-export type ToggleGroupItem = ReturnType<typeof createPressToggle> & { value: string };
+export type ToggleGroupItem = ReturnType<typeof createPressToggle>;
 
 const defaults = {
 	loop: true,
@@ -24,8 +24,12 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 	const items: ToggleGroupItem[] = $state([]);
 	let root: HTMLFieldSetElement | undefined = $state();
 
-	const pressed = $derived(items.filter((i) => i.state.pressed === true).map((i) => i.value));
-	const mixed = $derived(items.filter((i) => i.state.pressed === "mixed").map((i) => i.value));
+	const pressed = $derived(
+		items.filter((i) => i.state.pressed === true).map((i) => i.element?.value),
+	);
+	const mixed = $derived(
+		items.filter((i) => i.state.pressed === "mixed").map((i) => i.element?.value),
+	);
 
 	const handleKeydown = (e: KeyboardEvent) => {
 		const keys = [key.ARROW_LEFT, key.ARROW_RIGHT, key.HOME, key.END];
@@ -49,16 +53,11 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 		items[newIndex]?.element?.focus();
 	};
 
-	const createItem = (options: CreateToggle & { value: string }) => {
-		const value = options.value;
-		const toggle = createPressToggle({ ...options });
-
-		const item: ToggleGroupItem = Object.assign(toggle, { value });
+	const createItem = (options?: CreateToggle) => {
+		const item = createPressToggle({ ...options });
 
 		const action = ((node) => {
 			items.push(item);
-
-			node.value = value;
 
 			(node as HTMLElement).addEventListener("keydown", handleKeydown);
 
