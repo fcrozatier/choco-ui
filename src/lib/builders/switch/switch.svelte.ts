@@ -1,6 +1,7 @@
 import type { Action } from "svelte/action";
 import type { ToggleElement } from "../toggle/toggle.svelte";
 import { updateAttribute } from "$lib/internal/helpers";
+import { role } from "$lib/utils/roles";
 
 export type CreateSwitch = {
 	checked?: boolean;
@@ -52,7 +53,7 @@ export const createSwitchToggle = (options?: CreateSwitch) => {
 		action: ((node) => {
 			element = node;
 
-			node.role = "switch";
+			node.role = role.switch;
 
 			if (node instanceof HTMLInputElement) {
 				node.type = "checkbox";
