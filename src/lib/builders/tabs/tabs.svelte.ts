@@ -76,10 +76,12 @@ export const createTabs = (options?: CreateTabs) => {
 
 	const openTab = (tab: HTMLElement) => {
 		tab.ariaSelected = "true";
+		tab.tabIndex = 0;
 
 		tabs.forEach((item) => {
 			if (item !== tab) {
 				item.ariaSelected = "false";
+				item.tabIndex = -1;
 			}
 		});
 
@@ -103,6 +105,12 @@ export const createTabs = (options?: CreateTabs) => {
 			node.ariaSelected = options.value === state.value ? "true" : "false";
 		} else {
 			node.ariaSelected = tabs.length === 0 ? "true" : "false";
+		}
+
+		if (node.ariaSelected === "true") {
+			node.tabIndex = 0;
+		} else {
+			node.tabIndex = -1;
 		}
 
 		const id = nanoId();
@@ -129,6 +137,7 @@ export const createTabs = (options?: CreateTabs) => {
 
 		node.id = s.controls;
 		node.role = role.tabpanel;
+		node.tabIndex = 0;
 
 		updateAttribute(node, "aria-labelledby", s.control);
 
