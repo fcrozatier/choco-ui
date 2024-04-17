@@ -59,7 +59,7 @@ export const key = {
 	COMMA: ",",
 	OPEN_P: "(",
 	CLOSE_P: ")",
-};
+} as const;
 
 /**
  * Keyboard Event `code` values. These are the physical keys pressed on the keyboard eg. on an AZERTY keyboard pressing A gives a KeyQ code
@@ -86,4 +86,4 @@ export const code = {
 	KEY_A: "KeyA",
 	KEY_S: "KeyS",
 	KEY_D: "KeyD",
-};
+} as const;
