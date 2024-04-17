@@ -5,10 +5,11 @@
 <button>before</button>
 
 <Tabs.Root value="password" loop={false} activateOnFocus={true} class="w-md">
-	{#snippet tablist()}
+	<Tabs.TabList aria-label="Update your account">
 		<Tabs.Tab value="account">Account</Tabs.Tab>
 		<Tabs.Tab value="password">Password</Tabs.Tab>
-	{/snippet}
+	</Tabs.TabList>
+
 	<Tabs.Panel value="account">Make changes to your account here.</Tabs.Panel>
 	<Tabs.Panel value="password">Change your password here.</Tabs.Panel>
 </Tabs.Root>

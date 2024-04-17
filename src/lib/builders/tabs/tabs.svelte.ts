@@ -16,6 +16,7 @@ export type CreateTabs = {
 	value?: string;
 };
 
+export type CreateTabList = ReturnType<typeof createTabs>["action"];
 export type CreateTab = ReturnType<typeof createTabs>["createTab"];
 export type CreatePanel = ReturnType<typeof createTabs>["createPanel"];
 
@@ -28,8 +29,7 @@ const defaults = {
 /**
  * Tabs
  *
- *
- * If you use radio buttons then this feature is for free.
+ * If the tab list has a visible label, the TabList element has `aria-labelledby` set to a value that refers to the labelling element. Otherwise, the TabList element has a label provided by `aria-label`.
  *
  * [WAI-ARIA Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
  */
