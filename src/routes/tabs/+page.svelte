@@ -4,7 +4,7 @@
 
 <button>before</button>
 
-<Tabs.Root value="password" loop={false} activateOnFocus={true} class="w-[400px]">
+<Tabs.Root value="password" loop={false} activateOnFocus={true} class="w-md">
 	{#snippet tablist()}
 		<Tabs.Tab value="account">Account</Tabs.Tab>
 		<Tabs.Tab value="password">Password</Tabs.Tab>
