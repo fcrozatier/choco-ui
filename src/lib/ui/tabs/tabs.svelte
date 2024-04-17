@@ -1,16 +1,24 @@
 <script lang="ts">
-	import { createTabs } from "$lib/builders/tabs/tabs.svelte";
+	import { createTabs, type CreateTabs } from "$lib/builders/tabs/tabs.svelte";
 	import { cn } from "$lib/utils/styles";
 	import { setContext, type Snippet } from "svelte";
 
 	let {
 		class: className,
+		activateOnFocus,
+		orientation,
+		loop,
 		value,
 		tablist,
 		children,
-	}: { class: string; value?: string; tablist: Snippet; children: Snippet } = $props();
+	}: CreateTabs & { class: string; tablist: Snippet; children: Snippet } = $props();
 
-	const { action, createPanel, createTab } = createTabs({ value });
+	const { action, createPanel, createTab } = createTabs({
+		value,
+		loop,
+		activateOnFocus,
+		orientation,
+	});
 
 	setContext("choco-panel", createPanel);
 	setContext("choco-tab", createTab);
