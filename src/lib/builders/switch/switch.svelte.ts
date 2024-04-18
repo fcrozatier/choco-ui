@@ -57,6 +57,8 @@ export const createSwitchToggle = (options?: CreateSwitch) => {
 
 			if (node instanceof HTMLInputElement) {
 				node.type = "checkbox";
+			} else if (node instanceof HTMLButtonElement) {
+				node.type = "button";
 			}
 
 			node.addEventListener("click", handler);
