@@ -8,7 +8,7 @@
 
 <article class="mx-auto max-w-prose">
 	<h1>Focus management</h1>
-	<p>Here are two example were the default focus is slightly broken.</p>
+	<p>Here are two example were the default focus sequence is slightly broken.</p>
 	<h2>Radio Group</h2>
 	<p>
 		A radio group has by default a roving focus, where the tab sequence from A to B only focuses one
@@ -84,10 +84,9 @@
 		</q>
 	</p>
 	<p>
-		But if we want to create a toggle group component, the default behavior is that the tab sequence
-		with go through every element of the group. This can be painful for someone navigating a UI with
-		a keyboard only to have to tab through all the elements just to go from A to B or from B back to
-		A.
+		When creating a toggle group component, by default each toggle (input or button) is added to the
+		the tab sequence. This is not a friendly experience for a keyboard user to have to tab through
+		all the elements to go from A to B or from B back to A.
 	</p>
 	<p>Let's fix that!</p>
 
