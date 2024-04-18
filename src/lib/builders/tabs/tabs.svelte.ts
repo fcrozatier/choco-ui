@@ -4,6 +4,7 @@ import { role } from "$lib/utils/roles";
 import { updateAttribute } from "$lib/internal/helpers";
 import { nanoId } from "$lib/utils/nano";
 import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
+import { hasFocusableChild } from "$lib/actions/focus/focusHelper";
 
 export type CreateTabs = {
 	focus?: Omit<ManageFocusOptions, "roving" | "onFocus"> & { activateOnFocus?: boolean };
@@ -101,8 +102,11 @@ export const createTabs = (options?: CreateTabs) => {
 
 		node.id = s.controls;
 		node.role = role.tabpanel;
-		node.tabIndex = 0;
 
+		// Make sure the panel can be reached
+		if (!hasFocusableChild(node)) {
+			node.tabIndex = 0;
+		}
 		updateAttribute(node, "aria-labelledby", s.control);
 
 		if (state.value) {
