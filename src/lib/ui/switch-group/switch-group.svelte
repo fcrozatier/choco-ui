@@ -13,7 +13,7 @@
 		class: className,
 		orientation = "horizontal",
 		variant,
-		loop,
+		focus,
 		single,
 		children,
 		...rest
@@ -24,7 +24,7 @@
 			children: Snippet;
 		} = $props();
 
-	const switchGroup = createSwitchGroup({ loop, single });
+	const switchGroup = createSwitchGroup({ focus, single });
 
 	export const selected = () => switchGroup.state.selected;
 

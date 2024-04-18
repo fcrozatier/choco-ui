@@ -13,7 +13,7 @@
 		class: className,
 		orientation = "horizontal",
 		variant,
-		loop,
+		focus,
 		children,
 		...rest
 	}: HTMLFieldsetAttributes &
@@ -23,7 +23,7 @@
 			children: Snippet;
 		} = $props();
 
-	const toggleGroup = createToggleGroup({ loop });
+	const toggleGroup = createToggleGroup({ focus });
 
 	export const pressed = () => toggleGroup.state.pressed;
 

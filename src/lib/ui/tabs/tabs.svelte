@@ -4,9 +4,8 @@
 
 	let {
 		class: className,
-		activateOnFocus,
 		orientation,
-		loop,
+		focus,
 		value,
 		children,
 	}: CreateTabs & {
@@ -16,8 +15,7 @@
 
 	const { action, createPanel, createTab } = createTabs({
 		value,
-		loop,
-		activateOnFocus,
+		focus,
 		orientation,
 	});
 

@@ -56,7 +56,7 @@ selected
 </label>
 
 {#key variant}
-	<SwitchGroup.Root {orientation} {variant} {disabled} loop={true} bind:selected>
+	<SwitchGroup.Root {orientation} {variant} {disabled} focus={{ loop: true }} bind:selected>
 		<SwitchGroup.Item value="B" checked>B</SwitchGroup.Item>
 		<SwitchGroup.Item value="I" variant="outline">I</SwitchGroup.Item>
 		<SwitchGroup.Item value="U">U</SwitchGroup.Item>

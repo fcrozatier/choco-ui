@@ -1,14 +1,12 @@
-import { key } from "$lib/utils/keyboard";
 import type { Action } from "svelte/action";
-import { modulo } from "@fcrozatier/ts-helpers";
 import type { Orientation } from "$lib/internal/types";
 import { role } from "$lib/utils/roles";
 import { updateAttribute } from "$lib/internal/helpers";
 import { nanoId } from "$lib/utils/nano";
+import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
 
 export type CreateTabs = {
-	loop?: boolean;
-	activateOnFocus?: boolean;
+	focus?: Omit<ManageFocusOptions, "roving" | "onFocus"> & { activateOnFocus?: boolean };
 	orientation?: Orientation;
 	/**
 	 * The default open tab value. If not provided the first tab is open
@@ -21,8 +19,7 @@ export type CreateTab = ReturnType<typeof createTabs>["createTab"];
 export type CreatePanel = ReturnType<typeof createTabs>["createPanel"];
 
 const defaults = {
-	loop: true,
-	activateOnFocus: true,
+	focus: { activateOnFocus: true },
 	orientation: "horizontal",
 } satisfies CreateTabs;
 
@@ -39,36 +36,6 @@ export const createTabs = (options?: CreateTabs) => {
 	const panels: HTMLDivElement[] = $state([]);
 	const sync: { control: string; value: string; controls: string }[] = [];
 
-	const handleKeydown = (e: KeyboardEvent) => {
-		const keys: string[] = [key.ARROW_LEFT, key.ARROW_RIGHT, key.HOME, key.END];
-		if (!keys.includes(e.key)) return;
-
-		const index = tabs.findIndex((tab) => tab === e.currentTarget);
-		let newIndex = index;
-
-		if (e.key === key.ARROW_LEFT) {
-			newIndex = state.loop ? modulo(index - 1, tabs.length) : Math.max(0, index - 1);
-		}
-		if (e.key === key.ARROW_RIGHT) {
-			newIndex = state.loop ? (index + 1) % tabs.length : Math.min(tabs.length - 1, index + 1);
-		}
-		if (e.key === key.HOME) {
-			newIndex = 0;
-		}
-		if (e.key === key.END) {
-			newIndex = tabs.length - 1;
-		}
-
-		const newTab = tabs[newIndex];
-		if (newTab) {
-			newTab.focus();
-
-			if (state.activateOnFocus) {
-				openTab(newTab);
-			}
-		}
-	};
-
 	const handleClick = (e: Event) => {
 		const tab = e.currentTarget as HTMLElement;
 		openTab(tab);
@@ -76,12 +43,10 @@ export const createTabs = (options?: CreateTabs) => {
 
 	const openTab = (tab: HTMLElement) => {
 		tab.ariaSelected = "true";
-		tab.tabIndex = 0;
 
 		tabs.forEach((item) => {
 			if (item !== tab) {
 				item.ariaSelected = "false";
-				item.tabIndex = -1;
 			}
 		});
 
@@ -96,6 +61,12 @@ export const createTabs = (options?: CreateTabs) => {
 		});
 	};
 
+	const focusGroup = manageFocus({
+		roving: true,
+		onFocus: state.focus.activateOnFocus ? openTab : undefined,
+		...state.focus,
+	});
+
 	const createTab = ((node, options: { value: string }) => {
 		node.value = options.value;
 		node.role = role.tab;
@@ -107,17 +78,11 @@ export const createTabs = (options?: CreateTabs) => {
 			node.ariaSelected = tabs.length === 0 ? "true" : "false";
 		}
 
-		if (node.ariaSelected === "true") {
-			node.tabIndex = 0;
-		} else {
-			node.tabIndex = -1;
-		}
-
 		const id = nanoId();
 		const controls = nanoId();
 		updateAttribute(node, "aria-controls", controls);
 
-		(node as HTMLElement).addEventListener("keydown", handleKeydown);
+		focusGroup(node);
 		node.addEventListener("click", handleClick);
 
 		tabs.push(node);
@@ -125,7 +90,6 @@ export const createTabs = (options?: CreateTabs) => {
 
 		return {
 			destroy() {
-				(node as HTMLElement).removeEventListener("keydown", handleKeydown);
 				node.removeEventListener("click", handleClick);
 			},
 		};
