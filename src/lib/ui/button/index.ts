@@ -1,4 +1,7 @@
-import { tv } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
+import Button from "./button.svelte";
+import type { HTMLButtonAttributes } from "svelte/elements";
+import type { Snippet } from "svelte";
 
 export const buttonVariants = tv({
 	base: "ring-offset-background focus-visible:ring-ring inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
@@ -23,3 +26,9 @@ export const buttonVariants = tv({
 		size: "default",
 	},
 });
+
+export interface ButtonProps extends HTMLButtonAttributes, VariantProps<typeof buttonVariants> {
+	children: Snippet;
+}
+
+export { Button };
