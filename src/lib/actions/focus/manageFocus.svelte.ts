@@ -5,7 +5,7 @@ import type { Action } from "svelte/action";
 export type ManageFocusOptions = {
 	loop?: boolean;
 	/**
-	 * With roving focus, only one item in the list is focusable at a given time and the tab sequence will come back to this item. Arrows are used to focus another item of the collection
+	 * With roving focus, only one item in the list is focusable at a given time and the tab sequence will come back to this item (persistence). Arrows are used to focus another item of the collection
 	 */
 	roving?: boolean;
 	onFocus?: (from: HTMLElement, to: HTMLElement) => void;
