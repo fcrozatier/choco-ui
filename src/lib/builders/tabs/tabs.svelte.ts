@@ -103,7 +103,7 @@ export const createTabs = (options?: CreateTabs) => {
 		node.id = s.controls;
 		node.role = role.tabpanel;
 
-		// Make sure the panel can be reached
+		// Make sure the panel is in the tab sequence
 		if (!hasFocusableChild(node)) {
 			node.tabIndex = 0;
 		}
