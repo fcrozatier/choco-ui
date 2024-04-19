@@ -5,23 +5,28 @@ import { updateAttribute } from "$lib/internal/helpers";
 import { nanoId } from "$lib/utils/nano";
 import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
 import { hasFocusableChild } from "$lib/actions/focus/focusHelper";
+import { commonParent } from "$lib/utils/helpers";
 
 export type CreateTabs = {
 	focus?: Omit<ManageFocusOptions, "roving" | "onFocus"> & { activateOnFocus?: boolean };
 	orientation?: Orientation;
+	/**
+	 * Whether the tablist properties (role, orientation) are added automatically (defaults to `true`). If `false` you'll have to add them manually.
+	 */
+	managed?: boolean;
 	/**
 	 * The default open tab value. If not provided the first tab is open
 	 */
 	value?: string;
 };
 
-export type CreateTabList = ReturnType<typeof createTabs>["action"];
 export type CreateTab = ReturnType<typeof createTabs>["createTab"];
 export type CreatePanel = ReturnType<typeof createTabs>["createPanel"];
 
 const defaults = {
 	focus: { activateOnFocus: true },
 	orientation: "horizontal",
+	managed: true,
 } satisfies CreateTabs;
 
 /**
@@ -122,18 +127,24 @@ export const createTabs = (options?: CreateTabs) => {
 		panels.push(node);
 	}) satisfies Action<HTMLDivElement, { value: string }>;
 
+	$effect(() => {
+		if (state.managed) {
+			const tablist = commonParent(tabs);
+
+			if (tablist) {
+				tablist.role = role.tablist;
+				tablist.ariaOrientation = state.orientation;
+				tablist.ariaMultiSelectable = "false";
+			}
+		}
+	});
+
 	return {
 		state: {
 			get openTab() {
 				return tabs.find((tab) => tab.ariaSelected === "true");
 			},
 		},
-
-		action: ((node) => {
-			node.role = role.tablist;
-			node.ariaOrientation = state.orientation;
-			node.ariaMultiSelectable = "false";
-		}) satisfies Action,
 
 		createTab,
 		createPanel,

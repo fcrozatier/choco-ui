@@ -13,13 +13,12 @@
 		children: Snippet;
 	} = $props();
 
-	const { action, createPanel, createTab } = createTabs({
+	const { createPanel, createTab } = createTabs({
 		value,
 		focus,
 		orientation,
 	});
 
-	setContext("choco-tablist", action);
 	setContext("choco-tab", createTab);
 	setContext("choco-panel", createPanel);
 </script>
