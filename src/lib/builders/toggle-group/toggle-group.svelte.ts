@@ -2,6 +2,7 @@ import type { Action } from "svelte/action";
 import { createToggle, type CreateToggle, type ToggleElement } from "../toggle/toggle.svelte";
 import { combineActions } from "$lib/utils/runes.svelte";
 import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
+import { commonParent } from "$lib/utils/helpers";
 
 export type CreateToggleGroup = {
 	focus?: ManageFocusOptions;
@@ -20,7 +21,7 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 	const state = $state({ ...defaults, ...options });
 	const items: ToggleGroupItem[] = $state([]);
 
-	let root: HTMLFieldSetElement | undefined = $state();
+	let root: HTMLElement | undefined = $state();
 
 	const focusGroup = manageFocus({
 		...state.focus,
@@ -47,13 +48,16 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 	};
 
 	$effect(() => {
-		if (root?.disabled !== undefined) {
-			for (const item of items) {
-				if (item.element) {
-					item.element.disabled = root.disabled;
-				}
-			}
+		const elements = items.map((i) => i.element).filter((i) => i !== undefined);
+		const parent = commonParent(elements);
+
+		if (!parent) throw new Error("A toggle group should have a parent");
+
+		if (!(parent instanceof HTMLFieldSetElement)) {
+			parent.role = "group";
 		}
+
+		root = parent;
 	});
 
 	return {
@@ -72,10 +76,6 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 		},
 
 		createItem,
-
-		action: ((node) => {
-			root = node;
-		}) satisfies Action<HTMLFieldSetElement>,
 
 		options,
 		element: root,

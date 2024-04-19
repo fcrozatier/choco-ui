@@ -13,8 +13,8 @@
 
 	let group = $state([]);
 
-	const { action: toggleGroup, createItem } = createToggleGroup();
-	const { action: toggleGroup2, createItem: createItem2 } = createToggleGroup();
+	const { createItem } = createToggleGroup();
+	const { createItem: createItem2 } = createToggleGroup();
 </script>
 
 {#snippet toggleItem({ value, id = nanoId(), item = createItem() })}
@@ -22,7 +22,7 @@
 	<label for={id}>{value}</label>
 {/snippet}
 
-<fieldset class={t.toggleGroup.root({ orientation: "horizontal" })} use:toggleGroup>
+<fieldset class={t.toggleGroup.root({ orientation: "horizontal" })}>
 	<legend>toggle group</legend>
 	{@render toggleItem({ value: "bold" })}
 	{@render toggleItem({ value: "underline" })}
@@ -68,7 +68,7 @@ pressed
 	<button use:item.action class={t.toggleGroup.item()} {value}>{value}</button>
 {/snippet}
 
-<fieldset class={t.toggleGroup.root()} use:toggleGroup2>
+<fieldset class={t.toggleGroup.root()}>
 	<legend>toggle group</legend>
 
 	{#each ["B", "I", "U"] as value}

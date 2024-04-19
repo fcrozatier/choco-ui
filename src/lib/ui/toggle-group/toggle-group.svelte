@@ -31,6 +31,6 @@
 	setContext("choco-variant", variant);
 </script>
 
-<fieldset class={toggleGroupVariants({ orientation, className })} use:toggleGroup.action {...rest}>
+<fieldset class={toggleGroupVariants({ orientation, className })} {...rest}>
 	{@render children?.()}
 </fieldset>
