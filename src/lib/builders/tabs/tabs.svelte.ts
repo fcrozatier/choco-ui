@@ -7,8 +7,8 @@ import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageF
 import { hasFocusableChild } from "$lib/actions/focus/focusHelper";
 import { commonParent } from "$lib/utils/helpers";
 
-export type CreateTabs = {
-	focus?: Omit<ManageFocusOptions, "roving" | "onFocus"> & { activateOnFocus?: boolean };
+export interface CreateTabs extends Omit<ManageFocusOptions, "roving"> {
+	activateOnFocus?: boolean;
 	orientation?: Orientation;
 	/**
 	 * Whether the tablist properties (role, orientation) are added automatically (defaults to `true`). If `false` you'll have to add them manually.
@@ -18,13 +18,13 @@ export type CreateTabs = {
 	 * The default open tab value. If not provided the first tab is open
 	 */
 	value?: string;
-};
+}
 
 export type CreateTab = ReturnType<typeof createTabs>["createTab"];
 export type CreatePanel = ReturnType<typeof createTabs>["createPanel"];
 
 const defaults = {
-	focus: { activateOnFocus: true },
+	activateOnFocus: true,
 	orientation: "horizontal",
 	managed: true,
 } satisfies CreateTabs;
@@ -68,9 +68,16 @@ export const createTabs = (options?: CreateTabs) => {
 	};
 
 	const focusGroup = manageFocus({
+		...state,
 		roving: true,
-		onFocus: state.focus.activateOnFocus ? openTab : undefined,
-		...state.focus,
+		onFocus: (from, to) => {
+			if (state.activateOnFocus) {
+				openTab(to);
+			}
+			if (state.onFocus) {
+				state.onFocus(from, to);
+			}
+		},
 	});
 
 	const createTab = ((node, options: { value: string }) => {

@@ -4,7 +4,7 @@
 
 <button>before</button>
 
-<Tabs.Root value="password" focus={{ loop: true, activateOnFocus: false }} class="w-md">
+<Tabs.Root value="password" loop={true} activateOnFocus={true} class="w-md">
 	<Tabs.TabList aria-label="Update your account">
 		<Tabs.Tab value="account">Account</Tabs.Tab>
 		<Tabs.Tab value="password">Password</Tabs.Tab>

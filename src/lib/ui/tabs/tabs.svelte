@@ -4,8 +4,13 @@
 
 	let {
 		class: className,
-		orientation,
-		focus,
+		orientation = "horizontal",
+		// Focus options
+		activateOnFocus = true,
+		loop = true,
+		onFocus,
+		//
+		managed = true,
 		value,
 		children,
 	}: CreateTabs & {
@@ -15,7 +20,10 @@
 
 	const { createPanel, createTab } = createTabs({
 		value,
-		focus,
+		activateOnFocus,
+		onFocus,
+		loop,
+		managed,
 		orientation,
 	});
 
