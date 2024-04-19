@@ -7,7 +7,7 @@ export type CreateToggleGroup = {
 	focus?: ManageFocusOptions;
 };
 
-export type CreateToggleGroupItem = typeof createToggle;
+export type CreateToggleGroupItem = ReturnType<typeof createToggleGroup>["createItem"];
 export type ToggleGroupItem = ReturnType<typeof createToggle>;
 
 const defaults = {} satisfies CreateToggleGroup;
