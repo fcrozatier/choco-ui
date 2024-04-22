@@ -1,27 +1,27 @@
 <script lang="ts">
 	import { t } from "$lib/ui/theme";
-	import { createToggle } from "$lib/builders/toggle/toggle.svelte";
+	import { PressToggle } from "$lib/builders/toggle/toggle.svelte";
 	import Toggle from "$lib/ui/toggle/toggle.svelte";
 
 	let disabled = $state(false);
 
-	const toggle = createToggle({
+	const toggle = new PressToggle({
 		pressed: true,
 	});
 
-	const toggle1 = createToggle({
+	const toggle1 = new PressToggle({
 		pressed: false,
 	});
 
-	const toggle2 = createToggle({
+	const toggle2 = new PressToggle({
 		pressed: false,
 	});
 
-	const toggle3 = createToggle({
+	const toggle3 = new PressToggle({
 		pressed: true,
 	});
 
-	const toggle4 = createToggle();
+	const toggle4 = new PressToggle();
 </script>
 
 <h1>Toggle</h1>
@@ -31,10 +31,15 @@
 	<input type="checkbox" bind:checked={disabled} />
 </label>
 
+<label>
+	<span>programmatic change</span>
+	<input type="checkbox" onchange={() => (toggle.pressed = !toggle.pressed)} />
+</label>
+
 <h2>Button</h2>
 
 <p>
-	<button use:toggle.action {disabled}> I'm {toggle.state.pressed ? "" : "not"} pressed</button>
+	<button use:toggle.action {disabled}> I'm {toggle.pressed ? "" : "not"} pressed</button>
 </p>
 
 <h2>Input</h2>
