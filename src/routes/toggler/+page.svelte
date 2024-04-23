@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createToggler } from "$lib/builders/toggler/toggler.svelte";
 
-	const toggle = createToggler({ "aria-pressed": "false" });
+	const toggle = createToggler({ control: { "aria-pressed": "false" } });
 	let disabled = $state(false);
 </script>
 
@@ -9,5 +9,9 @@
 
 <button onclick={toggle.toggle}>toggle</button>
 <button onclick={() => (disabled = !disabled)}>disable</button>
+<button onclick={toggle.on}>turn on</button>
+<button onclick={toggle.off}>turn off</button>
 
-<button use:toggle.action {disabled} onclick={() => console.log("hello")}>I use a toggler</button>
+<button use:toggle.control {disabled} onclick={() => console.log("hello")}
+	>I use a toggler. My state is {toggle.active}</button
+>
