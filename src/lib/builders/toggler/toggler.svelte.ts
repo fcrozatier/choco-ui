@@ -3,6 +3,7 @@ import type { Action } from "svelte/action";
 import type { Booleanish } from "svelte/elements";
 
 type TogglerOptions = Record<string, Booleanish | undefined>;
+export type Toggler = ReturnType<typeof createToggler>;
 
 export const createToggler = (initial?: TogglerOptions, onToggle?: (node: HTMLElement) => void) => {
 	let state: TogglerOptions | undefined = $state(initial);
