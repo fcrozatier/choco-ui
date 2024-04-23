@@ -15,11 +15,11 @@ export type CreateToggle = {
 	/**
 	 * Whether the toggle is a press toggle or a switch toggle. Defaults to `press`
 	 */
-	type?: "press" | "switch";
+	kind?: "press" | "switch";
 };
 export type Toggle = ReturnType<typeof createToggle>;
 
-const defaults = { pressed: false, type: "press" } satisfies CreateToggle;
+const defaults = { pressed: false, kind: "press" } satisfies CreateToggle;
 
 /**
  * ## Toggle
@@ -34,12 +34,14 @@ const defaults = { pressed: false, type: "press" } satisfies CreateToggle;
  *
  * Refs:
  *
+ * [WAI-ARIA Button Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/button/)
+ *
  * [WAI-ARIA Switch Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/switch/)
  *
  * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Switch_role#all_descendants_are_presentational
  */
 export const createToggle = (options?: CreateToggle) => {
-	const type = options?.type ?? defaults.type;
+	const type = options?.kind ?? defaults.kind;
 
 	let pressed = $state(options?.pressed ?? defaults.pressed);
 	let element: ToggleElement | undefined = $state();

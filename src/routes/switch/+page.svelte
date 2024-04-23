@@ -2,7 +2,7 @@
 	import { createToggle } from "$lib/builders/toggle/toggle.svelte";
 	import Switch from "$lib/ui/switch/switch.svelte";
 
-	const toggle = createToggle({ type: "switch" });
+	const toggle = createToggle({ kind: "switch" });
 </script>
 
 <form>
