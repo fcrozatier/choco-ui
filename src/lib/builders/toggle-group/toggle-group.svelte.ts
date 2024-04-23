@@ -58,6 +58,16 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 		root = parent;
 	});
 
+	$effect(() => {
+		if (root && root instanceof HTMLFieldSetElement && root.disabled !== undefined) {
+			for (const item of items) {
+				if (item.element) {
+					item.element.disabled = root.disabled;
+				}
+			}
+		}
+	});
+
 	return {
 		get pressed() {
 			return pressed;

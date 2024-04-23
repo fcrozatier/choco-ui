@@ -5,7 +5,7 @@
 
 	let { class: className, pressed, children, ...restProps }: SwitchProps = $props();
 
-	let toggle = createToggle({ pressed, type: "switch" });
+	let toggle = createToggle({ pressed, kind: "switch" });
 </script>
 
 <!-- "      transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0" -->
