@@ -4,50 +4,41 @@ import type { Booleanish } from "svelte/elements";
 
 type TogglerOptions = Record<string, Booleanish | undefined>;
 
-export class Toggler {
-	state: TogglerOptions | undefined = $state();
-	node: HTMLElement | undefined = $state();
-	onToggle: (() => void) | undefined;
+export const createToggler = (initial?: TogglerOptions, onToggle?: (node: HTMLElement) => void) => {
+	let state: TogglerOptions | undefined = $state(initial);
+	let element: HTMLElement | undefined = $state();
 
-	constructor(initial?: TogglerOptions, onToggle?: () => void) {
-		this.state = initial;
-		this.onToggle = onToggle;
-	}
+	const toggle = () => {
+		if (!state) return;
 
-	toggle = () => {
-		for (const key in this.state) {
-			const val = this.state[key];
+		for (const key in state) {
+			const val = state[key];
 
-			switch (typeof val) {
-				case "boolean":
-					this.state[key] = !this.state[key];
-					break;
-				case "string":
-					this.state[key] = String(val === "false") as "true" | "false";
-					break;
+			if (typeof val === "boolean") {
+				state[key] = !state[key];
+			} else if (typeof val === "string") {
+				state[key] = `${val === "false"}`;
 			}
 		}
 
-		if (this.onToggle) {
-			this.onToggle();
+		if (onToggle && element) {
+			onToggle(element);
 		}
 	};
 
-	update() {
-		console.log("toggler update");
-		updateElement(this.node, this.state);
-	}
+	const update = () => {
+		updateElement(element, state);
+	};
 
-	action = ((node) => {
-		this.node = node;
+	$effect(() => {
+		console.log("toggler effect");
+		// Initialize + keep node in sync after state change (click or programmatic)
+		update();
+	});
 
-		$effect(() => {
-			console.log("toggler effect");
-			// Initialize + keep node in sync after state change (click or programmatic)
-			this.update();
-		});
+	const action = ((node) => {
+		element = node;
 
-		const toggle = this.toggle;
 		node.addEventListener("click", toggle);
 
 		return {
@@ -56,4 +47,6 @@ export class Toggler {
 			},
 		};
 	}) satisfies Action;
-}
+
+	return { action, toggle, update, state, node: element };
+};
