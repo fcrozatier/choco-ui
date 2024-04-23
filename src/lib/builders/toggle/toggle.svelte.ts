@@ -1,5 +1,5 @@
-import type { Action, ActionReturn } from "svelte/action";
-import { Toggler } from "../toggler/toggler.svelte";
+import type { Action } from "svelte/action";
+import { createToggler, type Toggler } from "../toggler/toggler.svelte";
 
 // Regarding ARIA you can achieve the same thing with only a checkbox
 // https://www.accessibility-developer-guide.com/examples/sensible-aria-usage/pressed/#alternative-technique-using-checkbox
@@ -7,6 +7,7 @@ import { Toggler } from "../toggler/toggler.svelte";
 export type ToggleElement = HTMLButtonElement | HTMLInputElement;
 
 export type CreateToggle = { pressed?: boolean };
+export type Toggle = ReturnType<typeof createToggle>;
 
 const defaults = { pressed: false } satisfies CreateToggle;
 
@@ -19,48 +20,51 @@ const defaults = { pressed: false } satisfies CreateToggle;
  *
  * The label should not change when the state changes. Use `simpleToggle` if needed.
  */
-export class PressToggle {
-	private _pressed = $state(false);
-	private toggler: Toggler | undefined;
-	element: ToggleElement | undefined = $state();
+export const createToggle = (options?: CreateToggle) => {
+	let pressed = $state(options?.pressed ?? defaults.pressed);
+	let element: ToggleElement | undefined = $state();
+	let toggler: Toggler | undefined;
 
-	constructor(options?: CreateToggle) {
-		this._pressed = options?.pressed ?? defaults.pressed;
-	}
-
-	public get pressed() {
-		return this._pressed;
-	}
-
-	public set pressed(v: boolean) {
-		if (this._pressed !== v) {
-			this._pressed = v;
-			this.toggler?.toggle();
-		}
-	}
-
-	handleClick = () => {
-		this._pressed = !this._pressed;
+	const handler = () => {
+		pressed = !pressed;
 	};
 
-	action = ((node) => {
-		this.element = node;
+	return {
+		get element() {
+			return element;
+		},
 
-		let cleanup: ActionReturn;
-		if (node instanceof HTMLInputElement) {
-			node.type = "checkbox";
-			this.toggler = new Toggler({ checked: this.pressed }, this.handleClick);
-			cleanup = this.toggler.action(node);
-		} else if (node instanceof HTMLButtonElement) {
-			node.type = "button";
-			this.toggler = new Toggler({ "aria-pressed": `${this.pressed}` }, this.handleClick);
-			cleanup = this.toggler.action(node);
-		}
+		get pressed() {
+			return pressed;
+		},
 
-		return {
-			destroy() {
-				cleanup?.destroy?.();
-			},
-		};
-	}) satisfies Action<ToggleElement>;
-}
+		set pressed(v) {
+			if (pressed !== v) {
+				toggler?.toggle();
+			}
+		},
+
+		toggle: () => {
+			toggler?.toggle();
+		},
+
+		action: ((node) => {
+			element = node;
+
+			if (node instanceof HTMLInputElement) {
+				node.type = "checkbox";
+				toggler = createToggler({ checked: pressed }, handler);
+			} else if (node instanceof HTMLButtonElement) {
+				node.type = "button";
+				toggler = createToggler({ "aria-pressed": `${pressed}` }, handler);
+			}
+			const cleanup = toggler?.action(node);
+
+			return {
+				destroy() {
+					cleanup?.destroy();
+				},
+			};
+		}) satisfies Action<ToggleElement>,
+	};
+};

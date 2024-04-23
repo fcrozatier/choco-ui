@@ -28,6 +28,7 @@ export const createToggler = (initial?: TogglerOptions, onToggle?: (node: HTMLEl
 	};
 
 	const update = () => {
+		console.log("toggler update");
 		updateElement(element, state);
 	};
 
