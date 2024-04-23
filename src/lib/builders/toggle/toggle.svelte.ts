@@ -42,14 +42,10 @@ const defaults = { pressed: false, kind: "press" } satisfies CreateToggle;
  */
 export const createToggle = (options?: CreateToggle) => {
 	const type = options?.kind ?? defaults.kind;
+	const initialPressedState = options?.pressed ?? defaults.pressed;
 
-	let pressed = $state(options?.pressed ?? defaults.pressed);
 	let element: ToggleElement | undefined = $state();
-	let toggler: Toggler | undefined;
-
-	const handler = () => {
-		pressed = !pressed;
-	};
+	let toggler: Toggler | undefined = $state();
 
 	return {
 		get element() {
@@ -57,11 +53,11 @@ export const createToggle = (options?: CreateToggle) => {
 		},
 
 		get pressed() {
-			return pressed;
+			return toggler?.active;
 		},
 
 		set pressed(v) {
-			if (pressed !== v) {
+			if (toggler?.active !== v) {
 				toggler?.toggle();
 			}
 		},
@@ -80,8 +76,7 @@ export const createToggle = (options?: CreateToggle) => {
 			if (node instanceof HTMLInputElement) {
 				node.type = "checkbox";
 				toggler = createToggler({
-					control: { checked: pressed },
-					onToggle: handler,
+					control: { checked: initialPressedState },
 				});
 			} else if (node instanceof HTMLButtonElement) {
 				node.type = "button";
@@ -89,12 +84,10 @@ export const createToggle = (options?: CreateToggle) => {
 				toggler =
 					type === "switch"
 						? createToggler({
-								control: { "aria-checked": `${pressed}` },
-								onToggle: handler,
+								control: { "aria-checked": `${initialPressedState}` },
 							})
 						: createToggler({
-								control: { "aria-pressed": `${pressed}` },
-								onToggle: handler,
+								control: { "aria-pressed": `${initialPressedState}` },
 							});
 			}
 			const cleanup = toggler?.control(node);
