@@ -79,16 +79,25 @@ export const createToggle = (options?: CreateToggle) => {
 
 			if (node instanceof HTMLInputElement) {
 				node.type = "checkbox";
-				toggler = createToggler({ checked: pressed }, handler);
+				toggler = createToggler({
+					control: { checked: pressed },
+					onToggle: handler,
+				});
 			} else if (node instanceof HTMLButtonElement) {
 				node.type = "button";
 
 				toggler =
 					type === "switch"
-						? createToggler({ "aria-checked": `${pressed}` }, handler)
-						: createToggler({ "aria-pressed": `${pressed}` }, handler);
+						? createToggler({
+								control: { "aria-checked": `${pressed}` },
+								onToggle: handler,
+							})
+						: createToggler({
+								control: { "aria-pressed": `${pressed}` },
+								onToggle: handler,
+							});
 			}
-			const cleanup = toggler?.action(node);
+			const cleanup = toggler?.control(node);
 
 			return {
 				destroy() {
