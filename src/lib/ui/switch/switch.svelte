@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { createSwitchToggle } from "$lib/builders/switch/switch.svelte";
+	import { createToggle } from "$lib/builders/toggle/toggle.svelte";
 	import { cn } from "$lib/utils/styles.js";
 	import type { SwitchProps } from ".";
 
-	let { class: className, checked, children, ...restProps }: SwitchProps = $props();
+	let { class: className, pressed, children, ...restProps }: SwitchProps = $props();
 
-	let toggle = createSwitchToggle({ checked });
+	let toggle = createToggle({ pressed, type: "switch" });
 </script>
 
 <!-- "      transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0" -->

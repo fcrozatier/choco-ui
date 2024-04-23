@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { createSwitchToggle } from "$lib/builders/switch/switch.svelte";
+	import { createToggle } from "$lib/builders/toggle/toggle.svelte";
 	import Switch from "$lib/ui/switch/switch.svelte";
 
-	const toggle = createSwitchToggle();
+	const toggle = createToggle({ type: "switch" });
 </script>
 
 <form>
