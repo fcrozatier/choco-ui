@@ -2,7 +2,7 @@
 	import { t } from "$lib/ui/theme";
 	import { createToggleGroup } from "$lib/builders/toggle-group/toggle-group.svelte";
 	import type { Orientation } from "$lib/internal/types";
-	import * as ToggleGroup from "$lib/ui/toggle-group";
+	import * as ToggleGroupp from "$lib/ui/toggle-group";
 	import { nanoId } from "$lib/utils/nano";
 
 	let disabled: boolean | undefined = $state();
@@ -13,23 +13,24 @@
 
 	let group = $state([]);
 
-	const { createItem } = createToggleGroup();
+	const toggleGroup = createToggleGroup();
 	const { createItem: createItem2 } = createToggleGroup();
 </script>
 
-{#snippet toggleItem({ value, id = nanoId(), item = createItem() })}
-	<input use:item.action bind:group {id} {value} name="toggle-group" />
+{#snippet toggleItem({ value, id = nanoId(), item = toggleGroup.createItem() })}
+	<input use:item.action {id} {value} name="toggle-group" />
 	<label for={id}>{value}</label>
 {/snippet}
 
-<fieldset class={t.toggleGroup.root({ orientation: "horizontal" })}>
+<div class={t.toggleGroup.root({ orientation: "horizontal" })}>
 	<legend>toggle group</legend>
 	{@render toggleItem({ value: "bold" })}
 	{@render toggleItem({ value: "underline" })}
 	{@render toggleItem({ value: "italic" })}
-</fieldset>
+</div>
 
 checked
+<pre>{toggleGroup.pressed}</pre>
 <pre>{group}</pre>
 
 <label>
@@ -54,11 +55,11 @@ checked
 </label>
 
 {#key variant}
-	<ToggleGroup.Root {orientation} {variant} {disabled} focus={{ loop: true }} bind:pressed>
-		<ToggleGroup.Item value="B" pressed>B</ToggleGroup.Item>
-		<ToggleGroup.Item value="I" variant="outline">I</ToggleGroup.Item>
-		<ToggleGroup.Item value="U">U</ToggleGroup.Item>
-	</ToggleGroup.Root>
+	<ToggleGroupp.Root {orientation} {variant} {disabled} focus={{ loop: true }} bind:pressed>
+		<ToggleGroupp.Item value="B" pressed>B</ToggleGroupp.Item>
+		<ToggleGroupp.Item value="I" variant="outline">I</ToggleGroupp.Item>
+		<ToggleGroupp.Item value="U">U</ToggleGroupp.Item>
+	</ToggleGroupp.Root>
 {/key}
 
 pressed

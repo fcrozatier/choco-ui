@@ -1,5 +1,10 @@
 import type { Action } from "svelte/action";
-import { createToggle, type CreateToggle, type ToggleElement } from "../toggle/toggle.svelte";
+import {
+	createToggle,
+	type CreateToggle,
+	type Toggle,
+	type ToggleElement,
+} from "../toggle/toggle.svelte";
 import { combineActions } from "$lib/utils/runes.svelte";
 import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
 import { commonParent } from "$lib/utils/helpers";
@@ -9,7 +14,6 @@ export type CreateToggleGroup = {
 };
 
 export type CreateToggleGroupItem = ReturnType<typeof createToggleGroup>["createItem"];
-export type ToggleGroupItem = ReturnType<typeof createToggle>;
 
 const defaults = {} satisfies CreateToggleGroup;
 
@@ -19,27 +23,23 @@ const defaults = {} satisfies CreateToggleGroup;
  */
 export const createToggleGroup = (options?: CreateToggleGroup) => {
 	const state = $state({ ...defaults, ...options });
-	const items: ToggleGroupItem[] = $state([]);
+	const items: Toggle[] = $state([]);
 
-	let root: HTMLElement | undefined = $state();
+	let root: HTMLElement | null | undefined = $state();
 
 	const focusGroup = manageFocus({
 		...state.focus,
 	});
 
-	const pressed = $derived(
-		items.filter((i) => i.state.pressed === true).map((i) => i.element?.value),
-	);
-	const mixed = $derived(
-		items.filter((i) => i.state.pressed === "mixed").map((i) => i.element?.value),
-	);
+	const pressed = $derived(items.filter((i) => i.pressed === true).map((i) => i.element?.value));
 
 	const createItem = (options?: CreateToggle) => {
-		const item = createToggle({ ...options });
+		const item: Toggle = createToggle({ ...options });
 
 		const action = ((node) => {
-			focusGroup(node);
+			const { destroy } = focusGroup(node);
 			items.push(item);
+			return { destroy };
 		}) satisfies Action<ToggleElement>;
 
 		item.action = combineActions(item.action, action);
@@ -51,9 +51,7 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 		const elements = items.map((i) => i.element).filter((i) => i !== undefined);
 		const parent = commonParent(elements);
 
-		if (!parent) throw new Error("A toggle group should have a parent");
-
-		if (!(parent instanceof HTMLFieldSetElement)) {
+		if (parent && !(parent instanceof HTMLFieldSetElement)) {
 			parent.role = "group";
 		}
 
@@ -61,14 +59,8 @@ export const createToggleGroup = (options?: CreateToggleGroup) => {
 	});
 
 	return {
-		state: {
-			get pressed() {
-				return pressed;
-			},
-
-			get mixed() {
-				return mixed;
-			},
+		get pressed() {
+			return pressed;
 		},
 
 		get items() {

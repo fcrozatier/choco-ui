@@ -16,7 +16,7 @@ const defaults = { pressed: false } satisfies CreateToggle;
  *
  * Use on button or input elements.
  *
- * Semantics: pressed, not pressed or partially pressed ("mixed" state)
+ * Semantics: pressed or not pressed
  *
  * The label should not change when the state changes. Use `simpleToggle` if needed.
  */

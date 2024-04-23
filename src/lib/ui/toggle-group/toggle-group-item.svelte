@@ -4,10 +4,14 @@
 	import Toggle from "../toggle/toggle.svelte";
 	import type { CreateToggleGroupItem } from "$lib/builders/toggle-group/toggle-group.svelte";
 
-	let { children, variant, ...restProps }: ToggleProps & { value: string; children: Snippet } =
-		$props();
+	let {
+		children,
+		variant,
+		pressed,
+		...restProps
+	}: ToggleProps & { value: string; children: Snippet } = $props();
 
-	const item = getContext<CreateToggleGroupItem>("choco-createItem")();
+	const item = getContext<CreateToggleGroupItem>("choco-createItem")({ pressed });
 	const ctxVariant = getContext("choco-variant") as ToggleProps["variant"] | undefined;
 </script>
 

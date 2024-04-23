@@ -6,7 +6,7 @@
 		class: className,
 		size,
 		variant,
-		pressed = $bindable(),
+		pressed,
 		builder = createToggle(),
 		children,
 		...restProps

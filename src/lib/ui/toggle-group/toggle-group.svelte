@@ -25,7 +25,7 @@
 
 	const toggleGroup = createToggleGroup({ focus });
 
-	export const pressed = () => toggleGroup.state.pressed;
+	export const pressed = () => toggleGroup.pressed;
 
 	setContext("choco-createItem", toggleGroup.createItem);
 	setContext("choco-variant", variant);
