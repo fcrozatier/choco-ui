@@ -7,7 +7,7 @@ import { role } from "$lib/utils/roles";
 
 export type ToggleElement = HTMLButtonElement | HTMLInputElement;
 
-export type CreateToggle = {
+export type ToggleOptions = {
 	/**
 	 * Whether the toggle is currently pressed or not. Defaults to `false`
 	 */
@@ -19,7 +19,7 @@ export type CreateToggle = {
 };
 export type Toggle = ReturnType<typeof createToggle>;
 
-const defaults = { pressed: false, kind: "press" } satisfies CreateToggle;
+const defaults = { pressed: false, kind: "press" } satisfies ToggleOptions;
 
 /**
  * ## Toggle
@@ -32,6 +32,8 @@ const defaults = { pressed: false, kind: "press" } satisfies CreateToggle;
  *
  * The label should not change when the state changes. Use `simpleToggle` if needed.
  *
+ * All descendants of a `switch` have role `presentation`
+ *
  * Refs:
  *
  * [WAI-ARIA Button Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/button/)
@@ -40,7 +42,7 @@ const defaults = { pressed: false, kind: "press" } satisfies CreateToggle;
  *
  * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Switch_role#all_descendants_are_presentational
  */
-export const createToggle = (options?: CreateToggle) => {
+export const createToggle = (options?: ToggleOptions) => {
 	const type = options?.kind ?? defaults.kind;
 	const initialPressedState = options?.pressed ?? defaults.pressed;
 
@@ -60,6 +62,10 @@ export const createToggle = (options?: CreateToggle) => {
 			if (toggler?.active !== v) {
 				toggler?.toggle();
 			}
+		},
+
+		get toggler() {
+			return toggler;
 		},
 
 		toggle: () => {

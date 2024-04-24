@@ -1,8 +1,8 @@
 import type { HTMLButtonAttributes } from "svelte/elements";
 import Root from "./switch.svelte";
-import type { CreateToggle } from "$lib/builders/toggle/toggle.svelte";
+import type { ToggleOptions } from "$lib/builders/toggle/toggle.svelte";
 
-export type SwitchProps = HTMLButtonAttributes & CreateToggle;
+export type SwitchProps = HTMLButtonAttributes & ToggleOptions;
 
 export {
 	Root,
