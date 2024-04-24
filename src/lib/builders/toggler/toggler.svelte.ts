@@ -10,13 +10,18 @@ export type TogglerOptions = {
 	 * Whether the initial state is the active state. (Optional)
 	 */
 	active?: boolean;
+	/**
+	 * Whether the target is labelled by the control
+	 */
+	labelledBy?: boolean;
 	onToggle?: (node: HTMLElement) => void;
 };
 
 export type Toggler = ReturnType<typeof createToggler>;
 
 export const createToggler = (options: TogglerOptions) => {
-	const id = nanoId();
+	const controlId = nanoId();
+	const targetId = nanoId();
 
 	let active = $state(
 		options.active ?? Object.values(options.control).every((v) => v === "true" || v === true),
@@ -67,8 +72,12 @@ export const createToggler = (options: TogglerOptions) => {
 	const control = ((node) => {
 		controlElement = node;
 
+		if (options.labelledBy) {
+			node.id = controlId;
+		}
+
 		if (options.target) {
-			node.setAttribute("aria-controls", id);
+			node.setAttribute("aria-controls", targetId);
 		}
 
 		node.addEventListener("click", toggle);
@@ -83,7 +92,11 @@ export const createToggler = (options: TogglerOptions) => {
 	const target = ((node) => {
 		targetElement = node;
 
-		node.id = id;
+		node.id = targetId;
+
+		if (options.labelledBy) {
+			node.setAttribute("aria-labelledby", controlId);
+		}
 	}) satisfies Action;
 
 	return {
