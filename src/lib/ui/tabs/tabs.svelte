@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createTabs, type CreateTabs } from "$lib/builders/tabs/tabs.svelte";
+	import { createTabs, type TabsOptions } from "$lib/builders/tabs/tabs.svelte";
 	import { setContext, type Snippet } from "svelte";
 
 	let {
@@ -13,7 +13,7 @@
 		managed = true,
 		value,
 		children,
-	}: CreateTabs & {
+	}: TabsOptions & {
 		class?: string;
 		children: Snippet;
 	} = $props();

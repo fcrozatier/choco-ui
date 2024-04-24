@@ -1,13 +1,12 @@
 import type { Action } from "svelte/action";
 import type { Orientation } from "$lib/internal/types";
 import { role } from "$lib/utils/roles";
-import { updateAttribute } from "$lib/internal/helpers";
-import { nanoId } from "$lib/utils/nano";
-import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
+import { type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
 import { hasFocusableChild } from "$lib/actions/focus/focusHelper";
-import { commonParent } from "$lib/utils/helpers";
+import { createTogglerGroup } from "../toggler-group/toggler-group.svelte";
+import { createToggler } from "../toggler/toggler.svelte";
 
-export interface CreateTabs extends Omit<ManageFocusOptions, "roving"> {
+export interface TabsOptions extends Omit<ManageFocusOptions, "roving"> {
 	activateOnFocus?: boolean;
 	orientation?: Orientation;
 	/**
@@ -27,7 +26,7 @@ const defaults = {
 	activateOnFocus: true,
 	orientation: "horizontal",
 	managed: true,
-} satisfies CreateTabs;
+} satisfies TabsOptions;
 
 /**
  * Tabs
@@ -36,47 +35,18 @@ const defaults = {
  *
  * [WAI-ARIA Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
  */
-export const createTabs = (options?: CreateTabs) => {
+export const createTabs = (options?: TabsOptions) => {
 	const state = $state({ ...defaults, ...options });
-	const tabs: HTMLButtonElement[] = $state([]);
-	const panels: HTMLDivElement[] = $state([]);
-	const sync: { control: string; value: string; controls: string }[] = [];
-
-	const handleClick = (e: Event) => {
-		const tab = e.currentTarget as HTMLElement;
-		openTab(tab);
-	};
-
-	const openTab = (tab: HTMLElement) => {
-		tab.ariaSelected = "true";
-
-		tabs.forEach((item) => {
-			if (item !== tab) {
-				item.ariaSelected = "false";
-			}
-		});
-
-		panels.forEach((panel) => {
-			if (panel.id === tab.getAttribute("aria-controls")) {
-				panel.ariaExpanded = "true";
-				panel.hidden = false;
-			} else {
-				panel.ariaExpanded = "false";
-				panel.hidden = true;
-			}
-		});
-	};
-
-	const focusGroup = manageFocus({
-		...state,
-		roving: true,
-		onFocus: (from, to) => {
-			if (state.activateOnFocus) {
-				openTab(to);
-			}
-			if (state.onFocus) {
-				state.onFocus(from, to);
-			}
+	const tabs = createTogglerGroup({
+		...options,
+		parentRole: "tablist",
+		exclusive: true,
+		focus: {
+			onFocus: (_, to) => {
+				if (options?.activateOnFocus) {
+					to.click();
+				}
+			},
 		},
 	});
 
@@ -84,78 +54,55 @@ export const createTabs = (options?: CreateTabs) => {
 		node.value = options.value;
 		node.role = role.tab;
 
+		const toggler = createToggler({
+			control: { "aria-selected": "false" },
+			target: { "aria-expanded": "false", hidden: true },
+			labelledBy: true,
+		});
+
+		toggler.control(node);
+
 		// Initially open tab
-		if (state.value) {
-			node.ariaSelected = options.value === state.value ? "true" : "false";
-		} else {
-			node.ariaSelected = tabs.length === 0 ? "true" : "false";
+		if (state.value === options.value) {
+			toggler.on();
 		}
 
-		const id = nanoId();
-		const controls = nanoId();
-		updateAttribute(node, "aria-controls", controls);
-
-		focusGroup(node);
-		node.addEventListener("click", handleClick);
-
-		tabs.push(node);
-		sync.push({ control: id, value: options.value, controls });
-
-		return {
-			destroy() {
-				node.removeEventListener("click", handleClick);
-			},
-		};
+		tabs.addItem({ toggler }, options.value);
 	}) satisfies Action<HTMLButtonElement, { value: string }>;
 
 	const createPanel = ((node, options: { value: string }) => {
-		const s = sync.find((s) => s.value === options.value);
-		if (!s) throw Error("Cannot find tab with corresponding value");
-
-		node.id = s.controls;
 		node.role = role.tabpanel;
+
+		$effect(() => {
+			const item = tabs.getItem(options.value);
+			if (item) {
+				item.toggler?.target(node);
+			}
+		});
 
 		// Make sure the panel is in the tab sequence
 		if (!hasFocusableChild(node)) {
 			node.tabIndex = 0;
 		}
-		updateAttribute(node, "aria-labelledby", s.control);
-
-		if (state.value) {
-			node.ariaExpanded = s.value === state.value ? "true" : "false";
-		} else {
-			node.ariaExpanded = panels.length === 0 ? "true" : "false";
-		}
-
-		if (node.ariaExpanded !== "true") {
-			node.hidden = true;
-		}
-
-		panels.push(node);
 	}) satisfies Action<HTMLDivElement, { value: string }>;
 
 	$effect(() => {
-		if (state.managed) {
-			const tablist = commonParent(tabs);
+		if (state.managed && tabs.root) {
+			tabs.root.role = role.tablist;
+			tabs.root.ariaOrientation = state.orientation;
+			tabs.root.ariaMultiSelectable = "false";
+		}
+	});
 
-			if (tablist) {
-				tablist.role = role.tablist;
-				tablist.ariaOrientation = state.orientation;
-				tablist.ariaMultiSelectable = "false";
-			}
+	// Make sure at least one tab is active
+	$effect(() => {
+		if (tabs.active.length === 0) {
+			tabs.items[0]?.toggler?.on();
 		}
 	});
 
 	return {
-		state: {
-			get openTab() {
-				return tabs.find((tab) => tab.ariaSelected === "true");
-			},
-		},
-
 		createTab,
 		createPanel,
-
-		options,
 	};
 };
