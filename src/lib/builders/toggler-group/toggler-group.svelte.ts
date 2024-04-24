@@ -4,6 +4,7 @@ import { commonParent } from "$lib/utils/helpers";
 import { type Toggler } from "../toggler/toggler.svelte";
 import type { role } from "$lib/utils/roles";
 import { untrack } from "svelte";
+import { Map as ReactiveMap } from "svelte/reactivity";
 
 export type TogglerGroupOptions = {
 	focus?: ManageFocusOptions;
@@ -26,6 +27,8 @@ export const createTogglerGroup = <T extends { toggler?: Toggler }>(
 	options?: TogglerGroupOptions,
 ) => {
 	const items: T[] = $state([]);
+	const map = new ReactiveMap<string, T>([]);
+
 	let active = $derived(items.filter((i) => i.toggler?.active === true));
 
 	let root: HTMLElement | null | undefined = $state();
@@ -50,7 +53,7 @@ export const createTogglerGroup = <T extends { toggler?: Toggler }>(
 		}
 	};
 
-	const addItem = (item: T) => {
+	const addItem = (item: T, key?: string) => {
 		// Process item when the toggler is set
 		$effect(() => {
 			untrack(() => {
@@ -63,24 +66,27 @@ export const createTogglerGroup = <T extends { toggler?: Toggler }>(
 					}
 
 					items.push(item);
+					if (key) {
+						map.set(key, item);
+					}
 				}
 			});
 		});
 	};
 
+	// Configure parent
 	$effect(() => {
-		untrack(() => {
-			const controls = items.map((i) => i?.toggler?.controlElement).filter((i) => i !== undefined);
-			const parent = commonParent(controls);
+		const controls = items.map((i) => i?.toggler?.controlElement).filter((i) => i !== undefined);
+		const parent = commonParent(controls);
 
-			if (parent && !(parent instanceof HTMLFieldSetElement)) {
-				parent.role = options?.parentRole ?? defaults.parentRole;
-			}
+		if (parent && !(parent instanceof HTMLFieldSetElement)) {
+			parent.role = options?.parentRole ?? defaults.parentRole;
+		}
 
-			root = parent;
-		});
+		root = parent;
 	});
 
+	// Disable items
 	$effect(() => {
 		if (root && root instanceof HTMLFieldSetElement && root.disabled !== undefined) {
 			for (const item of items) {
@@ -96,8 +102,16 @@ export const createTogglerGroup = <T extends { toggler?: Toggler }>(
 			return items;
 		},
 
+		getItem(key: string) {
+			return map.get(key);
+		},
+
 		get active() {
 			return active;
+		},
+
+		get root() {
+			return root;
 		},
 
 		addItem,
