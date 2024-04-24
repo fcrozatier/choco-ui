@@ -1,13 +1,9 @@
-import type { Action } from "svelte/action";
+import { createToggle, type Toggle, type ToggleOptions } from "../toggle/toggle.svelte";
+import { type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
 import {
-	createToggle,
-	type CreateToggle,
-	type Toggle,
-	type ToggleElement,
-} from "../toggle/toggle.svelte";
-import { combineActions } from "$lib/utils/runes.svelte";
-import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
-import { commonParent } from "$lib/utils/helpers";
+	createTogglerGroup,
+	type TogglerGroupOptions,
+} from "../toggler-group/toggler-group.svelte";
 
 export type CreateToggleGroup = {
 	focus?: ManageFocusOptions;
@@ -21,65 +17,26 @@ const defaults = {} satisfies CreateToggleGroup;
  * Toggle Group
  *
  */
-export const createToggleGroup = (options?: CreateToggleGroup) => {
-	const state = $state({ ...defaults, ...options });
-	const items: Toggle[] = $state([]);
+export const createToggleGroup = (options?: TogglerGroupOptions) => {
+	const group = createTogglerGroup<Toggle>({ ...options, parentRole: "group" });
 
-	let root: HTMLElement | null | undefined = $state();
+	const createItem = (options?: ToggleOptions) => {
+		const item = createToggle({ ...options });
 
-	const focusGroup = manageFocus({
-		...state.focus,
-	});
-
-	const pressed = $derived(items.filter((i) => i.pressed === true).map((i) => i.element?.value));
-
-	const createItem = (options?: CreateToggle) => {
-		const item: Toggle = createToggle({ ...options });
-
-		const action = ((node) => {
-			const { destroy } = focusGroup(node);
-			items.push(item);
-			return { destroy };
-		}) satisfies Action<ToggleElement>;
-
-		item.action = combineActions(item.action, action);
+		group.addItem(item);
 
 		return item;
 	};
 
-	$effect(() => {
-		const elements = items.map((i) => i.element).filter((i) => i !== undefined);
-		const parent = commonParent(elements);
-
-		if (parent && !(parent instanceof HTMLFieldSetElement)) {
-			parent.role = "group";
-		}
-
-		root = parent;
-	});
-
-	$effect(() => {
-		if (root && root instanceof HTMLFieldSetElement && root.disabled !== undefined) {
-			for (const item of items) {
-				if (item.element) {
-					item.element.disabled = root.disabled;
-				}
-			}
-		}
-	});
-
 	return {
 		get pressed() {
-			return pressed;
+			return group.active.map((i) => i?.element?.value);
 		},
 
 		get items() {
-			return items;
+			return group.items;
 		},
 
 		createItem,
-
-		options,
-		element: root,
 	};
 };
