@@ -36,8 +36,7 @@ export function combineActions<T extends Action<any>[]>(...actions: T) {
 	return ((node) => {
 		const cleanups: (void | ActionReturn)[] = [];
 		for (const action of actions) {
-			const cleanup = action(node);
-			cleanups.push(cleanup);
+			cleanups.push(action(node));
 		}
 
 		return {
