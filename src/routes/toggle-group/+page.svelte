@@ -13,7 +13,11 @@
 
 	let group = $state([]);
 
-	const toggleGroup = createToggleGroup();
+	// Unselectable radio group
+	const toggleGroup = createToggleGroup({
+		exclusive: true,
+		focus: { onFocus: (_, to) => to.click() },
+	});
 	const { createItem: createItem2 } = createToggleGroup();
 </script>
 
