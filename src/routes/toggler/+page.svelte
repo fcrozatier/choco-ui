@@ -3,6 +3,11 @@
 
 	const toggle = createToggler({ control: { "aria-pressed": "false" } });
 	let disabled = $state(false);
+
+	const { control, target } = createToggler({
+		target: { checked: false },
+		control: { "aria-pressed": "false" },
+	});
 </script>
 
 <p>Use a toggler to toggle an attribute on click.</p>
@@ -15,3 +20,12 @@
 <button use:toggle.control {disabled} onclick={() => console.log("hello")}
 	>I use a toggler. My state is {toggle.active}</button
 >
+
+<p>A toggler can also control a target</p>
+
+<label for="">
+	check me
+	<input type="checkbox" use:target />
+</label>
+
+<button use:control onclick={() => console.log("hello")}>toggle checked state</button>
