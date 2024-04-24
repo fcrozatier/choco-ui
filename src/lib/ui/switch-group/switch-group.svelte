@@ -5,33 +5,33 @@
 	import type { ToggleProps } from "../toggle";
 	import { toggleGroupVariants } from "../toggle-group";
 	import {
-		createSwitchGroup,
-		type CreateSwitchGroup,
-	} from "$lib/builders/switch-group/switch-group.svelte";
+		createToggleGroup,
+		type ToggleGroupOptions,
+	} from "$lib/builders/toggle-group/toggle-group.svelte";
 
 	let {
 		class: className,
 		orientation = "horizontal",
 		variant,
 		focus,
-		single,
+		exclusive = true,
 		children,
 		...rest
 	}: HTMLFieldsetAttributes &
-		CreateSwitchGroup & {
+		ToggleGroupOptions & {
 			orientation?: Orientation;
 			variant?: ToggleProps["variant"];
 			children: Snippet;
 		} = $props();
 
-	const switchGroup = createSwitchGroup({ focus, single });
+	const switchGroup = createToggleGroup({ focus, exclusive });
 
-	export const selected = () => switchGroup.state.selected;
+	export const selected = () => switchGroup.pressed;
 
 	setContext("choco-createItem", switchGroup.createItem);
 	setContext("choco-variant", variant);
 </script>
 
-<fieldset class={toggleGroupVariants({ orientation, className })} use:switchGroup.action {...rest}>
+<fieldset class={toggleGroupVariants({ orientation, className })} {...rest}>
 	{@render children?.()}
 </fieldset>

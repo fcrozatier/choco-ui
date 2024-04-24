@@ -1,7 +1,7 @@
 <script lang="ts">
 	import {
 		createToggleGroup,
-		type CreateToggleGroup,
+		type ToggleGroupOptions,
 	} from "$lib/builders/toggle-group/toggle-group.svelte";
 	import type { Orientation } from "$lib/internal/types";
 	import { setContext, type Snippet } from "svelte";
@@ -17,7 +17,7 @@
 		children,
 		...rest
 	}: HTMLFieldsetAttributes &
-		CreateToggleGroup & {
+		ToggleGroupOptions & {
 			orientation?: Orientation;
 			variant?: ToggleProps["variant"];
 			children: Snippet;

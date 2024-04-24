@@ -1,19 +1,18 @@
 <script lang="ts">
 	import { getContext, type Snippet } from "svelte";
 	import { toggleVariants, type ToggleProps } from "../toggle";
-	import type { CreateSwitchGroupItem } from "$lib/builders/switch-group/switch-group.svelte";
-	import type { CreateSwitch } from "$lib/builders/switch/switch.svelte";
+	import type { CreateToggleGroupItem } from "$lib/builders/toggle-group/toggle-group.svelte";
 
 	let {
 		class: className,
 		size,
 		variant,
-		checked,
+		pressed,
 		children,
 		...restProps
-	}: ToggleProps & CreateSwitch & { value: string; children: Snippet } = $props();
+	}: ToggleProps & { value: string; children: Snippet } = $props();
 
-	const item = getContext<CreateSwitchGroupItem>("choco-createItem")({ checked });
+	const item = getContext<CreateToggleGroupItem>("choco-createItem")({ pressed, kind: "switch" });
 	const ctxVariant = getContext("choco-variant") as ToggleProps["variant"] | undefined;
 </script>
 

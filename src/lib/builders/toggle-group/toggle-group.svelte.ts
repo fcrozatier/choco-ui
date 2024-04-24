@@ -1,17 +1,11 @@
 import { createToggle, type Toggle, type ToggleOptions } from "../toggle/toggle.svelte";
-import { type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
 import {
 	createTogglerGroup,
 	type TogglerGroupOptions,
 } from "../toggler-group/toggler-group.svelte";
 
-export type CreateToggleGroup = {
-	focus?: ManageFocusOptions;
-};
-
 export type CreateToggleGroupItem = ReturnType<typeof createToggleGroup>["createItem"];
-
-const defaults = {} satisfies CreateToggleGroup;
+export type ToggleGroupOptions = TogglerGroupOptions;
 
 /**
  * Toggle Group

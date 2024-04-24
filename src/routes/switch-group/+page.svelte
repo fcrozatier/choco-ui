@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createSwitchGroup } from "$lib/builders/switch-group/switch-group.svelte";
+	import { createToggleGroup } from "$lib/builders/toggle-group/toggle-group.svelte";
 	import type { Orientation } from "$lib/internal/types";
 	import * as SwitchGroup from "$lib/ui/switch-group";
 	import { nanoId } from "$lib/utils/nano";
@@ -8,23 +8,19 @@
 	let variant: "outline" | "default" = $state("default");
 	let orientation: Orientation = $state("horizontal");
 
-	let selected: (() => string) | undefined = $state();
+	let selected: (() => string[]) | undefined = $state();
 
-	const {
-		action: switchGroup,
-		createItem,
-		state: switchState,
-	} = createSwitchGroup({ single: true });
+	const { createItem, pressed } = createToggleGroup({ exclusive: true });
 </script>
 
 {#snippet toggleItem({ id = nanoId(), value })}
-	{@const item = createItem()}
+	{@const item = createItem({ kind: "switch" })}
 	<!-- <button use:item.action {id} {value} name="toggle-group">{value}</button> -->
 	<input use:item.action {id} {value} name="toggle-group" />
 	<label for={id}>{value}</label>
 {/snippet}
 
-<fieldset use:switchGroup>
+<fieldset>
 	<legend>toggle group</legend>
 	{@render toggleItem({ value: "left align" })}
 	{@render toggleItem({ value: "center" })}
@@ -32,7 +28,7 @@
 </fieldset>
 
 selected
-<pre>{switchState.selected}</pre>
+<pre>{pressed}</pre>
 
 <label>
 	disable
@@ -57,7 +53,7 @@ selected
 
 {#key variant}
 	<SwitchGroup.Root {orientation} {variant} {disabled} focus={{ loop: true }} bind:selected>
-		<SwitchGroup.Item value="B" checked>B</SwitchGroup.Item>
+		<SwitchGroup.Item value="B" pressed>B</SwitchGroup.Item>
 		<SwitchGroup.Item value="I" variant="outline">I</SwitchGroup.Item>
 		<SwitchGroup.Item value="U">U</SwitchGroup.Item>
 	</SwitchGroup.Root>
