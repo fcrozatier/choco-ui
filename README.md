@@ -1,38 +1,15 @@
-# create-svelte
+HTML attributes are already reactive by default. So let's build upon this!
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Also, Svelte being HTML centric, an HTML-first solution will let us benefit from all the Svelte goodness and bindings etc.
 
-## Creating a project
+This means adding a minimal API surface area: we rely as much as possible on standard HTML elements for taking care of state and functionality, and only add inner state and props when needed.
 
-If you're seeing this, you've probably already done this step. Congrats!
+The benefits are many:
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+- First there is obviously less going back and forth with the documentation and less to remember. So it's already easier to use.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+- Second it forces us to use proper HTML Elements. Sometimes headless is too powerful, and we could use div everywhere, relying on the library to fix ARIA and functionality. But here since we rely on HTML wherever possible for state and behavior we have to use the correct elements. For example the toggle functionality only makes sense on a button or input, not on a span. The types will help go in the right direction by complaining if an incorrect element is used. So it's all safe and ensures best practices.
 
-## Developing
+- Another benefit of a smaller API is less code. This means a lighter library, faster to load and to run.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Even though HTML elements are reactive, the markup is not necessarily updated. We normalize this to make sure that the state is actually reflected in the DOM. This helps with debugging.
