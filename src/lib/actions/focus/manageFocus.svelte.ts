@@ -8,7 +8,7 @@ export type ManageFocusOptions = {
 	 * With roving focus, only one item in the list is focusable at a given time and the tab sequence will come back to this item (persistence). Arrows are used to focus another item of the collection
 	 */
 	roving?: boolean;
-	onFocus?: (from: HTMLElement, to: HTMLElement) => void;
+	onFocus?: <T extends HTMLElement>(from: T, to: T) => void;
 };
 
 const defaults = {
@@ -48,7 +48,7 @@ export const manageFocus = (options?: ManageFocusOptions) => {
 				return;
 		}
 
-		e.preventDefault(); // Avoid firing a scroll event.
+		e.preventDefault(); // Avoid firing scroll events.
 
 		const oldItem = items[index];
 		const newItem = items[newIndex];
@@ -74,14 +74,15 @@ export const manageFocus = (options?: ManageFocusOptions) => {
 	$effect(() => {
 		let focusable: HTMLElement | undefined;
 
-		for (let index = 0; index < items.length; index++) {
-			const item = items[index];
-
-			if (item && roving) {
+		for (let item of items) {
+			if (roving) {
+				// Focuses the first active element if any
 				if (
-					item.ariaSelected === "true" ||
-					item.ariaPressed === "true" ||
-					item.ariaChecked === "true"
+					!focusable &&
+					(item.ariaSelected === "true" ||
+						item.ariaPressed === "true" ||
+						item.ariaChecked === "true" ||
+						(item instanceof HTMLInputElement && item.checked))
 				) {
 					makeFocusable(item);
 					focusable = item;
