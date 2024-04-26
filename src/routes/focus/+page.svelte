@@ -4,6 +4,12 @@
 	const focusGroupRadio = manageFocus();
 	const focusGroupRadio2 = manageFocus({ onFocus: (_, to) => to.click() });
 	const focusGroupCheck = manageFocus();
+	const focusGroupCheck2 = manageFocus({
+		onFocus: (from, to) => {
+			from.click();
+			to.click();
+		},
+	});
 </script>
 
 <article class="mx-auto max-w-prose">
@@ -33,7 +39,7 @@
 
 	<fieldset>
 		<label><input name="alignment" type="radio" />left</label>
-		<label><input name="alignment" type="radio" />center</label>
+		<label><input name="alignment" type="radio" checked />center</label>
 		<label><input name="alignment" type="radio" />right</label>
 	</fieldset>
 
@@ -43,9 +49,9 @@
 	<button>A</button>
 
 	<fieldset>
-		<label><input use:focusGroupRadio name="alignment-fixed" type="radio" />left</label>
-		<label><input use:focusGroupRadio name="alignment-fixed" type="radio" />center</label>
-		<label><input use:focusGroupRadio name="alignment-fixed" type="radio" />right</label>
+		<label><input use:focusGroupRadio type="radio" />left</label>
+		<label><input use:focusGroupRadio type="radio" />center</label>
+		<label><input use:focusGroupRadio type="radio" />right</label>
 	</fieldset>
 
 	<button>B</button>
@@ -105,11 +111,22 @@
 	<button>A</button>
 
 	<fieldset>
-		<label><input use:focusGroupCheck name="flavour-fixed" type="checkbox" />dark</label>
-		<label><input use:focusGroupCheck name="flavour-fixed" type="checkbox" />milk</label>
-		<label><input use:focusGroupCheck name="flavour-fixed" type="checkbox" />fruit</label>
+		<label><input use:focusGroupCheck type="checkbox" />dark</label>
+		<label><input use:focusGroupCheck type="checkbox" checked />milk</label>
+		<label><input use:focusGroupCheck type="checkbox" />fruit</label>
 	</fieldset>
 	<button>B</button>
 
 	<p>The focus management comes with many options: roving, loop, orientation, onFocus</p>
+
+	<p>With follow focus</p>
+
+	<button>A</button>
+
+	<fieldset>
+		<label><input use:focusGroupCheck2 type="checkbox" />dark</label>
+		<label><input use:focusGroupCheck2 type="checkbox" checked />milk</label>
+		<label><input use:focusGroupCheck2 type="checkbox" />fruit</label>
+	</fieldset>
+	<button>B</button>
 </article>
