@@ -10,6 +10,7 @@
 			to.click();
 		},
 	});
+	const focusGroupButton = manageFocus();
 </script>
 
 <article class="mx-auto max-w-prose">
@@ -127,6 +128,15 @@
 		<label><input use:focusGroupCheck2 type="checkbox" />dark</label>
 		<label><input use:focusGroupCheck2 type="checkbox" checked />milk</label>
 		<label><input use:focusGroupCheck2 type="checkbox" />fruit</label>
+	</fieldset>
+	<button>B</button>
+
+	<button>A</button>
+
+	<fieldset>
+		<button use:focusGroupButton>Tab 1</button>
+		<button use:focusGroupButton>Tab 2</button>
+		<button use:focusGroupButton>Tab 3</button>
 	</fieldset>
 	<button>B</button>
 </article>
