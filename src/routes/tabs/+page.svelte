@@ -2,6 +2,7 @@
 	import { createTabs } from "$lib/builders/tabs/tabs.svelte";
 	import * as Tabs from "$lib/ui/tabs";
 
+	// Something's wrong with roving focus
 	const { createTab, createPanel } = createTabs({ activateOnFocus: true });
 </script>
 
