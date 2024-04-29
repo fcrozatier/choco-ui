@@ -1,3 +1,5 @@
+## Composable, extensible, reactive, Svelte 5 ready, SSR ready, headless components builder
+
 HTML attributes are already reactive by default. So let's build upon this!
 
 Also, Svelte being HTML centric, an HTML-first solution will let us benefit from all the Svelte goodness and bindings etc.
