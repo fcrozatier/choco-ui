@@ -1,14 +1,16 @@
 import type { Action } from "svelte/action";
 
-interface ChocoProtocol {
-	attributes: Record<string, boolean | string | null | undefined>;
-	action: Action;
+export type Attributes = Record<string, boolean | string | null | undefined>;
+
+interface ChocoProtocol<T extends HTMLElement> {
+	attributes: Attributes;
+	action: Action<T>;
 }
 
-export class ChocoBase implements ChocoProtocol {
-	#attributes: ChocoProtocol["attributes"] = $state({});
+export class ChocoBase<T extends HTMLElement = HTMLElement> implements ChocoProtocol<T> {
+	#attributes = $state({});
 
-	get attributes() {
+	get attributes(): Attributes {
 		return this.#attributes;
 	}
 
@@ -16,5 +18,7 @@ export class ChocoBase implements ChocoProtocol {
 		this.#attributes = newV;
 	}
 
-	action: Action = () => {};
+	action(_: T) {
+		return { destroy() {} };
+	}
 }
