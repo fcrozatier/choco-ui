@@ -1,6 +1,6 @@
-import { Toggler } from "../toggler/toggler.svelte";
+import { Toggler } from "../../mixins/toggler/toggler.svelte";
 import { role } from "$lib/utils/roles";
-import type { Attributes } from "../base.svelte";
+import type { Attributes } from "../../mixins/base.svelte";
 
 export type ToggleOptions = {
 	/**

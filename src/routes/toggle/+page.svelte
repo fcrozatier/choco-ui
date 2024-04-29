@@ -2,7 +2,7 @@
 	import { t } from "$lib/ui/theme";
 	import Toggle from "$lib/ui/toggle/toggle.svelte";
 	import { createToggler } from "$lib/builders/toggler/toggler.svelte";
-	import { ToggleButton } from "$lib/mixins/toggle/toggle.svelte";
+	import { ToggleButton } from "$lib/components/toggle/toggle.svelte";
 
 	let disabled = $state(false);
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { toggleVariants, type ToggleProps } from "./index.js";
 	import { createToggle } from "$lib/builders/toggle/toggle.svelte.js";
-	import { ToggleButton } from "$lib/mixins/toggle/toggle.svelte.js";
+	import { ToggleButton } from "$lib/components/toggle/toggle.svelte.js";
 
 	let {
 		class: className,
