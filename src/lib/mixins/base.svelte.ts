@@ -6,14 +6,14 @@ interface ChocoProtocol {
 }
 
 export class ChocoBase implements ChocoProtocol {
-	private _attributes: ChocoProtocol["attributes"] = $state({});
+	#attributes: ChocoProtocol["attributes"] = $state({});
 
 	get attributes() {
-		return this._attributes;
+		return this.#attributes;
 	}
 
 	set attributes(newV) {
-		this._attributes = newV;
+		this.#attributes = newV;
 	}
 
 	action: Action = () => {};
