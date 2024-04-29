@@ -1,20 +1,26 @@
 <script lang="ts">
 	import { toggleVariants, type ToggleProps } from "./index.js";
 	import { createToggle } from "$lib/builders/toggle/toggle.svelte.js";
+	import { ToggleButton } from "$lib/mixins/toggle/toggle.svelte.js";
 
 	let {
 		class: className,
 		size,
 		variant,
-		pressed,
+		pressed = $bindable(false),
 		builder = createToggle(),
 		children,
 		...restProps
 	}: ToggleProps = $props();
 
-	builder.pressed = pressed ?? builder.pressed;
+	const toggle = new ToggleButton({ pressed });
 </script>
 
-<button use:builder.action class={toggleVariants({ variant, size, className })} {...restProps}>
+<button
+	{...toggle.attributes}
+	use:toggle.action
+	class={toggleVariants({ variant, size, className })}
+	{...restProps}
+>
 	{@render children?.()}
 </button>

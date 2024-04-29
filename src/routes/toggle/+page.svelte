@@ -1,30 +1,22 @@
 <script lang="ts">
 	import { t } from "$lib/ui/theme";
-	import { createToggle } from "$lib/builders/toggle/toggle.svelte";
 	import Toggle from "$lib/ui/toggle/toggle.svelte";
 	import { createToggler } from "$lib/builders/toggler/toggler.svelte";
+	import { ToggleButton } from "$lib/mixins/toggle/toggle.svelte";
 
 	let disabled = $state(false);
 
 	const raw = createToggler({ control: { "aria-checked": "true" } });
 
-	const toggle = createToggle({
+	const toggle = new ToggleButton({
 		pressed: true,
 	});
 
-	const toggle1 = createToggle({
+	const toggle2 = new ToggleButton({
 		pressed: false,
 	});
 
-	const toggle2 = createToggle({
-		pressed: false,
-	});
-
-	const toggle3 = createToggle({
-		pressed: true,
-	});
-
-	const toggle4 = createToggle();
+	const toggle4 = new ToggleButton({ pressed: true });
 </script>
 
 <h1>Toggle</h1>
@@ -42,31 +34,21 @@
 
 <label>
 	<span>programmatic change</span>
-	<input type="checkbox" onchange={() => (toggle.pressed = !toggle.pressed)} />
+	<input type="checkbox" onchange={() => (toggle.active = !toggle.active)} />
 </label>
 
 <h2>Button</h2>
 
 <p>
-	<button use:toggle.action {disabled}> I'm {toggle.pressed ? "" : "not"} pressed</button>
-</p>
-
-<h2>Input</h2>
-
-<p>
-	<input
-		id="press"
-		class="outline-2 outline-red-500 checked:outline-green-500"
-		type="checkbox"
-		use:toggle1.action
-	/>
-
-	<label for="press">input toggle</label>
+	<button {...toggle.attributes} use:toggle.action {disabled}>
+		I'm {toggle.active ? "" : "not"} pressed</button
+	>
 </p>
 
 <h2>Styled</h2>
 
 <button
+	{...toggle2.attributes}
 	use:toggle2.action
 	aria-label="Toggle italic"
 	class="text-magnum-800 hover:bg-magnum-100 aria-pressed:bg-magnum-200 aria-pressed:text-magnum-900 grid h-9 w-9
@@ -77,6 +59,6 @@
 	I
 </button>
 
-<Toggle builder={toggle3} variant="outline">toggle</Toggle>
+<Toggle variant="outline">toggle</Toggle>
 
-<button class={t.toggle()} use:toggle4.action>toggle</button>
+<button class={t.toggle()} {...toggle4.attributes} use:toggle4.action>toggle</button>
