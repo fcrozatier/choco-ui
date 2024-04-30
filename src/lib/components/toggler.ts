@@ -1,5 +1,5 @@
 import { ChocoBase } from "./base.svelte";
-import { TogglerMixin, type TogglerOptions } from "../mixins/toggler.svelte";
+import { TogglerMixin, type TogglerOptions } from "../mixins/toggling.svelte";
 
 export class Toggler<T extends HTMLButtonElement | HTMLInputElement> extends TogglerMixin(
 	ChocoBase<HTMLButtonElement | HTMLInputElement>,

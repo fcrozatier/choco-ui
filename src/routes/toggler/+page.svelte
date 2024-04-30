@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Toggler } from "$lib/mixins/toggler/toggler.svelte";
+	import { Toggler } from "$lib/components/toggler";
 
 	const toggle = new Toggler({ initial: { "aria-pressed": "true" } });
 	let disabled = $state(false);
