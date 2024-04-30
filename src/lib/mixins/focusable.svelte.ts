@@ -12,16 +12,16 @@ import { bound } from "$lib/decorators/bound";
  */
 export const FocusMixin = (superclass: Constructor<ChocoBase>) => {
 	return class extends superclass {
-		#focus: ReturnType<typeof manageFocus>;
+		#focusManager: ReturnType<typeof manageFocus>;
 
 		constructor(options: ManageFocusOptions) {
 			super(options);
-			this.#focus = manageFocus(options);
+			this.#focusManager = manageFocus(options);
 		}
 
 		@bound
 		override action(node: HTMLElement) {
-			const cleanup = this.#focus(node);
+			const cleanup = this.#focusManager(node);
 			const cleanup2 = super.action(node);
 
 			return {
