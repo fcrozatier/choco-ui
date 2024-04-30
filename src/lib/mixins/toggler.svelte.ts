@@ -1,12 +1,14 @@
-import { ChocoBase } from "../base.svelte";
+import { ChocoBase } from "../components/base.svelte";
 import type { Booleanish } from "svelte/elements";
 import { toggleValues } from "$lib/internal/helpers";
 
-type TogglerOptions = { initial: Record<string, Booleanish>; active?: boolean };
+export type TogglerOptions = { initial: Record<string, Booleanish>; active?: boolean };
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-const TogglerMixin = (superclass: Constructor<ChocoBase<HTMLButtonElement | HTMLInputElement>>) => {
+export const TogglerMixin = (
+	superclass: Constructor<ChocoBase<HTMLButtonElement | HTMLInputElement>>,
+) => {
 	return class extends superclass {
 		#attributes: Record<string, Booleanish> = $state({});
 		#active = $state(false);
@@ -77,20 +79,3 @@ const TogglerMixin = (superclass: Constructor<ChocoBase<HTMLButtonElement | HTML
 		}
 	};
 };
-
-export class Toggler<T extends HTMLButtonElement | HTMLInputElement> extends TogglerMixin(
-	ChocoBase<HTMLButtonElement | HTMLInputElement>,
-) {
-	constructor(options: TogglerOptions) {
-		super(options);
-	}
-
-	override action(node: T) {
-		const cleanup = super.action(node);
-		return {
-			destroy() {
-				cleanup.destroy();
-			},
-		};
-	}
-}
