@@ -1,10 +1,9 @@
 import { ChocoBase } from "../components/base.svelte";
 import type { Booleanish } from "svelte/elements";
 import { toggleValues } from "$lib/internal/helpers";
+import type { Constructor } from "./types";
 
 export type TogglerOptions = { initial: Record<string, Booleanish>; active?: boolean };
-
-type Constructor<T = {}> = new (...args: any[]) => T;
 
 export const TogglerMixin = (
 	superclass: Constructor<ChocoBase<HTMLButtonElement | HTMLInputElement>>,
