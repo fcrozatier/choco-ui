@@ -1,3 +1,4 @@
+import { bound } from "$lib/decorators/bound";
 import type { Action } from "svelte/action";
 
 export type Attributes = Record<string, boolean | string | null | undefined>;
@@ -18,6 +19,7 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> implements ChocoProt
 		this.#attributes = newV;
 	}
 
+	@bound
 	action(_: T) {
 		return { destroy() {} };
 	}
