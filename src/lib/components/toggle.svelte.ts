@@ -1,6 +1,7 @@
-import { Toggler } from "$lib/components/toggler";
+import { Extendable } from "$lib/mixins/extendable.svelte";
+import { Togglable } from "$lib/mixins/togglable.svelte";
 import { role } from "$lib/utils/roles";
-import type { Attributes } from "./base.svelte";
+import { ChocoBase } from "./base.svelte";
 
 export type ToggleOptions = {
 	/**
@@ -15,13 +16,7 @@ export type ToggleOptions = {
 
 const defaults = { pressed: false, kind: "press" } satisfies Required<ToggleOptions>;
 
-export class ToggleButton extends Toggler<HTMLButtonElement> {
-	#attributes: Attributes = {};
-
-	override get attributes() {
-		return { ...this.#attributes, ...super.attributes };
-	}
-
+export class ToggleButton extends Togglable(Extendable(ChocoBase<HTMLButtonElement>)) {
 	presssed = this.active; // alias
 
 	constructor(options?: ToggleOptions) {
@@ -32,29 +27,23 @@ export class ToggleButton extends Toggler<HTMLButtonElement> {
 		} else {
 			initial = { "aria-checked": `${toggleOptions.pressed}` } as const;
 		}
-		super({ initial });
 
-		if (toggleOptions.kind === "switch") {
-			this.#attributes["role"] = role.switch;
-		}
+		const attributes = {
+			type: "button",
+			...(toggleOptions.kind === "switch" ? { role: role.switch } : {}),
+		};
 
-		this.#attributes["type"] = "button";
+		super({ initial, attributes });
 	}
 }
 
-export class SwitchInput extends Toggler<HTMLInputElement> {
-	#attributes: Attributes = {};
-
-	override get attributes() {
-		return { ...this.#attributes, ...super.attributes };
-	}
-
-	constructor(options?: ToggleOptions) {
+export class SwitchInput extends Togglable(Extendable(ChocoBase<HTMLInputElement>)) {
+	constructor(options?: Pick<ToggleOptions, "pressed">) {
 		const toggleOptions = { ...defaults, ...options };
 
-		super({ initial: { "aria-checked": `${toggleOptions.pressed}` } });
-
-		this.#attributes["role"] = role.switch;
-		this.#attributes["type"] = "checkbox";
+		super({
+			initial: { "aria-checked": `${toggleOptions.pressed}` },
+			attributes: { role: role.switch, type: "checkbox" },
+		});
 	}
 }
