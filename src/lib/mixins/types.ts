@@ -1,1 +1,3 @@
-export type Constructor<Class> = new (...args: any[]) => Class;
+export type Constructor<Class = any, Options extends unknown = unknown> = new (
+	options: Options,
+) => Class;
