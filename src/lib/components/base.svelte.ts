@@ -2,10 +2,10 @@ import type { Action } from "svelte/action";
 
 export type Attributes = Record<string, boolean | string | null | undefined>;
 
-interface ChocoProtocol<T extends HTMLElement> {
+export type ChocoProtocol<T extends HTMLElement = HTMLElement> = {
 	attributes: Attributes;
 	action: Action<T>;
-}
+};
 
 export class ChocoBase<T extends HTMLElement = HTMLElement> implements ChocoProtocol<T> {
 	#attributes = $state({});
