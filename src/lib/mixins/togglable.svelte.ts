@@ -2,11 +2,13 @@ import { ChocoBase } from "../components/base.svelte";
 import type { Booleanish } from "svelte/elements";
 import { toggleValues } from "$lib/internal/helpers";
 import type { Constructor } from "./types";
+import { combineActions } from "$lib/actions/combineActions";
+import { addListener } from "$lib/actions/addListener";
 
-export type TogglerOptions = { initial: Record<string, Booleanish>; active?: boolean };
+export type TogglableOptions = { initial: Record<string, Booleanish>; active?: boolean };
 
-export const TogglerMixin = (
-	superclass: Constructor<ChocoBase<HTMLButtonElement | HTMLInputElement>>,
+export const Togglable = <SuperOptions extends unknown>(
+	superclass: Constructor<ChocoBase, SuperOptions>,
 ) => {
 	return class extends superclass {
 		#attributes: Record<string, Booleanish> = $state({});
@@ -26,7 +28,7 @@ export const TogglerMixin = (
 			return { ...this.#attributes, ...super.attributes };
 		}
 
-		constructor(options: TogglerOptions) {
+		constructor(options: TogglableOptions & SuperOptions) {
 			super(options);
 			this.#attributes = options.initial;
 
@@ -44,6 +46,8 @@ export const TogglerMixin = (
 					);
 				}
 			}
+
+			this.action = combineActions(super.action, addListener("click", this.toggle));
 		}
 
 		toggle = () => {
@@ -62,19 +66,5 @@ export const TogglerMixin = (
 				this.toggle();
 			}
 		};
-
-		override action(node: HTMLButtonElement | HTMLInputElement) {
-			const toggle = this.toggle;
-			node.addEventListener("click", toggle);
-
-			const cleanup = super.action(node);
-
-			return {
-				destroy() {
-					node.removeEventListener("click", toggle);
-					cleanup.destroy();
-				},
-			};
-		}
 	};
 };
