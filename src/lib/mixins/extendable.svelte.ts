@@ -2,7 +2,7 @@ import { ChocoBase, type Attributes, type ChocoProtocol } from "../components/ba
 import type { Constructor } from "./types";
 import { combineActions } from "$lib/actions/combineActions";
 
-export type ExtendOptions = Partial<ChocoProtocol>;
+export type ExtendableOptions = Partial<ChocoProtocol>;
 
 export const Extendable = <SuperOptions extends unknown>(
 	superclass: Constructor<ChocoBase, SuperOptions>,
@@ -14,7 +14,7 @@ export const Extendable = <SuperOptions extends unknown>(
 			return { ...this.#attributes, ...super.attributes };
 		}
 
-		constructor(options: ExtendOptions & SuperOptions) {
+		constructor(options: ExtendableOptions & SuperOptions) {
 			super(options);
 			if (options.attributes) {
 				this.#attributes = options.attributes;
