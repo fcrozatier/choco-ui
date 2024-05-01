@@ -1,12 +1,9 @@
 <script lang="ts">
 	import { t } from "$lib/ui/theme";
 	import Toggle from "$lib/ui/toggle/toggle.svelte";
-	import { createToggler } from "$lib/builders/toggler/toggler.svelte";
 	import { ToggleButton } from "$lib/components/toggle.svelte";
 
 	let disabled = $state(false);
-
-	const raw = createToggler({ control: { "aria-checked": "true" } });
 
 	const toggle = new ToggleButton({
 		pressed: true,
@@ -20,12 +17,6 @@
 </script>
 
 <h1>Toggle</h1>
-
-<h2>Raw</h2>
-
-<p>
-	<button use:raw.control>Click {raw.active}</button>
-</p>
 
 <label>
 	<span>disable</span>
