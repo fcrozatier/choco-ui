@@ -2,7 +2,6 @@ import { ChocoBase } from "../components/base.svelte";
 import type { Booleanish } from "svelte/elements";
 import { toggleValues } from "$lib/internal/helpers";
 import type { Constructor } from "./types";
-import { bound } from "$lib/decorators/bound";
 
 export type TogglerOptions = { initial: Record<string, Booleanish>; active?: boolean };
 
@@ -64,7 +63,6 @@ export const TogglerMixin = (
 			}
 		};
 
-		@bound
 		override action(node: HTMLButtonElement | HTMLInputElement) {
 			const toggle = this.toggle;
 			node.addEventListener("click", toggle);

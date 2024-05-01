@@ -1,7 +1,6 @@
 import { ChocoBase } from "../components/base.svelte";
 import type { Constructor } from "./types";
 import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
-import { bound } from "$lib/decorators/bound";
 
 /**
  * The focus mixin enhances the keyboard navigability of your components
@@ -19,7 +18,6 @@ export const FocusMixin = (superclass: Constructor<ChocoBase>) => {
 			this.#focusManager = manageFocus(options);
 		}
 
-		@bound
 		override action(node: HTMLElement) {
 			const cleanup = this.#focusManager(node);
 			const cleanup2 = super.action(node);
