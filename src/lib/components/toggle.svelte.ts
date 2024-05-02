@@ -1,5 +1,6 @@
 import { Extendable } from "$lib/mixins/extendable.svelte";
 import { Togglable } from "$lib/mixins/togglable.svelte";
+import type { Constructor } from "$lib/mixins/types";
 import { role } from "$lib/utils/roles";
 import { ChocoBase } from "./base.svelte";
 
@@ -37,12 +38,17 @@ export class ToggleButton extends Togglable(Extendable(ChocoBase<HTMLButtonEleme
 	}
 }
 
+export const TypedToggle = ToggleButton as unknown as Constructor<
+	ToggleButton & InstanceType<ReturnType<typeof Togglable>>,
+	Partial<ToggleOptions>
+>;
+
 export class SwitchInput extends Togglable(Extendable(ChocoBase<HTMLInputElement>)) {
 	constructor(options?: Pick<ToggleOptions, "pressed">) {
-		const toggleOptions = { ...defaults, ...options };
+		const pressed = options?.pressed ?? defaults.pressed;
 
 		super({
-			initial: { "aria-checked": `${toggleOptions.pressed}` },
+			initial: { "aria-checked": `${pressed}` },
 			attributes: { role: role.switch, type: "checkbox" },
 		});
 	}
