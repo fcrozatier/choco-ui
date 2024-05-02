@@ -1,4 +1,3 @@
-import type { ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
 import type { Constructor } from "$lib/mixins/types";
 
 export class Group<Options, T extends Constructor<{ active: boolean }, Options>> {
