@@ -1,6 +1,7 @@
 import { ChocoBase } from "../components/base.svelte";
 import type { Constructor } from "./types";
 import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
+import { combineActions } from "$lib/actions/combineActions";
 
 /**
  * The focus mixin enhances the keyboard navigability of your components
@@ -9,25 +10,12 @@ import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageF
  *
  * If js is not available then the elements have their default focus behavior.
  */
-export const FocusMixin = (superclass: Constructor<ChocoBase>) => {
+export const Focusable = <SuperOptions>(superclass: Constructor<ChocoBase, SuperOptions>) => {
 	return class extends superclass {
-		#focusManager: ReturnType<typeof manageFocus>;
-
-		constructor(options: ManageFocusOptions) {
+		constructor(options: ManageFocusOptions & SuperOptions) {
 			super(options);
-			this.#focusManager = manageFocus(options);
-		}
 
-		override action(node: HTMLElement) {
-			const cleanup = this.#focusManager(node);
-			const cleanup2 = super.action(node);
-
-			return {
-				destroy() {
-					cleanup.destroy();
-					cleanup2.destroy();
-				},
-			};
+			this.action = combineActions(manageFocus(options), super.action);
 		}
 	};
 };
