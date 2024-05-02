@@ -4,9 +4,7 @@ import { combineActions } from "$lib/actions/combineActions";
 
 export type ExtendableOptions = Partial<ChocoProtocol>;
 
-export const Extendable = <SuperOptions extends unknown>(
-	superclass: Constructor<ChocoBase, SuperOptions>,
-) => {
+export const Extendable = <SuperOptions>(superclass: Constructor<ChocoBase, SuperOptions>) => {
 	return class extends superclass {
 		#attributes: Attributes = $state({});
 

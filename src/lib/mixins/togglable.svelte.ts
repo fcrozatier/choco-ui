@@ -7,9 +7,7 @@ import { addListener } from "$lib/actions/addListener";
 
 export type TogglableOptions = { initial: Record<string, Booleanish>; active?: boolean };
 
-export const Togglable = <SuperOptions extends unknown>(
-	superclass: Constructor<ChocoBase, SuperOptions>,
-) => {
+export const Togglable = <SuperOptions>(superclass: Constructor<ChocoBase, SuperOptions>) => {
 	return class extends superclass {
 		#attributes: Record<string, Booleanish> = $state({});
 		#active = $state(false);
