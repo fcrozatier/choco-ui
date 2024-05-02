@@ -43,13 +43,6 @@ export const Controllable = <SuperOptions>(superclass: Constructor<ChocoBase, Su
 			}
 		}
 
-		/**
-		 * Synchronize state when controller is clicked
-		 */
-		#sync = () => {
-			this.target.toggle();
-		};
-
 		toggle = () => {
 			this.control.toggle();
 			this.target.toggle();
@@ -67,36 +60,20 @@ export const Controllable = <SuperOptions>(superclass: Constructor<ChocoBase, Su
 
 		constructor(options: ControllableOptions & SuperOptions) {
 			super(options);
-			let active;
-
-			if (typeof options.active === "boolean") {
-				active = options.active;
-			} else {
-				// If the active state is not provided try to guess
-				if (Object.values(options.control).every((v) => v === true || v === "true")) {
-					active = true;
-				} else if (Object.values(options.control).every((v) => v === false || v === "false")) {
-					active = false;
-				} else {
-					throw new Error(
-						"Could not determine the active state of the toggler. Please provide an explicit value",
-					);
-				}
-			}
 
 			const controlId = nanoId();
 			const targetId = nanoId();
 
 			this.control = new Control({
 				initial: options.control,
-				active,
+				active: options.active,
 				attributes: { "aria-controls": targetId, ...(options.labelledBy ? { id: controlId } : {}) },
-				action: addListener("click", this.#sync),
+				action: addListener("click", () => this.target.toggle()),
 			});
 
 			this.target = new Control({
 				initial: options.target,
-				active,
+				active: options.active,
 				attributes: {
 					id: targetId,
 					...(options.labelledBy ? { "aria-labelledby": controlId } : {}),
