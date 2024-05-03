@@ -1,10 +1,10 @@
-import { ChocoBase, type Attributes, type ChocoProtocol } from "../components/base.svelte";
+import { type Attributes, type ChocoBase } from "../components/base.svelte";
 import type { Constructor } from "./types";
 import { combineActions } from "$lib/actions/combineActions";
 
-export type ExtendableOptions = Partial<ChocoProtocol>;
+export type ExtendableOptions = Partial<InstanceType<typeof ChocoBase>>;
 
-export const Extendable = <SuperOptions>(superclass: Constructor<ChocoBase, SuperOptions>) => {
+export function Extendable<T extends Constructor<ChocoBase>>(superclass: T) {
 	return class extends superclass {
 		#attributes: Attributes = $state({});
 
@@ -12,14 +12,15 @@ export const Extendable = <SuperOptions>(superclass: Constructor<ChocoBase, Supe
 			return { ...this.#attributes, ...super.attributes };
 		}
 
-		constructor(options: ExtendableOptions & SuperOptions) {
-			super(options);
+		initExtendable(options: ExtendableOptions) {
 			if (options.attributes) {
 				this.#attributes = options.attributes;
 			}
 			if (options.action) {
 				this.action = combineActions(options.action, super.action);
 			}
+
+			return this;
 		}
 	};
-};
+}

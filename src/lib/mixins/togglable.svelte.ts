@@ -7,7 +7,9 @@ import { addListener } from "$lib/actions/addListener";
 
 export type TogglableOptions = { initial: Record<string, Booleanish>; active?: boolean };
 
-export const Togglable = <SuperOptions>(superclass: Constructor<ChocoBase, SuperOptions>) => {
+export const Togglable = <T extends Constructor<ChocoBase<HTMLButtonElement | HTMLInputElement>>>(
+	superclass: T,
+) => {
 	return class extends superclass {
 		#attributes: Record<string, Booleanish> = $state({});
 		#active = $state(false);
@@ -26,8 +28,7 @@ export const Togglable = <SuperOptions>(superclass: Constructor<ChocoBase, Super
 			return { ...this.#attributes, ...super.attributes };
 		}
 
-		constructor(options: TogglableOptions & SuperOptions) {
-			super(options);
+		initTogglable = (options: TogglableOptions) => {
 			this.#attributes = options.initial;
 
 			if (options.active) {
@@ -46,7 +47,8 @@ export const Togglable = <SuperOptions>(superclass: Constructor<ChocoBase, Super
 			}
 
 			this.action = combineActions(super.action, addListener("click", this.toggle));
-		}
+			return this;
+		};
 
 		toggle = () => {
 			this.#active = !this.#active;

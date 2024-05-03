@@ -1,4 +1,9 @@
 import { ChocoBase } from "./base.svelte";
-import { Togglable } from "../mixins/togglable.svelte";
+import { Togglable, type TogglableOptions } from "../mixins/togglable.svelte";
 
-export class Toggler extends Togglable(ChocoBase<HTMLButtonElement | HTMLInputElement>) {}
+export class Toggler extends Togglable(ChocoBase) {
+	constructor(options: TogglableOptions) {
+		super();
+		this.initTogglable(options);
+	}
+}
