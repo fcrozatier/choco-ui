@@ -4,6 +4,7 @@
 	import type { Orientation } from "$lib/internal/types";
 	import * as ToggleGroupp from "$lib/ui/toggle-group";
 	import { nanoId } from "$lib/utils/nano";
+	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
 
 	let disabled: boolean | undefined = $state();
 	let variant: "outline" | "default" = $state("default");
@@ -14,14 +15,15 @@
 	let group = $state([]);
 
 	// Unselectable radio group
-	const toggleGroup = createToggleGroup({
-		exclusive: true,
-		focus: { onFocus: (_, to) => to.click() },
-	});
+	// const toggleGroup = createToggleGroup({
+	// 	exclusive: true,
+	// 	focus: { onFocus: (_, to) => to.click() },
+	// });
+	const toggleGroup = new ToggleGroup({});
 	const { createItem: createItem2 } = createToggleGroup();
 </script>
 
-{#snippet toggleItem({ value, id = nanoId(), item = toggleGroup.createItem() })}
+{#snippet toggleItem({ value, id = nanoId(), item = toggleGroup.createItem({ kind: "press" }) })}
 	<input use:item.action {id} {value} name="toggle-group" />
 	<label for={id}>{value}</label>
 {/snippet}
@@ -34,7 +36,7 @@
 </div>
 
 checked
-<pre>{toggleGroup.pressed}</pre>
+<pre>{toggleGroup.active}</pre>
 <pre>{group}</pre>
 
 <label>
@@ -59,14 +61,14 @@ checked
 </label>
 
 {#key variant}
-	<ToggleGroupp.Root {orientation} {variant} {disabled} focus={{ loop: true }} bind:pressed>
+	<!-- <ToggleGroupp.Root {orientation} {variant} {disabled} focus={{ loop: true }} bind:pressed>
 		<ToggleGroupp.Item value="B" pressed>B</ToggleGroupp.Item>
 		<ToggleGroupp.Item value="I" variant="outline">I</ToggleGroupp.Item>
 		<ToggleGroupp.Item value="U">U</ToggleGroupp.Item>
-	</ToggleGroupp.Root>
+	</ToggleGroupp.Root> -->
 {/key}
 
-pressed
+<!-- pressed
 <pre>{pressed?.()}</pre>
 
 {#snippet toggleItem2({ value, item = createItem2() })}
@@ -79,4 +81,4 @@ pressed
 	{#each ["B", "I", "U"] as value}
 		{@render toggleItem2({ value })}
 	{/each}
-</fieldset>
+</fieldset> -->
