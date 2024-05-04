@@ -11,7 +11,5 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> {
 		this.#attributes = newV;
 	}
 
-	action(_: T) {
-		return { destroy() {} };
-	}
+	action(_: T) {}
 }
