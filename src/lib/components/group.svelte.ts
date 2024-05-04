@@ -1,15 +1,6 @@
 import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
 import type { Action } from "svelte/action";
 import type { ChocoBase } from "./base.svelte";
-import { combineActions } from "$lib/actions/combineActions";
-
-export class Group<T extends ChocoBase> {
-	#items: T[] = $state([]);
-
-	push = (item: T) => {
-		this.#items.push(item);
-	};
-}
 
 /**
  * The focus action enhances the keyboard navigability of your components
@@ -18,21 +9,14 @@ export class Group<T extends ChocoBase> {
  *
  * If js is not available then the elements have their default focus behavior.
  */
-export class FocusGroup<T extends ChocoBase> {
+export class Group<T extends ChocoBase> {
 	items: T[] = $state([]);
 
 	focusAction: Action | undefined;
 
-	constructor(options?: ManageFocusOptions | false) {
-		if (options !== false) {
-			this.focusAction = manageFocus(options);
+	constructor(focus?: ManageFocusOptions | false) {
+		if (focus !== false) {
+			this.focusAction = manageFocus(focus);
 		}
 	}
-
-	push = (item: T) => {
-		if (this.focusAction) {
-			item.action = combineActions(item.action, this.focusAction);
-		}
-		this.items.push(item);
-	};
 }
