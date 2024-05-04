@@ -1,47 +1,38 @@
-import type { ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
-import { Focusable } from "$lib/mixins/focusable.svelte";
+import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
+import type { Action } from "svelte/action";
 import type { ChocoBase } from "./base.svelte";
+import { combineActions } from "$lib/actions/combineActions";
 
-export class Group<ItemOptions, Class extends ChocoBase & { active?: boolean }> {
-	#cls: new (...args: ItemOptions[]) => Class;
-	#items: Class[] = [];
+export class Group<T extends ChocoBase> {
+	#items: T[] = $state([]);
 
-	set items(v) {
-		this.#items = v;
-	}
-
-	get items() {
-		return this.#items;
-	}
-
-	active = $derived(this.items.filter((i) => i.active));
-
-	constructor(cls: new (...args: ItemOptions[]) => Class) {
-		this.#cls = cls;
-	}
-
-	createItem = (options: ItemOptions) => {
-		const item = new this.#cls(options);
-		this.items.push(item);
-		return item;
+	push = (item: T) => {
+		this.#items.push(item);
 	};
 }
 
-export class FocusGroup<ItemOptions, Class extends ChocoBase & { active?: boolean }> {
-	#cls: ReturnType<typeof Focusable<ItemOptions>>;
-	#options?: ManageFocusOptions;
+/**
+ * The focus action enhances the keyboard navigability of your components
+ *
+ * Since it relies on setting `tabindex='-1'` on some elements, the behavior is only added if js is enabled to ensure improving the experience and not degrading it.
+ *
+ * If js is not available then the elements have their default focus behavior.
+ */
+export class FocusGroup<T extends ChocoBase> {
+	items: T[] = $state([]);
 
-	items: Class[] = [];
-	active = $derived(this.items.filter((i) => i.active));
+	focusAction: Action | undefined;
 
-	constructor(options: { cls: new (...args: ItemOptions[]) => Class; focus?: ManageFocusOptions }) {
-		this.#cls = Focusable(options.cls);
-		this.#options = options.focus;
+	constructor(options?: ManageFocusOptions | false) {
+		if (options !== false) {
+			this.focusAction = manageFocus(options);
+		}
 	}
 
-	createItem = (options: ItemOptions) => {
-		const item = new this.#cls({ ...this.#options, ...options }) as Class;
+	push = (item: T) => {
+		if (this.focusAction) {
+			item.action = combineActions(item.action, this.focusAction);
+		}
 		this.items.push(item);
-		return item;
 	};
 }
