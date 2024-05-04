@@ -10,12 +10,10 @@ import { combineActions } from "$lib/actions/combineActions";
  *
  * If js is not available then the elements have their default focus behavior.
  */
-export const Focusable = <SuperOptions>(superclass: Constructor<ChocoBase, SuperOptions>) => {
+export const Focusable = <T extends Constructor<ChocoBase>>(superclass: T) => {
 	return class extends superclass {
-		constructor(options: ManageFocusOptions & SuperOptions) {
-			super(options);
-
-			this.action = combineActions(manageFocus(options), super.action);
-		}
+		initFocusable = (options: ManageFocusOptions) => {
+			this.action = combineActions(super.action, manageFocus(options));
+		};
 	};
 };

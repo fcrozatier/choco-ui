@@ -28,7 +28,7 @@ export type ControllableOptions = {
 
 class Control extends Togglable(Extendable(ChocoBase)) {}
 
-export const Controllable = <SuperOptions>(superclass: Constructor<ChocoBase, SuperOptions>) => {
+export const Controllable = <T extends Constructor<ChocoBase>>(superclass: T) => {
 	return class extends superclass {
 		control: Control;
 		target: Control;
@@ -41,6 +41,12 @@ export const Controllable = <SuperOptions>(superclass: Constructor<ChocoBase, Su
 			if (v !== this.control.active) {
 				this.toggle();
 			}
+		}
+
+		constructor(...options: any[]) {
+			super(...options);
+			this.control = new Control();
+			this.target = new Control();
 		}
 
 		toggle = () => {
@@ -58,26 +64,28 @@ export const Controllable = <SuperOptions>(superclass: Constructor<ChocoBase, Su
 			this.target.off();
 		};
 
-		constructor(options: ControllableOptions & SuperOptions) {
-			super(options);
-
+		initControllable(options: ControllableOptions) {
 			const controlId = nanoId();
 			const targetId = nanoId();
 
-			this.control = new Control({
-				initial: options.control,
-				active: options.active,
+			this.control.initExtendable({
 				attributes: { "aria-controls": targetId, ...(options.labelledBy ? { id: controlId } : {}) },
 				action: addListener("click", () => this.target.toggle()),
 			});
-
-			this.target = new Control({
-				initial: options.target,
+			this.control.initTogglable({
+				initial: options.control,
 				active: options.active,
+			});
+
+			this.target.initExtendable({
 				attributes: {
 					id: targetId,
 					...(options.labelledBy ? { "aria-labelledby": controlId } : {}),
 				},
+			});
+			this.target.initTogglable({
+				initial: options.target,
+				active: options.active,
 			});
 		}
 	};
