@@ -17,7 +17,7 @@ export function Extendable<T extends Constructor<ChocoBase>>(superclass: T) {
 				this.#attributes = options.attributes;
 			}
 			if (options.action) {
-				this.action = combineActions(options.action, super.action);
+				this.action = combineActions(super.action, options.action);
 			}
 
 			return this;
