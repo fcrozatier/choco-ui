@@ -1,6 +1,7 @@
 import { Togglable } from "$lib/mixins/togglable.svelte";
 import { role } from "$lib/utils/roles";
 import { ChocoBase } from "./base.svelte";
+import { trimUndefined } from "@fcrozatier/ts-helpers/objects";
 
 export type ToggleOptions = {
 	/**
@@ -21,7 +22,7 @@ export class ToggleButton extends Togglable(ChocoBase<HTMLButtonElement>) {
 
 	constructor(options?: ToggleOptions) {
 		super();
-		const toggleOptions = { ...defaults, ...options };
+		const toggleOptions: Required<ToggleOptions> = { ...defaults, ...trimUndefined(options) };
 		let initial;
 		if (toggleOptions.kind === "press") {
 			initial = { "aria-pressed": `${toggleOptions.pressed}` } as const;
