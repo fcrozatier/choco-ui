@@ -42,11 +42,11 @@ export class ToggleButton extends Togglable(ChocoBase<HTMLButtonElement>) {
 }
 
 export class SwitchInput extends Togglable(ChocoBase<HTMLInputElement>) {
-	constructor(options?: Pick<ToggleOptions, "pressed">) {
+	constructor(options?: Omit<ToggleOptions, "kind">) {
 		super();
 
 		const pressed = options?.pressed ?? defaults.pressed;
-		const attributes = { role: role.switch, type: "checkbox" };
+		const attributes = { role: role.switch, type: "checkbox", value: options?.value };
 		const initial = { "aria-checked": `${pressed}` } as const;
 
 		this.extendAttributes(attributes);
