@@ -19,6 +19,12 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> {
 		return mergeActions(...this.#actions);
 	}
 
+	constructor(attributes?: Attributes) {
+		if (attributes) {
+			this.#attributes = attributes;
+		}
+	}
+
 	extendActions(action: Action<T>) {
 		this.#actions.push(action);
 	}
