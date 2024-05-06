@@ -16,7 +16,7 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> {
 
 	action(_: T) {}
 
-	extendAction(newAction: Action) {
+	extendAction(newAction: Action<T>) {
 		this.action = combineActions(this.action, newAction);
 	}
 }
