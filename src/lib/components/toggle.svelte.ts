@@ -12,12 +12,13 @@ export type ToggleOptions = {
 	 * Whether the toggle is a press toggle or a switch toggle. Defaults to `press`
 	 */
 	kind?: "press" | "switch";
+	value?: string;
 };
 
-const defaults = { pressed: false, kind: "press" } satisfies Required<ToggleOptions>;
+const defaults = { pressed: false, kind: "press", value: "" } satisfies Required<ToggleOptions>;
 
 export class ToggleButton extends Togglable(Extendable(ChocoBase<HTMLButtonElement>)) {
-	presssed = this.active; // alias
+	presssed = $derived(this.active); // alias
 
 	constructor(options?: ToggleOptions) {
 		super();
@@ -31,7 +32,8 @@ export class ToggleButton extends Togglable(Extendable(ChocoBase<HTMLButtonEleme
 
 		const attributes = {
 			type: "button",
-			...(toggleOptions.kind === "switch" ? { role: role.switch } : {}),
+			value: options?.value ?? undefined,
+			role: toggleOptions.kind === "switch" ? role.switch : undefined,
 		};
 
 		this.initExtendable({ attributes });
