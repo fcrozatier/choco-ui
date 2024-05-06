@@ -43,7 +43,7 @@ export const Togglable = <T extends Constructor<ChocoBase>>(superclass: T) => {
 				}
 			}
 
-			this.extendAction(addListener("click", this.toggle));
+			this.extendActions(addListener("click", this.toggle));
 			return this;
 		};
 
