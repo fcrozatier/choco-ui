@@ -4,17 +4,13 @@
 	import Toggle from "../toggle/toggle.svelte";
 	import { getItemContext, getVariantContext } from ".";
 
-	let {
-		children,
-		variant,
-		pressed,
-		...restProps
-	}: ToggleProps & { value: string; children: Snippet } = $props();
+	let { children, variant, ...restProps }: Omit<ToggleProps, "builder"> & { children: Snippet } =
+		$props();
 
-	const item = getItemContext()({ pressed });
+	const itemBuilder = getItemContext();
 	const ctxVariant = getVariantContext();
 </script>
 
-<Toggle builder={item} variant={variant ?? ctxVariant} {...restProps}>
+<Toggle builder={itemBuilder} variant={variant ?? ctxVariant} {...restProps}>
 	{@render children?.()}
 </Toggle>
