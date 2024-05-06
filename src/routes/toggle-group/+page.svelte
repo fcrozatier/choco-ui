@@ -1,38 +1,38 @@
 <script lang="ts">
 	import { t } from "$lib/ui/theme";
-	import { createToggleGroup } from "$lib/builders/toggle-group/toggle-group.svelte";
 	import type { Orientation } from "$lib/internal/types";
-	import * as ToggleGroupp from "$lib/ui/toggle-group";
-	import { nanoId } from "$lib/utils/nano";
+	import * as ToggleGroupUI from "$lib/ui/toggle-group";
 	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
+	import type { SvelteComponent } from "svelte";
 
 	let disabled: boolean | undefined = $state();
 	let variant: "outline" | "default" = $state("default");
 	let orientation: Orientation = $state("horizontal");
 
-	let pressed: (() => []) | undefined = $state();
-
 	let group = $state([]);
 
-	// Unselectable radio group
-	// const toggleGroup = createToggleGroup({
-	// 	exclusive: true,
-	// 	focus: { onFocus: (_, to) => to.click() },
-	// });
-	const toggleGroup = new ToggleGroup({});
-	const { createItem: createItem2 } = createToggleGroup();
-</script>
+	const toggleGroup = new ToggleGroup();
 
-{#snippet toggleItem({ value, id = nanoId(), item = toggleGroup.createItem({ kind: "press" }) })}
-	<input use:item.action {id} {value} name="toggle-group" />
-	<label for={id}>{value}</label>
-{/snippet}
+	toggleGroup.createItem({ kind: "press", value: "orange" });
+	toggleGroup.createItem({ kind: "press", value: "banana" });
+	toggleGroup.createItem({ kind: "press", value: "apple" });
+
+	const toggleGroup2 = new ToggleGroup();
+
+	toggleGroup2.createItem({ kind: "press", value: "B" });
+	toggleGroup2.createItem({ kind: "press", value: "I" });
+	toggleGroup2.createItem({ kind: "press", value: "U" });
+
+	let toggleUI: SvelteComponent<typeof ToggleGroupUI.Root> | undefined = $state();
+	const active = $derived(toggleUI?.active());
+</script>
 
 <div class={t.toggleGroup.root({ orientation: "horizontal" })}>
 	<legend>toggle group</legend>
-	{@render toggleItem({ value: "bold" })}
-	{@render toggleItem({ value: "underline" })}
-	{@render toggleItem({ value: "italic" })}
+
+	{#each toggleGroup.items as item}
+		<button {...item.attributes} use:item.action>{item.attributes.value}</button>
+	{/each}
 </div>
 
 checked
@@ -61,24 +61,26 @@ checked
 </label>
 
 {#key variant}
-	<!-- <ToggleGroupp.Root {orientation} {variant} {disabled} focus={{ loop: true }} bind:pressed>
-		<ToggleGroupp.Item value="B" pressed>B</ToggleGroupp.Item>
-		<ToggleGroupp.Item value="I" variant="outline">I</ToggleGroupp.Item>
-		<ToggleGroupp.Item value="U">U</ToggleGroupp.Item>
-	</ToggleGroupp.Root> -->
+	<ToggleGroupUI.Root
+		bind:this={toggleUI}
+		{orientation}
+		{variant}
+		{disabled}
+		focus={{ loop: true }}
+	>
+		<ToggleGroupUI.Item value="B" pressed>B</ToggleGroupUI.Item>
+		<ToggleGroupUI.Item value="I" variant="outline">I</ToggleGroupUI.Item>
+		<ToggleGroupUI.Item value="U">U</ToggleGroupUI.Item>
+	</ToggleGroupUI.Root>
 {/key}
 
-<!-- pressed
-<pre>{pressed?.()}</pre>
-
-{#snippet toggleItem2({ value, item = createItem2() })}
-	<button use:item.action class={t.toggleGroup.item()} {value}>{value}</button>
-{/snippet}
+active
+<pre>{active}</pre>
 
 <fieldset class={t.toggleGroup.root()}>
 	<legend>toggle group</legend>
 
-	{#each ["B", "I", "U"] as value}
-		{@render toggleItem2({ value })}
+	{#each toggleGroup2.items as item}
+		<button {...item.attributes} use:item.action class={t.toggleGroup.item()}>{item.value}</button>
 	{/each}
-</fieldset> -->
+</fieldset>
