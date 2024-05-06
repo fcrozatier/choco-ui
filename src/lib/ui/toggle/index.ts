@@ -1,7 +1,7 @@
 import { type VariantProps, tv } from "tailwind-variants";
 import Root from "./toggle.svelte";
 import type { HTMLButtonAttributes } from "svelte/elements";
-import type { ToggleOptions, Toggle } from "$lib/builders/toggle/toggle.svelte";
+import type { ToggleButton, ToggleOptions } from "$lib/components/toggle.svelte";
 
 export const toggleVariants = tv({
 	base: "ring-offset-background hover:bg-muted hover:text-muted-foreground focus-visible:ring-ring aria-pressed:bg-accent aria-pressed:text-accent-foreground  inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
@@ -23,10 +23,10 @@ export const toggleVariants = tv({
 });
 
 export interface ToggleProps
-	extends HTMLButtonAttributes,
+	extends Omit<HTMLButtonAttributes, "value">,
 		ToggleOptions,
 		Partial<VariantProps<typeof toggleVariants>> {
-	builder?: Toggle;
+	builder: (options: ToggleOptions) => ToggleButton;
 }
 
 export {
