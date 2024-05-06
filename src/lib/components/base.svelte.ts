@@ -19,4 +19,8 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> {
 	extendAction(newAction: Action<T>) {
 		this.action = combineActions(this.action, newAction);
 	}
+
+	extendAttributes(newAttributes: Attributes) {
+		this.#attributes = { ...this.#attributes, ...newAttributes };
+	}
 }
