@@ -1,13 +1,11 @@
 <script lang="ts">
-	import {
-		createToggleGroup,
-		type ToggleGroupOptions,
-	} from "$lib/builders/toggle-group/toggle-group.svelte";
+	import { type ToggleGroupOptions } from "$lib/builders/toggle-group/toggle-group.svelte";
 	import type { Orientation } from "$lib/internal/types";
-	import { setContext, type Snippet } from "svelte";
+	import { type Snippet } from "svelte";
 	import type { HTMLFieldsetAttributes } from "svelte/elements";
 	import type { ToggleProps } from "../toggle";
-	import { toggleGroupVariants } from ".";
+	import { setItemContext, setVariantContext, toggleGroupVariants } from ".";
+	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
 
 	let {
 		class: className,
@@ -23,12 +21,12 @@
 			children: Snippet;
 		} = $props();
 
-	const toggleGroup = createToggleGroup({ focus });
+	const toggleGroup = new ToggleGroup(focus);
 
-	export const pressed = () => toggleGroup.pressed;
+	export const active = () => toggleGroup.active;
 
-	setContext("choco-createItem", toggleGroup.createItem);
-	setContext("choco-variant", variant);
+	setItemContext(toggleGroup.createItem);
+	setVariantContext(variant);
 </script>
 
 <fieldset class={toggleGroupVariants({ orientation, className })} {...rest}>
