@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { toggleVariants, type ToggleProps } from "./index.js";
-	import { createToggle } from "$lib/builders/toggle/toggle.svelte.js";
 	import { ToggleButton } from "$lib/components/toggle.svelte.js";
 
 	let {
@@ -8,12 +7,14 @@
 		size,
 		variant,
 		pressed = $bindable(false),
-		builder = createToggle(),
+		kind,
+		value,
+		builder = (options) => new ToggleButton(options),
 		children,
 		...restProps
 	}: ToggleProps = $props();
 
-	const toggle = new ToggleButton({ pressed });
+	const toggle = builder({ pressed, kind, value });
 </script>
 
 <button
