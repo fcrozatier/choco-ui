@@ -3,7 +3,6 @@
 	import type { Orientation } from "$lib/internal/types";
 	import * as ToggleGroupUI from "$lib/ui/toggle-group";
 	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
-	import type { SvelteComponent } from "svelte";
 
 	let disabled: boolean | undefined = $state();
 	let variant: "outline" | "default" = $state("default");
@@ -23,7 +22,7 @@
 	toggleGroup2.createItem({ kind: "press", value: "I" });
 	toggleGroup2.createItem({ kind: "press", value: "U" });
 
-	let toggleUI: SvelteComponent<typeof ToggleGroupUI.Root> | undefined = $state();
+	let toggleUI: ToggleGroupUI.Root | undefined = $state();
 	const active = $derived(toggleUI?.active());
 </script>
 
