@@ -2,7 +2,6 @@ import { ChocoBase } from "../components/base.svelte";
 import type { Booleanish } from "svelte/elements";
 import { toggleValues } from "$lib/internal/helpers";
 import type { Constructor } from "./types";
-import { combineActions } from "$lib/actions/combineActions";
 import { addListener } from "$lib/actions/addListener";
 
 export type TogglableOptions = { initial: Record<string, Booleanish>; active?: boolean };
@@ -44,7 +43,7 @@ export const Togglable = <T extends Constructor<ChocoBase>>(superclass: T) => {
 				}
 			}
 
-			this.action = combineActions(super.action, addListener("click", this.toggle));
+			this.extendAction(addListener("click", this.toggle));
 			return this;
 		};
 

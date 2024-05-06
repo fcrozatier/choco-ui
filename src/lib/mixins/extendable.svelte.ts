@@ -1,6 +1,5 @@
 import { type Attributes, type ChocoBase } from "../components/base.svelte";
 import type { Constructor } from "./types";
-import { combineActions } from "$lib/actions/combineActions";
 
 export type ExtendableOptions = Partial<InstanceType<typeof ChocoBase>>;
 
@@ -17,7 +16,7 @@ export function Extendable<T extends Constructor<ChocoBase>>(superclass: T) {
 				this.#attributes = options.attributes;
 			}
 			if (options.action) {
-				this.action = combineActions(super.action, options.action);
+				this.extendAction(options.action);
 			}
 
 			return this;

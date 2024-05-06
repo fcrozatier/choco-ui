@@ -1,3 +1,6 @@
+import { combineActions } from "$lib/actions/combineActions";
+import type { Action } from "svelte/action";
+
 export type Attributes = Record<string, boolean | string | null | undefined>;
 
 export class ChocoBase<T extends HTMLElement = HTMLElement> {
@@ -12,4 +15,8 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> {
 	}
 
 	action(_: T) {}
+
+	extendAction(newAction: Action) {
+		this.action = combineActions(this.action, newAction);
+	}
 }
