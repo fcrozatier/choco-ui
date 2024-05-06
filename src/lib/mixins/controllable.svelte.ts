@@ -2,7 +2,6 @@ import { ChocoBase } from "../components/base.svelte";
 import type { Booleanish } from "svelte/elements";
 import type { Constructor } from "./types";
 import { addListener } from "$lib/actions/addListener";
-import { Extendable } from "./extendable.svelte";
 import { Togglable } from "./togglable.svelte";
 import { nanoId } from "$lib/utils/nano";
 
@@ -26,7 +25,7 @@ export type ControllableOptions = {
 	onToggle?: (node: HTMLElement) => void;
 };
 
-class Control extends Togglable(Extendable(ChocoBase)) {}
+class Control extends Togglable(ChocoBase) {}
 
 export const Controllable = <T extends Constructor<ChocoBase>>(superclass: T) => {
 	return class extends superclass {
@@ -68,20 +67,19 @@ export const Controllable = <T extends Constructor<ChocoBase>>(superclass: T) =>
 			const controlId = nanoId();
 			const targetId = nanoId();
 
-			this.control.initExtendable({
-				attributes: { "aria-controls": targetId, ...(options.labelledBy ? { id: controlId } : {}) },
-				action: addListener("click", () => this.target.toggle()),
+			this.control.extendAttributes({
+				"aria-controls": targetId,
+				id: options.labelledBy ? controlId : undefined,
 			});
+			this.control.extendActions(addListener("click", () => this.target.toggle()));
 			this.control.initTogglable({
 				initial: options.control,
 				active: options.active,
 			});
 
-			this.target.initExtendable({
-				attributes: {
-					id: targetId,
-					...(options.labelledBy ? { "aria-labelledby": controlId } : {}),
-				},
+			this.target.extendAttributes({
+				id: targetId,
+				"aria-labelledby": options.labelledBy ? controlId : undefined,
 			});
 			this.target.initTogglable({
 				initial: options.target,

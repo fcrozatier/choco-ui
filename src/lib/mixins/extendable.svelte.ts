@@ -10,7 +10,7 @@ export function Extendable<T extends Constructor<ChocoBase>>(superclass: T) {
 				this.extendAttributes(options.attributes);
 			}
 			if (options.action) {
-				this.extendAction(options.action);
+				this.extendActions(options.action);
 			}
 
 			return this;
