@@ -1,10 +1,11 @@
-import { combineActions } from "$lib/actions/combineActions";
+import { mergeActions } from "$lib/actions/combineActions";
 import type { Action } from "svelte/action";
 
 export type Attributes = Record<string, boolean | string | null | undefined>;
 
 export class ChocoBase<T extends HTMLElement = HTMLElement> {
 	#attributes = $state({});
+	#actions: Action<T>[] = [];
 
 	get attributes(): Attributes {
 		return this.#attributes;
@@ -14,10 +15,12 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> {
 		this.#attributes = newV;
 	}
 
-	action(_: T) {}
+	get action() {
+		return mergeActions(...this.#actions);
+	}
 
-	extendAction(newAction: Action<T>) {
-		this.action = combineActions(this.action, newAction);
+	extendActions(action: Action<T>) {
+		this.#actions.push(action);
 	}
 
 	extendAttributes(newAttributes: Attributes) {
