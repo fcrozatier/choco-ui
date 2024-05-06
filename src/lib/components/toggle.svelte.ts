@@ -1,4 +1,3 @@
-import { Extendable } from "$lib/mixins/extendable.svelte";
 import { Togglable } from "$lib/mixins/togglable.svelte";
 import { role } from "$lib/utils/roles";
 import { ChocoBase } from "./base.svelte";
@@ -17,7 +16,7 @@ export type ToggleOptions = {
 
 const defaults = { pressed: false, kind: "press", value: "" } satisfies Required<ToggleOptions>;
 
-export class ToggleButton extends Togglable(Extendable(ChocoBase<HTMLButtonElement>)) {
+export class ToggleButton extends Togglable(ChocoBase<HTMLButtonElement>) {
 	presssed = $derived(this.active); // alias
 
 	constructor(options?: ToggleOptions) {
@@ -36,12 +35,12 @@ export class ToggleButton extends Togglable(Extendable(ChocoBase<HTMLButtonEleme
 			role: toggleOptions.kind === "switch" ? role.switch : undefined,
 		};
 
-		this.initExtendable({ attributes });
+		this.extendAttributes(attributes);
 		this.initTogglable({ initial, active: toggleOptions.pressed });
 	}
 }
 
-export class SwitchInput extends Togglable(Extendable(ChocoBase<HTMLInputElement>)) {
+export class SwitchInput extends Togglable(ChocoBase<HTMLInputElement>) {
 	constructor(options?: Pick<ToggleOptions, "pressed">) {
 		super();
 
@@ -49,7 +48,7 @@ export class SwitchInput extends Togglable(Extendable(ChocoBase<HTMLInputElement
 		const attributes = { role: role.switch, type: "checkbox" };
 		const initial = { "aria-checked": `${pressed}` } as const;
 
-		this.initExtendable({ attributes });
+		this.extendAttributes(attributes);
 		this.initTogglable({ initial });
 	}
 }
