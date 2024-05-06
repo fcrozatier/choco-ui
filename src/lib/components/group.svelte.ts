@@ -11,12 +11,16 @@ import type { ChocoBase } from "./base.svelte";
  */
 export class Group<T extends ChocoBase> {
 	items: T[] = $state([]);
-
+	focusOptions: ManageFocusOptions | false;
 	focusAction: Action | undefined;
 
-	constructor(focus?: ManageFocusOptions | false) {
-		if (focus !== false) {
-			this.focusAction = manageFocus(focus);
+	constructor(focusOptions?: ManageFocusOptions | false) {
+		this.focusOptions = focusOptions ?? false;
+	}
+
+	initGroup() {
+		if (this.focusOptions !== false) {
+			this.focusAction = manageFocus(this.focusOptions);
 		}
 	}
 }
