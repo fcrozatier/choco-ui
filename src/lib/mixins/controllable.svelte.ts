@@ -1,6 +1,5 @@
 import { ChocoBase } from "../components/base.svelte";
 import type { Booleanish } from "svelte/elements";
-import type { Constructor } from "./types";
 import { addListener } from "$lib/actions/addListener";
 import { Togglable } from "./togglable.svelte";
 import { nanoId } from "$lib/utils/nano";
@@ -27,64 +26,61 @@ export type ControllableOptions = {
 
 class Control extends Togglable(ChocoBase) {}
 
-export const Controllable = <T extends Constructor<ChocoBase>>(superclass: T) => {
-	return class extends superclass {
-		control: Control;
-		target: Control;
+export class Controllable {
+	control: Control;
+	target: Control;
 
-		get active() {
-			return this.control.active;
+	get active() {
+		return this.control.active;
+	}
+
+	set active(v: boolean) {
+		if (v !== this.control.active) {
+			this.toggle();
 		}
+	}
 
-		set active(v: boolean) {
-			if (v !== this.control.active) {
-				this.toggle();
-			}
-		}
+	constructor() {
+		this.control = new Control();
+		this.target = new Control();
+	}
 
-		constructor(...options: any[]) {
-			super(...options);
-			this.control = new Control();
-			this.target = new Control();
-		}
-
-		toggle = () => {
-			this.control.toggle();
-			this.target.toggle();
-		};
-
-		on = () => {
-			this.control.on();
-			this.target.on();
-		};
-
-		off = () => {
-			this.control.off();
-			this.target.off();
-		};
-
-		initControllable(options: ControllableOptions) {
-			const controlId = nanoId();
-			const targetId = nanoId();
-
-			this.control.extendAttributes({
-				"aria-controls": targetId,
-				id: options.labelledBy ? controlId : undefined,
-			});
-			this.control.extendActions(addListener("click", () => this.target.toggle()));
-			this.control.initTogglable({
-				initial: options.control,
-				active: options.active,
-			});
-
-			this.target.extendAttributes({
-				id: targetId,
-				"aria-labelledby": options.labelledBy ? controlId : undefined,
-			});
-			this.target.initTogglable({
-				initial: options.target,
-				active: options.active,
-			});
-		}
+	toggle = () => {
+		this.control.toggle();
+		this.target.toggle();
 	};
-};
+
+	on = () => {
+		this.control.on();
+		this.target.on();
+	};
+
+	off = () => {
+		this.control.off();
+		this.target.off();
+	};
+
+	initControllable(options: ControllableOptions) {
+		const controlId = nanoId();
+		const targetId = nanoId();
+
+		this.control.extendAttributes({
+			"aria-controls": targetId,
+			id: options.labelledBy ? controlId : undefined,
+		});
+		this.control.extendActions(addListener("click", () => this.target.toggle()));
+		this.control.initTogglable({
+			initial: options.control,
+			active: options.active,
+		});
+
+		this.target.extendAttributes({
+			id: targetId,
+			"aria-labelledby": options.labelledBy ? controlId : undefined,
+		});
+		this.target.initTogglable({
+			initial: options.target,
+			active: options.active,
+		});
+	}
+}
