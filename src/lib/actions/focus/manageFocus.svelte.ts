@@ -11,19 +11,18 @@ export type ManageFocusOptions = {
 	onFocus?: <T extends HTMLElement>(from: T, to: T) => void;
 };
 
-const defaults = {
+const defaults: ManageFocusOptions = {
 	loop: true,
 	roving: true,
-} satisfies ManageFocusOptions;
+};
 
 /**
  * Manage focus in a composite widget with the keyboard arrows.
  *
  */
 export const manageFocus = (options?: ManageFocusOptions) => {
-	const loop = options?.loop ?? defaults.loop;
-	const roving = options?.roving ?? defaults.roving;
-	const items: HTMLElement[] = [];
+	options = { ...defaults, ...options };
+	const items: HTMLElement[] = $state([]);
 
 	const handleKeydown = (e: KeyboardEvent) => {
 		const index = items.findIndex((tab) => tab === e.currentTarget);
@@ -32,11 +31,13 @@ export const manageFocus = (options?: ManageFocusOptions) => {
 		switch (e.key) {
 			case key.ARROW_LEFT:
 			case key.ARROW_UP:
-				newIndex = loop ? modulo(index - 1, items.length) : Math.max(0, index - 1);
+				newIndex = options.loop ? modulo(index - 1, items.length) : Math.max(0, index - 1);
 				break;
 			case key.ARROW_RIGHT:
 			case key.ARROW_DOWN:
-				newIndex = loop ? (index + 1) % items.length : Math.min(items.length - 1, index + 1);
+				newIndex = options.loop
+					? (index + 1) % items.length
+					: Math.min(items.length - 1, index + 1);
 				break;
 			case key.HOME:
 				newIndex = 0;
@@ -75,7 +76,7 @@ export const manageFocus = (options?: ManageFocusOptions) => {
 		let focusable: HTMLElement | undefined;
 
 		for (let item of items) {
-			if (roving) {
+			if (options.roving) {
 				// Focuses the first active element if any
 				if (
 					!focusable &&
@@ -99,9 +100,8 @@ export const manageFocus = (options?: ManageFocusOptions) => {
 	});
 
 	return ((node) => {
-		items.push(node);
-
 		node.addEventListener("keydown", handleKeydown);
+		items.push(node);
 
 		return {
 			destroy() {
