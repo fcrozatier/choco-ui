@@ -29,11 +29,11 @@ type TabOptions = {
 	active?: boolean;
 };
 
-class Tab extends Controllable(ChocoBase) {
+class Tab extends Controllable {
 	value: string;
 
 	constructor(options: TabOptions) {
-		super(options);
+		super();
 		this.initControllable({
 			control: { "aria-selected": `${options.active ?? false}` },
 			target: { "aria-expanded": `${options.active ?? false}`, hidden: !options.active },
