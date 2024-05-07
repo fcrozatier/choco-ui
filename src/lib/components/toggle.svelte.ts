@@ -17,8 +17,7 @@ export type ToggleOptions = {
 const defaults = { pressed: false, kind: "press", value: "" } satisfies Required<ToggleOptions>;
 
 export class ToggleButton extends Togglable(ChocoBase<HTMLButtonElement>) {
-	presssed = $derived(this.active); // alias
-	value = $derived(this?.attributes?.value); // alias
+	value = $derived(this.attributes?.value); // alias
 
 	constructor(options?: ToggleOptions) {
 		super();
