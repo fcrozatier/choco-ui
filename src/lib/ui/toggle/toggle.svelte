@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { trimUndefined } from "@fcrozatier/ts-helpers/objects";
 	import { toggleVariants, type ToggleProps } from "./index.js";
 	import { ToggleButton } from "$lib/components/toggle.svelte.js";
 
@@ -14,7 +15,7 @@
 		...restProps
 	}: ToggleProps = $props();
 
-	const toggle = builder({ pressed, kind, value });
+	const toggle = builder(trimUndefined({ pressed, kind, value }));
 </script>
 
 <button
