@@ -1,34 +1,34 @@
 <script lang="ts">
-	import { createTabs, type TabsOptions } from "$lib/builders/tabs/tabs.svelte";
-	import { setContext, type Snippet } from "svelte";
+	import { type TabsOptions } from "$lib/builders/tabs/tabs.svelte";
+	import { Tabs } from "$lib/components/tabs.svelte";
+	import { trimUndefined } from "@fcrozatier/ts-helpers";
+	import { type Snippet } from "svelte";
+	import { setTabsContext } from ".";
 
 	let {
 		class: className,
-		orientation = "horizontal",
-		// Focus options
-		activateOnFocus = true,
-		loop = true,
-		onFocus,
-		//
-		managed = true,
+		activateOnFocus,
+		orientation,
 		value,
+		loop,
+		onFocus,
 		children,
 	}: TabsOptions & {
 		class?: string;
 		children: Snippet;
 	} = $props();
 
-	const { createPanel, createTab } = createTabs({
-		value,
-		activateOnFocus,
-		onFocus,
-		loop,
-		managed,
-		orientation,
-	});
+	const tabs = new Tabs(
+		trimUndefined({
+			activateOnFocus,
+			orientation,
+			onFocus,
+			value,
+			loop,
+		}),
+	);
 
-	setContext("choco-tab", createTab);
-	setContext("choco-panel", createPanel);
+	setTabsContext(tabs);
 </script>
 
 <div class={className}>

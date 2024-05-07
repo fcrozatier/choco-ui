@@ -1,46 +1,41 @@
 <script lang="ts">
-	import { createTabs } from "$lib/builders/tabs/tabs.svelte";
-	import * as Tabs from "$lib/ui/tabs";
+	import { Tabs } from "$lib/components/tabs.svelte";
+	import * as TabsUI from "$lib/ui/tabs";
 
-	// Something's wrong with roving focus
-	const { createTab, createPanel } = createTabs({ activateOnFocus: true });
+	const { createItem, createTablist } = new Tabs({ activateOnFocus: true });
+
+	const items = [
+		{ item: createItem({ value: "first", active: true }), label: "label 1", content: "panel 1" },
+		{ item: createItem({ value: "second" }), label: "label 2", content: "panel 2" },
+		{ item: createItem({ value: "third" }), label: "label 3", content: "panel 3" },
+	];
 </script>
-
-{#snippet tab(value, label)}
-	<button use:createTab={{ value }}>{label}</button>
-{/snippet}
-
-{#snippet panel(value, content)}
-	<div use:createPanel={{ value }}>{content}</div>
-{/snippet}
 
 <section>
 	<div aria-label="Select a tab">
-		<div>
-			{@render tab("first", "Tab 1")}
-			{@render tab("second", "Tab 2")}
-			{@render tab("third", "Tab 3")}
-			{@render tab("fourth", "Tab 4")}
+		<div {...createTablist().attributes}>
+			{#each items as { item, label }}
+				<button {...item.control.attributes} use:item.control.action>{label}</button>
+			{/each}
 		</div>
-		{@render panel("first", "Panel 1")}
-		{@render panel("second", "Panel 2")}
-		{@render panel("third", "Panel 3")}
-		{@render panel("fourth", "Panel 4")}
+		{#each items as { item, content }}
+			<button {...item.target.attributes} use:item.target.action>{content}</button>
+		{/each}
 	</div>
 </section>
 
 <section>
 	<button>before</button>
 
-	<Tabs.Root value="" loop={true} activateOnFocus={true} class="w-md">
-		<Tabs.TabList aria-label="Update your account">
-			<Tabs.Tab value="account">Account</Tabs.Tab>
-			<Tabs.Tab value="password">Password</Tabs.Tab>
-		</Tabs.TabList>
+	<TabsUI.Root value="password" loop={true} activateOnFocus={true} class="w-md">
+		<TabsUI.TabList aria-label="Update your account">
+			<TabsUI.Tab value="account">Account</TabsUI.Tab>
+			<TabsUI.Tab value="password">Password</TabsUI.Tab>
+		</TabsUI.TabList>
 
-		<Tabs.Panel value="account">Make changes to your account <button>here</button>.</Tabs.Panel>
-		<Tabs.Panel value="password">Change your password here.</Tabs.Panel>
-	</Tabs.Root>
+		<TabsUI.Panel value="account">Make changes to your account <button>here</button>.</TabsUI.Panel>
+		<TabsUI.Panel value="password">Change your password here.</TabsUI.Panel>
+	</TabsUI.Root>
 
 	<button>after</button>
 </section>

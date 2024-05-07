@@ -2,12 +2,15 @@
 	import { cn } from "$lib/utils/styles";
 	import { type Snippet } from "svelte";
 	import type { HTMLAttributes } from "svelte/elements";
+	import { getTabsContext } from ".";
 
 	let {
 		class: className,
 		children,
 		...restProps
 	}: HTMLAttributes<HTMLDivElement> & { children: Snippet } = $props();
+
+	const tabList = getTabsContext().createTablist;
 </script>
 
 <div
@@ -15,6 +18,7 @@
 		"bg-muted text-muted-foreground flex h-10 items-center justify-center rounded-md p-1",
 		className,
 	)}
+	{...tabList().attributes}
 	{...restProps}
 >
 	{@render children()}

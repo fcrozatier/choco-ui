@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { CreatePanel } from "$lib/builders/tabs/tabs.svelte";
-	import { getContext, type Snippet } from "svelte";
+	import { type Snippet } from "svelte";
 	import type { HTMLAttributes } from "svelte/elements";
+	import { getTabsContext } from ".";
 
 	let {
 		class: className,
@@ -10,9 +10,9 @@
 		...rest
 	}: HTMLAttributes<HTMLElement> & { value: string; children: Snippet } = $props();
 
-	const panel = getContext<CreatePanel>("choco-panel");
+	const tabItem = getTabsContext().items.find((i) => i.value === value);
 </script>
 
-<div use:panel={{ value }} class={className} {...rest}>
+<div {...tabItem?.target.attributes} use:tabItem?.target.action class={className} {...rest}>
 	{@render children()}
 </div>
