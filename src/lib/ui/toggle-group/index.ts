@@ -25,7 +25,7 @@ export function setItemContext(createItem: (options: ToggleOptions) => ToggleBut
 }
 
 export function getItemContext() {
-	return getContext<(options: ToggleOptions) => ToggleButton>(toggleItemSymbol);
+	return getContext<(options?: ToggleOptions) => ToggleButton>(toggleItemSymbol);
 }
 
 const toggleVariantSymbol = Symbol();
