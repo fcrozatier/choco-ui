@@ -26,7 +26,7 @@ export interface ToggleProps
 	extends Omit<HTMLButtonAttributes, "value">,
 		ToggleOptions,
 		Partial<VariantProps<typeof toggleVariants>> {
-	builder: (options?: ToggleOptions) => ToggleButton;
+	builder?: (options?: ToggleOptions) => ToggleButton;
 }
 
 export {
