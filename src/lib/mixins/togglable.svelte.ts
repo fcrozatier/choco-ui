@@ -28,7 +28,7 @@ export const Togglable = <T extends Constructor<ChocoBase>>(superclass: T) => {
 		initTogglable = (options: TogglableOptions) => {
 			this.#attributes = options.initial;
 
-			if (options.active) {
+			if (options.active !== undefined) {
 				this.#active = options.active;
 			} else {
 				// If the active state is not provided try to guess
