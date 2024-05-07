@@ -1,9 +1,10 @@
 import { mergeActions } from "$lib/actions/combineActions";
 import type { Action } from "svelte/action";
-import type { AriaAttributes, AriaRole, HTMLAttributes } from "svelte/elements";
+import type { AriaAttributes, HTMLAttributes } from "svelte/elements";
 
 export type Attributes = HTMLAttributes<HTMLElement> &
-	AriaAttributes & { role?: AriaRole } & Record<string, boolean | string | null | undefined>;
+	AriaAttributes &
+	Record<string, boolean | string | null | undefined>;
 
 export class ChocoBase<T extends HTMLElement = HTMLElement> {
 	#attributes = $state({});
