@@ -24,7 +24,7 @@ const defaults = { pressed: false, kind: "press" } satisfies ToggleOptions;
 /**
  * ## Toggle
  *
- * Use on button or input elements.
+ * Use on button.
  *
  * Semantics:
  * - pressed or not pressed (press toggle)
