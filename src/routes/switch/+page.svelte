@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { createToggle } from "$lib/builders/toggle/toggle.svelte";
+	import { Switch as SwitchToggle } from "$lib/components/switch.svelte";
 	import Switch from "$lib/ui/switch/switch.svelte";
 
-	const toggle = createToggle({ kind: "switch" });
+	const toggle = new SwitchToggle();
 </script>
 
 <form>
@@ -11,6 +11,7 @@
 			Airplane mode
 		</label>
 		<input
+			{...toggle.attributes}
 			use:toggle.action
 			class="bg-magnum-800 aria-checked:bg-magnum-950 relative h-6 cursor-default rounded-full transition-colors"
 			id="airplane-mode"
@@ -21,5 +22,4 @@
 
 <div class="flex items-center space-x-2">
 	<Switch id="airplane-mode" />
-	<!-- <Label for="airplane-mode">Airplane Mode</Label> -->
 </div>
