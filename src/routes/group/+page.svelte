@@ -4,9 +4,9 @@
 
 	const group = new ToggleGroup();
 
-	group.createItem({ kind: "press" });
-	group.createItem({ kind: "press" });
-	group.createItem({ kind: "press" });
+	group.createItem({});
+	group.createItem({});
+	group.createItem({});
 </script>
 
 <div>
