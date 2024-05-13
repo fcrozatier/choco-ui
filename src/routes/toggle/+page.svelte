@@ -31,9 +31,10 @@
 <h2>Button</h2>
 
 <p>
-	<button {...toggle.attributes} use:toggle.action {disabled}>
-		I'm {toggle.active ? "" : "not"} pressed</button
-	>
+	<button {...toggle.attributes} use:toggle.action {disabled}> press</button>
+</p>
+<p>
+	I'm {toggle.active ? "" : "not"} pressed
 </p>
 
 <h2>Styled</h2>

@@ -18,7 +18,7 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> {
 		this.#attributes = newV;
 	}
 
-	get action() {
+	get action(): Action<T> {
 		return mergeActions(...this.#actions);
 	}
 

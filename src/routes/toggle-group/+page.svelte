@@ -12,15 +12,15 @@
 
 	const toggleGroup = new ToggleGroup();
 
-	toggleGroup.createItem({ kind: "press", value: "orange" });
-	toggleGroup.createItem({ kind: "press", value: "banana" });
-	toggleGroup.createItem({ kind: "press", value: "apple" });
+	toggleGroup.createItem({ value: "orange" });
+	toggleGroup.createItem({ value: "banana" });
+	toggleGroup.createItem({ value: "apple" });
 
 	const toggleGroup2 = new ToggleGroup();
 
-	toggleGroup2.createItem({ kind: "press", value: "B" });
-	toggleGroup2.createItem({ kind: "press", value: "I" });
-	toggleGroup2.createItem({ kind: "press", value: "U" });
+	toggleGroup2.createItem({ value: "B" });
+	toggleGroup2.createItem({ value: "I" });
+	toggleGroup2.createItem({ value: "U" });
 
 	let toggleUI: ToggleGroupUI.Root | undefined = $state();
 	const active = $derived(toggleUI?.active());

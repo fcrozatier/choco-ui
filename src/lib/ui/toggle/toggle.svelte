@@ -8,14 +8,13 @@
 		size,
 		variant,
 		pressed = $bindable(false),
-		kind,
 		value,
 		builder = (options) => new ToggleButton(options),
 		children,
 		...restProps
 	}: ToggleProps = $props();
 
-	const toggle = builder(trimUndefined({ pressed, kind, value }));
+	const toggle = builder(trimUndefined({ pressed, value }));
 </script>
 
 <button
