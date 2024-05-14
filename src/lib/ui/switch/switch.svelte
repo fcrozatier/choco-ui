@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { choco } from "$lib/actions/choco";
 	import { Switch } from "$lib/components/switch.svelte";
 	import { cn } from "$lib/utils/styles.js";
 	import type { SwitchProps } from ".";
@@ -13,8 +14,7 @@
 		"handle h-6 w-12 shrink-0 cursor-pointer appearance-none rounded-full border border-gray-500 bg-gray-500 transition-shadow",
 		className,
 	)}
-	{...toggle.attributes}
-	use:toggle.action
+	use:choco={toggle}
 	{...restProps}
 >
 	{@render children?.()}

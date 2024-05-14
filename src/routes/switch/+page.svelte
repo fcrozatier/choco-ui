@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { choco } from "$lib/actions/choco";
 	import { Switch as SwitchToggle } from "$lib/components/switch.svelte";
 	import Switch from "$lib/ui/switch/switch.svelte";
 
@@ -11,8 +12,7 @@
 			Airplane mode
 		</label>
 		<input
-			{...toggle.attributes}
-			use:toggle.action
+			use:choco={toggle}
 			class="bg-magnum-800 aria-checked:bg-magnum-950 relative h-6 cursor-default rounded-full transition-colors"
 			id="airplane-mode"
 			aria-labelledby="airplane-mode-label"
