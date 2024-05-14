@@ -4,7 +4,7 @@ import { userEvent } from "@testing-library/user-event";
 import ToggleTest from "./ToggleTest.svelte";
 import { axe } from "jest-axe";
 
-describe("ToggleComponent", () => {
+describe("Toggle", () => {
 	it("has no accessibility violations", async () => {
 		const { container, unmount } = render(ToggleTest);
 		expect(await axe(container)).toHaveNoViolations();

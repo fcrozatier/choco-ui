@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { choco } from "$lib/actions/choco";
 	import { ToggleButton } from "$lib/components/toggle.svelte";
 
 	let disabled = $state(false);
@@ -16,5 +17,5 @@
 		toggle programmatically
 	</label>
 
-	<button {...toggle.attributes} use:toggle.action {disabled}>press</button>
+	<button use:choco={toggle} {disabled}>press</button>
 </main>
