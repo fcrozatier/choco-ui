@@ -12,9 +12,8 @@ export class ToggleGroup extends Group<ToggleButton> {
 
 	createItem = (options: ToggleOptions): ToggleButton => {
 		const item = new ToggleButton(options);
-		if (this.focusAction) {
-			item.extendActions(this.focusAction);
-		}
+
+		item.extendActions(this.focusAction);
 		this.items.push(item);
 		return item;
 	};

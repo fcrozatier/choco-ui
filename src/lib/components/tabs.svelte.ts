@@ -84,9 +84,8 @@ export class Tabs extends Group<Tab> {
 				: this.#options.value === options.value;
 
 		const item = new Tab({ value: options.value, active });
-		if (this.focusAction) {
-			item.control.extendActions(this.focusAction);
-		}
+
+		item.control.extendActions(this.focusAction);
 		this.items.push(item);
 		return item;
 	};

@@ -28,8 +28,10 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> {
 		}
 	}
 
-	extendActions(action: Action<T>) {
-		this.#actions.push(action);
+	extendActions(action?: Action<T>) {
+		if (action) {
+			this.#actions.push(action);
+		}
 	}
 
 	extendAttributes(newAttributes: Attributes) {
