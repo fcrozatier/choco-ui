@@ -1,4 +1,4 @@
-import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
+import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus.svelte";
 import type { Action } from "svelte/action";
 
 /**

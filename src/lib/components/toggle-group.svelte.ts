@@ -1,4 +1,4 @@
-import type { ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
+import type { ManageFocusOptions } from "$lib/actions/focus.svelte";
 import { Group } from "./group.svelte";
 import { ToggleButton, type ToggleOptions } from "./toggle.svelte";
 

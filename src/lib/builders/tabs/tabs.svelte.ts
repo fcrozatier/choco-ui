@@ -1,8 +1,7 @@
 import type { Action } from "svelte/action";
 import type { Orientation } from "$lib/internal/types";
 import { role } from "$lib/utils/roles";
-import { type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
-import { isFocusable } from "$lib/actions/focus/focusHelper";
+import { makeFocusable, type ManageFocusOptions } from "$lib/actions/focus.svelte";
 import { createTogglerGroup } from "../toggler-group/toggler-group.svelte";
 import { createToggler } from "../toggler/toggler.svelte";
 
@@ -81,9 +80,7 @@ export const createTabs = (options?: TabsOptions) => {
 		});
 
 		// Make sure the panel is in the tab sequence
-		if (!isFocusable(node)) {
-			node.tabIndex = 0;
-		}
+		makeFocusable(node);
 	}) satisfies Action<HTMLDivElement, { value: string }>;
 
 	$effect(() => {

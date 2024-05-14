@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { manageFocus } from "$lib/actions/focus/manageFocus.svelte";
+	import { manageFocus } from "$lib/actions/focus.svelte";
 
 	const focusGroupRadio = manageFocus();
 	const focusGroupRadio2 = manageFocus({ onFocus: (_, to) => to.click() });

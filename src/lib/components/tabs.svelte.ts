@@ -1,5 +1,5 @@
-import { makeFocusable } from "$lib/actions/focus/focusHelper";
-import type { ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
+import { makeFocusable } from "$lib/actions/focus.svelte";
+import type { ManageFocusOptions } from "$lib/actions/focus.svelte";
 import type { Orientation } from "$lib/internal/types";
 import { Controllable } from "$lib/mixins/controllable.svelte";
 import { role } from "$lib/utils/roles";
