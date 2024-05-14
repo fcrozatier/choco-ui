@@ -52,13 +52,6 @@ function arctan(x: number, y: number) {
 }
 
 /**
- * Computes the dot product between vectors v1 and v2
- */
-function dotProduct<T extends Point>(v1: T, v2: T) {
-	return v1.x * v2.x + v1.y * v2.y;
-}
-
-/**
  * Computes the determinant of v1 and v2 in this order (anti-symmetric)
  */
 function determinant<T extends Point>(v1: T, v2: T) {
