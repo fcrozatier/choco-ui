@@ -11,7 +11,7 @@ import type { Action } from "svelte/action";
 export class Group<T> {
 	items: T[] = $state([]);
 	focusOptions?: ManageFocusOptions | false;
-	focusAction: Action | undefined;
+	focusAction?: Action | undefined;
 
 	constructor(focusOptions?: ManageFocusOptions | false) {
 		this.focusOptions = focusOptions;
