@@ -3,18 +3,18 @@ import MagicString from "magic-string";
 import { parse } from "svelte/compiler";
 
 /**
- * @param ast {import("svelte/compiler").Root}
- * @param args {import("./preprocessor").WalkerArgs}
+ * @param {import("svelte/compiler").Root} ast
+ * @param {import("./preprocessor").WalkerArgs} args
  */
 export function walk(ast, args) {
 	// @ts-expect-error estree-walker doesn't want Svelte Ast type
 	return estreeWalk(ast, args);
 }
 
-/** @type {() => import("svelte/compiler").PreprocessorGroup} */
 export default () => {
 	return {
 		name: "Choco preprocessor",
+		/** @satisfies {import("svelte/compiler").MarkupPreprocessor} */
 		markup: ({ content, filename }) => {
 			if (!/use:choco=/.test(content)) return { code: content };
 
@@ -24,12 +24,15 @@ export default () => {
 			walk(ast, {
 				enter(node) {
 					if (node.type === "UseDirective" && node.name === "choco" && node.expression) {
-						const expression = markup.slice(node.expression.start, node.expression.end);
+						/** @type {import("svelte/compiler").BaseNode} */
+						// @ts-ignore
+						const expression = node.expression;
+						const stringExp = markup.slice(expression.start, expression.end);
 
 						markup.update(
 							node.start,
 							node.end,
-							`{...${expression}.attributes} use:${expression}.action`,
+							`{...${stringExp}.attributes} use:${stringExp}.action`,
 						);
 					}
 				},

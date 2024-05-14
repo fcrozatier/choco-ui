@@ -25,5 +25,5 @@ test.each([
 		"<input {...tabList().attributes} use:tabList().action />",
 	],
 ])("choco preprocessor works with %s", async (_, before, after) => {
-	expect(await markup?.({ content: before })?.code).toBe(after);
+	expect(markup({ content: before }).code).toBe(after);
 });
