@@ -1,5 +1,5 @@
 import { type ToggleElement } from "../toggle/toggle.svelte";
-import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus/manageFocus.svelte";
+import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus.svelte";
 import { commonParent } from "$lib/utils/helpers";
 import { type Toggler } from "../toggler/toggler.svelte";
 import type { role } from "$lib/utils/roles";
