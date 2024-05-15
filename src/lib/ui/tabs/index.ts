@@ -5,14 +5,14 @@ import TabList from "./tablist.svelte";
 import { getContext, setContext } from "svelte";
 import type { Tabs } from "$lib/components/tabs.svelte";
 
-const tabsSymbol = Symbol();
+const key = Symbol();
 
 export function setTabsContext(tabs: Tabs) {
-	setContext(tabsSymbol, tabs);
+	setContext(key, tabs);
 }
 
 export function getTabsContext() {
-	return getContext<Tabs>(tabsSymbol);
+	return getContext<Tabs>(key);
 }
 
 export { Root, Panel, Tab, TabList };
