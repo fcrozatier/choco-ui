@@ -15,13 +15,4 @@ export function getTabsContext() {
 	return getContext<Tabs>(tabsSymbol);
 }
 
-export {
-	Root,
-	Panel,
-	Tab,
-	TabList,
-	//
-	Root as Tabs,
-	Panel as TabsPanel,
-	Tab as TabsTrigger,
-};
+export { Root, Panel, Tab, TabList };
