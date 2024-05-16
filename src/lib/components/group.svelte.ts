@@ -14,6 +14,8 @@ export type GroupOptions = {
 	single?: boolean;
 };
 
+const defaults = { activateOnFocus: false, single: false } satisfies GroupOptions;
+
 /**
  * The focus action enhances the keyboard navigability of your components
  *
@@ -33,7 +35,7 @@ export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => 
 		activeItems = $derived(this.items.filter((item) => item.active));
 
 		constructor(options?: GroupOptions) {
-			this.options = options;
+			this.options = { ...defaults, ...options };
 
 			const map = this.#itemsMap;
 			this.#focusAction = manageFocus({
