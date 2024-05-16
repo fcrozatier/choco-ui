@@ -3,6 +3,7 @@
 	import type { Orientation } from "$lib/internal/types";
 	import * as ToggleGroupUI from "$lib/ui/toggle-group";
 	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
+	import { choco } from "$lib/actions/choco";
 
 	let disabled: boolean | undefined = $state();
 	let variant: "outline" | "default" = $state("default");
@@ -10,7 +11,7 @@
 
 	let group = $state([]);
 
-	const toggleGroup = new ToggleGroup();
+	const toggleGroup = new ToggleGroup({ single: true, activateOnFocus: true });
 
 	toggleGroup.createItem({ value: "orange" });
 	toggleGroup.createItem({ value: "banana" });
@@ -30,7 +31,7 @@
 	<legend>toggle group</legend>
 
 	{#each toggleGroup.items as item}
-		<button {...item.attributes} use:item.action>{item.attributes.value}</button>
+		<button use:choco={item}>{item.attributes.value}</button>
 	{/each}
 </div>
 
@@ -80,6 +81,6 @@ active
 	<legend>toggle group</legend>
 
 	{#each toggleGroup2.items as item}
-		<button {...item.attributes} use:item.action class={t.toggleGroup.item()}>{item.value}</button>
+		<button use:choco={item} class={t.toggleGroup.item()}>{item.value}</button>
 	{/each}
 </fieldset>
