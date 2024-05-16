@@ -4,7 +4,19 @@ import { toggleValues } from "$lib/internal/helpers";
 import type { Constructor } from "./types";
 import { addListener } from "$lib/actions/addListener";
 
-export type TogglableOptions = { initial: Record<string, Booleanish>; active?: boolean };
+export type TogglableOptions = {
+	initial: Record<string, Booleanish>;
+	active?: boolean;
+};
+
+export interface Toggler {
+	get active(): boolean;
+	set active(val: boolean);
+	toggle(): void;
+	on(): void;
+	off(): void;
+	onToggle: (item: this) => void;
+}
 
 export const Togglable = <
 	U extends HTMLElement = HTMLElement,
@@ -12,7 +24,7 @@ export const Togglable = <
 >(
 	superclass: T,
 ) => {
-	return class extends superclass {
+	return class extends superclass implements Toggler {
 		#attributes: Record<string, Booleanish> = $state({});
 		#active = $state(false);
 
@@ -21,9 +33,7 @@ export const Togglable = <
 		}
 
 		set active(v: boolean) {
-			if (this.#active !== v) {
-				this.toggle();
-			}
+			if (this.#active !== v) this.toggle();
 		}
 
 		override get attributes() {
@@ -55,18 +65,17 @@ export const Togglable = <
 		toggle = () => {
 			this.#active = !this.#active;
 			toggleValues(this.#attributes);
+			this.onToggle(this);
 		};
 
+		onToggle = (_item: Toggler) => {};
+
 		on = () => {
-			if (!this.active) {
-				this.toggle();
-			}
+			if (!this.active) this.toggle();
 		};
 
 		off = () => {
-			if (this.active) {
-				this.toggle();
-			}
+			if (this.active) this.toggle();
 		};
 	};
 };
