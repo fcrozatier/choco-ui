@@ -15,7 +15,6 @@ export interface Toggler {
 	toggle(): void;
 	on(): void;
 	off(): void;
-	onToggle: (item: this) => void;
 }
 
 export const Togglable = <
@@ -40,6 +39,11 @@ export const Togglable = <
 			return { ...this.#attributes, ...super.attributes };
 		}
 
+		constructor(...options: any[]) {
+			super(...options);
+			this.toggle = this.toggle.bind(this);
+		}
+
 		initTogglable = (options: TogglableOptions) => {
 			this.#attributes = options.initial;
 
@@ -62,13 +66,10 @@ export const Togglable = <
 			return this;
 		};
 
-		toggle = () => {
+		toggle() {
 			this.#active = !this.#active;
 			toggleValues(this.#attributes);
-			this.onToggle(this);
-		};
-
-		onToggle = (_item: Toggler) => {};
+		}
 
 		on = () => {
 			if (!this.active) this.toggle();
