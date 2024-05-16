@@ -1,4 +1,3 @@
-import { type ToggleElement } from "../toggle/toggle.svelte";
 import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus.svelte";
 import { commonParent } from "$lib/utils/helpers";
 import { type Toggler } from "../toggler/toggler.svelte";
@@ -38,7 +37,7 @@ export const createTogglerGroup = <T extends { toggler?: Toggler }>(
 	});
 
 	const handleExclusive = (e: Event) => {
-		const target = e.currentTarget as ToggleElement;
+		const target = e.currentTarget;
 
 		const control = items.find((i) => i.toggler?.controlElement === target);
 
