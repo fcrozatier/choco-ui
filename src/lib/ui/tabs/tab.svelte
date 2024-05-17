@@ -4,13 +4,14 @@
 	import type { HTMLButtonAttributes } from "svelte/elements";
 	import { getTabsContext } from ".";
 	import { choco } from "$lib/actions/choco";
+	import type { TabOptions } from "$lib/components/tabs.svelte";
 
 	let {
 		class: className,
 		value,
 		children,
 		...restProps
-	}: HTMLButtonAttributes & { value: string; children: Snippet } = $props();
+	}: HTMLButtonAttributes & Omit<TabOptions, "active"> & { children: Snippet } = $props();
 
 	const tab = getTabsContext().createItem({ value });
 </script>

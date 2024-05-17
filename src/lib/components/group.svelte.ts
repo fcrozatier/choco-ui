@@ -9,12 +9,20 @@ export type GroupOptions = {
 	 */
 	activateOnFocus?: boolean;
 	/**
+	 * Prevents having no active elements
+	 */
+	preventInactivation?: boolean;
+	/**
 	 * Whether only a single item can be active at a time. Defaults to `false`
 	 */
 	single?: boolean;
 };
 
-const defaults = { activateOnFocus: false, single: false } satisfies GroupOptions;
+const defaults = {
+	activateOnFocus: false,
+	preventInactivation: false,
+	single: false,
+} satisfies GroupOptions;
 
 /**
  * The focus action enhances the keyboard navigability of your components
@@ -60,8 +68,8 @@ export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => 
 			const focus = this.#focusAction;
 
 			return class extends superclass {
-				constructor(...options: any[]) {
-					super(...options);
+				constructor(...args: any[]) {
+					super(...args);
 
 					this.extendActions((node) => {
 						map.set(node, this as InstanceType<T>);
@@ -72,6 +80,15 @@ export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => 
 				}
 
 				override toggle() {
+					// Prevent toggling off the current active element
+					if (
+						options?.preventInactivation &&
+						this.active &&
+						items.every((item) => item === this || !item.active)
+					) {
+						return;
+					}
+
 					super.toggle();
 
 					if (this.active && options?.single) {

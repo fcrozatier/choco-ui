@@ -16,15 +16,19 @@ type BaseTabsOptions = {
 };
 
 export type TabsOptions = BaseTabsOptions &
-	OmitSubtype<GroupOptions, { focus?: { roving?: boolean }; single?: boolean }>;
+	OmitSubtype<
+		GroupOptions,
+		{ focus?: { roving?: boolean }; single?: boolean; preventInactivation?: boolean }
+	>;
 
 const defaults = {
+	preventInactivation: true,
 	activateOnFocus: true,
 	orientation: "horizontal",
 	single: true,
 } satisfies BaseTabsOptions & GroupOptions;
 
-type TabOptions = {
+export type TabOptions = {
 	value: string;
 	/**
 	 * Whether the tab is the default active tab. If not provided the first tab is active
@@ -38,9 +42,9 @@ class Tab extends Controllable(Togglable(ChocoBase)) {
 	constructor(options: TabOptions) {
 		super();
 		this.initControllable({
-			control: { "aria-selected": `${options.active ?? false}` },
-			target: { "aria-expanded": `${options.active ?? false}`, hidden: !options.active },
-			active: options.active ?? false,
+			control: { "aria-selected": `${!!options.active}` },
+			target: { "aria-expanded": `${!!options.active}`, hidden: !options.active },
+			active: !!options.active,
 			labelledBy: true,
 		});
 		this.extendAttributes({ role: role.tab, value: options.value });
