@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { choco } from "$lib/actions/choco";
 	import { Tabs } from "$lib/components/tabs.svelte";
 	import * as TabsUI from "$lib/ui/tabs";
 
-	const { createItem, createTablist } = new Tabs({ activateOnFocus: true });
+	const { createItem, tablist } = new Tabs({ activateOnFocus: true });
 
 	const items = [
 		{ item: createItem({ value: "first", active: true }), label: "label 1", content: "panel 1" },
@@ -13,13 +14,13 @@
 
 <section>
 	<div aria-label="Select a tab">
-		<div {...createTablist().attributes}>
+		<div {...tablist.attributes}>
 			{#each items as { item, label }}
-				<button {...item.control.attributes} use:item.control.action>{label}</button>
+				<button use:choco={item}>{label}</button>
 			{/each}
 		</div>
 		{#each items as { item, content }}
-			<button {...item.target.attributes} use:item.target.action>{content}</button>
+			<div use:choco={item.target}>{content}</div>
 		{/each}
 	</div>
 </section>
@@ -27,7 +28,7 @@
 <section>
 	<button>before</button>
 
-	<TabsUI.Root value="password" loop={true} activateOnFocus={true} class="w-md">
+	<TabsUI.Root value="password" focus={{ loop: true }} activateOnFocus={true} class="w-md">
 		<TabsUI.TabList aria-label="Update your account">
 			<TabsUI.Tab value="account">Account</TabsUI.Tab>
 			<TabsUI.Tab value="password">Password</TabsUI.Tab>

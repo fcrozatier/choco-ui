@@ -2,6 +2,7 @@
 	import { type Snippet } from "svelte";
 	import type { HTMLAttributes } from "svelte/elements";
 	import { getTabsContext } from ".";
+	import { choco } from "$lib/actions/choco";
 
 	let {
 		class: className,
@@ -10,9 +11,11 @@
 		...rest
 	}: HTMLAttributes<HTMLElement> & { value: string; children: Snippet } = $props();
 
-	const tabItem = getTabsContext().items.find((i) => i.value === value);
+	const panel = getTabsContext().items.find((i) => i.value === value)?.target;
+
+	if (!panel) throw new Error(`Panel not found ${value}`);
 </script>
 
-<div {...tabItem?.target.attributes} use:tabItem?.target.action class={className} {...rest}>
+<div use:choco={panel} class={className} {...rest}>
 	{@render children()}
 </div>

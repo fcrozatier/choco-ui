@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { type TabsOptions } from "$lib/builders/tabs/tabs.svelte";
-	import { Tabs } from "$lib/components/tabs.svelte";
+	import { Tabs, type TabsOptions } from "$lib/components/tabs.svelte";
 	import { trimUndefined } from "@fcrozatier/ts-helpers";
 	import { type Snippet } from "svelte";
 	import { setTabsContext } from ".";
@@ -10,8 +9,7 @@
 		activateOnFocus,
 		orientation,
 		value,
-		loop,
-		onFocus,
+		focus,
 		children,
 	}: TabsOptions & {
 		class?: string;
@@ -19,12 +17,12 @@
 	} = $props();
 
 	const tabs = new Tabs(
-		trimUndefined({
-			activateOnFocus,
+		trimUndefined<TabsOptions>({
 			orientation,
-			onFocus,
 			value,
-			loop,
+			activateOnFocus,
+			focus,
+			single: true,
 		}),
 	);
 

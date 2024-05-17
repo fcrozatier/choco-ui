@@ -10,7 +10,7 @@
 		...restProps
 	}: HTMLAttributes<HTMLDivElement> & { children: Snippet } = $props();
 
-	const tabList = getTabsContext().createTablist;
+	const { tablist } = getTabsContext();
 </script>
 
 <div
@@ -18,7 +18,7 @@
 		"bg-muted text-muted-foreground flex h-10 items-center justify-center rounded-md p-1",
 		className,
 	)}
-	{...tabList().attributes}
+	{...tablist.attributes}
 	{...restProps}
 >
 	{@render children()}
