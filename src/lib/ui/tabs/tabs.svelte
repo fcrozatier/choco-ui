@@ -22,7 +22,6 @@
 			value,
 			activateOnFocus,
 			focus,
-			single: true,
 		}),
 	);
 

@@ -7,7 +7,7 @@ import { role } from "$lib/utils/roles";
 import { ChocoBase } from "./base.svelte";
 import { Group, type GroupOptions } from "./group.svelte";
 
-export type TabsOptions = OmitSubtype<GroupOptions, { focus?: { roving?: boolean } }> & {
+type BaseTabsOptions = {
 	orientation?: Orientation;
 	/**
 	 * The default active tab. If not provided defaults to the first tab
@@ -15,10 +15,14 @@ export type TabsOptions = OmitSubtype<GroupOptions, { focus?: { roving?: boolean
 	value?: string;
 };
 
+export type TabsOptions = BaseTabsOptions &
+	OmitSubtype<GroupOptions, { focus?: { roving?: boolean }; single?: boolean }>;
+
 const defaults = {
 	activateOnFocus: true,
 	orientation: "horizontal",
-} satisfies TabsOptions;
+	single: true,
+} satisfies BaseTabsOptions & GroupOptions;
 
 type TabOptions = {
 	value: string;
