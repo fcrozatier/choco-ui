@@ -1,11 +1,12 @@
 import type { Action } from "svelte/action";
 import type { Orientation } from "$lib/internal/types";
 import { role } from "$lib/utils/roles";
-import { makeFocusable, type ManageFocusOptions } from "$lib/actions/focus.svelte";
+import { makeFocusable } from "$lib/actions/focus.svelte";
 import { createTogglerGroup } from "../toggler-group/toggler-group.svelte";
 import { createToggler } from "../toggler/toggler.svelte";
+import type { GroupOptions } from "$lib/components/group.svelte";
 
-export interface TabsOptions extends Omit<ManageFocusOptions, "roving"> {
+export type TabsOptions = Omit<GroupOptions, "roving"> & {
 	activateOnFocus?: boolean;
 	orientation?: Orientation;
 	/**
@@ -16,7 +17,7 @@ export interface TabsOptions extends Omit<ManageFocusOptions, "roving"> {
 	 * The default open tab value. If not provided the first tab is open
 	 */
 	value?: string;
-}
+};
 
 export type CreateTab = ReturnType<typeof createTabs>["createTab"];
 export type CreatePanel = ReturnType<typeof createTabs>["createPanel"];
