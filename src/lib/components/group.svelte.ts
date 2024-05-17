@@ -15,13 +15,13 @@ export type GroupOptions = {
 	/**
 	 * Whether only a single item can be active at a time. Defaults to `false`
 	 */
-	single?: boolean;
+	exclusive?: boolean;
 };
 
 const defaults = {
 	activateOnFocus: false,
 	preventInactivation: false,
-	single: false,
+	exclusive: false,
 } satisfies GroupOptions;
 
 /**
@@ -91,7 +91,7 @@ export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => 
 
 					super.toggle();
 
-					if (this.active && options?.single) {
+					if (this.active && options?.exclusive) {
 						for (const other of items) {
 							if (other.active && other !== this) {
 								other.off();

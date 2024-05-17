@@ -11,7 +11,7 @@
 
 	let group = $state([]);
 
-	const toggleGroup = new ToggleGroup({ single: true, activateOnFocus: true });
+	const toggleGroup = new ToggleGroup({ exclusive: true, activateOnFocus: true });
 
 	toggleGroup.createItem({ value: "orange" });
 	toggleGroup.createItem({ value: "banana" });

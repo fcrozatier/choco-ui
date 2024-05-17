@@ -25,7 +25,7 @@ const defaults = {
 	preventInactivation: true,
 	activateOnFocus: true,
 	orientation: "horizontal",
-	single: true,
+	exclusive: true,
 } satisfies BaseTabsOptions & GroupOptions;
 
 export type TabOptions = {

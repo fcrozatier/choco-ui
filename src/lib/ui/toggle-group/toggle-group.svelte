@@ -13,7 +13,7 @@
 		orientation = "horizontal",
 		variant,
 		focus,
-		single,
+		exclusive,
 		activateOnFocus,
 		children,
 		...rest
@@ -24,7 +24,7 @@
 			children: Snippet;
 		} = $props();
 
-	const toggleGroup = new ToggleGroup(trimUndefined({ focus, single, activateOnFocus }));
+	const toggleGroup = new ToggleGroup(trimUndefined({ focus, exclusive, activateOnFocus }));
 
 	export const active = () => toggleGroup.active;
 
