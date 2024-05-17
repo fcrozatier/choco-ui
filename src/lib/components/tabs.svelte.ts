@@ -56,6 +56,13 @@ class Tab extends Controllable(Togglable(ChocoBase)) {
 	}
 }
 
+/**
+ * Tabs
+ *
+ * If the tab list has a visible label, the TabList element has `aria-labelledby` set to a value that refers to the labelling element. Otherwise, the TabList element has a label provided by `aria-label`.
+ *
+ * [WAI-ARIA Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
+ */
 export class Tabs extends Group(Tab) {
 	#options: TabsOptions;
 	active = $derived(this.activeItems.map((item) => item.value));
