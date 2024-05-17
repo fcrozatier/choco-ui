@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@fcrozatier/ts-helpers':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.0.2
+        version: 1.0.2
       '@tailwindcss/vite':
         specifier: 4.0.0-alpha.13
         version: 4.0.0-alpha.13(vite@5.2.11(@types/node@20.12.12)(lightningcss@1.24.1))
@@ -293,8 +293,8 @@ packages:
     resolution: {integrity: sha512-ESiIudvhoYni+MdsI8oD7skpprZ89qKocwRM2KEvhhBJ9nl5MRh7BXU5GTod7Mdygq+AUl+QzId6iWJKR/wABA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@fcrozatier/ts-helpers@1.0.1':
-    resolution: {integrity: sha512-wHQXo5jazZb8yfQqjMMAKpRAxbo0f6Aw1JmgDaMRryZFvkHHed7SsG8g/7psJuuJm2R/0gnbKFCb/YVW6s139w==}
+  '@fcrozatier/ts-helpers@1.0.2':
+    resolution: {integrity: sha512-VLIk/p2wuNfPHQXfiCh8UkZnCqSTsM2dG+A3JWkFEQkUbwoOQKWYLFAOkLpJezMrl+g/DAqe5VWnv3D9ETOZFQ==}
 
   '@humanwhocodes/config-array@0.13.0':
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
@@ -2405,7 +2405,7 @@ snapshots:
 
   '@eslint/js@9.2.0': {}
 
-  '@fcrozatier/ts-helpers@1.0.1': {}
+  '@fcrozatier/ts-helpers@1.0.2': {}
 
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
