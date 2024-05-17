@@ -50,9 +50,9 @@
 	<button>A</button>
 
 	<fieldset>
-		<label><input use:focusGroupRadio type="radio" />left</label>
-		<label><input use:focusGroupRadio type="radio" />center</label>
-		<label><input use:focusGroupRadio type="radio" />right</label>
+		<label><input name="alignment-2" use:focusGroupRadio type="radio" />left</label>
+		<label><input name="alignment-2" use:focusGroupRadio type="radio" />center</label>
+		<label><input name="alignment-2" use:focusGroupRadio type="radio" />right</label>
 	</fieldset>
 
 	<button>B</button>
