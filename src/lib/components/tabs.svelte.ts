@@ -23,12 +23,14 @@ export type TabsOptions = BaseTabsOptions & {
 };
 
 const defaults = {
-	roving: true,
-	exclusive: true,
-	preventInactivation: true,
-	activateOnFocus: true,
+	focus: {
+		roving: true,
+		exclusive: true,
+		preventInactivation: true,
+		activateOnFocus: true,
+	},
 	orientation: "horizontal",
-} satisfies BaseTabsOptions & GroupOptions;
+} satisfies BaseTabsOptions & { focus: GroupOptions };
 
 export type TabOptions = {
 	value: string;
@@ -71,7 +73,7 @@ export class Tabs extends Group(Tab) {
 	tablist;
 
 	constructor(options?: TabsOptions) {
-		super({ ...defaults, ...options });
+		super({ ...defaults.focus, ...options?.focus });
 
 		this.#options = { ...defaults, ...options };
 		this.tablist = new ChocoBase({
