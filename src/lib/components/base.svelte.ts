@@ -9,6 +9,7 @@ export type Attributes = HTMLAttributes<HTMLElement> &
 export class ChocoBase<T extends HTMLElement = HTMLElement> {
 	#attributes = $state({});
 	#actions: Action<T>[] = [];
+	element!: T;
 
 	get attributes(): Attributes {
 		return this.#attributes;
@@ -26,6 +27,9 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> {
 		if (attributes) {
 			this.#attributes = attributes;
 		}
+		this.extendActions((node) => {
+			this.element = node;
+		});
 	}
 
 	extendActions(action?: Action<T>) {
