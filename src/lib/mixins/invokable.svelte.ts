@@ -22,7 +22,7 @@ export type ControllableOptions = {
 	labelledBy?: boolean;
 };
 
-export class Control extends Togglable(ChocoBase) {}
+class Control extends Togglable(ChocoBase) {}
 
 export const Invokable = <
 	U extends HTMLElement = HTMLElement,
