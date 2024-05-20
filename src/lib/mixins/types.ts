@@ -7,14 +7,14 @@ export type MixedWith<Mixin extends (...args: any) => any> = InstanceType<Return
 /**
  * Custom utility type to Omit a subtype from a type
  */
-export type OmitSubtype<T extends S, S> = Omit<Defined<T>, keyof Defined<S>> & {
+export type OmitSupertype<T extends S, S> = Omit<Defined<T>, keyof Defined<S>> & {
 	[K in keyof S as K extends keyof T
 		? T[K] extends Record<PropertyKey, any> | undefined
 			? K
 			: never
 		: never]?: K extends keyof T
 		? T[K] extends Record<PropertyKey, any> | undefined
-			? OmitSubtype<T[K], S[K]>
+			? OmitSupertype<T[K], S[K]>
 			: Omit<T[K], K>
 		: never;
 };

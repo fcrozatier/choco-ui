@@ -2,7 +2,7 @@ import { makeFocusable } from "$lib/actions/focus.svelte";
 import type { Orientation } from "$lib/internal/types";
 import { Invokable } from "$lib/mixins/invokable.svelte";
 import { Togglable } from "$lib/mixins/togglable.svelte";
-import type { OmitSubtype } from "$lib/mixins/types";
+import type { OmitSupertype } from "$lib/mixins/types";
 import { role } from "$lib/utils/roles";
 import { ChocoBase } from "./base.svelte";
 import { Group, type GroupOptions } from "./group.svelte";
@@ -16,7 +16,7 @@ type BaseTabsOptions = {
 };
 
 export type TabsOptions = BaseTabsOptions &
-	OmitSubtype<
+	OmitSupertype<
 		GroupOptions,
 		{ focus?: { roving?: boolean }; single?: boolean; preventInactivation?: boolean }
 	>;
