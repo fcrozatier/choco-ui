@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { createTooltip, type CreateTooltip } from "$lib/builders/tooltip/tooltip.svelte";
-	import { sync } from "$lib/utils/runes.svelte";
 	import { cn } from "$lib/utils/styles";
 	import { type Snippet } from "svelte";
 	import type { HTMLAttributes } from "svelte/elements";
@@ -12,15 +11,6 @@
 	let { class: className, open = $bindable(false), position, children }: TooltipProps = $props();
 
 	const tooltip = createTooltip({ open, position });
-
-	$effect(() => {
-		sync(
-			() => open,
-			() => tooltip.state.open,
-			(v) => (open = v),
-			(v) => (tooltip.state.open = v),
-		);
-	});
 </script>
 
 <div
