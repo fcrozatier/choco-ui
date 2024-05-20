@@ -1,6 +1,6 @@
 import { makeFocusable } from "$lib/actions/focus.svelte";
 import type { Orientation } from "$lib/internal/types";
-import { Controllable } from "$lib/mixins/controllable.svelte";
+import { Invokable } from "$lib/mixins/invokable.svelte";
 import { Togglable } from "$lib/mixins/togglable.svelte";
 import type { OmitSubtype } from "$lib/mixins/types";
 import { role } from "$lib/utils/roles";
@@ -36,7 +36,7 @@ export type TabOptions = {
 	active?: boolean;
 };
 
-class Tab extends Controllable(Togglable(ChocoBase)) {
+class Tab extends Invokable(Togglable(ChocoBase)) {
 	value: string;
 
 	constructor(options: TabOptions) {

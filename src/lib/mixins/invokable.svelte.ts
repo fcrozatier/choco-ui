@@ -24,7 +24,7 @@ export type ControllableOptions = {
 
 export class Control extends Togglable(ChocoBase) {}
 
-export const Controllable = <
+export const Invokable = <
 	U extends HTMLElement = HTMLElement,
 	T extends ReturnType<typeof Togglable<U>> = ReturnType<typeof Togglable<U>>,
 >(
