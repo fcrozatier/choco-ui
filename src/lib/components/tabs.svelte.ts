@@ -41,7 +41,7 @@ class Tab extends Invokable(Togglable(ChocoBase)) {
 
 	constructor(options: TabOptions) {
 		super();
-		this.initControllable({
+		this.initInvokable({
 			control: { "aria-selected": `${!!options.active}` },
 			target: { "aria-expanded": `${!!options.active}`, hidden: !options.active },
 			active: !!options.active,

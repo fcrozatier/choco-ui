@@ -33,7 +33,7 @@ export const Invokable = <
 	return class extends controlClass {
 		target!: Control;
 
-		initControllable(options: ControllableOptions) {
+		initInvokable(options: ControllableOptions) {
 			const controlId = nanoId();
 			const targetId = nanoId();
 
