@@ -95,7 +95,7 @@ export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => 
 			const oldItem = this.items[index];
 			const newItem = this.items[newIndex];
 			const from = target;
-			const to = [...this.#itemsMap.entries()].find(([_, item]) => item === newItem)?.[0];
+			const to = this.items.find((item) => item === newItem)?.element;
 
 			if (oldItem && newItem && from && to) {
 				// Update tab sequence
@@ -128,9 +128,7 @@ export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => 
 							// By default the first item of the list is focusable. If provided, the active item is focusable
 							if (map.size === 0 || this.active) {
 								node.tabIndex = 0;
-								map.forEach((_, element) => {
-									element.tabIndex = -1;
-								});
+								items.forEach((item) => (item.element.tabIndex = -1));
 							} else {
 								node.tabIndex = -1;
 							}
