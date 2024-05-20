@@ -66,9 +66,9 @@ checked
 		{orientation}
 		{variant}
 		{disabled}
-		focus={{ loop: true }}
+		focus={{ loop: false, roving: true }}
 	>
-		<ToggleGroupUI.Item value="B" pressed>B</ToggleGroupUI.Item>
+		<ToggleGroupUI.Item value="B" active>B</ToggleGroupUI.Item>
 		<ToggleGroupUI.Item value="I" variant="outline">I</ToggleGroupUI.Item>
 		<ToggleGroupUI.Item value="U">U</ToggleGroupUI.Item>
 	</ToggleGroupUI.Root>
