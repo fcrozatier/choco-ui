@@ -39,9 +39,9 @@ const defaults = {
 } satisfies GroupOptions;
 
 /**
- * The focus action enhances the keyboard navigability of your components
+ * Manages focus in a composite widget with the keyboard arrows.
  *
- * Since it relies on setting `tabindex='-1'` on some elements, the behavior is only added if js is enabled to ensure improving the experience and not degrading it.
+ * The behavior is only added if js is enabled through an action to ensure improving the experience and not degrading it, since _eg_ roving focus relies on setting `tabindex='-1'` on some elements.
  *
  * If js is not available then the elements have their default focus behavior.
  */

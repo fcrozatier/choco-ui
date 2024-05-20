@@ -1,18 +1,3 @@
-<script lang="ts">
-	import { manageFocus } from "$lib/actions/focus.svelte";
-
-	const focusGroupRadio = manageFocus();
-	const focusGroupRadio2 = manageFocus({ onFocus: (_, to) => to.click() });
-	const focusGroupCheck = manageFocus();
-	const focusGroupCheck2 = manageFocus({
-		onFocus: (from, to) => {
-			from.click();
-			to.click();
-		},
-	});
-	const focusGroupButton = manageFocus();
-</script>
-
 <article class="mx-auto max-w-prose">
 	<h1>Focus management</h1>
 	<p>Here are two example were the default focus sequence is slightly broken.</p>
@@ -50,9 +35,9 @@
 	<button>A</button>
 
 	<fieldset>
-		<label><input name="alignment-2" use:focusGroupRadio type="radio" />left</label>
-		<label><input name="alignment-2" use:focusGroupRadio type="radio" />center</label>
-		<label><input name="alignment-2" use:focusGroupRadio type="radio" />right</label>
+		<label><input name="alignment-2" type="radio" />left</label>
+		<label><input name="alignment-2" type="radio" />center</label>
+		<label><input name="alignment-2" type="radio" />right</label>
 	</fieldset>
 
 	<button>B</button>
@@ -69,9 +54,9 @@
 	<button>A</button>
 
 	<fieldset>
-		<label><input use:focusGroupRadio2 name="alignment-fixed-2" type="radio" />left</label>
-		<label><input use:focusGroupRadio2 name="alignment-fixed-2" type="radio" />center</label>
-		<label><input use:focusGroupRadio2 name="alignment-fixed-2" type="radio" />right</label>
+		<label><input name="alignment-fixed-2" type="radio" />left</label>
+		<label><input name="alignment-fixed-2" type="radio" />center</label>
+		<label><input name="alignment-fixed-2" type="radio" />right</label>
 	</fieldset>
 
 	<button>B</button>
@@ -112,9 +97,9 @@
 	<button>A</button>
 
 	<fieldset>
-		<label><input use:focusGroupCheck type="checkbox" />dark</label>
-		<label><input use:focusGroupCheck type="checkbox" checked />milk</label>
-		<label><input use:focusGroupCheck type="checkbox" />fruit</label>
+		<label><input type="checkbox" />dark</label>
+		<label><input type="checkbox" checked />milk</label>
+		<label><input type="checkbox" />fruit</label>
 	</fieldset>
 	<button>B</button>
 
@@ -125,18 +110,18 @@
 	<button>A</button>
 
 	<fieldset>
-		<label><input use:focusGroupCheck2 type="checkbox" />dark</label>
-		<label><input use:focusGroupCheck2 type="checkbox" checked />milk</label>
-		<label><input use:focusGroupCheck2 type="checkbox" />fruit</label>
+		<label><input type="checkbox" />dark</label>
+		<label><input type="checkbox" checked />milk</label>
+		<label><input type="checkbox" />fruit</label>
 	</fieldset>
 	<button>B</button>
 
 	<button>A</button>
 
 	<fieldset>
-		<button use:focusGroupButton>Tab 1</button>
-		<button use:focusGroupButton>Tab 2</button>
-		<button use:focusGroupButton>Tab 3</button>
+		<button>Tab 1</button>
+		<button>Tab 2</button>
+		<button>Tab 3</button>
 	</fieldset>
 	<button>B</button>
 </article>
