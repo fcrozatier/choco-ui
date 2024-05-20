@@ -11,24 +11,29 @@ export type GroupOptions = {
 	 */
 	roving?: boolean;
 	/**
-	 * Whether focusing an item immediately activates it. Defaults to `false`
-	 */
-	activateOnFocus?: boolean;
-	/**
 	 * Prevents having no active elements
 	 */
 	preventInactivation?: boolean;
-	/**
-	 * Whether only a single item can be active at a time. Defaults to `false`
-	 */
-	exclusive?: boolean;
 	onFocus?: <T extends HTMLElement>(from: T, to: T) => void;
-};
+} & (
+	| {
+			/**
+			 * Whether only a single item can be active at a time. Defaults to `false`
+			 */
+			exclusive?: true;
+			/**
+			 * Whether focusing an item immediately activates it. This only makes sense when the group is `exclusive`. Defaults to `false`
+			 */
+			activateOnFocus?: boolean;
+	  }
+	| {
+			exclusive?: false;
+	  }
+);
 
 const defaults = {
 	loop: false,
 	roving: false,
-	activateOnFocus: false,
 	preventInactivation: false,
 	exclusive: false,
 } satisfies GroupOptions;
@@ -100,7 +105,7 @@ export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => 
 				}
 				to.focus();
 
-				if (this.options.activateOnFocus) {
+				if (this.options.exclusive === true && this.options.activateOnFocus) {
 					newItem.active = true;
 				}
 
