@@ -13,18 +13,15 @@
 		orientation = "horizontal",
 		variant,
 		focus,
-		exclusive,
-		activateOnFocus,
 		children,
 		...rest
-	}: HTMLFieldsetAttributes &
-		GroupOptions & {
-			orientation?: Orientation;
-			variant?: ToggleProps["variant"];
-			children: Snippet;
-		} = $props();
+	}: HTMLFieldsetAttributes & { focus: GroupOptions } & {
+		orientation?: Orientation;
+		variant?: ToggleProps["variant"];
+		children: Snippet;
+	} = $props();
 
-	const toggleGroup = new ToggleGroup(trimUndefined({ focus, exclusive, activateOnFocus }));
+	const toggleGroup = new ToggleGroup(trimUndefined<GroupOptions>(focus));
 
 	export const active = () => toggleGroup.active;
 
