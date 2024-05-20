@@ -3,7 +3,7 @@ import type { Booleanish } from "svelte/elements";
 import { Togglable } from "./togglable.svelte";
 import { nanoId } from "$lib/utils/nano";
 
-export type ControllableOptions = {
+export type InvokableOptions = {
 	/**
 	 * Initial state of the control
 	 */
@@ -26,18 +26,19 @@ class Control extends Togglable(ChocoBase) {}
 
 export const Invokable = <
 	U extends HTMLElement = HTMLElement,
-	T extends ReturnType<typeof Togglable<U>> = ReturnType<typeof Togglable<U>>,
+	C extends ReturnType<typeof Togglable<U>> = ReturnType<typeof Togglable<U>>,
 >(
-	controlClass: T,
+	controlClass: C,
+	targetClass = Control,
 ) => {
 	return class extends controlClass {
-		target!: Control;
+		target!: InstanceType<typeof targetClass>;
 
-		initInvokable(options: ControllableOptions) {
+		initInvokable(options: InvokableOptions) {
 			const controlId = nanoId();
 			const targetId = nanoId();
 
-			this.target = new Control();
+			this.target = new targetClass();
 
 			this.extendAttributes({
 				"aria-controls": targetId,
