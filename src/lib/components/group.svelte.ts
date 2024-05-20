@@ -1,9 +1,15 @@
-import { manageFocus, type ManageFocusOptions } from "$lib/actions/focus.svelte";
-import type { Action } from "svelte/action";
 import type { Togglable } from "$lib/mixins/togglable.svelte";
+import { addListener } from "$lib/actions/addListener";
+import { key } from "$lib/utils/keyboard";
+import { modulo } from "@fcrozatier/ts-helpers";
+import { Map as RMap } from "svelte/reactivity";
 
 export type GroupOptions = {
-	focus?: ManageFocusOptions;
+	loop?: boolean;
+	/**
+	 * With roving focus, only one item in the list is in the tab sequence. Arrows are used to focus another item of the collection
+	 */
+	roving?: boolean;
 	/**
 	 * Whether focusing an item immediately activates it. Defaults to `false`
 	 */
@@ -16,9 +22,12 @@ export type GroupOptions = {
 	 * Whether only a single item can be active at a time. Defaults to `false`
 	 */
 	exclusive?: boolean;
+	onFocus?: <T extends HTMLElement>(from: T, to: T) => void;
 };
 
 const defaults = {
+	loop: false,
+	roving: false,
 	activateOnFocus: false,
 	preventInactivation: false,
 	exclusive: false,
@@ -33,10 +42,9 @@ const defaults = {
  */
 export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => {
 	return class {
-		#itemsMap: Map<HTMLElement, InstanceType<T>> = new Map();
-		#focusAction: Action;
+		#itemsMap: Map<HTMLElement, InstanceType<T>> = new RMap();
 
-		options?: GroupOptions;
+		options: GroupOptions;
 		items: InstanceType<T>[] = $state([]);
 		Item: T;
 
@@ -44,37 +52,88 @@ export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => 
 
 		constructor(options?: GroupOptions) {
 			this.options = { ...defaults, ...options };
-
-			const map = this.#itemsMap;
-			this.#focusAction = manageFocus({
-				...options?.focus,
-				onFocus(from, to) {
-					options?.focus?.onFocus?.(from, to);
-
-					if (options?.activateOnFocus) {
-						map.get(from)?.off();
-						map.get(to)?.on();
-					}
-				},
-			});
-
 			this.Item = this.#Focusable(superclass);
 		}
+
+		#handleKeydown = (e: KeyboardEvent) => {
+			const target = e.currentTarget;
+			if (!(target instanceof HTMLElement)) return;
+
+			const index = this.items.findIndex((item) => item === this.#itemsMap.get(target));
+			let newIndex = index;
+
+			switch (e.key) {
+				case key.ARROW_LEFT:
+				case key.ARROW_UP:
+					newIndex = this.options.loop
+						? modulo(index - 1, this.items.length)
+						: Math.max(0, index - 1);
+					break;
+				case key.ARROW_RIGHT:
+				case key.ARROW_DOWN:
+					newIndex = this.options.loop
+						? (index + 1) % this.items.length
+						: Math.min(this.items.length - 1, index + 1);
+					break;
+				case key.HOME:
+					newIndex = 0;
+					break;
+				case key.END:
+					newIndex = this.items.length - 1;
+					break;
+				default:
+					return;
+			}
+
+			e.preventDefault(); // Avoid firing scroll events
+
+			const oldItem = this.items[index];
+			const newItem = this.items[newIndex];
+			const from = target;
+			const to = [...this.#itemsMap.entries()].find(([_, item]) => item === newItem)?.[0];
+
+			if (oldItem && newItem && from && to) {
+				// Update tab sequence
+				if (this.options.roving) {
+					from.tabIndex = -1;
+					to.tabIndex = 0;
+				}
+				to.focus();
+
+				if (this.options.activateOnFocus) {
+					newItem.active = true;
+				}
+
+				this.options?.onFocus?.(from, to);
+			}
+		};
 
 		#Focusable = (superclass: T) => {
 			const options = this.options;
 			const items = this.items;
 			const map = this.#itemsMap;
-			const focus = this.#focusAction;
+			const focus = this.#handleKeydown;
 
 			return class extends superclass {
 				constructor(...args: any[]) {
 					super(...args);
 
 					this.extendActions((node) => {
+						if (options.roving) {
+							// By default the first item of the list is focusable. If provided, the active item is focusable
+							if (map.size === 0 || this.active) {
+								node.tabIndex = 0;
+								map.forEach((_, element) => {
+									element.tabIndex = -1;
+								});
+							} else {
+								node.tabIndex = -1;
+							}
+						}
+
 						map.set(node, this as InstanceType<T>);
 					});
-					this.extendActions(focus);
+					this.extendActions(addListener("keydown", focus));
 
 					items.push(this as InstanceType<T>);
 				}
