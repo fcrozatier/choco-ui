@@ -6,14 +6,14 @@
 	let disabled = $state(false);
 
 	const toggle = new ToggleButton({
-		pressed: true,
+		active: true,
 	});
 
 	const toggle2 = new ToggleButton({
-		pressed: false,
+		active: false,
 	});
 
-	const toggle4 = new ToggleButton({ pressed: true });
+	const toggle4 = new ToggleButton({ active: true });
 </script>
 
 <h1>Toggle</h1>

@@ -5,11 +5,11 @@ export type ToggleOptions = {
 	/**
 	 * Whether the toggle is initially pressed or not. Defaults to `false`
 	 */
-	pressed?: boolean;
+	active?: boolean;
 	value?: string;
 };
 
-const defaults = { pressed: false, value: "" } satisfies Required<ToggleOptions>;
+const defaults = { active: false, value: "" } satisfies Required<ToggleOptions>;
 
 /**
  * ## Toggle
@@ -32,7 +32,7 @@ export class ToggleButton extends Togglable<HTMLButtonElement>(ChocoBase) {
 	constructor(options?: ToggleOptions) {
 		super();
 		const toggleOptions: Required<ToggleOptions> = { ...defaults, ...options };
-		let initial = { "aria-pressed": `${toggleOptions.pressed}` } as const;
+		let initial = { "aria-pressed": `${toggleOptions.active}` } as const;
 
 		const attributes: Attributes = {
 			type: "button",
@@ -40,6 +40,6 @@ export class ToggleButton extends Togglable<HTMLButtonElement>(ChocoBase) {
 		};
 
 		this.extendAttributes(attributes);
-		this.initTogglable({ initial, active: toggleOptions.pressed });
+		this.initTogglable({ initial, active: toggleOptions.active });
 	}
 }
