@@ -6,7 +6,6 @@
 
 	let {
 		class: className,
-		activateOnFocus,
 		orientation,
 		value,
 		focus,
@@ -20,7 +19,6 @@
 		trimUndefined<TabsOptions>({
 			orientation,
 			value,
-			activateOnFocus,
 			focus,
 		}),
 	);

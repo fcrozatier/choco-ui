@@ -3,7 +3,7 @@
 	import { Tabs } from "$lib/components/tabs.svelte";
 	import * as TabsUI from "$lib/ui/tabs";
 
-	const { createItem, tablist } = new Tabs({ activateOnFocus: true });
+	const { createItem, tablist } = new Tabs();
 
 	const items = [
 		{ item: createItem({ value: "first", active: true }), label: "label 1", content: "panel 1" },
@@ -28,7 +28,7 @@
 <section>
 	<button>before</button>
 
-	<TabsUI.Root value="password" focus={{ loop: true }} activateOnFocus={true} class="w-md">
+	<TabsUI.Root value="password" focus={{ loop: true }} class="w-md">
 		<TabsUI.TabList aria-label="Update your account">
 			<TabsUI.Tab value="account">Account</TabsUI.Tab>
 			<TabsUI.Tab value="password">Password</TabsUI.Tab>

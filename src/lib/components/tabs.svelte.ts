@@ -15,17 +15,19 @@ type BaseTabsOptions = {
 	value?: string;
 };
 
-export type TabsOptions = BaseTabsOptions &
-	OmitSupertype<
+export type TabsOptions = BaseTabsOptions & {
+	focus?: OmitSupertype<
 		GroupOptions,
-		{ focus?: { roving?: boolean }; single?: boolean; preventInactivation?: boolean }
+		{ roving?: boolean; exclusive?: boolean; preventInactivation?: boolean }
 	>;
+};
 
 const defaults = {
+	roving: true,
+	exclusive: true,
 	preventInactivation: true,
 	activateOnFocus: true,
 	orientation: "horizontal",
-	exclusive: true,
 } satisfies BaseTabsOptions & GroupOptions;
 
 export type TabOptions = {
@@ -64,12 +66,12 @@ class Tab extends Invokable(Togglable(ChocoBase)) {
  * [WAI-ARIA Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
  */
 export class Tabs extends Group(Tab) {
-	#options: TabsOptions;
+	#options: BaseTabsOptions & GroupOptions;
 	active = $derived(this.activeItems.map((item) => item.value));
 	tablist;
 
 	constructor(options?: TabsOptions) {
-		super({ ...defaults, ...options, focus: { ...options?.focus, roving: true } });
+		super({ ...defaults, ...options });
 
 		this.#options = { ...defaults, ...options };
 		this.tablist = new ChocoBase({
