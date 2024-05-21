@@ -2,7 +2,7 @@
 	import * as Accordion from "$lib/ui/accordion";
 </script>
 
-<Accordion.Root class="w-full sm:max-w-[70%]">
+<Accordion.Root class="max-w-xs" focus={{ exclusive: true, loop: true }}>
 	<Accordion.Item value="item-1">
 		{#snippet trigger()}
 			Is it accessible?
