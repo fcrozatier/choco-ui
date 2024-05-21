@@ -1,5 +1,4 @@
 import { ChocoBase } from "../components/base.svelte";
-import type { Booleanish } from "svelte/elements";
 import type { Constructor } from "./types";
 import { addListener } from "$lib/actions/addListener";
 import {
@@ -9,25 +8,11 @@ import {
 } from "$lib/internal/polygon";
 import { key } from "$lib/utils/keyboard";
 import { debounce } from "@fcrozatier/ts-helpers";
+import { makeFocusable } from "$lib/actions/focus.svelte";
+import { Togglable } from "./togglable.svelte";
 
 export type HoverableOptions = {
-	/**
-	 * Initial state of the control
-	 */
-	control: Record<string, Booleanish>;
-	/**
-	 * Initial state of the target
-	 */
-	target: Record<string, Booleanish>;
-	/**
-	 * Whether the initial state is the active state. (Optional)
-	 */
-	active?: boolean;
-	/**
-	 * Whether the target is labelled by the control
-	 */
-	labelledBy?: boolean;
-	isOpen: boolean;
+	isOpen?: boolean;
 };
 
 export const Hoverable = <
@@ -35,19 +20,38 @@ export const Hoverable = <
 	C extends Constructor<ChocoBase<U>> = Constructor<ChocoBase<U>>,
 >(
 	controlClass: C,
-	targetClass = ChocoBase,
+	targetClass = Togglable(ChocoBase),
 ) => {
 	return class extends controlClass {
-		hull: Point[] | undefined;
-		isOpen!: boolean;
-		target!: InstanceType<typeof targetClass>;
+		#hull: Point[] | undefined;
+		#isOpen = $state(false);
 
-		initHoverable(options: HoverableOptions) {
-			this.isOpen = options.isOpen;
+		target: InstanceType<typeof targetClass>;
 
+		get isOpen() {
+			return this.#isOpen;
+		}
+
+		set isOpen(v: boolean) {
+			if (v !== this.#isOpen) {
+				this.#isOpen = v;
+				this.target.toggle();
+			}
+		}
+
+		constructor(...options: any[]) {
+			super(...options);
+			this.target = new targetClass();
+
+			this.extendActions(makeFocusable);
 			this.extendActions(addListener("mouseenter", this.#open));
 			this.extendActions(addListener("focusin", this.#open));
 		}
+
+		initHoverable = (options?: HoverableOptions) => {
+			this.isOpen = !!options?.isOpen;
+			this.target.initTogglable({ initial: { "data-open": this.isOpen } });
+		};
 
 		#open = (e?: MouseEvent | FocusEvent) => {
 			const handleKeydown = this.#handleKeydown;
@@ -55,8 +59,8 @@ export const Hoverable = <
 			const close = this.#close;
 
 			if (e instanceof MouseEvent) {
-				if (!this.hull) {
-					this.hull = makeConvexHullFromElements([this.element, this.target.element]);
+				if (!this.#hull && this.target.element) {
+					this.#hull = makeConvexHullFromElements([this.element, this.target.element]);
 				}
 				if (!this.isOpen) {
 					document.addEventListener("mousemove", handleMouse);
@@ -64,8 +68,8 @@ export const Hoverable = <
 			} else if (e instanceof FocusEvent) {
 				this.element.addEventListener("focusout", close);
 			}
-			this.isOpen = true;
 
+			this.isOpen = true;
 			document.addEventListener("keydown", handleKeydown);
 		};
 
@@ -89,7 +93,7 @@ export const Hoverable = <
 		};
 
 		#handleMouse = debounce((e: MouseEvent) => {
-			if (!this.hull || !pointInConvexPolygon({ x: e.clientX, y: e.clientY }, this.hull)) {
+			if (!this.#hull || !pointInConvexPolygon({ x: e.clientX, y: e.clientY }, this.#hull)) {
 				this.#close();
 			}
 		}, 100);
