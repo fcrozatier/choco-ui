@@ -10,11 +10,11 @@
 	let {
 		class: className,
 		value,
-		trigger,
+		header,
 		children,
 		...restProps
 	}: HTMLButtonAttributes &
-		Omit<HeaderOptions, "headingLevel"> & { trigger: Snippet; children: Snippet } = $props();
+		Omit<HeaderOptions, "headingLevel"> & { header: Snippet; children: Snippet } = $props();
 
 	const accordion = get();
 	const item = accordion.createItem({ value });
@@ -29,7 +29,7 @@
 		use:choco={item}
 		{...restProps}
 	>
-		{@render trigger()}
+		{@render header()}
 		<span
 			class={`inline-flex size-2 ${item.active ? "rotate-270" : "rotate-90"} origin-center items-center justify-center transition-transform duration-200`}
 		>
