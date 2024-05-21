@@ -31,7 +31,7 @@ export type HeaderOptions = {
 	active?: boolean;
 };
 
-class Header extends Invokable(Togglable<HTMLButtonElement>(ChocoBase)) {
+class Header extends Invokable<HTMLButtonElement>(Togglable(ChocoBase)) {
 	value: string;
 	headingLevel: number;
 
