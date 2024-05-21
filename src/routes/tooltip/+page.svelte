@@ -13,7 +13,11 @@
 <label for="checkbox">show tooltip</label>
 <input id="checkbox" type="checkbox" bind:checked={show} />
 
-<span class="">
-	HTML
-	<Tooltip bind:open={show} position="right">Hyper Text Markup Language</Tooltip>
-</span>
+<div class="ml-40">
+	<Tooltip isOpen={show} position="right">
+		HTML
+		{#snippet target()}
+			Hyper Text Markup Language
+		{/snippet}
+	</Tooltip>
+</div>
