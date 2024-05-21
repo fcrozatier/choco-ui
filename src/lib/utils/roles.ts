@@ -9,6 +9,7 @@ export const role = {
 	presentation: "presentation",
 	note: "note",
 	group: "group",
+	region: "region",
 
 	// Widget roles
 	scrollbar: "scrollbar",
