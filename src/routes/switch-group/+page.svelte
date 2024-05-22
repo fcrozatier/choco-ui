@@ -1,34 +1,33 @@
 <script lang="ts">
-	import { createToggleGroup } from "$lib/builders/toggle-group/toggle-group.svelte";
 	import type { Orientation } from "$lib/internal/types";
 	import * as SwitchGroup from "$lib/ui/switch-group";
-	import { nanoId } from "$lib/utils/nano";
+	import { SwitchGroup as SG } from "$lib/components/switch-group.svelte";
+	import { choco } from "$lib/actions/choco";
 
 	let disabled: boolean | undefined = $state();
 	let variant: "outline" | "default" = $state("default");
 	let orientation: Orientation = $state("horizontal");
 
-	let selected: (() => string[]) | undefined = $state();
+	const group = new SG({ exclusive: true });
 
-	const { createItem, pressed } = createToggleGroup({ exclusive: true });
+	const items = [
+		group.createItem({ value: "left" }),
+		group.createItem({ value: "center" }),
+		group.createItem({ value: "right" }),
+	];
+
+	let switchGroup: SwitchGroup.Root | undefined = $state();
 </script>
-
-{#snippet toggleItem({ id = nanoId(), value })}
-	{@const item = createItem({ kind: "switch" })}
-	<!-- <button use:item.action {id} {value} name="toggle-group">{value}</button> -->
-	<input use:item.action {id} {value} name="toggle-group" />
-	<label for={id}>{value}</label>
-{/snippet}
 
 <fieldset>
 	<legend>toggle group</legend>
-	{@render toggleItem({ value: "left align" })}
-	{@render toggleItem({ value: "center" })}
-	{@render toggleItem({ value: "right align" })}
+	{#each items as item}
+		<button use:choco={item}>{item.value}</button>
+	{/each}
 </fieldset>
 
 selected
-<pre>{pressed}</pre>
+<pre>{group.active}</pre>
 
 <label>
 	disable
@@ -52,12 +51,12 @@ selected
 </label>
 
 {#key variant}
-	<SwitchGroup.Root {orientation} {variant} {disabled} focus={{ loop: true }}>
-		<SwitchGroup.Item value="B" pressed>B</SwitchGroup.Item>
+	<SwitchGroup.Root {orientation} {variant} {disabled} bind:this={switchGroup}>
+		<SwitchGroup.Item value="B" active>B</SwitchGroup.Item>
 		<SwitchGroup.Item value="I" variant="outline">I</SwitchGroup.Item>
 		<SwitchGroup.Item value="U">U</SwitchGroup.Item>
 	</SwitchGroup.Root>
 {/key}
 
 selected
-<pre>{selected?.()}</pre>
+<pre>{switchGroup?.selected()}</pre>
