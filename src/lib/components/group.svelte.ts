@@ -41,7 +41,7 @@ const defaults = {
 /**
  * Manages focus in a composite widget with the keyboard arrows.
  *
- * The behavior is only added if js is enabled through an action to ensure improving the experience and not degrading it, since _eg_ roving focus relies on setting `tabindex='-1'` on some elements.
+ * The behavior is only added if js is enabled through an action to ensure improving the experience and not degrading it, since roving focus relies on setting `tabindex='-1'` on some elements.
  *
  * If js is not available then the elements have their default focus behavior.
  */
@@ -128,7 +128,9 @@ export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => 
 							// By default the first item of the list is focusable. If provided, the active item is focusable
 							if (map.size === 0 || this.active) {
 								node.tabIndex = 0;
-								items.forEach((item) => (item.element.tabIndex = -1));
+								map.forEach((_, element) => {
+									element.tabIndex = -1;
+								});
 							} else {
 								node.tabIndex = -1;
 							}
