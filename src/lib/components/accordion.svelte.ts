@@ -1,6 +1,7 @@
 import { Invokable } from "$lib/mixins/invokable.svelte";
 import { Togglable } from "$lib/mixins/togglable.svelte";
 import type { OmitSupertype } from "$lib/mixins/types";
+import { nanoId } from "$lib/utils/nano";
 import { role } from "$lib/utils/roles";
 import { ChocoBase } from "./base.svelte";
 import { Group, type GroupOptions } from "./group.svelte";
@@ -37,16 +38,24 @@ class Header extends Invokable<HTMLButtonElement>(Togglable(ChocoBase)) {
 
 	constructor(options: HeaderOptions) {
 		super();
+		const controlId = nanoId();
+		const targetId = nanoId();
+		const active = !!options.active;
 
 		this.headingLevel = options?.headingLevel ?? defaults.headingLevel;
 		this.initInvokable({
-			control: { "aria-expanded": `${!!options.active}`, "aria-selected": `${!!options.active}` },
-			target: { hidden: !options.active },
-			active: !!options.active,
-			labelledBy: true,
+			control: { "aria-expanded": `${active}` },
+			target: { hidden: !active },
+			active,
+			toggle: "click",
 		});
-		this.extendAttributes({ role: role.tab, value: options.value });
-		this.target.extendAttributes({ role: role.region });
+		this.extendAttributes({
+			id: controlId,
+			role: role.tab,
+			value: options.value,
+			"aria-controls": targetId,
+		});
+		this.target.extendAttributes({ id: targetId, role: role.region, "aria-labelledby": controlId });
 
 		this.value = options.value;
 	}

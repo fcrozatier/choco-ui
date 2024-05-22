@@ -3,6 +3,7 @@ import type { Orientation } from "$lib/internal/types";
 import { Invokable } from "$lib/mixins/invokable.svelte";
 import { Togglable } from "$lib/mixins/togglable.svelte";
 import type { OmitSupertype } from "$lib/mixins/types";
+import { nanoId } from "$lib/utils/nano";
 import { role } from "$lib/utils/roles";
 import { ChocoBase } from "./base.svelte";
 import { Group, type GroupOptions } from "./group.svelte";
@@ -45,17 +46,29 @@ class Tab extends Invokable(Togglable(ChocoBase)) {
 
 	constructor(options: TabOptions) {
 		super();
+		const controlId = nanoId();
+		const targetId = nanoId();
+		const active = !!options.active;
+
 		this.initInvokable({
-			control: { "aria-selected": `${!!options.active}` },
-			target: { "aria-expanded": `${!!options.active}`, hidden: !options.active },
-			active: !!options.active,
-			labelledBy: true,
+			control: { "aria-selected": `${active}` },
+			target: { hidden: !active },
+			active,
+			on: "click",
 		});
-		this.extendAttributes({ role: role.tab, value: options.value });
-		this.target.extendAttributes({ role: role.tabpanel });
+		this.extendAttributes({
+			id: controlId,
+			role: role.tab,
+			value: options.value,
+			"aria-controls": targetId,
+		});
+		this.target.extendAttributes({
+			id: targetId,
+			role: role.tabpanel,
+			"aria-labelledby": controlId,
+		});
 		// Make sure the panel is in the tab sequence
 		this.target.extendActions(makeFocusable);
-
 		this.value = options.value;
 	}
 }
@@ -63,7 +76,7 @@ class Tab extends Invokable(Togglable(ChocoBase)) {
 /**
  * Tabs
  *
- * If the tab list has a visible label, the TabList element has `aria-labelledby` set to a value that refers to the labelling element. Otherwise, the TabList element has a label provided by `aria-label`.
+ * If the tab list has a visible label, the element with role tablist has `aria-labelledby` set to a value that refers to the labelling element. Otherwise, the `tablist` element has a label provided by `aria-label`.
  *
  * [WAI-ARIA Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
  */
