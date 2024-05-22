@@ -4,9 +4,9 @@
 	import { cn } from "$lib/utils/styles.js";
 	import type { SwitchProps } from ".";
 
-	let { class: className, pressed = false, children, ...restProps }: SwitchProps = $props();
+	let { class: className, active = false, children, ...restProps }: SwitchProps = $props();
 
-	const toggle = new Switch({ pressed });
+	const toggle = new Switch({ active });
 </script>
 
 <button

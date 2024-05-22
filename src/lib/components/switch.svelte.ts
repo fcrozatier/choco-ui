@@ -6,11 +6,11 @@ export type SwitchOptions = {
 	/**
 	 * Whether the toggle is initially pressed or not. Defaults to `false`
 	 */
-	pressed?: boolean;
+	active?: boolean;
 	value?: string;
 };
 
-const defaults = { pressed: false, value: "" } satisfies Required<SwitchOptions>;
+const defaults = { active: false, value: "" } satisfies Required<SwitchOptions>;
 
 /**
  * ## Switch
@@ -33,7 +33,7 @@ export class Switch extends Togglable<HTMLButtonElement | HTMLInputElement>(Choc
 	constructor(options?: SwitchOptions) {
 		super();
 		const toggleOptions: Required<SwitchOptions> = { ...defaults, ...options };
-		let initial = { "aria-checked": `${toggleOptions.pressed}` } as const;
+		let initial = { "aria-checked": `${toggleOptions.active}` } as const;
 
 		const attributes: Attributes = {
 			value: options?.value ?? undefined,
@@ -48,6 +48,6 @@ export class Switch extends Togglable<HTMLButtonElement | HTMLInputElement>(Choc
 				node.type = "checkbox";
 			}
 		});
-		this.initTogglable({ initial, active: toggleOptions.pressed });
+		this.initTogglable({ initial, active: toggleOptions.active });
 	}
 }
