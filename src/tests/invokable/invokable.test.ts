@@ -16,8 +16,6 @@ describe("Invoker", () => {
 		const invoker = getByTestId("invoker");
 		const target = getByTestId("target");
 
-		expect(invoker.hasAttribute("aria-controls")).toBe(true);
-		expect(target.hasAttribute("aria-labelledby")).toBe(true);
 		expect(invoker.getAttribute("aria-expanded")).toBe("false");
 		expect(target.getAttribute("data-open")).toBe("false");
 

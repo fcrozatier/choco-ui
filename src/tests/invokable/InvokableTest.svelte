@@ -10,7 +10,8 @@
 	control.initInvokable({
 		control: { "aria-expanded": "false" },
 		target: { "data-open": "false" },
-		labelledBy: true,
+		active: false,
+		toggle: "click",
 	});
 </script>
 
