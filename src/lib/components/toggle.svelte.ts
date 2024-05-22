@@ -40,6 +40,6 @@ export class ToggleButton extends Togglable<HTMLButtonElement>(ChocoBase) {
 		};
 
 		this.extendAttributes(attributes);
-		this.initTogglable({ initial, active: toggleOptions.active });
+		this.initTogglable({ initial, active: toggleOptions.active, toggle: "click" });
 	}
 }
