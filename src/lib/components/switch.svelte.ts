@@ -48,6 +48,6 @@ export class Switch extends Togglable<HTMLButtonElement | HTMLInputElement>(Choc
 				node.type = "checkbox";
 			}
 		});
-		this.initTogglable({ initial, active: toggleOptions.active });
+		this.initTogglable({ initial, active: toggleOptions.active, toggle: "click" });
 	}
 }
