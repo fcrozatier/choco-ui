@@ -6,18 +6,24 @@ type Listener<K extends keyof HTMLElementEventMap> = (
 ) => void;
 
 /**
- * Add listener action builder
+ * Listen to one or many events and fire a callback
  */
 export const addListener = <T extends HTMLElement, K extends keyof HTMLElementEventMap>(
-	event: K,
+	events: K | K[],
 	callback: Listener<K>,
 ) => {
 	return ((node) => {
-		node.addEventListener(event, callback);
+		const eventsArray = Array.isArray(events) ? events : [events];
+
+		for (const event of eventsArray) {
+			node.addEventListener(event, callback);
+		}
 
 		return {
 			destroy() {
-				node.removeEventListener(event, callback);
+				for (const event of eventsArray) {
+					node.removeEventListener(event, callback);
+				}
 			},
 		};
 	}) satisfies Action<T>;
