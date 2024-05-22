@@ -31,7 +31,7 @@ export type TogglableOptions = {
 
 const defaults = { initial: {}, active: false } satisfies Partial<TogglableOptions>;
 
-export interface Toggler {
+interface Toggler {
 	get active(): boolean;
 	set active(val: boolean);
 	toggle(): void;
