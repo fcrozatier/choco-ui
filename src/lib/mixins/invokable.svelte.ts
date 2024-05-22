@@ -1,26 +1,16 @@
 import { ChocoBase } from "../components/base.svelte";
-import type { Booleanish } from "svelte/elements";
-import { Togglable } from "./togglable.svelte";
-import { nanoId } from "$lib/utils/nano";
+import { Togglable, type TogglableOptions } from "./togglable.svelte";
 
 export type InvokableOptions = {
 	/**
 	 * Initial state of the control
 	 */
-	control: Record<string, Booleanish>;
+	control: TogglableOptions["initial"];
 	/**
 	 * Initial state of the target
 	 */
-	target: Record<string, Booleanish>;
-	/**
-	 * Whether the initial state is the active state. (Optional)
-	 */
-	active?: boolean;
-	/**
-	 * Whether the target is labelled by the control
-	 */
-	labelledBy?: boolean;
-};
+	target: TogglableOptions["initial"];
+} & Omit<TogglableOptions, "initial">;
 
 class Control extends Togglable(ChocoBase) {}
 
@@ -32,27 +22,17 @@ export const Invokable = <
 	targetClass = Control,
 ) => {
 	return class extends controlClass {
-		target!: InstanceType<typeof targetClass>;
+		target: InstanceType<typeof targetClass>;
+
+		constructor(...options: any[]) {
+			super(...options);
+			this.target = new targetClass();
+		}
 
 		initInvokable(options: InvokableOptions) {
-			const controlId = nanoId();
-			const targetId = nanoId();
-
-			this.target = new targetClass();
-
-			this.extendAttributes({
-				"aria-controls": targetId,
-				id: options.labelledBy ? controlId : undefined,
-			});
-
 			this.initTogglable({
 				initial: options.control,
-				active: options.active,
-			});
-
-			this.target.extendAttributes({
-				id: targetId,
-				"aria-labelledby": options.labelledBy ? controlId : undefined,
+				...options,
 			});
 
 			this.target.initTogglable({
@@ -64,6 +44,16 @@ export const Invokable = <
 		override toggle() {
 			super.toggle();
 			this.target.toggle();
+		}
+
+		override on() {
+			super.on();
+			this.target.on();
+		}
+
+		override off() {
+			super.off();
+			this.target.off();
 		}
 	};
 };
