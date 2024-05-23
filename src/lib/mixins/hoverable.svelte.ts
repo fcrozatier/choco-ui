@@ -8,11 +8,15 @@ import { key } from "$lib/utils/keyboard";
 import { debounce } from "@fcrozatier/ts-helpers";
 import type { Invokable } from "./invokable.svelte";
 import { makeFocusable } from "$lib/actions/focus.svelte";
+import { longPress } from "$lib/actions/longPress";
 
 export type HoverableOptions = {
 	isHovered?: boolean;
 };
 
+/**
+ * An invokable component that triggers on hover, focus and longpress
+ */
 export const Hoverable = <
 	U extends HTMLElement = HTMLElement,
 	C extends ReturnType<typeof Invokable<U>> = ReturnType<typeof Invokable<U>>,
@@ -29,6 +33,7 @@ export const Hoverable = <
 			this.extendActions(makeFocusable);
 			this.extendActions(addListener("pointerenter", this.#open));
 			this.extendActions(addListener("focusin", this.#open));
+			this.extendActions((node) => longPress(node, { callback: () => this.#open() }));
 		}
 
 		initHoverable = (options?: HoverableOptions) => {
