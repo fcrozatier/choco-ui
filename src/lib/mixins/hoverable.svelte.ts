@@ -1,5 +1,3 @@
-import { ChocoBase } from "../components/base.svelte";
-import type { Constructor } from "./types";
 import { addListener } from "$lib/actions/addListener";
 import {
 	makeConvexHullFromElements,
@@ -8,91 +6,67 @@ import {
 } from "$lib/internal/polygon";
 import { key } from "$lib/utils/keyboard";
 import { debounce } from "@fcrozatier/ts-helpers";
+import type { Invokable } from "./invokable.svelte";
 import { makeFocusable } from "$lib/actions/focus.svelte";
-import { Togglable } from "./togglable.svelte";
 
 export type HoverableOptions = {
-	isOpen?: boolean;
+	isHovered?: boolean;
 };
 
 export const Hoverable = <
 	U extends HTMLElement = HTMLElement,
-	C extends Constructor<ChocoBase<U>> = Constructor<ChocoBase<U>>,
+	C extends ReturnType<typeof Invokable<U>> = ReturnType<typeof Invokable<U>>,
 >(
-	controlClass: C,
-	targetClass = Togglable(ChocoBase),
+	invoker: C,
 ) => {
-	return class extends controlClass {
+	return class extends invoker {
 		#hull: Point[] | undefined;
-		#isOpen = $state(false);
-
-		target: InstanceType<typeof targetClass>;
-
-		get isOpen() {
-			return this.#isOpen;
-		}
-
-		set isOpen(v: boolean) {
-			if (v !== this.#isOpen) {
-				this.#isOpen = v;
-				this.target.toggle();
-			}
-		}
+		isHovered = $derived(this.active); // alias
 
 		constructor(...options: any[]) {
 			super(...options);
-			this.target = new targetClass();
 
 			this.extendActions(makeFocusable);
-			this.extendActions(addListener("mouseenter", this.#open));
+			this.extendActions(addListener("pointerenter", this.#open));
 			this.extendActions(addListener("focusin", this.#open));
 		}
 
 		initHoverable = (options?: HoverableOptions) => {
-			this.isOpen = !!options?.isOpen;
-			this.target.initTogglable({ initial: { "data-open": this.isOpen } });
+			this.active = !!options?.isHovered;
 		};
 
-		#open = (e?: MouseEvent | FocusEvent) => {
-			const handleKeydown = this.#handleKeydown;
-			const handleMouse = this.#handleMouse;
-			const close = this.#close;
-
-			if (e instanceof MouseEvent) {
-				if (!this.#hull && this.target.element) {
+		#open = (e?: PointerEvent | FocusEvent) => {
+			if (e instanceof PointerEvent) {
+				if (!this.#hull && this.element && this.target.element) {
 					this.#hull = makeConvexHullFromElements([this.element, this.target.element]);
 				}
-				if (!this.isOpen) {
-					document.addEventListener("mousemove", handleMouse);
+				if (!this.active) {
+					document.addEventListener("pointermove", this.#handlePointer);
 				}
 			} else if (e instanceof FocusEvent) {
-				this.element.addEventListener("focusout", close);
+				this.element.addEventListener("focusout", this.#close);
 			}
 
-			this.isOpen = true;
-			document.addEventListener("keydown", handleKeydown);
+			this.active = true;
+			document.addEventListener("keydown", this.#handleKeydown);
 		};
 
 		#close = () => {
-			const handleKeydown = this.#handleKeydown;
-			const handleMouse = this.#handleMouse;
-			const close = this.#close;
-
-			this.isOpen = false;
-
-			document.removeEventListener("keydown", handleKeydown);
-			document.removeEventListener("mousemove", handleMouse);
-			this.element.removeEventListener("focusout", close);
+			this.active = false;
+			document.removeEventListener("keydown", this.#handleKeydown);
+			document.removeEventListener("pointermove", this.#handlePointer);
+			this.element.removeEventListener("focusout", this.#close);
 		};
 
 		#handleKeydown = (e: KeyboardEvent) => {
-			if (this.isOpen && e.key === key.ESCAPE) {
-				this.isOpen = false;
+			if (this.active && e.key === key.ESCAPE) {
+				this.active = false;
 			}
+
 			document.removeEventListener("keydown", this.#handleKeydown);
 		};
 
-		#handleMouse = debounce((e: MouseEvent) => {
+		#handlePointer = debounce((e: PointerEvent) => {
 			if (!this.#hull || !pointInConvexPolygon({ x: e.clientX, y: e.clientY }, this.#hull)) {
 				this.#close();
 			}
