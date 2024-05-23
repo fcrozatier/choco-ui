@@ -13,7 +13,12 @@
 
 	let { class: className, isOpen, position, children, target }: TooltipProps = $props();
 
-	const tooltip = new Tooltip(trimUndefined({ isOpen, position }));
+	const tooltip = new Tooltip(
+		trimUndefined({
+			isOpen,
+			position,
+		}),
+	);
 </script>
 
 <span class="relative" use:choco={tooltip}>
