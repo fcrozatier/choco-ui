@@ -18,53 +18,43 @@ export class Button extends ChocoBase<HTMLButtonElement> {
 			"data-focus-visible": false,
 		});
 
-		this.extendActions(() => {
-			const turnOn = () => (this.#isKeyboardEvent = true);
-			const turnOff = () => (this.#isKeyboardEvent = false);
-
-			document.addEventListener("keydown", turnOn);
-			document.addEventListener("keyup", turnOff);
-
-			return {
-				destroy() {
-					document.removeEventListener("keydown", turnOn);
-					document.removeEventListener("keydup", turnOff);
-				},
-			};
-		});
 		this.extendActions(
+			() => {
+				const turnOn = () => (this.#isKeyboardEvent = true);
+				const turnOff = () => (this.#isKeyboardEvent = false);
+
+				document.addEventListener("keydown", turnOn);
+				document.addEventListener("keyup", turnOff);
+
+				return {
+					destroy() {
+						document.removeEventListener("keydown", turnOn);
+						document.removeEventListener("keydup", turnOff);
+					},
+				};
+			},
 			addListener("pointerenter", (e) => {
 				e.pointerType;
 				this.attributes["data-hover"] = true;
 			}),
-		);
-		this.extendActions(
 			addListener("pointerleave", () => {
 				this.attributes["data-hover"] = false;
 				this.attributes["data-active"] = false;
 			}),
-		);
-		this.extendActions(
 			addListener("pointerdown", () => {
 				this.#isPointerEvent = true;
 				this.attributes["data-active"] = true;
 			}),
-		);
-		this.extendActions(
 			addListener("pointerup", () => {
 				this.#isPointerEvent = false;
 				this.attributes["data-active"] = false;
 			}),
-		);
-		this.extendActions(
 			addListener("focusin", () => {
 				if (this.#isKeyboardEvent && !this.#isPointerEvent) {
 					this.attributes["data-focus-visible"] = true;
 				}
 				this.attributes["data-focus"] = true;
 			}),
-		);
-		this.extendActions(
 			addListener("focusout", () => {
 				this.attributes["data-focus-visible"] = false;
 				this.attributes["data-focus"] = false;
