@@ -31,6 +31,8 @@ export type TogglableOptions = {
 
 const defaults = { initial: {}, active: false } satisfies Partial<TogglableOptions>;
 
+const togglable = Symbol();
+
 interface Toggler {
 	get active(): boolean;
 	set active(val: boolean);
@@ -98,6 +100,12 @@ export const Togglable = <
 
 		off() {
 			if (this.active) this.toggle();
+		}
+
+		[togglable] = true;
+
+		static [Symbol.hasInstance](instance: any) {
+			return instance[togglable];
 		}
 	};
 };

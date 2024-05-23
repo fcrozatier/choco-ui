@@ -12,6 +12,8 @@ export type InvokableOptions = {
 	target?: TogglableOptions["initial"];
 } & Omit<TogglableOptions, "initial">;
 
+const invokable = Symbol();
+
 class Control extends Togglable(ChocoBase) {}
 
 export const Invokable = <
@@ -54,6 +56,12 @@ export const Invokable = <
 		override off() {
 			super.off();
 			this.target.off();
+		}
+
+		[invokable] = true;
+
+		static [Symbol.hasInstance](instance: any) {
+			return instance[invokable];
 		}
 	};
 };
