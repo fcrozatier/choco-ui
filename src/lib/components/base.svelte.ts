@@ -33,10 +33,8 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> {
 	}
 
 	extendActions(...actions: Action<T>[]) {
-		if (actions) {
-			for (const action of actions) {
-				this.#actions.push(action);
-			}
+		for (const action of actions) {
+			this.#actions.push(action);
 		}
 	}
 
