@@ -5,7 +5,7 @@ export type Constructor<Class = {}> = new (...options: any[]) => Class;
 export type MixedWith<Mixin extends (...args: any) => any> = InstanceType<ReturnType<Mixin>>;
 
 /**
- * Custom utility type to Omit a subtype from a type
+ * Custom utility type to Omit a supertype from a type
  */
 export type OmitSupertype<T extends S, S> = Omit<Defined<T>, keyof Defined<S>> & {
 	[K in keyof S as K extends keyof T
