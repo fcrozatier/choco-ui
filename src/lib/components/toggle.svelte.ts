@@ -1,5 +1,5 @@
 import { Togglable } from "$lib/mixins/togglable.svelte";
-import { ChocoBase, type Attributes } from "./base.svelte";
+import { ChocoBase } from "./base.svelte";
 
 export type ToggleOptions = {
 	/**
@@ -9,7 +9,7 @@ export type ToggleOptions = {
 	value?: string;
 };
 
-const defaults = { active: false, value: "" } satisfies Required<ToggleOptions>;
+const defaults = { active: false } satisfies ToggleOptions;
 
 /**
  * ## Toggle
@@ -31,15 +31,17 @@ export class ToggleButton extends Togglable<HTMLButtonElement>(ChocoBase) {
 
 	constructor(options?: ToggleOptions) {
 		super();
-		const toggleOptions: Required<ToggleOptions> = { ...defaults, ...options };
-		let initial = { "aria-pressed": `${toggleOptions.active}` } as const;
+		const toggleOptions = { ...defaults, ...options };
 
-		const attributes: Attributes = {
+		this.extendAttributes({
 			type: "button",
-			value: options?.value ?? undefined,
-		};
+			value: options?.value,
+		});
 
-		this.extendAttributes(attributes);
-		this.initTogglable({ initial, active: toggleOptions.active, toggle: "click" });
+		this.initTogglable({
+			initial: { "aria-pressed": `${toggleOptions.active}` },
+			active: toggleOptions.active,
+			toggle: "click",
+		});
 	}
 }
