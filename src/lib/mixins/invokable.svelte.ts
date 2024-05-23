@@ -5,11 +5,11 @@ export type InvokableOptions = {
 	/**
 	 * Initial state of the control
 	 */
-	control: TogglableOptions["initial"];
+	control?: TogglableOptions["initial"];
 	/**
 	 * Initial state of the target
 	 */
-	target: TogglableOptions["initial"];
+	target?: TogglableOptions["initial"];
 } & Omit<TogglableOptions, "initial">;
 
 class Control extends Togglable(ChocoBase) {}
