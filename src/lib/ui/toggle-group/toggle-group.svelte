@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Orientation } from "$lib/internal/types";
+	import type { Orientation } from "$lib/mixins/types";
 	import { type Snippet } from "svelte";
 	import type { HTMLFieldsetAttributes } from "svelte/elements";
 	import type { ToggleProps } from "../toggle";

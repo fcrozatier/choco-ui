@@ -1,5 +1,5 @@
 import { makeFocusable } from "$lib/actions/focus.svelte";
-import type { Orientation } from "$lib/internal/types";
+import type { Orientation } from "$lib/mixins/types";
 import { Invokable } from "$lib/mixins/invokable.svelte";
 import { Togglable } from "$lib/mixins/togglable.svelte";
 import type { OmitSupertype } from "$lib/mixins/types";

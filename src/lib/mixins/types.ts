@@ -34,3 +34,5 @@ export type Attributes<T extends HTMLElement> = HTMLAttributes<HTMLElement> &
 	Partial<Filter<T, boolean | string | number | undefined>> & {
 		[name: string]: any;
 	};
+
+export type Orientation = "horizontal" | "vertical";

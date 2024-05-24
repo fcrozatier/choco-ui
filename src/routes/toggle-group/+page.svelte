@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { t } from "$lib/ui/theme";
-	import type { Orientation } from "$lib/internal/types";
+	import type { Orientation } from "$lib/mixins/types";
 	import * as ToggleGroupUI from "$lib/ui/toggle-group";
 	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
 	import { choco } from "$lib/actions/choco";

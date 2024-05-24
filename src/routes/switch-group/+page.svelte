@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Orientation } from "$lib/internal/types";
+	import type { Orientation } from "$lib/mixins/types";
 	import * as SwitchGroup from "$lib/ui/switch-group";
 	import { SwitchGroup as SG } from "$lib/components/switch-group.svelte";
 	import { choco } from "$lib/actions/choco";
