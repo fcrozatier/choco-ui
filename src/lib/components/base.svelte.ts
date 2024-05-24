@@ -1,27 +1,18 @@
 import { mergeActions } from "$lib/actions/combineActions";
 import type { Action } from "svelte/action";
-import type { AriaAttributes, HTMLAttributes, SvelteHTMLElements } from "svelte/elements";
+import type { Attributes } from "../mixins/types";
 
-export type Attributes = HTMLAttributes<HTMLElement> &
-	AriaAttributes &
-	Record<string, boolean | string | null | undefined>;
-
-export class ChocoBase<
-	T extends HTMLElement = HTMLElement,
-	U extends keyof SvelteHTMLElements = "",
-	A = U extends "" ? Attributes : SvelteHTMLElements[U],
-> {
-	//@ts-ignore A is just a generic alias for the ChocoBase `attributes` type
-	#attributes: A = $state({});
+export class ChocoBase<T extends HTMLElement = HTMLElement> {
+	#attributes: Attributes<T> = $state({});
 	#actions: Action<T>[] = [];
 
 	element!: T;
 
-	get attributes(): A {
+	get attributes(): Attributes<T> {
 		return this.#attributes;
 	}
 
-	set attributes(newV: A) {
+	set attributes(newV: Attributes<T>) {
 		this.#attributes = newV;
 	}
 
@@ -29,7 +20,7 @@ export class ChocoBase<
 		return mergeActions(...this.#actions);
 	}
 
-	constructor(attributes?: NoInfer<A>) {
+	constructor(attributes?: NoInfer<Attributes<T>>) {
 		if (attributes) {
 			this.#attributes = attributes;
 		}
@@ -44,7 +35,7 @@ export class ChocoBase<
 		}
 	}
 
-	extendAttributes(newAttributes: A) {
+	extendAttributes(newAttributes: Attributes<T>) {
 		this.#attributes = { ...this.#attributes, ...newAttributes };
 	}
 }

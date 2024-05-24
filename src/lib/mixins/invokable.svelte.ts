@@ -17,8 +17,8 @@ const invokable = Symbol();
 class Control extends Togglable(ChocoBase) {}
 
 export const Invokable = <
-	U extends HTMLElement = HTMLElement,
-	C extends ReturnType<typeof Togglable<U>> = ReturnType<typeof Togglable<U>>,
+	T extends HTMLElement = HTMLElement,
+	C extends ReturnType<typeof Togglable<T>> = ReturnType<typeof Togglable<T>>,
 >(
 	controlClass: C,
 	targetClass = Control,
