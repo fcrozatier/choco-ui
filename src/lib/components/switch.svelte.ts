@@ -1,6 +1,6 @@
 import { Togglable } from "$lib/mixins/togglable.svelte";
 import { role } from "$lib/utils/roles";
-import { ChocoBase, type Attributes } from "./base.svelte";
+import { ChocoBase } from "./base.svelte";
 
 export type SwitchOptions = {
 	/**
@@ -35,12 +35,10 @@ export class Switch extends Togglable<HTMLButtonElement | HTMLInputElement>(Choc
 		const toggleOptions: Required<SwitchOptions> = { ...defaults, ...options };
 		let initial = { "aria-checked": `${toggleOptions.active}` } as const;
 
-		const attributes: Attributes = {
+		this.extendAttributes({
 			value: options?.value ?? undefined,
 			role: role.switch,
-		};
-
-		this.extendAttributes(attributes);
+		});
 		this.extendActions((node) => {
 			if (node instanceof HTMLButtonElement) {
 				node.type = "button";
