@@ -50,8 +50,6 @@ class TriState extends ChocoBase<HTMLInputElement> {
 }
 
 export class CheckboxGroup extends Group(Checkbox) {
-	#ids: string[] = $state([]);
-
 	active = $derived(this.activeItems.map((item) => item.value));
 	triState: boolean | "mixed" = $derived(
 		this.activeItems.length === this.items.length
@@ -61,7 +59,7 @@ export class CheckboxGroup extends Group(Checkbox) {
 				: "mixed",
 	);
 
-	lastState: string[] | null = null;
+	lastState: string[] = [];
 
 	root;
 
@@ -76,7 +74,7 @@ export class CheckboxGroup extends Group(Checkbox) {
 			}
 			this.root.updateState(false);
 		} else if (this.triState === false) {
-			if (this.lastState && this.lastState.length !== 0) {
+			if (this.lastState.length !== 0) {
 				for (const item of this.items) {
 					if (this.lastState.includes(item.value)) {
 						item.on();
@@ -103,23 +101,25 @@ export class CheckboxGroup extends Group(Checkbox) {
 		super(options);
 
 		this.root = new TriState();
-		this.root.extendActions(
-			(node) => node.setAttribute("aria-controls", this.#ids.join(" ")),
-			addListener("click", this.nextState),
-		);
-
-		$effect(() => {
-			this.root.updateState(this.triState);
-		});
+		this.root.extendAttributes({ "aria-controls": "" });
+		this.root.extendActions(addListener("click", this.nextState));
 	}
 
 	createItem = (options: CheckboxOptions) => {
 		const item = new this.Item(options);
 		const id = nanoId();
 
-		this.#ids.push(id);
+		this.root.extendAttributes({
+			"aria-controls": (this.root.attributes["aria-controls"] + " " + id).trimStart(),
+		});
+
 		item.extendAttributes({ id });
-		item.extendActions(addListener("click", () => (this.lastState = null)));
+		item.extendActions(
+			addListener("click", () => {
+				this.lastState = [];
+				this.root.updateState(this.triState);
+			}),
+		);
 
 		return item;
 	};
