@@ -4,7 +4,7 @@ import { nanoId } from "$lib/utils/nano";
 import { ChocoBase } from "./base.svelte";
 import { Group, type GroupOptions } from "./group.svelte";
 
-type CheckboxGroupOptions = GroupOptions & { active?: boolean };
+type CheckboxGroupOptions = GroupOptions & { active?: boolean | "mixed" };
 
 export type CheckboxOptions = {
 	/**
@@ -34,11 +34,12 @@ class TriState extends ChocoBase<HTMLInputElement> {
 		return { ...super.attributes, checked: this.checked, indeterminate: this.indeterminate };
 	}
 
-	constructor() {
+	constructor(initial?: boolean | "mixed") {
 		super({ type: "checkbox" });
+		this.updateState(initial ?? false);
 	}
 
-	updateState(state?: boolean | "mixed") {
+	updateState(state: boolean | "mixed") {
 		if (typeof state === "boolean") {
 			this.checked = state;
 			this.indeterminate = false;
@@ -100,18 +101,14 @@ export class CheckboxGroup extends Group(Checkbox) {
 	constructor(options?: CheckboxGroupOptions) {
 		super(options);
 
-		this.root = new TriState();
+		this.root = new TriState(options?.active);
 		this.root.extendAttributes({ "aria-controls": "" });
 		this.root.extendActions(addListener("click", this.nextState));
 	}
 
 	createItem = (options: CheckboxOptions) => {
-		const item = new this.Item(options);
 		const id = nanoId();
-
-		this.root.extendAttributes({
-			"aria-controls": (this.root.attributes["aria-controls"] + " " + id).trimStart(),
-		});
+		const item = new this.Item(options);
 
 		item.extendAttributes({ id });
 		item.extendActions(
@@ -120,6 +117,12 @@ export class CheckboxGroup extends Group(Checkbox) {
 				this.root.updateState(this.triState);
 			}),
 		);
+
+		this.root.extendAttributes({
+			"aria-controls": (this.root.attributes["aria-controls"] + " " + id).trimStart(),
+		});
+
+		this.root.updateState(this.triState);
 
 		return item;
 	};
