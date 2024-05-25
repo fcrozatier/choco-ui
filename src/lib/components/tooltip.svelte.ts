@@ -35,7 +35,13 @@ export class Tooltip extends Hoverable(Invokable(Togglable(ChocoBase))) {
 			role: role.tooltip,
 			"data-position": options?.position ?? defaults.position,
 		});
+
 		this.initInvokable({ active: isOpen, target: { "data-open": isOpen } });
-		this.initHoverable({ isHovered: isOpen });
+
+		this.initHoverable({
+			isHovered: isOpen,
+			onHoverStart: () => (this.active = true),
+			onHoverEnd: () => (this.active = false),
+		});
 	}
 }
