@@ -44,15 +44,17 @@ class TriState extends ChocoBase<HTMLInputElement> {
 			this.checked = state;
 			this.indeterminate = false;
 		} else {
-			this.checked = false;
+			this.checked = true;
 			this.indeterminate = true;
 		}
 	}
 }
 
 export class CheckboxGroup extends Group(Checkbox) {
+	#lastActive: string[] = [];
+
 	active = $derived(this.activeItems.map((item) => item.value));
-	triState: boolean | "mixed" = $derived(
+	state: boolean | "mixed" = $derived(
 		this.activeItems.length === this.items.length
 			? true
 			: this.activeItems.length === 0
@@ -60,24 +62,22 @@ export class CheckboxGroup extends Group(Checkbox) {
 				: "mixed",
 	);
 
-	lastState: string[] = [];
-
 	root;
 
-	nextState = () => {
-		if (this.triState === "mixed") {
-			this.lastState = $state.snapshot(this.active);
+	#toggleMixed = () => {
+		if (this.state === "mixed") {
+			this.#lastActive = $state.snapshot(this.active);
 		}
 
-		if (this.triState === true) {
+		if (this.state === true) {
 			for (const item of this.items) {
 				item.off();
 			}
 			this.root.updateState(false);
-		} else if (this.triState === false) {
-			if (this.lastState.length !== 0) {
+		} else if (this.state === false) {
+			if (this.#lastActive.length !== 0) {
 				for (const item of this.items) {
-					if (this.lastState.includes(item.value)) {
+					if (this.#lastActive.includes(item.value)) {
 						item.on();
 					} else {
 						item.off();
@@ -90,7 +90,7 @@ export class CheckboxGroup extends Group(Checkbox) {
 				}
 				this.root.updateState(true);
 			}
-		} else if (this.triState === "mixed") {
+		} else if (this.state === "mixed") {
 			for (const item of this.items) {
 				item.on();
 			}
@@ -103,7 +103,7 @@ export class CheckboxGroup extends Group(Checkbox) {
 
 		this.root = new TriState(options?.active);
 		this.root.extendAttributes({ "aria-controls": "" });
-		this.root.extendActions(addListener("click", this.nextState));
+		this.root.extendActions(addListener("click", this.#toggleMixed));
 	}
 
 	createItem = (options: CheckboxOptions) => {
@@ -113,16 +113,17 @@ export class CheckboxGroup extends Group(Checkbox) {
 		item.extendAttributes({ id });
 		item.extendActions(
 			addListener("click", () => {
-				this.lastState = [];
-				this.root.updateState(this.triState);
+				this.#lastActive = [];
+				this.root.updateState(this.state);
 			}),
 		);
 
 		this.root.extendAttributes({
-			"aria-controls": (this.root.attributes["aria-controls"] + " " + id).trimStart(),
+			"aria-controls":
+				this.root.attributes["aria-controls"] + `${this.items.length === 1 ? "" : " "}` + id,
 		});
 
-		this.root.updateState(this.triState);
+		this.root.updateState(this.state);
 
 		return item;
 	};
