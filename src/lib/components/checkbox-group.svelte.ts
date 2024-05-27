@@ -1,10 +1,16 @@
 import { addListener } from "$lib/actions/addListener";
 import { Togglable } from "$lib/mixins/togglable.svelte";
 import { nanoId } from "$lib/utils/nano";
+import type { AriaAttributes } from "svelte/elements";
 import { ChocoBase } from "./base.svelte";
 import { Group, type GroupOptions } from "./group.svelte";
 
-type CheckboxGroupOptions = GroupOptions & { active?: boolean | "mixed" };
+type CheckboxGroupOptions = GroupOptions & {
+	/**
+	 * The initial state of the root checkbox. Only used to avoid flicker during hydration
+	 */
+	active?: boolean | "mixed";
+};
 
 export type CheckboxOptions = {
 	/**
@@ -31,21 +37,37 @@ class TriState extends ChocoBase<HTMLInputElement> {
 	indeterminate?: boolean = $state();
 
 	override get attributes() {
-		return { ...super.attributes, checked: this.checked, indeterminate: this.indeterminate };
+		console.log("state is", {
+			checked: this.checked,
+			indeterminate: this.indeterminate,
+			"aria-checked": this.indeterminate ? ("mixed" as const) : undefined,
+		});
+		return {
+			...super.attributes,
+			checked: this.checked,
+			indeterminate: this.indeterminate,
+			"aria-checked": this.indeterminate ? ("mixed" as const) : undefined,
+		};
 	}
 
-	constructor(initial?: boolean | "mixed") {
+	constructor(initial?: AriaAttributes["aria-checked"]) {
 		super({ type: "checkbox" });
-		this.updateState(initial ?? false);
+		this.setState(initial);
 	}
 
-	updateState(state: boolean | "mixed") {
+	setState(state: AriaAttributes["aria-checked"]) {
 		if (typeof state === "boolean") {
 			this.checked = state;
 			this.indeterminate = false;
-		} else {
-			this.checked = true;
+		} else if (state === "mixed") {
+			this.checked = false; // here?
 			this.indeterminate = true;
+		} else if (typeof state === "string") {
+			this.checked = state === "true";
+			this.indeterminate = false;
+		} else {
+			this.checked = false;
+			this.indeterminate = false;
 		}
 	}
 }
@@ -54,7 +76,7 @@ export class CheckboxGroup extends Group(Checkbox) {
 	#lastActive: string[] = [];
 
 	active = $derived(this.activeItems.map((item) => item.value));
-	state: boolean | "mixed" = $derived(
+	checked: boolean | "mixed" = $derived(
 		this.activeItems.length === this.items.length
 			? true
 			: this.activeItems.length === 0
@@ -65,36 +87,25 @@ export class CheckboxGroup extends Group(Checkbox) {
 	root;
 
 	#toggleMixed = () => {
-		if (this.state === "mixed") {
-			this.#lastActive = $state.snapshot(this.active);
-		}
-
-		if (this.state === true) {
-			for (const item of this.items) {
-				item.off();
-			}
-			this.root.updateState(false);
-		} else if (this.state === false) {
-			if (this.#lastActive.length !== 0) {
-				for (const item of this.items) {
-					if (this.#lastActive.includes(item.value)) {
-						item.on();
-					} else {
-						item.off();
-					}
-				}
-				this.root.updateState("mixed");
-			} else {
-				for (const item of this.items) {
-					item.on();
-				}
-				this.root.updateState(true);
-			}
-		} else if (this.state === "mixed") {
+		if (this.checked === "mixed") {
 			for (const item of this.items) {
 				item.on();
 			}
-			this.root.updateState(true);
+			this.root.setState(true);
+		} else if (this.checked === true) {
+			for (const item of this.items) {
+				item.off();
+			}
+			this.root.setState(false);
+		} else {
+			for (const item of this.items) {
+				this.#lastActive.includes(item.value) ? item.on() : item.off();
+			}
+			this.root.setState(
+				this.#lastActive.length !== this.items.length && this.#lastActive.length !== 0
+					? "mixed"
+					: this.#lastActive.length === this.items.length,
+			);
 		}
 	};
 
@@ -113,17 +124,28 @@ export class CheckboxGroup extends Group(Checkbox) {
 		item.extendAttributes({ id });
 		item.extendActions(
 			addListener("click", () => {
-				this.#lastActive = [];
-				this.root.updateState(this.state);
+				this.#lastActive = $state.snapshot(this.active);
+				console.log("lastActive:", this.#lastActive);
+				console.log("lastActive:", this.checked);
+				this.root.setState(this.checked);
+				console.log("lastActive:", this.checked);
 			}),
 		);
 
 		this.root.extendAttributes({
 			"aria-controls":
-				this.root.attributes["aria-controls"] + `${this.items.length === 1 ? "" : " "}` + id,
+				this.root.attributes["aria-controls"] + (this.items.length === 1 ? "" : " ") + id,
 		});
 
-		this.root.updateState(this.state);
+		if (this.items.length === 1) {
+			// Update root state after items creation
+			setTimeout(() => {
+				console.log("createItem effect");
+				this.#lastActive = $state.snapshot(this.active);
+				this.root.setState(this.checked);
+				console.log("lastActive:", this.#lastActive);
+			}, 0);
+		}
 
 		return item;
 	};
