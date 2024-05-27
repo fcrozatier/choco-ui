@@ -1,7 +1,6 @@
 import { addListener } from "$lib/actions/addListener";
 import { Togglable } from "$lib/mixins/togglable.svelte";
 import { nanoId } from "$lib/utils/nano";
-import type { AriaAttributes } from "svelte/elements";
 import { ChocoBase } from "./base.svelte";
 import { Group, type GroupOptions } from "./group.svelte";
 
@@ -37,43 +36,31 @@ class TriState extends ChocoBase<HTMLInputElement> {
 	indeterminate?: boolean = $state();
 
 	override get attributes() {
-		console.log("state is", {
-			checked: this.checked,
-			indeterminate: this.indeterminate,
-			"aria-checked": this.indeterminate ? ("mixed" as const) : undefined,
-		});
 		return {
 			...super.attributes,
 			checked: this.checked,
-			indeterminate: this.indeterminate,
-			"aria-checked": this.indeterminate ? ("mixed" as const) : undefined,
+			"aria-checked": this.indeterminate ? ("mixed" as const) : this.checked,
 		};
 	}
 
-	constructor(initial?: AriaAttributes["aria-checked"]) {
+	constructor(initial?: boolean | "mixed") {
 		super({ type: "checkbox" });
-		this.setState(initial);
+		this.setState(initial ?? false);
 	}
 
-	setState(state: AriaAttributes["aria-checked"]) {
+	setState(state: boolean | "mixed") {
 		if (typeof state === "boolean") {
 			this.checked = state;
 			this.indeterminate = false;
 		} else if (state === "mixed") {
-			this.checked = false; // here?
+			this.checked = undefined;
 			this.indeterminate = true;
-		} else if (typeof state === "string") {
-			this.checked = state === "true";
-			this.indeterminate = false;
-		} else {
-			this.checked = false;
-			this.indeterminate = false;
 		}
 	}
 }
 
 export class CheckboxGroup extends Group(Checkbox) {
-	#lastActive: string[] = [];
+	#lastActive: string[] = $state([]);
 
 	active = $derived(this.activeItems.map((item) => item.value));
 	checked: boolean | "mixed" = $derived(
@@ -91,21 +78,14 @@ export class CheckboxGroup extends Group(Checkbox) {
 			for (const item of this.items) {
 				item.on();
 			}
-			this.root.setState(true);
 		} else if (this.checked === true) {
 			for (const item of this.items) {
 				item.off();
 			}
-			this.root.setState(false);
 		} else {
 			for (const item of this.items) {
 				this.#lastActive.includes(item.value) ? item.on() : item.off();
 			}
-			this.root.setState(
-				this.#lastActive.length !== this.items.length && this.#lastActive.length !== 0
-					? "mixed"
-					: this.#lastActive.length === this.items.length,
-			);
 		}
 	};
 
@@ -115,6 +95,15 @@ export class CheckboxGroup extends Group(Checkbox) {
 		this.root = new TriState(options?.active);
 		this.root.extendAttributes({ "aria-controls": "" });
 		this.root.extendActions(addListener("click", this.#toggleMixed));
+
+		$effect(() => {
+			console.log("new state", this.checked);
+			this.root.setState(this.checked);
+
+			if (this.checked === "mixed") {
+				this.#lastActive = $state.snapshot(this.active);
+			}
+		});
 	}
 
 	createItem = (options: CheckboxOptions) => {
@@ -122,30 +111,18 @@ export class CheckboxGroup extends Group(Checkbox) {
 		const item = new this.Item(options);
 
 		item.extendAttributes({ id });
-		item.extendActions(
-			addListener("click", () => {
-				this.#lastActive = $state.snapshot(this.active);
-				console.log("lastActive:", this.#lastActive);
-				console.log("lastActive:", this.checked);
-				this.root.setState(this.checked);
-				console.log("lastActive:", this.checked);
-			}),
-		);
+		// item.extendActions(
+		// 	addListener("click", () => {
+		// 		this.#lastActive = $state.snapshot(this.active);
+		// 		console.log("lastActive:", this.#lastActive);
+		// 		console.log("lastActive:", this.checked);
+		// 	}),
+		// );
 
 		this.root.extendAttributes({
 			"aria-controls":
 				this.root.attributes["aria-controls"] + (this.items.length === 1 ? "" : " ") + id,
 		});
-
-		if (this.items.length === 1) {
-			// Update root state after items creation
-			setTimeout(() => {
-				console.log("createItem effect");
-				this.#lastActive = $state.snapshot(this.active);
-				this.root.setState(this.checked);
-				console.log("lastActive:", this.#lastActive);
-			}, 0);
-		}
 
 		return item;
 	};
