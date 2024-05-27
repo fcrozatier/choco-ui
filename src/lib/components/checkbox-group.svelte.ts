@@ -97,7 +97,6 @@ export class CheckboxGroup extends Group(Checkbox) {
 		this.root.extendActions(addListener("click", this.#toggleMixed));
 
 		$effect(() => {
-			console.log("new state", this.checked);
 			this.root.setState(this.checked);
 
 			if (this.checked === "mixed") {
@@ -111,13 +110,6 @@ export class CheckboxGroup extends Group(Checkbox) {
 		const item = new this.Item(options);
 
 		item.extendAttributes({ id });
-		// item.extendActions(
-		// 	addListener("click", () => {
-		// 		this.#lastActive = $state.snapshot(this.active);
-		// 		console.log("lastActive:", this.#lastActive);
-		// 		console.log("lastActive:", this.checked);
-		// 	}),
-		// );
 
 		this.root.extendAttributes({
 			"aria-controls":
