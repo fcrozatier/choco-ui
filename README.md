@@ -15,3 +15,11 @@ The benefits are many:
 - Another benefit of a smaller API is less code. This means a lighter library, faster to load and to run.
 
 Even though HTML elements are reactive, the markup is not necessarily updated. We normalize this to make sure that the state is actually reflected in the DOM. This helps with debugging.
+
+## Inspiration
+
+- MeltUI
+- shadcn
+- SkeletonUI
+- HeadlessUI
+- ReactAria
