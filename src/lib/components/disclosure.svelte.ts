@@ -30,6 +30,11 @@ export type DisclosureOptions = {
 
 const defaults = { active: false } satisfies DisclosureOptions;
 
+/**
+ * ## Disclosure
+ *
+ * Adheres to the [Disclosure WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/)
+ */
 export class Disclosure extends Invokable<HTMLButtonElement>(Togglable(ChocoBase)) {
 	constructor(options?: DisclosureOptions) {
 		super();
