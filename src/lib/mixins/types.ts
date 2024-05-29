@@ -1,4 +1,4 @@
-import type { HTMLAttributes, AriaRole, AriaAttributes } from "svelte/elements";
+import type { HTMLAttributes } from "svelte/elements";
 
 // TS Mixin constructor constraint
 // https://www.typescriptlang.org/docs/handbook/mixins.html#constrained-mixins
@@ -41,10 +41,11 @@ type WritableKeys<T> = {
 }[keyof T];
 
 export type Attributes<T extends HTMLElement> = Omit<
-	AriaAttributes & { role?: AriaRole } & { [key: `data-${string}`]: any } & {
-		[K in (typeof GlobalAttributes)[number]]?: K extends keyof HTMLAttributes<HTMLElement>
-			? HTMLAttributes<HTMLElement>[K]
-			: never;
+	{
+		[K in keyof Omit<
+			HTMLAttributes<HTMLElement>,
+			`on:${string}` | `bind:${string}` | "children"
+		>]?: HTMLAttributes<HTMLElement>[K];
 	} & {
 		[K in WritableKeys<T> as K extends (typeof NonGlobalAttributes)[number] ? K : never]?:
 			| T[K]
@@ -53,39 +54,6 @@ export type Attributes<T extends HTMLElement> = Omit<
 	},
 	never
 >;
-
-const GlobalAttributes = [
-	"accesskey",
-	"autocapitalize",
-	"autofocus",
-	"class",
-	"contenteditable",
-	"dir",
-	"draggable",
-	"enterkeyhint",
-	"exportparts",
-	"hidden",
-	"id",
-	"inert",
-	"inputmode",
-	"is",
-	"itemid",
-	"itemprop",
-	"itemref",
-	"itemscope",
-	"itemtype",
-	"lang",
-	"nonce",
-	"part",
-	"popover",
-	"slot",
-	"spellcheck",
-	"style",
-	"tabindex",
-	"title",
-	"translate",
-	"virtualkeyboardpolicy",
-] as const;
 
 const NonGlobalAttributes = [
 	"accept",
