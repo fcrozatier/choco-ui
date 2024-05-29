@@ -6,7 +6,7 @@ import type { Booleanish } from "svelte/elements";
 export const toggleValues = (state: Record<string, Booleanish>) => {
 	const newState: Record<string, Booleanish> = {};
 
-	for (const key in state) {
+	for (const key of Object.keys(state)) {
 		const val = state[key];
 
 		if (typeof val === "boolean") {
