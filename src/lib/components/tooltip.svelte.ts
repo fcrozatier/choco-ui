@@ -27,7 +27,7 @@ export class Tooltip extends Hoverable(Invokable(Togglable(ChocoBase))) {
 		const isOpen = !!options?.isOpen;
 
 		this.extendAttributes({
-			"aria-described-by": id,
+			"aria-describedby": id,
 		});
 		this.target.extendAttributes({
 			id,

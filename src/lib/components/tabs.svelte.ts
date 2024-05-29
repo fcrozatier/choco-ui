@@ -41,7 +41,7 @@ export type TabOptions = {
 	active?: boolean;
 };
 
-class Tab extends Invokable(Togglable(ChocoBase)) {
+class Tab extends Invokable<HTMLButtonElement>(Togglable(ChocoBase)) {
 	value: string;
 
 	constructor(options: TabOptions) {
