@@ -1,8 +1,8 @@
-import { ChocoBase } from "../components/base.svelte";
-import type { Booleanish } from "svelte/elements";
-import { toggleValues } from "$lib/internal/helpers";
-import type { Constructor } from "./types";
 import { addListener } from "$lib/actions/addListener";
+import { toggleValues } from "$lib/internal/helpers";
+import type { Booleanish } from "svelte/elements";
+import { ChocoBase } from "../components/base.svelte";
+import type { Constructor } from "./types";
 
 type EventName = keyof HTMLElementEventMap;
 
@@ -33,21 +33,13 @@ const defaults = { initial: {}, active: false } satisfies Partial<TogglableOptio
 
 const togglable = Symbol();
 
-interface Toggler {
-	get active(): boolean;
-	set active(val: boolean);
-	toggle(): void;
-	on(): void;
-	off(): void;
-}
-
 export const Togglable = <
 	U extends HTMLElement = HTMLElement,
 	T extends Constructor<ChocoBase<U>> = Constructor<ChocoBase<U>>,
 >(
 	superclass: T,
 ) => {
-	return class extends superclass implements Toggler {
+	return class extends superclass {
 		#attributes: Record<string, Booleanish> = $state({});
 		#active = $state(false);
 
