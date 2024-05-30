@@ -3,7 +3,6 @@ import type { Action } from "svelte/action";
 import type { Attributes } from "../mixins/types";
 
 export class ChocoBase<T extends HTMLElement = HTMLElement> {
-	// @ts-ignore
 	#attributes: Attributes<T> = $state({});
 	#actions: Action<T>[] = [];
 

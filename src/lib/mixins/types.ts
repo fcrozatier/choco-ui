@@ -23,13 +23,6 @@ export type OmitSupertype<T extends S, S> = Omit<Defined<T>, keyof Defined<S>> &
 
 type Defined<T> = T extends undefined ? never : T;
 
-/**
- * Only keep the keys whose values match a given type
- */
-export type Filter<T extends Record<any, any>, S> = {
-	[K in keyof T as T[K] extends S ? (K extends S ? K : never) : never]: T[K];
-};
-
 export type Orientation = "horizontal" | "vertical";
 
 // https://github.com/Microsoft/TypeScript/issues/27024
@@ -40,7 +33,7 @@ type WritableKeys<T> = {
 	[K in keyof T]: Equals<{ [P in K]: T[K] }, { -readonly [P in K]: T[K] }> extends true ? K : never;
 }[keyof T];
 
-export type Attributes<T extends HTMLElement> = Omit<
+export type Attributes<T extends HTMLElement> = Partial<
 	{
 		[K in keyof Omit<
 			HTMLAttributes<HTMLElement>,
@@ -51,8 +44,7 @@ export type Attributes<T extends HTMLElement> = Omit<
 			| T[K]
 			| null
 			| undefined;
-	},
-	never
+	}
 >;
 
 const NonGlobalAttributes = [
