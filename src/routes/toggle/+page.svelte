@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { ToggleButton } from "$lib/components/toggle.svelte";
 	import { t } from "$lib/ui/theme";
 	import Toggle from "$lib/ui/toggle/toggle.svelte";
-	import { ToggleButton } from "$lib/components/toggle.svelte";
 
 	let disabled = $state(false);
 
