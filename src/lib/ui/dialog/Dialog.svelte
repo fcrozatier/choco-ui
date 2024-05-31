@@ -1,10 +1,12 @@
 <script context="module" lang="ts">
 	import Dialog from "./Dialog.svelte";
 
-	type DialogProps = DialogOptions & {
+	type DialogProps = {
 		class?: string;
-		children: Snippet;
+		role?: (typeof role)["dialog" | "alertdialog"];
+		preventScroll?: boolean;
 		onclose?: (ev: HTMLElementEventMap["close"]) => void;
+		children: Snippet;
 	};
 
 	export function showModal(props: DialogProps) {
@@ -25,7 +27,7 @@
 </script>
 
 <script lang="ts">
-	import type { DialogOptions } from "$lib/components/dialog.svelte";
+	import type { role } from "$lib/utils/roles";
 	import { mount, onMount, unmount, type Snippet } from "svelte";
 
 	let { children, class: className, role, onclose }: DialogProps = $props();
@@ -34,11 +36,25 @@
 
 	onMount(() => {
 		dialog?.showModal();
+		document.addEventListener(
+			"wheel",
+			(e) => {
+				e.preventDefault();
+				e.stopPropagation();
+			},
+			{ passive: false },
+		);
+
+		return () => {
+			document.removeEventListener("scroll", (e) => e.preventDefault());
+		};
 	});
 </script>
 
-<dialog {role} {onclose} class={className} bind:this={dialog}>
-	{#if children}
-		{@render children()}
-	{:else}{/if}
+<dialog {role} {onclose} class={className} bind:this={dialog} aria-modal="true">
+	<form method="dialog">
+		{#if children}
+			{@render children()}
+		{/if}
+	</form>
 </dialog>
