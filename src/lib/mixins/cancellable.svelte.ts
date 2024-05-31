@@ -1,4 +1,3 @@
-import { addListener } from "$lib/actions/addListener";
 import type { Togglable } from "$lib/mixins/togglable.svelte";
 
 /**
@@ -20,10 +19,8 @@ export const Cancellable = <
 				initial: { "data-active": false },
 				active: false,
 				on: "pointerdown",
-				off: "pointerup",
+				off: ["pointerup", "pointerleave"],
 			});
-
-			this.extendActions(addListener("pointerleave", this.off));
 		}
 	};
 };
