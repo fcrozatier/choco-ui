@@ -7,15 +7,13 @@ import { ChocoBase } from "./base.svelte";
 export type DialogProps = {
 	class?: string;
 	role?: (typeof role)["dialog" | "alertdialog"];
-	preventScroll?: boolean;
 	closeOnOutsideClick?: boolean;
-	onclose?: (ev: HTMLElementEventMap["close"]) => void;
+	onclose?: (ev: HTMLElementEventMap["close"] & { currentTarget: HTMLDialogElement }) => void;
 	snippet?: Snippet;
 };
 
 const defaults = {
 	role: "dialog",
-	preventScroll: true,
 	closeOnOutsideClick: true,
 } satisfies DialogProps;
 
@@ -31,31 +29,21 @@ export class Dialog extends ChocoBase<HTMLButtonElement> {
 	constructor(options?: DialogProps) {
 		super();
 		this.#options = { ...defaults, ...options };
-		this.extendActions(addListener("click", async () => await this.showModal()));
+		this.extendActions(addListener("click", this.showModal));
 	}
 
 	showModal = () => {
-		console.log("show modal");
-		return new Promise((resolve) => {
-			console.log("mounting");
-			const dialog = mount(DialogUI, {
-				target: document.body,
-				props: {
-					...this.#options,
-					onclose: (e) => {
-						console.log("closing");
-						console.log("returnValue", this.returnValue);
-						this.#options.onclose?.(e);
-						const returnValue = (e.currentTarget as HTMLDialogElement)?.returnValue;
-						this.returnValue = returnValue;
-						resolve(returnValue);
-						unmount(dialog);
-						console.log("returnValue", this.returnValue);
-					},
+		const dialog = mount(DialogUI, {
+			target: document.body,
+			props: {
+				...this.#options,
+				onclose: (e) => {
+					const returnValue = e.currentTarget.returnValue;
+					this.returnValue = returnValue;
+					this.#options.onclose?.(e);
+					unmount(dialog);
 				},
-			});
+			},
 		});
 	};
-
-	close = () => {};
 }
