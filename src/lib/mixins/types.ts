@@ -27,7 +27,7 @@ export type Orientation = "horizontal" | "vertical";
 
 // https://github.com/Microsoft/TypeScript/issues/27024
 type Equals<X, Y> =
-	(<T>() => T extends X ? 1 : 0) extends <T>() => T extends Y ? 1 : 0 ? true : false;
+	(<T>() => T extends X ? 1 : 0) extends <U>() => U extends Y ? 1 : 0 ? true : false;
 
 type WritableKeys<T> = {
 	[K in keyof T]: Equals<{ [P in K]: T[K] }, { -readonly [P in K]: T[K] }> extends true ? K : never;
