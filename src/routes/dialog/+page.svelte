@@ -10,8 +10,8 @@
 {#snippet dialogSnippet()}
 	<div class="p-8">
 		<h2>Continue?</h2>
-		<button type="submit" value="no">No</button>
-		<button type="submit" value="yes">Yes</button>
+		<button value="no">No</button>
+		<button value="yes">Yes</button>
 	</div>
 {/snippet}
 
