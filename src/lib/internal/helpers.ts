@@ -1,19 +1,18 @@
 import type { Booleanish } from "svelte/elements";
 
 /**
- * Pure function for toggling Booleanish values
+ * Impure function for toggling Booleanish values
  */
-export const toggleValues = (state: Record<string, Booleanish>) => {
-	const newState: Record<string, Booleanish> = {};
+export const toggleValues = (state?: Record<string, Booleanish>) => {
+	if (!state) return;
 
 	for (const key of Object.keys(state)) {
 		const val = state[key];
 
 		if (typeof val === "boolean") {
-			newState[key] = !val;
+			state[key] = !val;
 		} else if (typeof val === "string") {
-			newState[key] = `${val === "false"}`;
+			state[key] = `${val === "false"}`;
 		}
 	}
-	return newState;
 };
