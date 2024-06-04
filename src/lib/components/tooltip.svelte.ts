@@ -1,6 +1,7 @@
 import { Hoverable } from "$lib/mixins/hoverable.svelte";
 import { nanoId } from "$lib/utils/nano";
 import { role } from "$lib/utils/roles";
+import { trimUndefined } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
 
 export type TooltipOptions = { isOpen?: boolean; position?: "top" | "bottom" | "left" | "right" };
@@ -19,10 +20,15 @@ const defaults = { isOpen: false, position: "top" } satisfies TooltipOptions;
  * [WCAG Content on Hover or Focus](https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html)
  */
 export class Tooltip extends Hoverable(ChocoBase) {
+	#options: Required<TooltipOptions> = $state(defaults);
+
 	constructor(options?: TooltipOptions) {
 		super();
 		const id = nanoId();
-		const isOpen = !!options?.isOpen;
+		this.#options = {
+			...defaults,
+			...trimUndefined(options),
+		};
 
 		this.extendAttributes({
 			"aria-describedby": id,
@@ -32,9 +38,12 @@ export class Tooltip extends Hoverable(ChocoBase) {
 			id,
 			inert: true,
 			role: role.tooltip,
-			"data-position": options?.position ?? defaults.position,
+			"data-position": this.#options.position,
 		});
 
-		this.initHoverable({ active: isOpen, target: { "data-open": isOpen } });
+		this.initHoverable({
+			active: this.#options.isOpen,
+			target: { "data-open": this.#options.isOpen },
+		});
 	}
 }
