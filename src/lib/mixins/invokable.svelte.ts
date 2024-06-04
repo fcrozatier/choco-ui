@@ -1,5 +1,6 @@
 import { ChocoBase } from "../components/base.svelte";
 import { Togglable, type TogglableOptions } from "./togglable.svelte";
+import type { Constructor } from "./types";
 
 export type InvokableOptions = {
 	/**
@@ -14,16 +15,15 @@ export type InvokableOptions = {
 
 const invokable = Symbol();
 
-class Control extends Togglable(ChocoBase) {}
-
 export const Invokable = <
-	T extends HTMLElement = HTMLElement,
-	C extends ReturnType<typeof Togglable<T>> = ReturnType<typeof Togglable<T>>,
+	CE extends HTMLElement = HTMLElement,
+	TE extends HTMLElement = HTMLElement,
+	C extends Constructor<ChocoBase<CE>> = Constructor<ChocoBase<CE>>,
 >(
 	controlClass: C,
-	targetClass = Control,
+	targetClass = class extends Togglable<TE>(ChocoBase) {},
 ) => {
-	return class extends controlClass {
+	return class extends Togglable(controlClass) {
 		target: InstanceType<typeof targetClass>;
 
 		constructor(...options: any[]) {
@@ -43,19 +43,19 @@ export const Invokable = <
 			});
 		}
 
-		override toggle() {
-			super.toggle();
-			this.target.toggle();
+		override toggle(e?: Event) {
+			super.toggle(e);
+			this.target.toggle(e);
 		}
 
-		override on() {
-			super.on();
-			this.target.on();
+		override on(e?: Event) {
+			super.on(e);
+			this.target.on(e);
 		}
 
-		override off() {
-			super.off();
-			this.target.off();
+		override off(e?: Event) {
+			super.off(e);
+			this.target.off(e);
 		}
 
 		[invokable] = true;

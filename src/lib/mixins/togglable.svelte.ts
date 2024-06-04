@@ -1,5 +1,6 @@
 import { addListener } from "$lib/actions/addListener";
 import { toggleValues } from "$lib/internal/helpers";
+import { trimUndefined } from "@fcrozatier/ts-helpers";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../components/base.svelte";
 import type { Constructor } from "./types";
@@ -29,7 +30,7 @@ export type TogglableOptions = {
 	off?: EventName | EventName[];
 };
 
-const defaults = { initial: {}, active: false } satisfies Partial<TogglableOptions>;
+const defaults = { initial: {}, active: false } satisfies TogglableOptions;
 
 const togglable = Symbol();
 
@@ -63,7 +64,7 @@ export const Togglable = <
 		}
 
 		initTogglable = (opts: TogglableOptions) => {
-			const options = { ...defaults, ...opts };
+			const options = { ...defaults, ...trimUndefined(opts) };
 			this.#attributes = options.initial;
 			this.#active = options.active;
 
@@ -81,17 +82,17 @@ export const Togglable = <
 			return this;
 		};
 
-		toggle() {
+		toggle(_?: Event) {
 			this.#active = !this.#active;
-			this.#attributes = toggleValues(this.#attributes);
+			toggleValues(this.#attributes);
 		}
 
-		on() {
-			if (!this.active) this.toggle();
+		on(e?: Event) {
+			if (!this.active) this.toggle(e);
 		}
 
-		off() {
-			if (this.active) this.toggle();
+		off(e?: Event) {
+			if (this.active) this.toggle(e);
 		}
 
 		[togglable] = true;
