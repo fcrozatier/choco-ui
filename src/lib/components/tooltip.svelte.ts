@@ -1,6 +1,4 @@
 import { Hoverable } from "$lib/mixins/hoverable.svelte";
-import { Invokable } from "$lib/mixins/invokable.svelte";
-import { Togglable } from "$lib/mixins/togglable.svelte";
 import { nanoId } from "$lib/utils/nano";
 import { role } from "$lib/utils/roles";
 import { ChocoBase } from "./base.svelte";
@@ -20,7 +18,7 @@ const defaults = { isOpen: false, position: "top" } satisfies TooltipOptions;
  *
  * [WCAG Content on Hover or Focus](https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html)
  */
-export class Tooltip extends Hoverable(Invokable(Togglable(ChocoBase))) {
+export class Tooltip extends Hoverable(ChocoBase) {
 	constructor(options?: TooltipOptions) {
 		super();
 		const id = nanoId();
@@ -29,6 +27,7 @@ export class Tooltip extends Hoverable(Invokable(Togglable(ChocoBase))) {
 		this.extendAttributes({
 			"aria-describedby": id,
 		});
+
 		this.target.extendAttributes({
 			id,
 			inert: true,
@@ -36,12 +35,6 @@ export class Tooltip extends Hoverable(Invokable(Togglable(ChocoBase))) {
 			"data-position": options?.position ?? defaults.position,
 		});
 
-		this.initInvokable({ active: isOpen, target: { "data-open": isOpen } });
-
-		this.initHoverable({
-			isHovered: isOpen,
-			onHoverStart: () => (this.active = true),
-			onHoverEnd: () => (this.active = false),
-		});
+		this.initHoverable({ active: isOpen, target: { "data-open": isOpen } });
 	}
 }
