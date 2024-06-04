@@ -1,9 +1,10 @@
 import type { Timeout } from "$lib/mixins/types";
+import { events } from "$lib/utils/events";
 import type { Action } from "svelte/action";
 
-type LongPressOptions<T = HTMLElement> = {
+type LongPressOptions = {
 	delay?: number;
-	callback: (node?: T) => void;
+	callback: (e: Event) => void;
 };
 
 const DEFAULT_DELAY = 1000;
@@ -11,11 +12,14 @@ const DEFAULT_DELAY = 1000;
 /**
  * Fire a callback after a delay (default 1s)
  */
-export const longPress = (<T extends HTMLElement>(node: T, options: LongPressOptions<T>) => {
+export const longPress = (<T extends HTMLElement>(node: T, options: LongPressOptions) => {
 	let timer: Timeout;
 
 	const handlePointer = () => {
-		timer = setTimeout(() => options.callback(node), options.delay ?? DEFAULT_DELAY);
+		timer = setTimeout(
+			() => options.callback(new Event(events.longpress)),
+			options.delay ?? DEFAULT_DELAY,
+		);
 
 		node.addEventListener("pointerup", () => {
 			clearTimeout(timer);
@@ -29,4 +33,4 @@ export const longPress = (<T extends HTMLElement>(node: T, options: LongPressOpt
 			node.removeEventListener("pointerdown", handlePointer);
 		},
 	};
-}) satisfies Action<HTMLElement, LongPressOptions<HTMLElement>>;
+}) satisfies Action<HTMLElement, LongPressOptions>;
