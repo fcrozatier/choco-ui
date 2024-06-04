@@ -1,4 +1,5 @@
 import { Togglable } from "$lib/mixins/togglable.svelte";
+import { trimUndefined } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
 
 export type ToggleOptions = {
@@ -31,7 +32,7 @@ export class ToggleButton extends Togglable<HTMLButtonElement>(ChocoBase) {
 
 	constructor(options?: ToggleOptions) {
 		super();
-		const toggleOptions = { ...defaults, ...options };
+		const toggleOptions = { ...defaults, ...trimUndefined(options) };
 
 		this.extendAttributes({
 			type: "button",

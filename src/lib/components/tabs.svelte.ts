@@ -3,6 +3,7 @@ import { Invokable } from "$lib/mixins/invokable.svelte";
 import type { OmitSupertype, Orientation } from "$lib/mixins/types";
 import { nanoId } from "$lib/utils/nano";
 import { role } from "$lib/utils/roles";
+import { trimUndefined } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
 import { Group, type GroupOptions } from "./group.svelte";
 
@@ -84,9 +85,9 @@ export class Tabs extends Group(Tab) {
 	tablist;
 
 	constructor(options?: TabsOptions) {
-		super({ ...defaults.focus, ...options?.focus });
+		super({ ...defaults.focus, ...trimUndefined(options?.focus) });
 
-		this.#options = { ...defaults, ...options };
+		this.#options = { ...defaults, ...trimUndefined(options) };
 		this.tablist = new ChocoBase({
 			role: role.tablist,
 			"aria-orientation": this.#options.orientation,

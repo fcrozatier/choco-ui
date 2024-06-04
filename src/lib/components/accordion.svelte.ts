@@ -2,6 +2,7 @@ import { Invokable } from "$lib/mixins/invokable.svelte";
 import type { OmitSupertype } from "$lib/mixins/types";
 import { nanoId } from "$lib/utils/nano";
 import { role } from "$lib/utils/roles";
+import { trimUndefined } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
 import { Group, type GroupOptions } from "./group.svelte";
 
@@ -71,7 +72,7 @@ export class Accordion extends Group(Header) {
 	active = $derived(this.activeItems.map((item) => item.value));
 
 	constructor(options?: AccordionOptions) {
-		super({ ...defaults.focus, ...options?.focus });
+		super({ ...defaults.focus, ...trimUndefined(options?.focus) });
 		this.headingLevel = options?.headingLevel ?? defaults.headingLevel;
 	}
 

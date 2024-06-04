@@ -1,6 +1,7 @@
 import { addListener } from "$lib/actions/addListener";
 import DialogUI from "$lib/ui/dialog/Dialog.svelte";
 import type { role } from "$lib/utils/roles";
+import { trimUndefined } from "@fcrozatier/ts-helpers";
 import { mount, unmount, type Snippet } from "svelte";
 import { ChocoBase } from "./base.svelte";
 
@@ -28,7 +29,7 @@ export class Dialog extends ChocoBase<HTMLButtonElement> {
 
 	constructor(options?: DialogProps) {
 		super();
-		this.#options = { ...defaults, ...options };
+		this.#options = { ...defaults, ...trimUndefined(options) };
 		this.extendActions(addListener("click", this.showModal));
 	}
 
