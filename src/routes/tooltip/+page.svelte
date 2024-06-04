@@ -14,7 +14,7 @@
 <input id="checkbox" type="checkbox" bind:checked={show} />
 
 <div class="ml-40">
-	<Tooltip isOpen={show} position="right">
+	<Tooltip bind:isOpen={show} position="right">
 		HTML
 		{#snippet target()}
 			Hyper Text Markup Language
