@@ -1,5 +1,4 @@
 import { Invokable } from "$lib/mixins/invokable.svelte";
-import { Togglable } from "$lib/mixins/togglable.svelte";
 import type { OmitSupertype } from "$lib/mixins/types";
 import { nanoId } from "$lib/utils/nano";
 import { role } from "$lib/utils/roles";
@@ -32,7 +31,7 @@ export type HeaderOptions = {
 	active?: boolean;
 };
 
-class Header extends Invokable<HTMLButtonElement>(Togglable(ChocoBase)) {
+class Header extends Invokable<HTMLButtonElement>(ChocoBase) {
 	value: string;
 	headingLevel: number;
 

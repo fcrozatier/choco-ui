@@ -1,7 +1,5 @@
-import type { Orientation } from "$lib/mixins/types";
 import { Invokable } from "$lib/mixins/invokable.svelte";
-import { Togglable } from "$lib/mixins/togglable.svelte";
-import type { OmitSupertype } from "$lib/mixins/types";
+import type { OmitSupertype, Orientation } from "$lib/mixins/types";
 import { nanoId } from "$lib/utils/nano";
 import { ChocoBase } from "./base.svelte";
 import { type GroupOptions } from "./group.svelte";
@@ -35,7 +33,7 @@ const defaults = { active: false } satisfies DisclosureOptions;
  *
  * Adheres to the [Disclosure WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/)
  */
-export class Disclosure extends Invokable<HTMLButtonElement>(Togglable(ChocoBase)) {
+export class Disclosure extends Invokable<HTMLButtonElement>(ChocoBase) {
 	constructor(options?: DisclosureOptions) {
 		super();
 		const controlId = nanoId();
