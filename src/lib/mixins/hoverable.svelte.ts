@@ -1,66 +1,66 @@
-import { addListener } from "$lib/actions/addListener";
+import { makeFocusable } from "$lib/actions/focus.svelte";
+import { longPress } from "$lib/actions/longPress";
+import { ChocoBase } from "$lib/components/base.svelte";
 import {
 	makeConvexHullFromElements,
 	pointInConvexPolygon,
 	type Point,
 } from "$lib/internal/polygon";
 import { key } from "$lib/utils/keyboard";
-import { debounce } from "@fcrozatier/ts-helpers";
-import type { Invokable } from "./invokable.svelte";
-import { makeFocusable } from "$lib/actions/focus.svelte";
-import { longPress } from "$lib/actions/longPress";
+import { debounce, trimUndefined } from "@fcrozatier/ts-helpers";
+import { Invokable, type InvokableOptions } from "./invokable.svelte";
+import type { Constructor } from "./types";
 
-export type HoverableOptions = {
-	isHovered?: boolean;
-};
+const hoverable = Symbol();
+
+const defaults = { active: false } satisfies InvokableOptions;
 
 /**
- * An invokable component that triggers on hover, focus and longpress
+ * Triggers on hover, focus and longpress
  */
 export const Hoverable = <
-	U extends HTMLElement = HTMLElement,
-	C extends ReturnType<typeof Invokable<U>> = ReturnType<typeof Invokable<U>>,
+	S extends HTMLElement = HTMLElement,
+	T extends Constructor<ChocoBase<S>> = Constructor<ChocoBase<S>>,
 >(
-	invoker: C,
+	superclass: T,
 ) => {
-	return class extends invoker {
+	return class extends Invokable(superclass) {
 		#hull: Point[] | undefined;
-		isHovered = $derived(this.active); // alias
 
-		constructor(...options: any[]) {
-			super(...options);
+		initHoverable(options?: InvokableOptions) {
+			this.initInvokable({
+				...{ ...defaults, ...trimUndefined(options) },
+				on: ["pointerenter", "focusin"],
+				off: ["focusout"],
+			});
 
-			this.extendActions(makeFocusable);
-			this.extendActions(addListener("pointerenter", this.#open));
-			this.extendActions(addListener("focusin", this.#open));
-			this.extendActions((node) => longPress(node, { callback: () => this.#open() }));
+			this.extendActions(makeFocusable, (node) => longPress(node, { callback: this.on }));
 		}
 
-		initHoverable = (options?: HoverableOptions) => {
-			this.active = !!options?.isHovered;
-		};
-
-		#open = (e?: PointerEvent | FocusEvent) => {
-			if (e instanceof PointerEvent) {
-				if (!this.#hull && this.element && this.target.element) {
-					this.#hull = makeConvexHullFromElements([this.element, this.target.element]);
-				}
-				if (!this.active) {
-					document.addEventListener("pointermove", this.#handlePointer);
-				}
-			} else if (e instanceof FocusEvent) {
-				this.element.addEventListener("focusout", this.#close);
+		override on(e: Event) {
+			if (!this.#hull && this.element && this.target.element) {
+				this.#hull = makeConvexHullFromElements([this.element, this.target.element]);
 			}
 
-			this.active = true;
-			document.addEventListener("keydown", this.#handleKeydown);
-		};
+			if (e instanceof PointerEvent && !this.active) {
+				document.addEventListener("pointermove", this.#handlePointer);
+			} else if (e instanceof FocusEvent) {
+				this.element.addEventListener("focusout", this.off);
+			} else {
+				document.addEventListener("pointerdown", this.#handlePointer);
+			}
+			console.log("turn on");
+			super.on(e);
 
-		#close = () => {
-			this.active = false;
-			document.removeEventListener("keydown", this.#handleKeydown);
+			document.addEventListener("keydown", this.#handleKeydown);
+		}
+
+		override off = (e?: Event) => {
+			super.off(e);
 			document.removeEventListener("pointermove", this.#handlePointer);
-			this.element.removeEventListener("focusout", this.#close);
+			this.element.removeEventListener("focusout", this.off);
+			document.removeEventListener("pointerdown", this.#handlePointer);
+			document.removeEventListener("keydown", this.#handleKeydown);
 		};
 
 		#handleKeydown = (e: KeyboardEvent) => {
@@ -72,9 +72,15 @@ export const Hoverable = <
 		};
 
 		#handlePointer = debounce((e: PointerEvent) => {
-			if (!this.#hull || !pointInConvexPolygon({ x: e.clientX, y: e.clientY }, this.#hull)) {
-				this.#close();
+			if (!pointInConvexPolygon({ x: e.clientX, y: e.clientY }, this.#hull!)) {
+				this.off();
 			}
 		}, 100);
+
+		[hoverable] = true;
+
+		static [Symbol.hasInstance](instance: any) {
+			return instance[hoverable];
+		}
 	};
 };
