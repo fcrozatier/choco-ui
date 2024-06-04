@@ -24,6 +24,7 @@ export type OmitSupertype<T extends S, S> = Omit<Defined<T>, keyof Defined<S>> &
 type Defined<T> = T extends undefined ? never : T;
 
 export type Orientation = "horizontal" | "vertical";
+export type Timeout = ReturnType<typeof setTimeout>;
 
 // https://github.com/Microsoft/TypeScript/issues/27024
 type Equals<X, Y> =

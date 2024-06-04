@@ -1,3 +1,4 @@
+import type { Timeout } from "$lib/mixins/types";
 import type { Action } from "svelte/action";
 
 type LongPressOptions<T = HTMLElement> = {
@@ -11,7 +12,7 @@ const DEFAULT_DELAY = 1000;
  * Fire a callback after a delay (default 1s)
  */
 export const longPress = (<T extends HTMLElement>(node: T, options: LongPressOptions<T>) => {
-	let timer: ReturnType<typeof setTimeout>;
+	let timer: Timeout;
 
 	const handlePointer = () => {
 		timer = setTimeout(() => options.callback(node), options.delay ?? DEFAULT_DELAY);
