@@ -1,7 +1,7 @@
 import { Hoverable } from "$lib/mixins/hoverable.svelte";
 import { nanoId } from "$lib/utils/nano";
 import { role } from "$lib/utils/roles";
-import { trimUndefined } from "@fcrozatier/ts-helpers";
+import { merge } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
 
 export type TooltipOptions = { isOpen?: boolean; position?: "top" | "bottom" | "left" | "right" };
@@ -25,10 +25,7 @@ export class Tooltip extends Hoverable(ChocoBase) {
 	constructor(options?: TooltipOptions) {
 		super();
 		const id = nanoId();
-		this.#options = {
-			...defaults,
-			...trimUndefined(options),
-		};
+		this.#options = merge(defaults, options);
 
 		this.extendAttributes({
 			"aria-describedby": id,

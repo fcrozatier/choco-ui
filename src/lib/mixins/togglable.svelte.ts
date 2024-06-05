@@ -1,6 +1,6 @@
 import { addListener } from "$lib/actions/addListener";
 import { toggleValues } from "$lib/internal/helpers";
-import { trimUndefined } from "@fcrozatier/ts-helpers";
+import { merge } from "@fcrozatier/ts-helpers";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../components/base.svelte";
 import type { Constructor } from "./types";
@@ -64,7 +64,7 @@ export const Togglable = <
 		}
 
 		initTogglable = (opts: TogglableOptions) => {
-			const options = { ...defaults, ...trimUndefined(opts) };
+			const options = merge(defaults, opts);
 			this.#attributes = options.initial;
 			this.#active = options.active;
 

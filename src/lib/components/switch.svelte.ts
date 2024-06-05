@@ -1,6 +1,6 @@
 import { Togglable } from "$lib/mixins/togglable.svelte";
 import { role } from "$lib/utils/roles";
-import { trimUndefined } from "@fcrozatier/ts-helpers";
+import { merge } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
 
 export type SwitchOptions = {
@@ -33,7 +33,7 @@ export class Switch extends Togglable<HTMLButtonElement | HTMLInputElement>(Choc
 
 	constructor(options?: SwitchOptions) {
 		super();
-		const toggleOptions: Required<SwitchOptions> = { ...defaults, ...trimUndefined(options) };
+		const toggleOptions: Required<SwitchOptions> = merge(defaults, options);
 		let initial = { "aria-checked": `${toggleOptions.active}` } as const;
 
 		this.extendAttributes({

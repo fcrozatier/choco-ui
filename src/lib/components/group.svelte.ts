@@ -1,7 +1,7 @@
 import { addListener } from "$lib/actions/addListener";
 import type { Togglable } from "$lib/mixins/togglable.svelte";
 import { key } from "$lib/utils/keyboard";
-import { modulo, trimUndefined } from "@fcrozatier/ts-helpers";
+import { merge, modulo } from "@fcrozatier/ts-helpers";
 import { Map as RMap } from "svelte/reactivity";
 
 export type GroupOptions = {
@@ -56,7 +56,7 @@ export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => 
 		activeItems = $derived(this.items.filter((item) => item.active));
 
 		constructor(options?: GroupOptions) {
-			this.options = { ...defaults, ...trimUndefined(options) };
+			this.options = merge(defaults, options);
 			this.Item = this.#Focusable(superclass);
 		}
 

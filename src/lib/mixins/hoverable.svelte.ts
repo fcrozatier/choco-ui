@@ -7,7 +7,7 @@ import {
 	type Point,
 } from "$lib/internal/polygon";
 import { key } from "$lib/utils/keyboard";
-import { debounce, trimUndefined } from "@fcrozatier/ts-helpers";
+import { debounce, merge } from "@fcrozatier/ts-helpers";
 import { Invokable, type InvokableOptions } from "./invokable.svelte";
 import type { Constructor } from "./types";
 
@@ -29,7 +29,7 @@ export const Hoverable = <
 
 		initHoverable(options?: InvokableOptions) {
 			this.initInvokable({
-				...{ ...defaults, ...trimUndefined(options) },
+				...merge(defaults, options),
 				on: ["pointerenter", "focusin"],
 				off: ["focusout"],
 			});
