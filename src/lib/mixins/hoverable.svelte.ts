@@ -1,11 +1,6 @@
 import { makeFocusable } from "$lib/actions/focus.svelte";
-import { longPress } from "$lib/actions/longPress";
 import { ChocoBase } from "$lib/components/base.svelte";
-import {
-	makeConvexHullFromElements,
-	pointInConvexPolygon,
-	type Point,
-} from "$lib/internal/polygon";
+import { convexHullFromElements, pointInConvexPolygon, type Point } from "$lib/internal/polygon";
 import { key } from "$lib/utils/keyboard";
 import { debounce, merge } from "@fcrozatier/ts-helpers";
 import { Invokable, type InvokableOptions } from "./invokable.svelte";
@@ -16,7 +11,7 @@ const hoverable = Symbol();
 const defaults = { active: false } satisfies InvokableOptions;
 
 /**
- * Triggers on hover, focus and longpress
+ * Triggers on hover and focus
  */
 export const Hoverable = <
 	S extends HTMLElement = HTMLElement,
@@ -33,23 +28,21 @@ export const Hoverable = <
 				on: ["pointerenter", "focusin"],
 				off: ["focusout"],
 			});
-
-			this.extendActions(makeFocusable, (node) => longPress(node, { callback: this.on }));
+			// Allow hoverable text nodes
+			this.extendActions(makeFocusable);
 		}
 
 		override on(e: Event) {
 			if (!this.#hull && this.element && this.target.element) {
-				this.#hull = makeConvexHullFromElements([this.element, this.target.element]);
+				this.#hull = convexHullFromElements([this.element, this.target.element]);
 			}
 
 			if (e instanceof PointerEvent && !this.active) {
 				document.addEventListener("pointermove", this.#handlePointer);
 			} else if (e instanceof FocusEvent) {
 				this.element.addEventListener("focusout", this.off);
-			} else {
-				document.addEventListener("pointerdown", this.#handlePointer);
 			}
-			console.log("turn on");
+
 			super.on(e);
 
 			document.addEventListener("keydown", this.#handleKeydown);
@@ -59,7 +52,6 @@ export const Hoverable = <
 			super.off(e);
 			document.removeEventListener("pointermove", this.#handlePointer);
 			this.element.removeEventListener("focusout", this.off);
-			document.removeEventListener("pointerdown", this.#handlePointer);
 			document.removeEventListener("keydown", this.#handleKeydown);
 		};
 
