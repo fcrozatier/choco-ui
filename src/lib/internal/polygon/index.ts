@@ -13,7 +13,7 @@ export function getPointsFromEl(el: HTMLElement): Point[] {
 	];
 }
 
-export function makeConvexHullFromElements(els: HTMLElement[]): Point[] {
+export function convexHullFromElements(els: HTMLElement[]): Point[] {
 	const points = els.flatMap((el) => getPointsFromEl(el));
 	return makeConvexHull(points);
 }
