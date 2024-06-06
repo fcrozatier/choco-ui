@@ -3,7 +3,7 @@ import { toggleValues } from "$lib/internal/helpers";
 import { merge } from "@fcrozatier/ts-helpers";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../components/base.svelte";
-import type { Constructor } from "./types";
+import type { Constructor, Required } from "./types";
 
 type EventName = keyof HTMLElementEventMap;
 
@@ -41,8 +41,9 @@ export const Togglable = <
 	superclass: T,
 ) => {
 	return class extends superclass {
+		#options: Required<TogglableOptions, "initial"> = $state(defaults);
 		#attributes: Record<string, Booleanish> = $state({});
-		#active = $state(false);
+		#active = $derived(this.#options.active);
 
 		get active() {
 			return this.#active;
@@ -64,26 +65,26 @@ export const Togglable = <
 		}
 
 		initTogglable = (opts: TogglableOptions) => {
-			const options = merge(defaults, opts);
-			this.#attributes = options.initial;
-			this.#active = options.active;
+			this.#options = merge(defaults, opts);
+			this.#attributes = this.#options.initial;
 
-			if (options.toggle) {
-				this.extendActions(addListener(options.toggle, this.toggle));
+			if (this.#options.toggle) {
+				this.extendActions(addListener(this.#options.toggle, this.toggle));
 			}
 
-			if (options.on) {
-				this.extendActions(addListener(options.on, this.on));
+			if (this.#options.on) {
+				this.extendActions(addListener(this.#options.on, this.on));
 			}
 
-			if (options.off) {
-				this.extendActions(addListener(options.off, this.off));
+			if (this.#options.off) {
+				this.extendActions(addListener(this.#options.off, this.off));
 			}
+
 			return this;
 		};
 
 		toggle(_?: Event) {
-			this.#active = !this.#active;
+			this.#options.active = !this.#active;
 			toggleValues(this.#attributes);
 		}
 
