@@ -1,19 +1,26 @@
 <script lang="ts">
+	import { choco } from "$lib/actions/choco";
 	import { ToggleButton } from "$lib/components/toggle.svelte";
 	import { t } from "$lib/ui/theme";
 	import Toggle from "$lib/ui/toggle/toggle.svelte";
 
 	let disabled = $state(false);
+	let active = $state(true);
 
 	const toggle = new ToggleButton({
-		active: true,
+		get active() {
+			return active;
+		},
+		set active(v: boolean) {
+			active = v;
+		},
 	});
 
 	const toggle2 = new ToggleButton({
 		active: false,
 	});
 
-	const toggle4 = new ToggleButton({ active: true });
+	const toggle3 = new ToggleButton({ active: true });
 </script>
 
 <h1>Toggle</h1>
@@ -25,13 +32,13 @@
 
 <label>
 	<span>programmatic change</span>
-	<input type="checkbox" onchange={() => (toggle.active = !toggle.active)} />
+	<input type="checkbox" bind:checked={active} />
 </label>
 
 <h2>Button</h2>
 
 <p>
-	<button {...toggle.attributes} use:toggle.action {disabled}> press</button>
+	<button use:choco={toggle} {disabled}> press</button>
 </p>
 <p>
 	I'm {toggle.active ? "" : "not"} pressed
@@ -40,8 +47,7 @@
 <h2>Styled</h2>
 
 <button
-	{...toggle2.attributes}
-	use:toggle2.action
+	use:choco={toggle2}
 	aria-label="Toggle italic"
 	class="text-magnum-800 hover:bg-magnum-100 aria-pressed:bg-magnum-200 aria-pressed:text-magnum-900 grid h-9 w-9
 	place-items-center items-center justify-center rounded-md bg-white text-base
@@ -53,4 +59,4 @@
 
 <Toggle variant="outline">toggle</Toggle>
 
-<button class={t.toggle()} {...toggle4.attributes} use:toggle4.action>toggle</button>
+<button class={t.toggle()} use:choco={toggle3}>toggle</button>
