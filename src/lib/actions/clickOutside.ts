@@ -1,6 +1,6 @@
 export function clickOutside<T extends HTMLElement>(node: T, callback: (node: T) => void) {
 	const handleClick = (e: Event) => {
-		if (!node.contains(e.target as T)) {
+		if (node && !node.contains(e.target as T)) {
 			callback(node);
 		}
 	};
