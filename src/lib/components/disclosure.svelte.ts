@@ -1,6 +1,6 @@
 import { Invokable } from "$lib/mixins/invokable.svelte";
 import type { OmitSupertype, Orientation } from "$lib/mixins/types";
-import { nanoId } from "$lib/utils/nano";
+import { nanoId } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
 import { type GroupOptions } from "./group.svelte";
 

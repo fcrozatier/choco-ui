@@ -1,7 +1,6 @@
 import { Hoverable } from "$lib/mixins/hoverable.svelte";
-import { nanoId } from "$lib/utils/nano";
 import { role } from "$lib/utils/roles";
-import { merge } from "@fcrozatier/ts-helpers";
+import { merge, nanoId } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
 
 export type TooltipOptions = { isOpen?: boolean; position?: "top" | "bottom" | "left" | "right" };

@@ -1,6 +1,6 @@
 import { addListener } from "$lib/actions/addListener";
 import { Togglable } from "$lib/mixins/togglable.svelte";
-import { nanoId } from "$lib/utils/nano";
+import { nanoId } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
 import { Group, type GroupOptions } from "./group.svelte";
 

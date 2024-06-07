@@ -1,9 +1,8 @@
 import { makeFocusable } from "$lib/actions/focus.svelte";
 import { Invokable } from "$lib/mixins/invokable.svelte";
 import type { OmitSupertype, Orientation } from "$lib/mixins/types";
-import { nanoId } from "$lib/utils/nano";
 import { role } from "$lib/utils/roles";
-import { merge } from "@fcrozatier/ts-helpers";
+import { merge, nanoId } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
 import { Group, type GroupOptions } from "./group.svelte";
 
