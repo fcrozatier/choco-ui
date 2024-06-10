@@ -60,7 +60,7 @@ export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => 
 			this.Item = this.#Focusable(superclass);
 		}
 
-		#handleKeydown = (e: KeyboardEvent) => {
+		#handleKeydown = ((e: KeyboardEvent) => {
 			const target = e.currentTarget;
 			if (!(target instanceof HTMLElement)) return;
 
@@ -111,7 +111,7 @@ export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => 
 
 				this.options?.onFocus?.(from, to);
 			}
-		};
+		}) as EventListener;
 
 		#Focusable = (superclass: T) => {
 			const options = this.options;
