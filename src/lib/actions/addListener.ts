@@ -1,28 +1,28 @@
 import type { Action } from "svelte/action";
-
-type Listener<K extends keyof HTMLElementEventMap> = (
-	this: HTMLElement,
-	ev: HTMLElementEventMap[K],
-) => void;
+import { on } from "svelte/events";
 
 /**
- * Listen to one or many events and fire a callback
+ * Creates an action for handling one or many events with a callback.
+ *
+ * Preserves the correct order of event handlers with respect to event delegation by relying on Svelte for orchestrating the handlers creation.
  */
 export const addListener = <T extends HTMLElement, K extends keyof HTMLElementEventMap>(
 	events: K | K[],
-	callback: Listener<K>,
+	callback: EventListener,
+	options?: AddEventListenerOptions,
 ) => {
 	return ((node) => {
 		const eventsArray = Array.isArray(events) ? events : [events];
+		const cleanups: (() => void)[] = [];
 
 		for (const event of eventsArray) {
-			node.addEventListener(event, callback);
+			cleanups.push(on(node, event, callback, options));
 		}
 
 		return {
 			destroy() {
-				for (const event of eventsArray) {
-					node.removeEventListener(event, callback);
+				for (const cleanup of cleanups) {
+					cleanup();
 				}
 			},
 		};
