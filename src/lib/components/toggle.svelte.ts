@@ -1,5 +1,5 @@
 import { Togglable } from "$lib/mixins/togglable.svelte";
-import { bind, type Bind } from "$lib/utils/sync";
+import { bind, type Bind } from "$lib/utils/bind";
 import { merge } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
 

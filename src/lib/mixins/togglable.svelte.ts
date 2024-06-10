@@ -1,6 +1,6 @@
 import { addListener } from "$lib/actions/addListener";
 import { toggleValues } from "$lib/internal/helpers";
-import type { Bind } from "$lib/utils/sync";
+import type { Bind } from "$lib/utils/bind";
 import { merge } from "@fcrozatier/ts-helpers";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../components/base.svelte";
