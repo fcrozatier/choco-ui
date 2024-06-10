@@ -1,7 +1,7 @@
-import preprocess from "./index";
 import { expect, test } from "vitest";
+import preprocess from "./index";
 
-const { markup } = preprocess();
+const { markup, script } = preprocess();
 
 test.each([
 	[
@@ -26,4 +26,19 @@ test.each([
 	],
 ])("choco preprocessor works with %s", async (_, before, after) => {
 	expect(markup({ content: before }).code).toBe(after);
+});
+
+test.each([
+	[
+		"shorthand",
+		"bind({ active }, ['active'])",
+		"bind({ get active(){return active}, set active(v){active=v} }, ['active'])",
+	],
+	[
+		"longhand",
+		"bind({ active: activation }, ['active'])",
+		"bind({ get active(){return activation}, set active(v){activation=v} }, ['active'])",
+	],
+])("bind expansion with %s", async (_, before, after) => {
+	expect(script({ content: before, markup: "", attributes: {} }).code).toBe(after);
 });
