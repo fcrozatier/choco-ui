@@ -73,7 +73,7 @@ export const Togglable = <
 			this.on = this.on.bind(this);
 		}
 
-		initTogglable = (opts: Bind<TogglableOptions, BindableOptions>) => {
+		initTogglable = (opts?: Bind<TogglableOptions, BindableOptions>) => {
 			this.#options = merge(defaults, opts);
 			this.#attributes = this.#options.initial;
 

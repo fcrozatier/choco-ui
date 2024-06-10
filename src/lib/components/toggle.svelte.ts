@@ -34,7 +34,7 @@ export class ToggleButton extends Togglable<HTMLButtonElement>(ChocoBase) {
 	#options: Required<ToggleOptions> = $state(defaults);
 	value = $derived(this.attributes?.value); // alias
 
-	constructor(options: Bind<ToggleOptions, BindableOptions>) {
+	constructor(options?: Bind<ToggleOptions, BindableOptions>) {
 		super();
 
 		this.#options = merge(defaults, options);

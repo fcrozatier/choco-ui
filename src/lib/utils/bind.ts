@@ -13,8 +13,8 @@ export type Bind<T extends Record<string, unknown>, K extends keyof T> = {
 } & Omit<T, K>;
 
 export const bind = <T extends Record<string, unknown>, U extends BindableKeys<T>[]>(
-	record: NoInfer<T>,
-	_keys: U,
-): T => {
+	record?: NoInfer<T>,
+	_keys?: U,
+): T | undefined => {
 	return record;
 };
