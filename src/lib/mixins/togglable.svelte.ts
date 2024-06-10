@@ -1,9 +1,10 @@
 import { addListener } from "$lib/actions/addListener";
 import { toggleValues } from "$lib/internal/helpers";
+import type { Bind } from "$lib/utils/sync";
 import { merge } from "@fcrozatier/ts-helpers";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../components/base.svelte";
-import type { Constructor, Required } from "./types";
+import type { Constructor } from "./types";
 
 type EventName = keyof HTMLElementEventMap;
 
@@ -30,7 +31,15 @@ export type TogglableOptions = {
 	off?: EventName | EventName[];
 };
 
-const defaults = { initial: {}, active: false } satisfies TogglableOptions;
+type BindableOptions = "active";
+
+const defaults: Required<TogglableOptions> = {
+	initial: {},
+	active: false,
+	toggle: [],
+	on: [],
+	off: [],
+};
 
 const togglable = Symbol();
 
@@ -41,7 +50,7 @@ export const Togglable = <
 	superclass: T,
 ) => {
 	return class extends superclass {
-		#options: Required<TogglableOptions, "initial"> = $state(defaults);
+		#options: Required<TogglableOptions> = $state(defaults);
 		#attributes: Record<string, Booleanish> = $state({});
 		#active = $derived(this.#options.active);
 
@@ -49,7 +58,7 @@ export const Togglable = <
 			return this.#active;
 		}
 
-		set active(v: boolean) {
+		set active(v) {
 			if (this.#active !== v) this.toggle();
 		}
 
@@ -64,7 +73,7 @@ export const Togglable = <
 			this.on = this.on.bind(this);
 		}
 
-		initTogglable = (opts: TogglableOptions) => {
+		initTogglable = (opts: Bind<TogglableOptions, BindableOptions>) => {
 			this.#options = merge(defaults, opts);
 			this.#attributes = this.#options.initial;
 
