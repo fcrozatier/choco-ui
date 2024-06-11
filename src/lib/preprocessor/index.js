@@ -4,6 +4,7 @@ import { walk as estreeWalk } from "estree-walker";
 import MagicString from "magic-string";
 import { parse } from "svelte/compiler";
 
+// @ts-ignore
 const tsParser = acorn.Parser.extend(tsPlugin({ allowSatisfies: true }));
 
 /**
@@ -81,12 +82,17 @@ export default () => {
 
 							for (const property of object.properties) {
 								if (
+									typeof property === "object" &&
 									property.type === "Property" &&
 									property.key.type === "Identifier" &&
-									keys.includes(property.key.name)
+									keys.includes(property.key.name) &&
+									"start" in property &&
+									typeof property.start === "number" &&
+									"end" in property &&
+									typeof property.end === "number"
 								) {
 									const name = property.key.name;
-									if (property.shorthand) {
+									if (property.shorthand && "start" in property) {
 										code.update(
 											property.start,
 											property.end,
@@ -111,8 +117,6 @@ export default () => {
 
 			const str = code.toString();
 
-			console.log("before", content);
-			console.log("after", str);
 			return { code: str, attributes };
 		},
 	});
