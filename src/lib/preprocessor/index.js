@@ -16,9 +16,86 @@ export function walk(ast, args) {
 	return estreeWalk(ast, args);
 }
 
+export const script = /** @satisfies {import("svelte/compiler").Preprocessor} */ (
+	({ attributes, content, filename }) => {
+		if (!content?.includes("bind(")) return { code: content, attributes };
+
+		const code = new MagicString(content, { filename });
+		const ast = tsParser.parse(content, {
+			locations: true,
+			ecmaVersion: "latest",
+			sourceFile: filename,
+			sourceType: "module",
+		});
+
+		// @ts-expect-error estree-walker doesn't want acorn.Program type
+		estreeWalk(ast, {
+			enter(node) {
+				if (
+					node.type === "CallExpression" &&
+					node.callee.type === "Identifier" &&
+					node.callee.name === "bind" &&
+					node.arguments.length === 2
+				) {
+					const [object, array] = node.arguments;
+
+					if (object?.type !== "ObjectExpression") {
+						throw new Error("bind's first argument must be an object literal");
+					}
+					if (array?.type !== "ArrayExpression") {
+						throw new Error("bind's second argument must be an array literal");
+					}
+					if (array.elements.length > 0) {
+						if (
+							!array.elements.every((el) => el?.type === "Literal" && typeof el.value === "string")
+						) {
+							throw new Error("bind's second argument must be an array of string literals");
+						}
+						const keys = array.elements.map((e) => e?.type === "Literal" && e?.value);
+
+						for (const property of object.properties) {
+							if (
+								typeof property === "object" &&
+								property.type === "Property" &&
+								property.key.type === "Identifier" &&
+								keys.includes(property.key.name) &&
+								"start" in property &&
+								typeof property.start === "number" &&
+								"end" in property &&
+								typeof property.end === "number"
+							) {
+								const name = property.key.name;
+								if (property.shorthand && "start" in property) {
+									code.update(
+										property.start,
+										property.end,
+										`get ${name}(){return ${name}}, set ${name}(v){${name}=v}`,
+									);
+								} else {
+									const { value } = property;
+
+									code.update(
+										property.start,
+										property.end,
+										`get ${name}(){return ${code.slice(value.start, value.end)}}, set ${name}(v){${code.slice(value.start, value.end)}=v}`,
+									);
+								}
+							}
+						}
+					}
+				}
+			},
+		});
+
+		const str = code.toString();
+		return { code: str, attributes };
+	}
+);
+
 export default () => {
 	return /** @satisfies {import("svelte/compiler").PreprocessorGroup} */ ({
 		name: "Choco preprocessor",
+		script,
 		markup: ({ content, filename }) => {
 			if (!/use:choco=/.test(content)) return { code: content };
 
@@ -41,83 +118,6 @@ export default () => {
 			});
 
 			return { code: markup.toString() };
-		},
-		script: ({ attributes, content, filename }) => {
-			if (!content?.includes("bind(")) return { code: content, attributes };
-
-			const code = new MagicString(content, { filename });
-			const ast = tsParser.parse(content, {
-				locations: true,
-				ecmaVersion: "latest",
-				sourceFile: filename,
-				sourceType: "module",
-			});
-
-			// @ts-expect-error estree-walker doesn't want acorn.Program type
-			estreeWalk(ast, {
-				enter(node) {
-					if (
-						node.type === "CallExpression" &&
-						node.callee.type === "Identifier" &&
-						node.callee.name === "bind" &&
-						node.arguments.length === 2
-					) {
-						const [object, array] = node.arguments;
-
-						if (object?.type !== "ObjectExpression") {
-							throw new Error("bind first argument must be an object literal");
-						}
-						if (array?.type !== "ArrayExpression") {
-							throw new Error("bind second argument must be an array literal");
-						}
-						if (array.elements.length > 0) {
-							if (
-								!array.elements.every(
-									(el) => el?.type === "Literal" && typeof el.value === "string",
-								)
-							) {
-								throw new Error("bind second argument must be an array of string literals");
-							}
-							const keys = array.elements.map((e) => e?.type === "Literal" && e?.value);
-
-							for (const property of object.properties) {
-								if (
-									typeof property === "object" &&
-									property.type === "Property" &&
-									property.key.type === "Identifier" &&
-									keys.includes(property.key.name) &&
-									"start" in property &&
-									typeof property.start === "number" &&
-									"end" in property &&
-									typeof property.end === "number"
-								) {
-									const name = property.key.name;
-									if (property.shorthand && "start" in property) {
-										code.update(
-											property.start,
-											property.end,
-											`get ${name}(){return ${name}}, set ${name}(v){${name}=v}`,
-										);
-									} else {
-										if (property.value.type !== "Identifier") {
-											throw new Error("bind properties must be identifiers");
-										}
-										code.update(
-											property.start,
-											property.end,
-											`get ${name}(){return ${property.value.name}}, set ${name}(v){${property.value.name}=v}`,
-										);
-									}
-								}
-							}
-						}
-					}
-				},
-			});
-
-			const str = code.toString();
-
-			return { code: str, attributes };
 		},
 	});
 };
