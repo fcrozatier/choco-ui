@@ -39,6 +39,11 @@ test.each([
 		"bind({ active: activation }, ['active'])",
 		"bind({ get active(){return activation}, set active(v){activation=v} }, ['active'])",
 	],
+	[
+		"member expression",
+		"bind({ active: opts.active }, ['active'])",
+		"bind({ get active(){return opts.active}, set active(v){opts.active=v} }, ['active'])",
+	],
 ])("bind expansion with %s", async (_, before, after) => {
 	expect(script({ content: before, markup: "", attributes: {} }).code).toBe(after);
 });
