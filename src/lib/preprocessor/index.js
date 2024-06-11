@@ -52,6 +52,7 @@ export default () => {
 				sourceType: "module",
 			});
 
+			// @ts-expect-error estree-walker doesn't want acorn.Program type
 			estreeWalk(ast, {
 				enter(node) {
 					if (
