@@ -51,18 +51,15 @@ export const script = /** @satisfies {import("svelte/compiler").Preprocessor} */
 						) {
 							throw new Error("bind's second argument must be an array of string literals");
 						}
-						const keys = array.elements.map((e) => e?.type === "Literal" && e?.value);
+						const keys = /** @type {import("acorn").Literal[]} */ (array.elements).map(
+							(e) => e.type === "Literal" && e.value,
+						);
 
-						for (const property of object.properties) {
+						for (const property of /** @type {import("acorn").Property[]} */ (object.properties)) {
 							if (
-								typeof property === "object" &&
 								property.type === "Property" &&
 								property.key.type === "Identifier" &&
-								keys.includes(property.key.name) &&
-								"start" in property &&
-								typeof property.start === "number" &&
-								"end" in property &&
-								typeof property.end === "number"
+								keys.includes(property.key.name)
 							) {
 								const name = property.key.name;
 								if (property.shorthand && "start" in property) {
@@ -72,7 +69,7 @@ export const script = /** @satisfies {import("svelte/compiler").Preprocessor} */
 										`get ${name}(){return ${name}}, set ${name}(v){${name}=v}`,
 									);
 								} else {
-									const { value } = property;
+									const { value } = /** @type {import("acorn").Property} */ (property);
 
 									code.update(
 										property.start,
