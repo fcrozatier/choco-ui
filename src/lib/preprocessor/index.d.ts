@@ -1,3 +1,4 @@
+/// <reference types="svelte" />
 import type { TemplateNode } from "svelte/compiler";
 
 type WalkerContext = {
@@ -18,3 +19,11 @@ export type WalkerArgs = {
 	enter?: SyncHandler<TemplateNode>;
 	leave?: SyncHandler<TemplateNode>;
 };
+
+declare const _default: () => {
+	name: string;
+	markup: ({ content, filename }: { content: string; filename?: string | undefined }) => {
+		code: string;
+	};
+};
+export default _default;
