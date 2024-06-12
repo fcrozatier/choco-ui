@@ -18,8 +18,8 @@ test.each([
 		"bind({ active: opts.active }, ['active'])",
 		"bind({ get active(){return opts.active}, set active(v){opts.active=v} }, ['active'])",
 	],
-])("bind expansion with %s", async (_, before, after) => {
-	expect(expandMacro({ content: before, filename: "something.svelte.ts" }).code).toBe(after);
+])("bind expansion with %s", async (_desc, before, after) => {
+	expect(expandMacro({ content: before, filename: "file.svelte.ts" }).code).toBe(after);
 });
 
 // Svelte files
@@ -39,6 +39,6 @@ test.each([
 		"<script lang='ts'>bind({ active: opts.active }, ['active'])</script>",
 		"<script lang='ts'>bind({ get active(){return opts.active}, set active(v){opts.active=v} }, ['active'])</script>",
 	],
-])("bind expansion with %s", async (_, before, after) => {
-	expect(expandMacro({ content: before, filename: "something.svelte" }).code).toBe(after);
+])("bind expansion with %s", async (_desc, before, after) => {
+	expect(expandMacro({ content: before, filename: "file.svelte" }).code).toBe(after);
 });
