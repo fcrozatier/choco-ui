@@ -14,7 +14,7 @@ const tsParser = acorn.Parser.extend(tsPlugin({ allowSatisfies: true }));
  */
 
 /** @param {PluginOptions} options */
-export default ({ filename, content }) => {
+function expandMacro({ filename, content }) {
 	if (!content.includes("bind(")) return { code: content };
 
 	/** @type {import('acorn').Program} */
@@ -95,4 +95,22 @@ export default ({ filename, content }) => {
 	});
 
 	return { code: code.toString() };
+}
+
+const isSvelteOrTSModule = /\.svelte(\.ts)?$/;
+
+export default () => {
+	return /** @satisfies {import("vite").Plugin} */ ({
+		name: "svelte-binding",
+		transform(content, id) {
+			if (!isSvelteOrTSModule.test(id)) return { code: content };
+
+			const { code } = expandMacro({
+				filename: id,
+				content,
+			});
+
+			return { code };
+		},
+	});
 };
