@@ -90,6 +90,10 @@ export function expandMacro({ filename, content }) {
 						}
 					}
 				}
+
+				let o = /** @type {import("acorn").ObjectExpression} */ (object);
+				let n = /** @type {import("acorn").CallExpression} */ (node);
+				code.update(n.start, n.end, code.slice(o.start, o.end));
 			}
 		},
 	});

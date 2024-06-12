@@ -6,19 +6,19 @@ test.each([
 	[
 		"shorthand",
 		"bind({ active }, ['active'])",
-		"bind({ get active(){return active}, set active(v){active=v} }, ['active'])",
+		"{ get active(){return active}, set active(v){active=v} }",
 	],
 	[
 		"longhand",
 		"bind({ active: activation }, ['active'])",
-		"bind({ get active(){return activation}, set active(v){activation=v} }, ['active'])",
+		"{ get active(){return activation}, set active(v){activation=v} }",
 	],
 	[
 		"member expression",
 		"bind({ active: opts.active }, ['active'])",
-		"bind({ get active(){return opts.active}, set active(v){opts.active=v} }, ['active'])",
+		"{ get active(){return opts.active}, set active(v){opts.active=v} }",
 	],
-])("bind expansion with %s", async (_desc, before, after) => {
+])("expand bind with %s", async (_desc, before, after) => {
 	expect(expandMacro({ content: before, filename: "file.svelte.ts" }).code).toBe(after);
 });
 
@@ -27,18 +27,18 @@ test.each([
 	[
 		"shorthand",
 		"<script lang='ts'>bind({ active }, ['active'])</script>",
-		"<script lang='ts'>bind({ get active(){return active}, set active(v){active=v} }, ['active'])</script>",
+		"<script lang='ts'>{ get active(){return active}, set active(v){active=v} }</script>",
 	],
 	[
 		"longhand",
 		"<script lang='ts'>bind({ active: activation }, ['active'])</script>",
-		"<script lang='ts'>bind({ get active(){return activation}, set active(v){activation=v} }, ['active'])</script>",
+		"<script lang='ts'>{ get active(){return activation}, set active(v){activation=v} }</script>",
 	],
 	[
 		"member expression",
 		"<script lang='ts'>bind({ active: opts.active }, ['active'])</script>",
-		"<script lang='ts'>bind({ get active(){return opts.active}, set active(v){opts.active=v} }, ['active'])</script>",
+		"<script lang='ts'>{ get active(){return opts.active}, set active(v){opts.active=v} }</script>",
 	],
-])("bind expansion with %s", async (_desc, before, after) => {
+])("expand bind with %s", async (_desc, before, after) => {
 	expect(expandMacro({ content: before, filename: "file.svelte" }).code).toBe(after);
 });
