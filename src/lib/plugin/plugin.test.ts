@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import plugin from "./plugin";
+import { expandMacro } from "./plugin";
 
 // TS files
 test.each([
@@ -19,7 +19,7 @@ test.each([
 		"bind({ get active(){return opts.active}, set active(v){opts.active=v} }, ['active'])",
 	],
 ])("bind expansion with %s", async (_, before, after) => {
-	expect(plugin({ content: before, filename: "something.svelte.ts" }).code).toBe(after);
+	expect(expandMacro({ content: before, filename: "something.svelte.ts" }).code).toBe(after);
 });
 
 // Svelte files
@@ -40,5 +40,5 @@ test.each([
 		"<script lang='ts'>bind({ get active(){return opts.active}, set active(v){opts.active=v} }, ['active'])</script>",
 	],
 ])("bind expansion with %s", async (_, before, after) => {
-	expect(plugin({ content: before, filename: "something.svelte" }).code).toBe(after);
+	expect(expandMacro({ content: before, filename: "something.svelte" }).code).toBe(after);
 });

@@ -14,7 +14,7 @@ const tsParser = acorn.Parser.extend(tsPlugin({ allowSatisfies: true }));
  */
 
 /** @param {PluginOptions} options */
-function expandMacro({ filename, content }) {
+export function expandMacro({ filename, content }) {
 	if (!content.includes("bind(")) return { code: content };
 
 	/** @type {import('acorn').Program} */
