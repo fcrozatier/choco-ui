@@ -105,7 +105,7 @@ const isSvelteOrTSModule = /\.svelte(\.ts)?$/;
 
 export default () => {
 	return /** @satisfies {import("vite").Plugin} */ ({
-		name: "svelte-$bind",
+		name: "svelte-bind",
 		transform(content, id) {
 			if (!isSvelteOrTSModule.test(id)) return { code: content };
 
