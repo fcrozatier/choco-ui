@@ -2,7 +2,6 @@ import * as acorn from "acorn";
 import { tsPlugin } from "acorn-typescript";
 import { walk } from "estree-walker";
 import MagicString from "magic-string";
-import { parse } from "svelte/compiler";
 
 // @ts-ignore
 const tsParser = acorn.Parser.extend(tsPlugin({ allowSatisfies: true }));
@@ -13,30 +12,29 @@ const tsParser = acorn.Parser.extend(tsPlugin({ allowSatisfies: true }));
  * @property {string} content
  */
 
+const script = /<script.*>((.|\r?\n)*)<\/script>/;
+
 /** @param {PluginOptions} options */
 export function expandMacro({ filename, content }) {
-	if (!content.includes("bind(")) return { code: content };
+	/** @type {string|undefined} */
+	let scriptTag;
+	let source = content;
 
-	/** @type {import('acorn').Program} */
-	let ast;
+	if (/\.svelte$/.test(filename)) {
+		scriptTag = content.match(script)?.[1];
+		if (!scriptTag) return null;
 
-	if (/\.ts$/.test(filename)) {
-		ast = tsParser.parse(content, {
-			locations: true,
-			ecmaVersion: "latest",
-			sourceFile: filename,
-			sourceType: "module",
-		});
-	} else if (/\.svelte$/.test(filename)) {
-		const instance = parse(content, { filename, modern: true }).instance;
-		if (!instance) return { code: content };
-		// @ts-ignore
-		ast = instance.content;
-	} else {
-		return { code: content };
+		source = scriptTag;
 	}
 
-	const code = new MagicString(content, { filename });
+	let ast = tsParser.parse(source, {
+		locations: true,
+		ecmaVersion: "latest",
+		sourceFile: filename,
+		sourceType: "module",
+	});
+
+	const code = new MagicString(source, { filename });
 
 	// @ts-ignore
 	walk(ast, {
@@ -98,23 +96,25 @@ export function expandMacro({ filename, content }) {
 		},
 	});
 
-	return { code: code.toString() };
+	if (!scriptTag) return { code: code.toString() };
+
+	return { code: content.replace(scriptTag, code.toString()) };
 }
 
-const isSvelteOrTSModule = /\.svelte(\.ts)?$/;
+const svelteFile = /\.svelte(\.ts)?$/;
+const callsBind = /(^|[^.\w])bind\(/;
 
 export default () => {
 	return /** @satisfies {import("vite").Plugin} */ ({
-		name: "svelte-bind",
+		name: "vite-plugin-svelte-bind",
+		enforce: "pre",
 		transform(content, id) {
-			if (!isSvelteOrTSModule.test(id)) return { code: content };
-
-			const { code } = expandMacro({
-				filename: id,
-				content,
-			});
-
-			return { code };
+			if (svelteFile.test(id) && callsBind.test(content)) {
+				return expandMacro({
+					filename: id,
+					content,
+				});
+			}
 		},
 	});
 };
