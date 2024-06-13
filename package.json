@@ -39,6 +39,7 @@
 		"tslib": "^2.6.3",
 		"typescript": "5.5.0-beta",
 		"vite": "^5.2.13",
+		"vite-plugin-inspect": "^0.8.4",
 		"vitest": "^1.6.0"
 	},
 	"type": "module",
