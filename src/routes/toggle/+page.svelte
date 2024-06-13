@@ -3,18 +3,12 @@
 	import { ToggleButton } from "$lib/components/toggle.svelte";
 	import { t } from "$lib/ui/theme";
 	import Toggle from "$lib/ui/toggle/toggle.svelte";
+	import { bind } from "$lib/utils/bind";
 
 	let disabled = $state(false);
 	let active = $state(true);
 
-	const toggle = new ToggleButton({
-		get active() {
-			return active;
-		},
-		set active(v: boolean) {
-			active = v;
-		},
-	});
+	const toggle = new ToggleButton(bind({ active }, ["active"]));
 
 	const toggle2 = new ToggleButton({
 		active: false,
