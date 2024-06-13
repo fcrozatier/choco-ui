@@ -1,5 +1,5 @@
 import { addListener } from "$lib/actions/addListener";
-import { toggleValues } from "$lib/internal/helpers";
+import { toggleValuesPure } from "$lib/internal/helpers";
 import type { Bind } from "$lib/utils/bind";
 import { merge } from "@fcrozatier/ts-helpers";
 import type { Booleanish } from "svelte/elements";
@@ -50,9 +50,14 @@ export const Togglable = <
 	superclass: T,
 ) => {
 	return class extends superclass {
+		#initial_state = false;
 		#options: Required<TogglableOptions> = $state(defaults);
-		#attributes: Record<string, Booleanish> = $state({});
 		#active = $derived(this.#options.active);
+		#attributes: Record<string, Booleanish> = $derived(
+			this.#active === this.#initial_state
+				? this.#options.initial
+				: toggleValuesPure(this.#options.initial)!,
+		);
 
 		get active() {
 			return this.#active;
@@ -75,7 +80,7 @@ export const Togglable = <
 
 		initTogglable = (opts?: Bind<TogglableOptions, BindableOptions>) => {
 			this.#options = merge(defaults, opts);
-			this.#attributes = this.#options.initial;
+			this.#initial_state = this.#options.active;
 
 			if (this.#options.toggle) {
 				this.extendActions(addListener(this.#options.toggle, this.toggle));
@@ -94,7 +99,6 @@ export const Togglable = <
 
 		toggle(_?: Event) {
 			this.#options.active = !this.#active;
-			toggleValues(this.#attributes);
 		}
 
 		on(e?: Event) {
