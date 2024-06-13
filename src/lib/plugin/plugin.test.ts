@@ -18,6 +18,7 @@ test.each([
 		"bind({ active: opts.active }, ['active'])",
 		"{ get active(){return opts.active}, set active(v){opts.active=v} }",
 	],
+	["bind method", "this.method.bind(this)", "this.method.bind(this)"],
 ])("expand bind with %s", async (_desc, before, after) => {
 	expect(expandMacro({ content: before, filename: "file.svelte.ts" }).code).toBe(after);
 });
