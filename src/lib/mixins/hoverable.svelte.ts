@@ -6,8 +6,6 @@ import { debounce, merge } from "@fcrozatier/ts-helpers";
 import { Invokable, type InvokableOptions } from "./invokable.svelte";
 import type { Constructor } from "./types";
 
-const hoverable = Symbol();
-
 const defaults = { active: false } satisfies InvokableOptions;
 
 /**
@@ -68,11 +66,5 @@ export const Hoverable = <
 				this.off();
 			}
 		}, 100);
-
-		[hoverable] = true;
-
-		static [Symbol.hasInstance](instance: any) {
-			return instance[hoverable];
-		}
 	};
 };

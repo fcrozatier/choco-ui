@@ -41,8 +41,6 @@ const defaults: Required<TogglableOptions> = {
 	off: [],
 };
 
-const togglable = Symbol();
-
 export const Togglable = <
 	U extends HTMLElement = HTMLElement,
 	T extends Constructor<ChocoBase<U>> = Constructor<ChocoBase<U>>,
@@ -107,12 +105,6 @@ export const Togglable = <
 
 		off(e?: Event) {
 			if (this.active) this.toggle(e);
-		}
-
-		[togglable] = true;
-
-		static [Symbol.hasInstance](instance: any) {
-			return instance[togglable];
 		}
 	};
 };

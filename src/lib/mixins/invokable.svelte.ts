@@ -13,8 +13,6 @@ export type InvokableOptions = {
 	target?: TogglableOptions["initial"];
 } & Omit<TogglableOptions, "initial">;
 
-const invokable = Symbol();
-
 export const Invokable = <
 	CE extends HTMLElement = HTMLElement,
 	TE extends HTMLElement = HTMLElement,
@@ -56,12 +54,6 @@ export const Invokable = <
 		override off(e?: Event) {
 			super.off(e);
 			this.target.off(e);
-		}
-
-		[invokable] = true;
-
-		static [Symbol.hasInstance](instance: any) {
-			return instance[invokable];
 		}
 	};
 };
