@@ -13,7 +13,7 @@ export type ToggleOptions = {
 
 type BindableOptions = "active";
 
-const defaults: Required<ToggleOptions> = { active: false, value: "" };
+const defaults = { active: false } satisfies ToggleOptions;
 
 /**
  * ## Toggle
@@ -31,7 +31,7 @@ const defaults: Required<ToggleOptions> = { active: false, value: "" };
  *
  */
 export class ToggleButton extends Togglable<HTMLButtonElement>(ChocoBase) {
-	#options: Required<ToggleOptions> = $state(defaults);
+	#options: typeof defaults & ToggleOptions = $state(defaults);
 	value = $derived(this.attributes?.value); // alias
 
 	constructor(options?: Bind<ToggleOptions, BindableOptions>) {
