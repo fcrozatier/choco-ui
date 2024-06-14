@@ -4,7 +4,7 @@ import type { Bind } from "$lib/utils/bind";
 import { merge } from "@fcrozatier/ts-helpers";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../components/base.svelte";
-import type { Constructor } from "./types";
+import type { Constructor, Required } from "./types";
 
 type EventName = keyof HTMLElementEventMap;
 
@@ -33,13 +33,10 @@ export type TogglableOptions = {
 
 type BindableOptions = "active";
 
-const defaults: Required<TogglableOptions> = {
+const defaults = {
 	initial: {},
 	active: false,
-	toggle: [],
-	on: [],
-	off: [],
-};
+} satisfies TogglableOptions;
 
 export const Togglable = <
 	U extends HTMLElement = HTMLElement,
@@ -49,7 +46,7 @@ export const Togglable = <
 ) => {
 	return class extends superclass {
 		#initial_state = false;
-		#options: Required<TogglableOptions> = $state(defaults);
+		#options: Required<TogglableOptions, "active" | "initial"> = $state(defaults);
 		#active = $derived(this.#options.active);
 		#attributes: Record<string, Booleanish> = $derived(
 			this.#active === this.#initial_state

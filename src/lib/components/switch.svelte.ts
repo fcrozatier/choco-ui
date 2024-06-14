@@ -1,4 +1,5 @@
 import { Togglable } from "$lib/mixins/togglable.svelte";
+import type { Required } from "$lib/mixins/types";
 import { bind, type Bind } from "$lib/utils/bind";
 import { role } from "$lib/utils/roles";
 import { merge } from "@fcrozatier/ts-helpers";
@@ -32,7 +33,7 @@ const defaults = { active: false } satisfies SwitchOptions;
  * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Switch_role#all_descendants_are_presentational
  */
 export class Switch extends Togglable<HTMLButtonElement>(ChocoBase) {
-	#options: typeof defaults & SwitchOptions = $state(defaults);
+	#options: Required<SwitchOptions, "active"> = $state(defaults);
 	value = $derived(this.attributes?.value); // alias
 
 	constructor(options?: Bind<SwitchOptions, BindableOptions>) {
