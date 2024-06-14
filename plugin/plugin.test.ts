@@ -1,5 +1,5 @@
+import { expandMacro } from "create-choco/plugin";
 import { expect, test } from "vitest";
-import { expandMacro } from "./plugin";
 
 // TS files
 test.each([

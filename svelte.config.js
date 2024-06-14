@@ -1,7 +1,7 @@
 import adapter from "@sveltejs/adapter-node";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
+import choco from "create-choco/preprocessor";
 import targetBlank from "svelte-target-blank";
-import choco from "./src/lib/preprocessor/index.js";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

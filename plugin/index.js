@@ -6,15 +6,11 @@ import MagicString from "magic-string";
 // @ts-ignore
 const tsParser = acorn.Parser.extend(tsPlugin({ allowSatisfies: true }));
 
-/**
- * @typedef {Object} PluginOptions
- * @property {string} filename
- * @property {string} content
- */
-
 const script = /<script.*>((.|\r?\n)*)<\/script>/;
 
-/** @param {PluginOptions} options */
+/**
+ * @type {typeof import(".").expandMacro}
+ */
 export function expandMacro({ filename, content }) {
 	/** @type {string|undefined} */
 	let scriptTag;
