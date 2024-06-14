@@ -1,4 +1,5 @@
 import { Togglable } from "$lib/mixins/togglable.svelte";
+import { bind, type Bind } from "$lib/utils/bind";
 import { role } from "$lib/utils/roles";
 import { merge } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
@@ -11,7 +12,9 @@ export type SwitchOptions = {
 	value?: string;
 };
 
-const defaults = { active: false, value: "" } satisfies Required<SwitchOptions>;
+type BindableOptions = "active";
+
+const defaults = { active: false } satisfies SwitchOptions;
 
 /**
  * ## Switch
@@ -28,25 +31,30 @@ const defaults = { active: false, value: "" } satisfies Required<SwitchOptions>;
  *
  * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Switch_role#all_descendants_are_presentational
  */
-export class Switch extends Togglable<HTMLButtonElement | HTMLInputElement>(ChocoBase) {
+export class Switch extends Togglable<HTMLButtonElement>(ChocoBase) {
+	#options: typeof defaults & SwitchOptions = $state(defaults);
 	value = $derived(this.attributes?.value); // alias
 
-	constructor(options?: SwitchOptions) {
+	constructor(options?: Bind<SwitchOptions, BindableOptions>) {
 		super();
-		const toggleOptions: Required<SwitchOptions> = merge(defaults, options);
-		let initial = { "aria-checked": `${toggleOptions.active}` } as const;
+		this.#options = merge(defaults, options);
 
 		this.extendAttributes({
-			value: options?.value ?? undefined,
+			value: this.#options.value,
 			role: role.switch,
 		});
-		this.extendActions((node) => {
-			if (node instanceof HTMLButtonElement) {
-				node.type = "button";
-			} else if (node instanceof HTMLInputElement) {
-				node.type = "checkbox";
-			}
-		});
-		this.initTogglable({ initial, active: toggleOptions.active, toggle: "click" });
+
+		const opts = this.#options;
+
+		this.initTogglable(
+			bind(
+				{
+					initial: { "aria-checked": `${opts.active}` },
+					active: opts.active,
+					toggle: "click",
+				},
+				["active"],
+			),
+		);
 	}
 }

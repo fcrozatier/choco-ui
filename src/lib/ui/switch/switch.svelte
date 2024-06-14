@@ -1,12 +1,18 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco";
 	import { Switch } from "$lib/components/switch.svelte";
+	import { bind } from "$lib/utils/bind";
 	import { cn } from "$lib/utils/styles.js";
 	import type { SwitchProps } from ".";
 
-	let { class: className, active = false, children, ...restProps }: SwitchProps = $props();
+	let {
+		class: className,
+		active = $bindable(false),
+		children,
+		...restProps
+	}: SwitchProps = $props();
 
-	const toggle = new Switch({ active });
+	const toggle = new Switch(bind({ active }, ["active"]));
 </script>
 
 <button
