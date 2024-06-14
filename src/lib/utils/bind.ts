@@ -16,5 +16,9 @@ export const bind = <T extends Record<string, unknown>, U extends BindableKeys<T
 	record?: NoInfer<T>,
 	_keys?: U,
 ): T | undefined => {
+	if (record) {
+		throw new Error("Add the choco plugin to your Vite config to remove this error");
+	}
+
 	return record;
 };
