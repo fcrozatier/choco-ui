@@ -2,7 +2,7 @@
 	import { choco } from "$lib/actions/choco";
 	import { ToggleButton } from "$lib/components/toggle.svelte";
 	import { t } from "$lib/ui/theme";
-	import Toggle from "$lib/ui/toggle/toggle.svelte";
+	import { Toggle } from "$lib/ui/toggle";
 	import { bind } from "$lib/utils/bind";
 
 	let disabled = $state(false);
@@ -51,6 +51,6 @@
 	I
 </button>
 
-<Toggle variant="outline">toggle</Toggle>
+<Toggle variant="outline" bind:active>toggle</Toggle>
 
 <button class={t.toggle()} use:choco={toggle3}>toggle</button>
