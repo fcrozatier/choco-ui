@@ -1,23 +1,6 @@
 import { Invokable } from "$lib/mixins/invokable.svelte";
-import type { OmitSupertype, Orientation } from "$lib/mixins/types";
 import { nanoId } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
-import { type GroupOptions } from "./group.svelte";
-
-type BaseTabsOptions = {
-	orientation?: Orientation;
-	/**
-	 * The default active tab. If not provided defaults to the first tab
-	 */
-	value?: string;
-};
-
-export type TabsOptions = BaseTabsOptions & {
-	focus?: OmitSupertype<
-		GroupOptions,
-		{ roving?: boolean; exclusive?: boolean; preventInactivation?: boolean }
-	>;
-};
 
 export type DisclosureOptions = {
 	/**
