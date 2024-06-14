@@ -7,6 +7,9 @@ import MagicString from "magic-string";
 const tsParser = acorn.Parser.extend(tsPlugin({ allowSatisfies: true }));
 
 const script = /<script.*>((.|\r?\n)*)<\/script>/;
+const svelte = /\.svelte$/;
+const svelteModule = /\.svelte(\.ts)?$/;
+const callsBind = /(^|[^.\w])bind\(/;
 
 /**
  * @type {typeof import(".").expandMacro}
@@ -16,7 +19,7 @@ export function expandMacro({ filename, content }) {
 	let scriptTag;
 	let source = content;
 
-	if (/\.svelte$/.test(filename)) {
+	if (svelte.test(filename)) {
 		scriptTag = content.match(script)?.[1];
 		if (!scriptTag) return null;
 
@@ -97,15 +100,12 @@ export function expandMacro({ filename, content }) {
 	return { code: content.replace(scriptTag, code.toString()) };
 }
 
-const svelteFile = /\.svelte(\.ts)?$/;
-const callsBind = /(^|[^.\w])bind\(/;
-
 export default () => {
 	return /** @satisfies {import("vite").Plugin} */ ({
 		name: "vite-plugin-svelte-bind",
 		enforce: "pre",
 		transform(content, id) {
-			if (svelteFile.test(id) && callsBind.test(content)) {
+			if (svelteModule.test(id) && callsBind.test(content)) {
 				return expandMacro({
 					filename: id,
 					content,
