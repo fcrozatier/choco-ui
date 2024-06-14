@@ -1,11 +1,7 @@
-import type { HTMLButtonAttributes } from "svelte/elements";
-import Root from "./switch.svelte";
 import type { SwitchOptions } from "$lib/components/switch.svelte";
+import type { HTMLButtonAttributes } from "svelte/elements";
+import Switch from "./switch.svelte";
 
 export type SwitchProps = HTMLButtonAttributes & SwitchOptions;
 
-export {
-	Root,
-	//
-	Root as Switch,
-};
+export { Switch };
