@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { trimUndefined } from "@fcrozatier/ts-helpers/objects";
-	import { toggleVariants, type ToggleProps } from "./index.js";
-	import { ToggleButton, type ToggleOptions } from "$lib/components/toggle.svelte.js";
 	import { choco } from "$lib/actions/choco.js";
+	import { ToggleButton } from "$lib/components/toggle.svelte.js";
+	import { bind } from "$lib/utils/bind.js";
+	import { toggleVariants, type ToggleProps } from "./index.js";
 
 	let {
 		class: className,
@@ -10,12 +10,11 @@
 		variant,
 		active = $bindable(false),
 		value,
-		builder = (options) => new ToggleButton(options),
 		children,
 		...restProps
 	}: ToggleProps = $props();
 
-	const toggle = builder(trimUndefined<ToggleOptions>({ active, value }));
+	const toggle = new ToggleButton(bind({ active, value }, ["active"]));
 </script>
 
 <button use:choco={toggle} class={toggleVariants({ variant, size, className })} {...restProps}>
