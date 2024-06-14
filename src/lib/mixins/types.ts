@@ -4,8 +4,6 @@ import type { HTMLAttributes } from "svelte/elements";
 // https://www.typescriptlang.org/docs/handbook/mixins.html#constrained-mixins
 export type Constructor<Class = {}> = new (...options: any[]) => Class;
 
-export type MixedWith<Mixin extends (...args: any) => any> = InstanceType<ReturnType<Mixin>>;
-
 /**
  * Custom utility type to Omit a supertype from a type
  */
@@ -47,10 +45,6 @@ export type Attributes<T extends HTMLElement> = Partial<
 			| undefined;
 	}
 >;
-
-export type Required<T, K extends keyof T> = {
-	[P in keyof T as P extends K ? P : never]-?: T[P];
-} & Pick<T, Exclude<keyof T, K>>;
 
 const NonGlobalAttributes = [
 	"accept",
