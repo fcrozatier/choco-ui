@@ -19,6 +19,17 @@ test.each([
 		"{ get active(){return opts.active}, set active(v){opts.active=v} }",
 	],
 	["bind method", "this.method.bind(this)", "this.method.bind(this)"],
+	["getters only", "bind({ open })", "{ get open(){return open} }"],
+	[
+		"getters on literal props",
+		"bind({ 'aria-current': current }, ['active'])",
+		"{ get 'aria-current'(){return current} }",
+	],
+	[
+		"mix",
+		"bind({ open, active, 'aria-current': current }, ['active'])",
+		"{ get open(){return open}, get active(){return active}, set active(v){active=v}, get 'aria-current'(){return current} }",
+	],
 ])("expand bind with %s", async (_desc, before, after) => {
 	expect(expandMacro({ content: before, filename: "file.svelte.ts" })?.code).toBe(after);
 });

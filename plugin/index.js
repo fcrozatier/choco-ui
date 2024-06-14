@@ -42,48 +42,69 @@ export function expandMacro({ filename, content }) {
 				node.type === "CallExpression" &&
 				node.callee.type === "Identifier" &&
 				node.callee.name === "bind" &&
-				node.arguments.length === 2
+				node.arguments.length >= 1
 			) {
 				const [object, array] = node.arguments;
 
-				if (object?.type !== "ObjectExpression") {
+				if (object.type !== "ObjectExpression") {
 					throw new Error("bind's first argument must be an object literal");
 				}
-				if (array?.type !== "ArrayExpression") {
+				if (array && array.type !== "ArrayExpression") {
 					throw new Error("bind's second argument must be an array literal");
 				}
-				if (array.elements.length > 0) {
-					if (
-						!array.elements.every((el) => el?.type === "Literal" && typeof el.value === "string")
-					) {
-						throw new Error("bind's second argument must be an array of string literals");
+				if (
+					array?.elements?.length > 0 &&
+					!array.elements.every((el) => el.type === "Literal" && typeof el.value === "string")
+				) {
+					throw new Error("bind's second argument must be an array of string literals");
+				}
+				/** @type {string[] | undefined} */
+				const keys = array?.elements?.map((e) => e.type === "Literal" && e.value);
+
+				for (const property of object.properties) {
+					if (property.type !== "Property") continue;
+
+					/** @type {string} */
+					let name;
+
+					switch (property.key.type) {
+						case "Identifier":
+							name = property.key.name;
+							break;
+						case "Literal":
+							name = "'" + property.key.value + "'";
+							break;
+						default:
+							continue;
 					}
-					const keys = /** @type {import("acorn").Literal[]} */ (array.elements).map(
-						(/** @type {import("acorn").Literal} */ e) => e.type === "Literal" && e.value,
-					);
 
-					for (const property of /**@type {import("acorn").Property[]} */ (object.properties)) {
-						if (
-							property.type === "Property" &&
-							property.key.type === "Identifier" &&
-							keys.includes(property.key.name)
-						) {
-							const name = property.key.name;
-							if (property.shorthand) {
-								code.update(
-									property.start,
-									property.end,
-									`get ${name}(){return ${name}}, set ${name}(v){${name}=v}`,
-								);
-							} else {
-								const { value } = property;
+					if (keys?.includes(property.key.name)) {
+						if (property.shorthand) {
+							code.update(
+								property.start,
+								property.end,
+								`get ${name}(){return ${name}}, set ${name}(v){${name}=v}`,
+							);
+						} else {
+							const { value } = property;
 
-								code.update(
-									property.start,
-									property.end,
-									`get ${name}(){return ${code.slice(value.start, value.end)}}, set ${name}(v){${code.slice(value.start, value.end)}=v}`,
-								);
-							}
+							code.update(
+								property.start,
+								property.end,
+								`get ${name}(){return ${code.slice(value.start, value.end)}}, set ${name}(v){${code.slice(value.start, value.end)}=v}`,
+							);
+						}
+					} else {
+						if (property.shorthand) {
+							code.update(property.start, property.end, `get ${name}(){return ${name}}`);
+						} else {
+							const { value } = property;
+
+							code.update(
+								property.start,
+								property.end,
+								`get ${name}(){return ${code.slice(value.start, value.end)}}`,
+							);
 						}
 					}
 				}
