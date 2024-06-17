@@ -2,8 +2,10 @@ declare const __bindable: unique symbol;
 
 type Bindable<T> = T | (T & { [__bindable]: true });
 
+type isBindable<T> = (T extends { [__bindable]: true } ? true : false) extends false ? false : true;
+
 type BindableKeys<T> = keyof {
-	[K in keyof T as T extends Bindable<infer _> ? K : never]: any;
+	[K in keyof T as isBindable<T[K]> extends true ? K : never]: any;
 };
 
 export type Bind<T extends Record<string, unknown>, K extends keyof T> = {
@@ -15,7 +17,7 @@ export type Unbind<T extends Record<string, unknown>> = {
 };
 
 export const bind = <T extends Record<string, unknown>, U extends BindableKeys<T>[]>(
-	props?: NoInfer<T>,
+	props: NoInfer<T>,
 	_keys?: U,
 ): T | undefined => {
 	if (props) {
