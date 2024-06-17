@@ -1,4 +1,4 @@
-import { Invokable } from "$lib/mixins/invokable.svelte";
+import { Triggerable } from "$lib/mixins/triggerable.svelte";
 import type { OmitSupertype } from "$lib/mixins/types";
 import { role } from "$lib/utils/roles";
 import { merge, nanoId } from "@fcrozatier/ts-helpers";
@@ -31,7 +31,7 @@ export type HeaderOptions = {
 	active?: boolean;
 };
 
-class Header extends Invokable<HTMLButtonElement>(ChocoBase) {
+class Header extends Triggerable<HTMLButtonElement>(ChocoBase) {
 	value: string;
 	headingLevel: number;
 

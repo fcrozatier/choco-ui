@@ -1,5 +1,5 @@
 import { makeFocusable } from "$lib/actions/focus.svelte";
-import { Invokable } from "$lib/mixins/invokable.svelte";
+import { Triggerable } from "$lib/mixins/triggerable.svelte";
 import type { OmitSupertype, Orientation } from "$lib/mixins/types";
 import { role } from "$lib/utils/roles";
 import { merge, nanoId } from "@fcrozatier/ts-helpers";
@@ -39,7 +39,7 @@ export type TabOptions = {
 	active?: boolean;
 };
 
-class Tab extends Invokable<HTMLButtonElement>(ChocoBase) {
+class Tab extends Triggerable<HTMLButtonElement>(ChocoBase) {
 	value: string;
 
 	constructor(options: TabOptions) {

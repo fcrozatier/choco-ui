@@ -1,4 +1,4 @@
-import { Invokable } from "$lib/mixins/invokable.svelte";
+import { Triggerable } from "$lib/mixins/triggerable.svelte";
 import { nanoId } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte";
 
@@ -16,7 +16,7 @@ const defaults = { active: false } satisfies DisclosureOptions;
  *
  * Adheres to the [Disclosure WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/)
  */
-export class Disclosure extends Invokable<HTMLButtonElement>(ChocoBase) {
+export class Disclosure extends Triggerable<HTMLButtonElement>(ChocoBase) {
 	constructor(options?: DisclosureOptions) {
 		super();
 		const controlId = nanoId();

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco";
 	import { ChocoBase } from "$lib/components/base.svelte";
-	import { Invokable } from "$lib/mixins/invokable.svelte";
 	import { Togglable } from "$lib/mixins/togglable.svelte";
+	import { Triggerable } from "$lib/mixins/triggerable.svelte";
 
-	const Control = class extends Invokable(Togglable(ChocoBase)) {};
+	const Control = class extends Triggerable(Togglable(ChocoBase)) {};
 
 	const control = new Control();
 	control.initInvokable({

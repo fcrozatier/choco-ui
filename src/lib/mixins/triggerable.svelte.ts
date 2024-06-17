@@ -13,7 +13,7 @@ export type InvokableOptions = {
 	target?: TogglableOptions["initial"];
 } & Omit<TogglableOptions, "initial">;
 
-export const Invokable = <
+export const Triggerable = <
 	CE extends HTMLElement = HTMLElement,
 	TE extends HTMLElement = HTMLElement,
 	C extends Constructor<ChocoBase<CE>> = Constructor<ChocoBase<CE>>,
