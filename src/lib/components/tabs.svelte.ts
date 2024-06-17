@@ -48,7 +48,7 @@ class Tab extends Triggerable<HTMLButtonElement>(ChocoBase) {
 		const targetId = nanoId();
 		const active = !!options.active;
 
-		this.initInvokable({
+		this.initTriggerable({
 			control: { "aria-selected": `${active}` },
 			target: { hidden: !active },
 			active,

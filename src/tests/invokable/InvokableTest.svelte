@@ -7,7 +7,7 @@
 	const Control = class extends Triggerable(Togglable(ChocoBase)) {};
 
 	const control = new Control();
-	control.initInvokable({
+	control.initTriggerable({
 		control: { "aria-expanded": "false" },
 		target: { "data-open": "false" },
 		active: false,

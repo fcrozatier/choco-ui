@@ -29,7 +29,7 @@ export const Triggerable = <
 			this.target = new targetClass();
 		}
 
-		initInvokable(options: InvokableOptions) {
+		initTriggerable(options: InvokableOptions) {
 			this.initTogglable({
 				initial: options.control,
 				...options,

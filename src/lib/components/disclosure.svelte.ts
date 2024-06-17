@@ -23,7 +23,7 @@ export class Disclosure extends Triggerable<HTMLButtonElement>(ChocoBase) {
 		const targetId = nanoId();
 		const active = options?.active ?? defaults.active;
 
-		this.initInvokable({
+		this.initTriggerable({
 			control: { "aria-expanded": `${active}` },
 			target: { hidden: !active },
 			active,

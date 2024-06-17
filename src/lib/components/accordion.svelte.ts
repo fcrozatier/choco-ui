@@ -42,7 +42,7 @@ class Header extends Triggerable<HTMLButtonElement>(ChocoBase) {
 		const active = !!options.active;
 
 		this.headingLevel = options?.headingLevel ?? defaults.headingLevel;
-		this.initInvokable({
+		this.initTriggerable({
 			control: { "aria-expanded": `${active}` },
 			target: { hidden: !active },
 			active,
