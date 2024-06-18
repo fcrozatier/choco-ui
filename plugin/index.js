@@ -3,8 +3,7 @@ import { tsPlugin } from "acorn-typescript";
 import { walk } from "estree-walker";
 import MagicString from "magic-string";
 
-// @ts-ignore
-const tsParser = acorn.Parser.extend(tsPlugin({ allowSatisfies: true }));
+const tsParser = acorn.Parser.extend(tsPlugin({ allowSatisfies: true, dts: false }));
 
 const script = /<script.*>((.|\r?\n)*)<\/script>/;
 const svelte = /\.svelte$/;
