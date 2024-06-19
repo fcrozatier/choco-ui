@@ -23,6 +23,7 @@ import {
 	type TransformerFactory,
 	type Visitor,
 } from "typescript";
+import type { Plugin } from "vite";
 
 const transformer: TransformerFactory<SourceFile> = (context) => {
 	return (sourceFile) => {
@@ -92,7 +93,7 @@ const transformer: TransformerFactory<SourceFile> = (context) => {
 
 const printer = createPrinter();
 
-export const expand = ({ filename, content }: { filename: string; content: string }) => {
+const expand = ({ filename, content }: { filename: string; content: string }) => {
 	const source = createSourceFile(
 		filename,
 		content,
@@ -163,6 +164,8 @@ const createObjectLiteralExpression = (properties: ObjectLiteralElementLike[]) =
 
 const script = /<script.*>((.|\r?\n)*)<\/script>/;
 const svelte = /\.svelte$/;
+const svelteModule = /\.svelte(\.ts)?$/;
+const callsBind = /(^|[^.\w])bind\(/;
 
 export const expandMacro = ({ filename, content }: { filename: string; content: string }) => {
 	let scriptTag: string | undefined;
@@ -175,9 +178,24 @@ export const expandMacro = ({ filename, content }: { filename: string; content: 
 		source = scriptTag;
 	}
 
-	const code = expand({ filename, content });
+	const code = expand({ filename, content: source });
 
 	if (!scriptTag) return { code };
 
 	return { code: content.replace(scriptTag, code) };
+};
+
+export default () => {
+	return {
+		name: "vite-plugin-svelte-bind",
+		enforce: "pre",
+		transform(content, id) {
+			if (svelteModule.test(id) && callsBind.test(content)) {
+				return expandMacro({
+					filename: id,
+					content,
+				});
+			}
+		},
+	} satisfies Plugin;
 };
