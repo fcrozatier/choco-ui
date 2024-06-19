@@ -24,18 +24,6 @@ import {
 	type Visitor,
 } from "typescript";
 
-const printer = createPrinter();
-
-const ast = ({ filename, content }) => {
-	return createSourceFile(
-		filename,
-		content,
-		{ languageVersion: ScriptTarget.ESNext },
-		/** setParentNodes */ true,
-		ScriptKind.TS,
-	);
-};
-
 const transformer: TransformerFactory<SourceFile> = (context) => {
 	return (sourceFile) => {
 		const visitor = ((node) => {
@@ -102,12 +90,20 @@ const transformer: TransformerFactory<SourceFile> = (context) => {
 	};
 };
 
+const printer = createPrinter();
+
 export const expand = ({ filename, content }: { filename: string; content: string }) => {
-	const tree = ast({ filename, content });
+	const source = createSourceFile(
+		filename,
+		content,
+		{ languageVersion: ScriptTarget.ESNext },
+		/** setParentNodes */ true,
+		ScriptKind.TS,
+	);
 
-	const transformed = transform(tree, [transformer]).transformed[0];
+	const transformed = transform(source, [transformer]).transformed[0];
 
-	return printer.printNode(EmitHint.Unspecified, transformed, tree);
+	return printer.printNode(EmitHint.Unspecified, transformed, source);
 };
 
 const createGetter = ({
