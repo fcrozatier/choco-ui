@@ -42,10 +42,12 @@ export class Disclosure extends Triggerable<HTMLButtonElement>(ChocoBase) {
 				["active"],
 			),
 		);
+
 		this.extendAttributes({
 			id: controlId,
 			"aria-controls": targetId,
 		});
+
 		this.target.extendAttributes({
 			id: targetId,
 			"aria-labelledby": controlId,

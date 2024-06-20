@@ -49,15 +49,10 @@ export const Triggerable = <
 				),
 			);
 
-			this.target.initTogglable(
-				bind(
-					{
-						initial: opts.target,
-						active: opts.active,
-					},
-					["active"],
-				),
-			);
+			this.target.initTogglable({
+				initial: opts.target,
+				active: opts.active,
+			});
 		}
 
 		override toggle(e?: Event) {
