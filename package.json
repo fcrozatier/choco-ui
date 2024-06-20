@@ -1,5 +1,5 @@
 {
-	"name": "create-choco",
+	"name": "choco-ui",
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
