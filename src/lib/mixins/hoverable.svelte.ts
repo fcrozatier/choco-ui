@@ -3,10 +3,10 @@ import { ChocoBase } from "$lib/components/base.svelte";
 import { convexHullFromElements, pointInConvexPolygon, type Point } from "$lib/internal/polygon";
 import { key } from "$lib/utils/keyboard";
 import { debounce, merge } from "@fcrozatier/ts-helpers";
-import { Invokable, type InvokableOptions } from "./invokable.svelte";
+import { Triggerable, type TriggerableOptions } from "./triggerable.svelte";
 import type { Constructor } from "./types";
 
-const defaults = { active: false } satisfies InvokableOptions;
+const defaults = { active: false } satisfies TriggerableOptions;
 
 /**
  * Triggers on hover and focus
@@ -17,11 +17,11 @@ export const Hoverable = <
 >(
 	superclass: T,
 ) => {
-	return class extends Invokable(superclass) {
+	return class extends Triggerable(superclass) {
 		#hull: Point[] | undefined;
 
-		initHoverable(options?: InvokableOptions) {
-			this.initInvokable({
+		initHoverable(options?: TriggerableOptions) {
+			this.initTriggerable({
 				...merge(defaults, options),
 				on: ["pointerenter", "focusin"],
 				off: ["focusout"],
