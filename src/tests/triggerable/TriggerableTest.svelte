@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco";
 	import { ChocoBase } from "$lib/components/base.svelte";
-	import { Togglable } from "$lib/mixins/togglable.svelte";
 	import { Triggerable } from "$lib/mixins/triggerable.svelte";
 
-	const Control = class extends Triggerable(Togglable(ChocoBase)) {};
+	const Control = class extends Triggerable(ChocoBase) {};
 
 	const control = new Control();
 	control.initTriggerable({
@@ -15,6 +14,6 @@
 	});
 </script>
 
-<button use:choco={control} data-testid="invoker">button</button>
+<button use:choco={control} data-testid="trigger">button</button>
 
 <div use:choco={control.target} data-testid="target">div</div>
