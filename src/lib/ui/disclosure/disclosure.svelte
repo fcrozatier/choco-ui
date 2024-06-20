@@ -1,15 +1,16 @@
 <script lang="ts">
-	import { type Snippet } from "svelte";
-	import { set } from "./index";
+	import { choco } from "$lib/actions/choco";
 	import { Disclosure, type DisclosureOptions } from "$lib/components/disclosure.svelte";
 	import { cn } from "$lib/utils/styles";
-	import { choco } from "$lib/actions/choco";
-	import { slide } from "svelte/transition";
+	import { bind } from "choco-ui/plugin";
+	import { type Snippet } from "svelte";
 	import type { HTMLButtonAttributes } from "svelte/elements";
+	import { slide } from "svelte/transition";
+	import { set } from "./index";
 
 	let {
 		class: className,
-		active,
+		active = $bindable(false),
 		children,
 		header,
 		...restProps
@@ -20,7 +21,7 @@
 			header: Snippet;
 		} = $props();
 
-	const disclosure = new Disclosure({ active });
+	const disclosure = new Disclosure(bind({ active }, ["active"]));
 
 	set(disclosure);
 </script>

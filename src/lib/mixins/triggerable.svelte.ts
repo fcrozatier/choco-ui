@@ -1,8 +1,10 @@
+import { merge } from "@fcrozatier/ts-helpers";
+import { bind, type Bind } from "choco-ui/plugin";
 import { ChocoBase } from "../components/base.svelte";
 import { Togglable, type TogglableOptions } from "./togglable.svelte";
 import type { Constructor } from "./types";
 
-export type InvokableOptions = {
+export type TriggerableOptions = {
 	/**
 	 * Initial state of the control
 	 */
@@ -13,6 +15,8 @@ export type InvokableOptions = {
 	target?: TogglableOptions["initial"];
 } & Omit<TogglableOptions, "initial">;
 
+const defaults = { active: false } satisfies TriggerableOptions;
+
 export const Triggerable = <
 	CE extends HTMLElement = HTMLElement,
 	TE extends HTMLElement = HTMLElement,
@@ -22,6 +26,7 @@ export const Triggerable = <
 	targetClass = class extends Togglable<TE>(ChocoBase) {},
 ) => {
 	return class extends Togglable(controlClass) {
+		#options: TriggerableOptions = $state(defaults);
 		target: InstanceType<typeof targetClass>;
 
 		constructor(...options: any[]) {
@@ -29,16 +34,29 @@ export const Triggerable = <
 			this.target = new targetClass();
 		}
 
-		initTriggerable(options: InvokableOptions) {
-			this.initTogglable({
-				initial: options.control,
-				...options,
-			});
+		initTriggerable(options?: Bind<TriggerableOptions, "active">) {
+			this.#options = merge(defaults, options);
 
-			this.target.initTogglable({
-				initial: options.target,
-				active: options.active,
-			});
+			this.initTogglable(
+				bind(
+					{
+						...options,
+						initial: this.#options?.control,
+						active: this.#options.active,
+					},
+					["active"],
+				),
+			);
+
+			this.target.initTogglable(
+				bind(
+					{
+						initial: this.#options?.target,
+						active: this.#options.active,
+					},
+					["active"],
+				),
+			);
 		}
 
 		override toggle(e?: Event) {

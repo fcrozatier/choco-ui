@@ -1,5 +1,7 @@
 import { Triggerable } from "$lib/mixins/triggerable.svelte";
-import { nanoId } from "@fcrozatier/ts-helpers";
+import type { Required } from "$lib/mixins/types";
+import { merge, nanoId } from "@fcrozatier/ts-helpers";
+import { bind, type Bind } from "choco-ui/plugin";
 import { ChocoBase } from "./base.svelte";
 
 export type DisclosureOptions = {
@@ -9,6 +11,8 @@ export type DisclosureOptions = {
 	active?: boolean;
 };
 
+type BindableOptions = "active";
+
 const defaults = { active: false } satisfies DisclosureOptions;
 
 /**
@@ -17,18 +21,25 @@ const defaults = { active: false } satisfies DisclosureOptions;
  * Adheres to the [Disclosure WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/)
  */
 export class Disclosure extends Triggerable<HTMLButtonElement>(ChocoBase) {
-	constructor(options?: DisclosureOptions) {
+	#options: Required<DisclosureOptions, "active"> = $state(defaults);
+
+	constructor(options?: Bind<DisclosureOptions, BindableOptions>) {
 		super();
 		const controlId = nanoId();
 		const targetId = nanoId();
-		const active = options?.active ?? defaults.active;
+		this.#options = merge(defaults, options);
 
-		this.initTriggerable({
-			control: { "aria-expanded": `${active}` },
-			target: { hidden: !active },
-			active,
-			toggle: "click",
-		});
+		this.initTriggerable(
+			bind(
+				{
+					control: { "aria-expanded": `${this.#options.active}` },
+					target: { hidden: !this.#options.active },
+					active: this.#options.active,
+					toggle: "click",
+				},
+				["active"],
+			),
+		);
 		this.extendAttributes({
 			id: controlId,
 			"aria-controls": targetId,
