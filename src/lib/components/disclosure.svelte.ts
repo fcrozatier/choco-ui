@@ -25,16 +25,18 @@ export class Disclosure extends Triggerable<HTMLButtonElement>(ChocoBase) {
 
 	constructor(options?: Bind<DisclosureOptions, BindableOptions>) {
 		super();
+		this.#options = merge(defaults, options);
+
 		const controlId = nanoId();
 		const targetId = nanoId();
-		this.#options = merge(defaults, options);
+		const opts = this.#options;
 
 		this.initTriggerable(
 			bind(
 				{
-					control: { "aria-expanded": `${this.#options.active}` },
-					target: { hidden: !this.#options.active },
-					active: this.#options.active,
+					control: { "aria-expanded": `${opts.active}` },
+					target: { hidden: !opts.active },
+					active: opts.active,
 					toggle: "click",
 				},
 				["active"],
