@@ -36,13 +36,14 @@ export const Triggerable = <
 
 		initTriggerable(options?: Bind<TriggerableOptions, "active">) {
 			this.#options = merge(defaults, options);
+			const opts = this.#options;
 
 			this.initTogglable(
 				bind(
 					{
-						...options,
-						initial: this.#options?.control,
-						active: this.#options.active,
+						...opts,
+						initial: opts.control,
+						active: opts.active,
 					},
 					["active"],
 				),
@@ -51,8 +52,8 @@ export const Triggerable = <
 			this.target.initTogglable(
 				bind(
 					{
-						initial: this.#options?.target,
-						active: this.#options.active,
+						initial: opts.target,
+						active: opts.active,
 					},
 					["active"],
 				),

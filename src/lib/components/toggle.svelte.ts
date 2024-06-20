@@ -39,13 +39,12 @@ export class ToggleButton extends Togglable<HTMLButtonElement>(ChocoBase) {
 		super();
 
 		this.#options = merge(defaults, options);
+		const opts = this.#options;
 
 		this.extendAttributes({
 			type: "button",
-			value: this.#options.value,
+			value: opts.value,
 		});
-
-		const opts = this.#options;
 
 		this.initTogglable(
 			bind(

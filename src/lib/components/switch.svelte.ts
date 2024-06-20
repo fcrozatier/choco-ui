@@ -39,13 +39,12 @@ export class Switch extends Togglable<HTMLButtonElement>(ChocoBase) {
 	constructor(options?: Bind<SwitchOptions, BindableOptions>) {
 		super();
 		this.#options = merge(defaults, options);
+		const opts = this.#options;
 
 		this.extendAttributes({
-			value: this.#options.value,
+			value: opts.value,
 			role: role.switch,
 		});
-
-		const opts = this.#options;
 
 		this.initTogglable(
 			bind(

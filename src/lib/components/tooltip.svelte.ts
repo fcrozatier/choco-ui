@@ -23,8 +23,10 @@ export class Tooltip extends Hoverable(ChocoBase) {
 
 	constructor(options?: TooltipOptions) {
 		super();
-		const id = nanoId();
 		this.#options = merge(defaults, options);
+
+		const id = nanoId();
+		const opts = this.#options;
 
 		this.extendAttributes({
 			"aria-describedby": id,
@@ -34,12 +36,12 @@ export class Tooltip extends Hoverable(ChocoBase) {
 			id,
 			inert: true,
 			role: role.tooltip,
-			"data-position": this.#options.position,
+			"data-position": opts.position,
 		});
 
 		this.initHoverable({
-			active: this.#options.isOpen,
-			target: { "data-open": this.#options.isOpen },
+			active: opts.isOpen,
+			target: { "data-open": opts.isOpen },
 		});
 	}
 }
