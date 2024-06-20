@@ -1,12 +1,11 @@
 import { sveltekit } from "@sveltejs/kit/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { svelteTesting } from "@testing-library/svelte/vite";
-import choc from "create-choco/plugin";
-import Inspect from "vite-plugin-inspect";
+import { autoSync } from "choco-ui/plugin";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-	plugins: [Inspect(), choc(), sveltekit(), tailwindcss(), svelteTesting()],
+	plugins: [, /**Inspect()*/ autoSync(), sveltekit(), tailwindcss(), svelteTesting()],
 
 	test: {
 		include: ["./**/*.{test,spec}.{js,ts}"],
