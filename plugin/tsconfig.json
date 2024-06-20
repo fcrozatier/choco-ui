@@ -1,0 +1,37 @@
+{
+	"compilerOptions": {
+		/* Language and Environment */
+		"target": "ESNext",
+
+		/* Modules */
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"resolveJsonModule": true,
+
+		/* JavaScript Support */
+		"checkJs": true,
+
+		/* Emit */
+		"declaration": true,
+		"sourceMap": false,
+		"noEmitOnError": true,
+
+		/* Interop Constraints */
+		"verbatimModuleSyntax": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+
+		/* Type Checking */
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedIndexedAccess": true,
+		"noImplicitOverride": true,
+
+		/* Completeness */
+		"skipLibCheck": true
+	},
+	"include": ["./*.ts"]
+}
