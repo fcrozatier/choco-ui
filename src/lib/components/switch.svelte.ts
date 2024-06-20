@@ -1,8 +1,8 @@
 import { Togglable } from "$lib/mixins/togglable.svelte";
 import type { Required } from "$lib/mixins/types";
-import { bind, type Bind } from "$lib/utils/bind";
 import { role } from "$lib/utils/roles";
 import { merge } from "@fcrozatier/ts-helpers";
+import { bind, type Bind } from "choco-ui/plugin";
 import { ChocoBase } from "./base.svelte";
 
 export type SwitchOptions = {

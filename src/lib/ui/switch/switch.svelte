@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco";
 	import { Switch } from "$lib/components/switch.svelte";
-	import { bind } from "$lib/utils/bind";
 	import { cn } from "$lib/utils/styles.js";
+	import { bind } from "choco-ui/plugin";
 	import type { SwitchProps } from ".";
 
 	let {

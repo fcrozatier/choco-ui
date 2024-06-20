@@ -2,7 +2,7 @@
 	import { choco } from "$lib/actions/choco";
 	import { Switch as SwitchToggle } from "$lib/components/switch.svelte";
 	import Switch from "$lib/ui/switch/switch.svelte";
-	import { bind } from "$lib/utils/bind";
+	import { bind } from "choco-ui/plugin";
 
 	let active = $state(true);
 

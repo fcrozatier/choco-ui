@@ -1,7 +1,7 @@
 import { addListener } from "$lib/actions/addListener";
 import { toggleValuesPure } from "$lib/internal/helpers";
-import type { Bind } from "$lib/utils/bind";
 import { merge } from "@fcrozatier/ts-helpers";
+import type { Bind } from "choco-ui/plugin";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../components/base.svelte";
 import type { Constructor, Required } from "./types";

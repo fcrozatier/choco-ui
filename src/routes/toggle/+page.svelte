@@ -3,7 +3,7 @@
 	import { ToggleButton } from "$lib/components/toggle.svelte";
 	import { t } from "$lib/ui/theme";
 	import { Toggle } from "$lib/ui/toggle";
-	import { bind } from "$lib/utils/bind";
+	import { bind } from "choco-ui/plugin";
 
 	let disabled = $state(false);
 	let active = $state(true);
