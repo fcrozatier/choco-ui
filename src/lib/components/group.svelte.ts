@@ -1,8 +1,10 @@
 import { addListener } from "$lib/actions/addListener";
-import type { Togglable } from "$lib/mixins/togglable.svelte";
+import { Togglable, type Toggler } from "$lib/mixins/togglable.svelte";
+import type { Constructor } from "$lib/mixins/types";
 import { key } from "$lib/utils/keyboard";
 import { merge, modulo } from "@fcrozatier/ts-helpers";
 import { Map as RMap } from "svelte/reactivity";
+import { ChocoBase } from "./base.svelte";
 
 export type GroupOptions = {
 	loop?: boolean;
@@ -14,6 +16,10 @@ export type GroupOptions = {
 	 * Prevents having no active elements
 	 */
 	preventInactivation?: boolean;
+	/**
+	 * The list of active items values
+	 */
+	active?: string[];
 	onFocus?: <T extends HTMLElement>(from: T, to: T) => void;
 } & (
 	| {
@@ -45,7 +51,14 @@ const defaults = {
  *
  * If js is not available then the elements have their default focus behavior.
  */
-export const Group = <T extends ReturnType<typeof Togglable>>(superclass: T) => {
+export const Group = <
+	U extends HTMLElement,
+	T extends ReturnType<
+		typeof Togglable<U, Constructor<ChocoBase<U> & Toggler & { value?: string }>>
+	>,
+>(
+	superclass: T,
+) => {
 	return class {
 		#itemsMap: Map<HTMLElement, InstanceType<T>> = new RMap();
 
