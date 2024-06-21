@@ -1,12 +1,11 @@
 <script lang="ts">
+	import type { GroupOptions } from "$lib/components/group.svelte";
+	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
 	import type { Orientation } from "$lib/mixins/types";
 	import { type Snippet } from "svelte";
 	import type { HTMLFieldsetAttributes } from "svelte/elements";
-	import type { ToggleProps } from "../toggle";
 	import { setItemContext, setVariantContext, toggleGroupVariants } from ".";
-	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
-	import type { GroupOptions } from "$lib/components/group.svelte";
-	import { trimUndefined } from "@fcrozatier/ts-helpers";
+	import type { ToggleProps } from "../toggle";
 
 	let {
 		class: className,
@@ -15,13 +14,14 @@
 		focus,
 		children,
 		...rest
-	}: HTMLFieldsetAttributes & { focus: GroupOptions } & {
+	}: HTMLFieldsetAttributes & {
+		focus?: GroupOptions;
 		orientation?: Orientation;
 		variant?: ToggleProps["variant"];
 		children: Snippet;
 	} = $props();
 
-	const toggleGroup = new ToggleGroup(trimUndefined<GroupOptions>(focus));
+	const toggleGroup = new ToggleGroup(focus);
 
 	export const active = () => toggleGroup.active;
 

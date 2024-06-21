@@ -1,9 +1,9 @@
-import Root from "./toggle-group.svelte";
-import Item from "./toggle-group-item.svelte";
-import { tv } from "tailwind-variants";
+import type { ConcreteToggleOptions, ToggleButton } from "$lib/components/toggle.svelte";
 import { getContext, setContext } from "svelte";
-import type { ToggleButton, ToggleOptions } from "$lib/components/toggle.svelte";
+import { tv } from "tailwind-variants";
 import type { ToggleProps } from "../toggle";
+import Item from "./toggle-group-item.svelte";
+import Root from "./toggle-group.svelte";
 
 export const toggleGroupVariants = tv({
 	base: "flex items-center justify-center gap-1",
@@ -20,12 +20,12 @@ export const toggleGroupVariants = tv({
 
 const toggleItemSymbol = Symbol();
 
-export function setItemContext(createItem: (options: ToggleOptions) => ToggleButton) {
+export function setItemContext(createItem: (options: ConcreteToggleOptions) => ToggleButton) {
 	setContext(toggleItemSymbol, createItem);
 }
 
 export function getItemContext() {
-	return getContext<(options?: ToggleOptions) => ToggleButton>(toggleItemSymbol);
+	return getContext<(options?: ConcreteToggleOptions) => ToggleButton>(toggleItemSymbol);
 }
 
 const toggleVariantSymbol = Symbol();
@@ -37,4 +37,4 @@ export function getVariantContext() {
 	return getContext<ToggleProps["variant"]>(toggleVariantSymbol);
 }
 
-export { Root, Item, Root as ToggleGroup, Item as ToggleItem };
+export { Item, Root };
