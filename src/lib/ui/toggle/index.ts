@@ -1,4 +1,8 @@
-import type { ToggleOptions } from "$lib/components/toggle.svelte";
+import type {
+	ConcreteToggleOptions,
+	ToggleButton,
+	ToggleOptions,
+} from "$lib/components/toggle.svelte";
 import type { HTMLButtonAttributes } from "svelte/elements";
 import { type VariantProps, tv } from "tailwind-variants";
 import Toggle from "./toggle.svelte";
@@ -25,6 +29,8 @@ export const toggleVariants = tv({
 export interface ToggleProps
 	extends Omit<HTMLButtonAttributes, "value">,
 		ToggleOptions,
-		Partial<VariantProps<typeof toggleVariants>> {}
+		Partial<VariantProps<typeof toggleVariants>> {
+	builder?: (_options?: ConcreteToggleOptions) => ToggleButton;
+}
 
 export { Toggle };

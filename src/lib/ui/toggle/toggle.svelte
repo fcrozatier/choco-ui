@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
-	import { ToggleButton } from "$lib/components/toggle.svelte.js";
+	import { ToggleButton, type ConcreteToggleOptions } from "$lib/components/toggle.svelte.js";
 	import { bind } from "choco-ui/plugin";
 	import { toggleVariants, type ToggleProps } from "./index.js";
 
@@ -11,10 +11,11 @@
 		active = $bindable(false),
 		value,
 		children,
+		builder = (options?: ConcreteToggleOptions) => new ToggleButton(options),
 		...restProps
 	}: ToggleProps = $props();
 
-	const toggle = new ToggleButton(bind({ active, value }, ["active"]));
+	const toggle = builder(bind({ active, value }, ["active"]));
 </script>
 
 <button use:choco={toggle} class={toggleVariants({ variant, size, className })} {...restProps}>
