@@ -2,11 +2,11 @@
 	import { choco } from "$lib/actions/choco";
 	import { CheckboxGroup } from "$lib/components/checkbox-group.svelte";
 
-	const checkboxGroup = new CheckboxGroup({ active: "mixed" });
+	const checkboxGroup = new CheckboxGroup({ checked: "mixed" });
 	const items = [
-		{ item: checkboxGroup.createItem({ value: "Lettuce", active: true }) },
-		{ item: checkboxGroup.createItem({ value: "Tomato", active: true }) },
-		{ item: checkboxGroup.createItem({ value: "Mustard", active: false }) },
+		{ item: checkboxGroup.createItem({ value: "Lettuce", checked: true }) },
+		{ item: checkboxGroup.createItem({ value: "Tomato", checked: true }) },
+		{ item: checkboxGroup.createItem({ value: "Mustard", checked: false }) },
 		{ item: checkboxGroup.createItem({ value: "Sprout" }) },
 	];
 </script>

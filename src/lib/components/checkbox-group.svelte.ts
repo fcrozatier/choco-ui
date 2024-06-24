@@ -8,14 +8,14 @@ type CheckboxGroupOptions = GroupOptions & {
 	/**
 	 * The initial state of the root checkbox. Only used to avoid flicker during hydration
 	 */
-	active?: boolean | "mixed";
+	checked?: boolean | "mixed";
 };
 
 export type CheckboxOptions = {
 	/**
 	 * Whether the checkbox is initially pressed or not. Defaults to `false`
 	 */
-	active?: boolean;
+	checked?: boolean;
 	value: string;
 };
 
@@ -24,7 +24,7 @@ class Checkbox extends Togglable<HTMLInputElement>(ChocoBase) {
 
 	constructor(options: CheckboxOptions) {
 		super();
-		const active = !!options?.active;
+		const active = !!options?.checked;
 		this.value = options.value;
 		this.initTogglable({ active, initial: { checked: active }, toggle: "click" });
 		this.extendAttributes({ type: "checkbox", value: options?.value });
@@ -91,7 +91,7 @@ export class CheckboxGroup extends Group(Checkbox) {
 	constructor(options?: CheckboxGroupOptions) {
 		super(options);
 
-		this.root = new TriState(options?.active);
+		this.root = new TriState(options?.checked);
 		this.root.extendAttributes({ "aria-controls": "" });
 		this.root.extendActions(addListener("click", this.#toggleMixed));
 
