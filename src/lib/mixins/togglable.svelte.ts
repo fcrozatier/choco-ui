@@ -1,5 +1,4 @@
 import { addListener } from "$lib/actions/addListener";
-import { toggleValuesPure } from "$lib/internal/helpers";
 import { merge } from "@fcrozatier/ts-helpers";
 import type { Bind } from "choco-ui/plugin";
 import type { Booleanish } from "svelte/elements";
@@ -58,7 +57,7 @@ export const Togglable = <
 		#attributes: Record<string, Booleanish> = $derived(
 			this.#active === this.#initial_state
 				? this.#options.initial
-				: toggleValuesPure(this.#options.initial)!,
+				: toggleValues(this.#options.initial)!,
 		);
 
 		get active() {
@@ -111,4 +110,25 @@ export const Togglable = <
 			if (this.active) this.toggle(e);
 		}
 	};
+};
+
+/**
+ * Pure function for toggling Booleanish values
+ */
+const toggleValues = (state?: Record<string, Booleanish>) => {
+	if (!state) return;
+
+	const newState: Record<string, Booleanish> = {};
+
+	for (const key of Object.keys(state)) {
+		const val = state[key];
+
+		if (typeof val === "boolean") {
+			newState[key] = !val;
+		} else if (typeof val === "string") {
+			newState[key] = `${val === "false"}`;
+		}
+	}
+
+	return newState;
 };
