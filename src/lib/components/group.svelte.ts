@@ -1,8 +1,9 @@
 import { addListener } from "$lib/actions/addListener";
-import { Togglable, type Toggler } from "$lib/mixins/togglable.svelte";
-import type { Constructor } from "$lib/mixins/types";
+import { type Toggler } from "$lib/mixins/togglable.svelte";
+import type { Constructor, Required } from "$lib/mixins/types";
 import { key } from "$lib/utils/keyboard";
 import { merge, modulo } from "@fcrozatier/ts-helpers";
+import type { Bind } from "choco-ui/plugin";
 import { Map as RMap } from "svelte/reactivity";
 import { ChocoBase } from "./base.svelte";
 
@@ -17,7 +18,7 @@ export type GroupOptions = {
 	 */
 	preventInactivation?: boolean;
 	/**
-	 * The list of active items values
+	 * The list of active values
 	 */
 	active?: string[];
 	onFocus?: <T extends HTMLElement>(from: T, to: T) => void;
@@ -37,7 +38,10 @@ export type GroupOptions = {
 	  }
 );
 
+export type ConcreteGroupOptions = Bind<GroupOptions, "active">;
+
 const defaults = {
+	active: [],
 	loop: false,
 	roving: false,
 	preventInactivation: false,
@@ -53,24 +57,41 @@ const defaults = {
  */
 export const Group = <
 	U extends HTMLElement,
-	T extends ReturnType<
-		typeof Togglable<U, Constructor<ChocoBase<U> & Toggler & { value?: string }>>
-	>,
+	T extends Constructor<ChocoBase<U> & Toggler & { value: string }>,
 >(
 	superclass: T,
 ) => {
 	return class {
 		#itemsMap: Map<HTMLElement, InstanceType<T>> = new RMap();
 
-		options: GroupOptions;
+		options: Required<GroupOptions, "active"> = defaults;
 		items: InstanceType<T>[] = $state([]);
 		Item: T;
 
 		activeItems = $derived(this.items.filter((item) => item.active));
 
-		constructor(options?: GroupOptions) {
+		get active() {
+			return this.options.active;
+		}
+
+		set active(v: string[]) {
+			this.options.active = v;
+		}
+
+		constructor(options?: ConcreteGroupOptions) {
 			this.options = merge(defaults, options);
 			this.Item = this.#Focusable(superclass);
+
+			$effect(() => {
+				// Update from options
+				for (const item of this.items) {
+					if (this.options.active.includes(item.value)) {
+						item.on();
+					} else {
+						item.off();
+					}
+				}
+			});
 		}
 
 		#handleKeydown = ((e: KeyboardEvent) => {
@@ -153,6 +174,13 @@ export const Group = <
 					});
 					this.extendActions(addListener("keydown", focus));
 
+					if (!this.value) throw new Error("All items in a group must have a value");
+
+					if (this.active && !options.active.includes(this.value)) {
+						// join
+						options.active.push(this.value);
+					}
+
 					items.push(this as InstanceType<T>);
 				}
 
@@ -175,6 +203,8 @@ export const Group = <
 							}
 						}
 					}
+
+					options.active = items.filter((i) => i.active).map((i) => i.value);
 				}
 			};
 		};
