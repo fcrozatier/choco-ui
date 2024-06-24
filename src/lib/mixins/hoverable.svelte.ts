@@ -1,6 +1,6 @@
 import { makeFocusable } from "$lib/actions/focus.svelte";
 import { ChocoBase } from "$lib/components/base.svelte";
-import { convexHullFromElements, pointInConvexPolygon, type Point } from "$lib/internal/polygon";
+import { convexHullFromElements, pointInConvexPolygon, type Point } from "$lib/utils/geometry";
 import { key } from "$lib/utils/keyboard";
 import { debounce, merge } from "@fcrozatier/ts-helpers";
 import { Triggerable, type TriggerableOptions } from "./triggerable.svelte";
