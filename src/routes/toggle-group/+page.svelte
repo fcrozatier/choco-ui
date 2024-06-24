@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { t } from "$lib/ui/theme";
-	import type { Orientation } from "$lib/mixins/types";
-	import * as ToggleGroupUI from "$lib/ui/toggle-group";
-	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
 	import { choco } from "$lib/actions/choco";
+	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
+	import type { Orientation } from "$lib/mixins/types";
+	import { t } from "$lib/ui/theme";
+	import * as ToggleGroupUI from "$lib/ui/toggle-group";
+	import { bind } from "choco-ui/plugin";
 
 	let disabled: boolean | undefined = $state();
 	let variant: "outline" | "default" = $state("default");
@@ -17,11 +18,12 @@
 	toggleGroup.createItem({ value: "banana" });
 	toggleGroup.createItem({ value: "apple" });
 
-	const toggleGroup2 = new ToggleGroup();
+	let checked: string[] = $state(["B"]);
+	const toggleGroup2 = new ToggleGroup(bind({ loop: true, active: checked }, ["active"]));
 
-	toggleGroup2.createItem({ value: "B" });
-	toggleGroup2.createItem({ value: "I" });
-	toggleGroup2.createItem({ value: "U" });
+	toggleGroup2.createItem({ value: "B", active: false });
+	toggleGroup2.createItem({ value: "I", active: false });
+	toggleGroup2.createItem({ value: "U", active: true });
 
 	let toggleUI: ToggleGroupUI.Root | undefined = $state();
 	const active = $derived(toggleUI?.active());
@@ -66,7 +68,7 @@ checked
 		{orientation}
 		{variant}
 		{disabled}
-		focus={{ loop: false, roving: true }}
+		focus={{ loop: true, roving: true }}
 	>
 		<ToggleGroupUI.Item value="B" active>B</ToggleGroupUI.Item>
 		<ToggleGroupUI.Item value="I" variant="outline">I</ToggleGroupUI.Item>
@@ -84,3 +86,26 @@ active
 		<button use:choco={item} class={t.toggleGroup.item()}>{item.value}</button>
 	{/each}
 </fieldset>
+
+<fieldset>
+	<legend>checkbox list</legend>
+
+	<label for="1">
+		B
+		<input type="checkbox" bind:group={checked} value="B" id="1" />
+	</label>
+	<label for="2">
+		I
+		<input type="checkbox" bind:group={checked} value="I" id="2" />
+	</label>
+	<label for="3">
+		U
+		<input type="checkbox" bind:group={checked} value="U" id="3" />
+	</label>
+</fieldset>
+
+toggle
+{toggleGroup2.active}
+<br />
+check
+{checked}
