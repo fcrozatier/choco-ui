@@ -62,7 +62,6 @@ class TriState extends ChocoBase<HTMLInputElement> {
 export class CheckboxGroup extends Group(Checkbox) {
 	#lastActive: string[] = $state([]);
 
-	active = $derived(this.activeItems.map((item) => item.value));
 	checked: boolean | "mixed" = $derived(
 		this.activeItems.length === this.items.length
 			? true

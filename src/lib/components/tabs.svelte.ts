@@ -80,7 +80,6 @@ class Tab extends Triggerable<HTMLButtonElement>(ChocoBase) {
  */
 export class Tabs extends Group(Tab) {
 	#options: BaseTabsOptions & GroupOptions;
-	active = $derived(this.activeItems.map((item) => item.value));
 	tablist;
 
 	constructor(options?: TabsOptions) {

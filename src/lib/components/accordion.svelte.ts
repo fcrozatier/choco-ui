@@ -68,7 +68,6 @@ class Header extends Triggerable<HTMLButtonElement>(ChocoBase) {
  */
 export class Accordion extends Group(Header) {
 	headingLevel: number;
-	active = $derived(this.activeItems.map((item) => item.value));
 
 	constructor(options?: AccordionOptions) {
 		super(merge(defaults.focus, options?.focus));
