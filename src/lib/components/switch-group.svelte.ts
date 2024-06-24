@@ -1,8 +1,8 @@
 import { Group } from "../mixins/group.svelte";
-import { Switch, type SwitchOptions } from "./switch.svelte";
+import { Switch, type ConcreteSwitchOptions } from "./switch.svelte";
 
 export class SwitchGroup extends Group(Switch) {
-	createItem = (options?: SwitchOptions) => {
+	createItem = (options?: ConcreteSwitchOptions) => {
 		return new this.Item(options);
 	};
 }

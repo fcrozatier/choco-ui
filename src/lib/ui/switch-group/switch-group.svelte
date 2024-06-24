@@ -2,7 +2,6 @@
 	import { SwitchGroup } from "$lib/components/switch-group.svelte";
 	import type { GroupOptions } from "$lib/mixins/group.svelte";
 	import type { Orientation } from "$lib/mixins/types";
-	import { trimUndefined } from "@fcrozatier/ts-helpers";
 	import { setContext, type Snippet } from "svelte";
 	import type { HTMLFieldsetAttributes } from "svelte/elements";
 	import { set } from ".";
@@ -16,13 +15,14 @@
 		focus,
 		children,
 		...rest
-	}: HTMLFieldsetAttributes & { focus?: GroupOptions } & {
+	}: HTMLFieldsetAttributes & {
+		focus?: GroupOptions;
 		orientation?: Orientation;
 		variant?: ToggleProps["variant"];
 		children: Snippet;
 	} = $props();
 
-	const switchGroup = new SwitchGroup(trimUndefined({ ...focus }));
+	const switchGroup = new SwitchGroup({ ...focus });
 
 	export const selected = () => switchGroup.active;
 
