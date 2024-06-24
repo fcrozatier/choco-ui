@@ -33,6 +33,13 @@ export type TogglableOptions = {
 
 type BindableOptions = "active";
 
+export interface Toggler {
+	active: boolean;
+	toggle(): void;
+	on(): void;
+	off(): void;
+}
+
 const defaults = {
 	initial: {},
 	active: false,
@@ -44,7 +51,7 @@ export const Togglable = <
 >(
 	superclass: T,
 ) => {
-	return class extends superclass {
+	return class extends superclass implements Toggler {
 		#initial_state = false;
 		#options: Required<TogglableOptions, "active" | "initial"> = $state(defaults);
 		#active = $derived(this.#options.active);
