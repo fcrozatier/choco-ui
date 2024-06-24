@@ -15,7 +15,7 @@ export type SwitchOptions = {
 
 type BindableOptions = "active";
 
-const defaults = { active: false } satisfies SwitchOptions;
+const defaults = { active: false, value: "" } satisfies SwitchOptions;
 
 /**
  * ## Switch
@@ -33,8 +33,8 @@ const defaults = { active: false } satisfies SwitchOptions;
  * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Switch_role#all_descendants_are_presentational
  */
 export class Switch extends Togglable<HTMLButtonElement>(ChocoBase) {
-	#options: Required<SwitchOptions, "active"> = $state(defaults);
-	value = $derived(this.attributes?.value); // alias
+	#options: Required<SwitchOptions, "active" | "value"> = $state(defaults);
+	value = $derived(this.#options.value);
 
 	constructor(options?: Bind<SwitchOptions, BindableOptions>) {
 		super();
