@@ -35,6 +35,7 @@ export type GroupOptions = {
 	  }
 	| {
 			exclusive?: false;
+			activateOnFocus?: never;
 	  }
 );
 
