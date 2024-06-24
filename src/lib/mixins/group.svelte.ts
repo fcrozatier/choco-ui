@@ -5,7 +5,7 @@ import { key } from "$lib/utils/keyboard";
 import { merge, modulo } from "@fcrozatier/ts-helpers";
 import type { Bind } from "choco-ui/plugin";
 import { Map as RMap } from "svelte/reactivity";
-import { ChocoBase } from "./base.svelte";
+import { ChocoBase } from "../components/base.svelte";
 
 export type GroupOptions = {
 	loop?: boolean;

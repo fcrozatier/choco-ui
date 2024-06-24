@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { GroupOptions } from "$lib/components/group.svelte";
 	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
+	import type { GroupOptions } from "$lib/mixins/group.svelte";
 	import type { Orientation } from "$lib/mixins/types";
 	import { type Snippet } from "svelte";
 	import type { HTMLFieldsetAttributes } from "svelte/elements";

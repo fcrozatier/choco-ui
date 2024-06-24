@@ -2,8 +2,8 @@ import { Triggerable } from "$lib/mixins/triggerable.svelte";
 import type { OmitSupertype } from "$lib/mixins/types";
 import { role } from "$lib/utils/roles";
 import { merge, nanoId } from "@fcrozatier/ts-helpers";
+import { Group, type GroupOptions } from "../mixins/group.svelte";
 import { ChocoBase } from "./base.svelte";
-import { Group, type GroupOptions } from "./group.svelte";
 
 type AccordionBaseOptions = {
 	headingLevel?: number;

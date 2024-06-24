@@ -1,8 +1,8 @@
 import { addListener } from "$lib/actions/addListener";
 import { Togglable } from "$lib/mixins/togglable.svelte";
 import { nanoId } from "@fcrozatier/ts-helpers";
+import { Group, type GroupOptions } from "../mixins/group.svelte";
 import { ChocoBase } from "./base.svelte";
-import { Group, type GroupOptions } from "./group.svelte";
 
 type CheckboxGroupOptions = GroupOptions & {
 	/**

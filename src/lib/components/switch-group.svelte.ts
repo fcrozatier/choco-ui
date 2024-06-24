@@ -1,4 +1,4 @@
-import { Group } from "./group.svelte";
+import { Group } from "../mixins/group.svelte";
 import { Switch, type SwitchOptions } from "./switch.svelte";
 
 export class SwitchGroup extends Group(Switch) {
