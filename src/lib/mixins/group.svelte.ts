@@ -29,13 +29,13 @@ export type GroupOptions = {
 			 */
 			exclusive?: true;
 			/**
-			 * Whether focusing an item immediately activates it. This only makes sense when the group is `exclusive`. Defaults to `false`
+			 * Whether arrows immediately activate the previous/next item. This only makes sense when the group is `exclusive`. Defaults to `false`
 			 */
-			activateOnFocus?: boolean;
+			activateOnNext?: boolean;
 	  }
 	| {
 			exclusive?: false;
-			activateOnFocus?: never;
+			activateOnNext?: never;
 	  }
 );
 
@@ -65,7 +65,7 @@ export const Group = <
 	return class {
 		#itemsMap: Map<HTMLElement, InstanceType<T>> = new RMap();
 
-		options: Required<GroupOptions, "active"> = defaults;
+		options: Required<GroupOptions, "active"> = $state(defaults);
 		items: InstanceType<T>[] = $state([]);
 		Item: T;
 
@@ -140,7 +140,7 @@ export const Group = <
 				}
 				to.focus();
 
-				if (this.options.exclusive === true && this.options.activateOnFocus) {
+				if (this.options.exclusive === true && this.options.activateOnNext === true) {
 					newItem.active = true;
 				}
 

@@ -26,7 +26,7 @@ const defaults = {
 		roving: true,
 		exclusive: true,
 		preventInactivation: true,
-		activateOnFocus: true,
+		activateOnNext: true,
 	},
 	orientation: "horizontal",
 } satisfies BaseTabsOptions & { focus: GroupOptions };
