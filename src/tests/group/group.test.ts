@@ -202,7 +202,7 @@ describe("Group", () => {
 		unmount();
 	});
 
-	it.only("prevent inactivation", async () => {
+	it("prevent inactivation", async () => {
 		const { getByTestId, unmount } = render(GroupTest, {
 			props: {
 				options: {
