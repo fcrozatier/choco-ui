@@ -4,9 +4,9 @@
 
 	const group = new ToggleGroup();
 
-	group.createItem({});
-	group.createItem({});
-	group.createItem({});
+	group.createItem({ value: nanoId() });
+	group.createItem({ value: nanoId() });
+	group.createItem({ value: nanoId() });
 </script>
 
 <div>
@@ -14,7 +14,7 @@
 	{#each group.items as item}
 		<p>
 			<button {...item.attributes} use:item.action>
-				{nanoId()}
+				{item.value}
 			</button>
 		</p>
 	{/each}
