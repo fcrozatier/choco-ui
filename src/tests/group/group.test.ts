@@ -2,6 +2,7 @@ import { render } from "@testing-library/svelte/svelte5";
 import { userEvent } from "@testing-library/user-event";
 import { axe } from "jest-axe";
 import { describe, expect, it } from "vitest";
+import GroupBindTest from "./GroupBindTest.svelte";
 import GroupTest from "./GroupTest.svelte";
 
 it("GroupTest has no accessibility violations", async () => {
@@ -230,6 +231,50 @@ describe("Group", () => {
 
 		await userEvent.click(c);
 		expect(active.textContent).toBe("C");
+
+		unmount();
+	});
+
+	it("toggle <-> checkbox", async () => {
+		const { getByTestId, unmount } = render(GroupBindTest);
+
+		const a = getByTestId("A");
+		const b = getByTestId("B");
+		const x1 = getByTestId("checkbox-1");
+		const x2 = getByTestId("checkbox-2");
+		const x3 = getByTestId("checkbox-3");
+		const active = getByTestId("active");
+		const checked = getByTestId("checked");
+
+		// group -> checkbox
+		await userEvent.click(a);
+		expect(active.textContent).toBe("A");
+		expect(checked.textContent).toBe("A");
+
+		await userEvent.click(b);
+		expect(active.textContent).toBe("A,B");
+		expect(checked.textContent).toBe("A,B");
+
+		await userEvent.click(a);
+		expect(active.textContent).toBe("B");
+		expect(checked.textContent).toBe("B");
+
+		// group <- checkbox
+		await userEvent.click(x3);
+		expect(active.textContent).toBe("B,C");
+		expect(checked.textContent).toBe("B,C");
+
+		await userEvent.click(x2);
+		expect(active.textContent).toBe("C");
+		expect(checked.textContent).toBe("C");
+
+		await userEvent.click(x1);
+		expect(active.textContent).toBe("A,C");
+		expect(checked.textContent).toBe("A,C");
+
+		await userEvent.click(x3);
+		expect(active.textContent).toBe("A");
+		expect(checked.textContent).toBe("A");
 
 		unmount();
 	});
