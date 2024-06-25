@@ -10,9 +10,7 @@
 	let variant: "outline" | "default" = $state("default");
 	let orientation: Orientation = $state("horizontal");
 
-	let group = $state([]);
-
-	const toggleGroup = new ToggleGroup({ exclusive: true, activateOnFocus: true });
+	const toggleGroup = new ToggleGroup({ roving: true, exclusive: true, activateOnNext: true });
 
 	toggleGroup.createItem({ value: "orange" });
 	toggleGroup.createItem({ value: "banana" });
@@ -29,6 +27,7 @@
 	const active = $derived(toggleUI?.active());
 </script>
 
+<button>before</button>
 <div class={t.toggleGroup.root({ orientation: "horizontal" })}>
 	<legend>toggle group</legend>
 
@@ -37,9 +36,16 @@
 	{/each}
 </div>
 
+<button>after</button>
+
+<fieldset>
+	<input type="radio" name="group" value="A" id="" />
+	<input type="radio" name="group" value="B" id="" />
+	<input type="radio" name="group" value="C" id="" />
+</fieldset>
+
 checked
 <pre>{toggleGroup.active}</pre>
-<pre>{group}</pre>
 
 <label>
 	disable
