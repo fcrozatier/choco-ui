@@ -8,9 +8,11 @@ type BindableKeys<T> = keyof {
 	[K in keyof T as isBindable<T[K]> extends true ? K : never]: unknown;
 };
 
-export type Bind<T extends Record<string, unknown>, K extends keyof T> = {
-	[P in K]: Bindable<T[K]>;
-} & Omit<T, K>;
+export type Bind<T extends Record<string, unknown>, K extends keyof T> = T extends T
+	? {
+			[P in K]: Bindable<T[P]>;
+		} & Omit<T, K>
+	: never;
 
 export type Unbind<T extends Record<string, unknown>> = {
 	[K in keyof T]: T[K] extends Bindable<infer U> ? U : T[K];
