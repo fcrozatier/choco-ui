@@ -48,7 +48,7 @@ export type Attributes<T extends HTMLElement> = Partial<
 
 export type Required<T, K extends keyof T> = {
 	[P in keyof T as P extends K ? P : never]-?: T[P];
-} & Pick<T, Exclude<keyof T, K>>;
+} & Omit<T, K>;
 
 const NonGlobalAttributes = [
 	"accept",
