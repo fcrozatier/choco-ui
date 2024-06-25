@@ -1,3 +1,4 @@
+import type { ToggleGroup } from "$lib/components/toggle-group.svelte";
 import type { ConcreteToggleOptions, ToggleButton } from "$lib/components/toggle.svelte";
 import { getContext, setContext } from "svelte";
 import { tv } from "tailwind-variants";
@@ -20,7 +21,7 @@ export const toggleGroupVariants = tv({
 
 const toggleItemSymbol = Symbol();
 
-export function setItemContext(createItem: (options: ConcreteToggleOptions) => ToggleButton) {
+export function setItemContext(createItem: InstanceType<typeof ToggleGroup>["createItem"]) {
 	setContext(toggleItemSymbol, createItem);
 }
 
