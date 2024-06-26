@@ -12,8 +12,8 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> {
 		return this.#attributes;
 	}
 
-	set attributes(newV: Attributes<T>) {
-		this.#attributes = newV;
+	set attributes(v: Attributes<T>) {
+		this.#attributes = v;
 	}
 
 	get action(): Action<T> {
