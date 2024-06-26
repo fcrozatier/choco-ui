@@ -1,2 +1,2 @@
-export * from "./macro.js";
+export * from "./bind.js";
 export * from "./plugin.js";
