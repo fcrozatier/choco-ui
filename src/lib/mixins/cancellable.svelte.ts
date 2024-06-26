@@ -1,4 +1,6 @@
-import type { Togglable } from "$lib/mixins/togglable.svelte";
+import { ChocoBase } from "$lib/components/base.svelte";
+import { Togglable } from "$lib/mixins/togglable.svelte";
+import type { Constructor } from "./types";
 
 /**
  * ## Cancellable
@@ -7,11 +9,11 @@ import type { Togglable } from "$lib/mixins/togglable.svelte";
  */
 export const Cancellable = <
 	U extends HTMLElement = HTMLElement,
-	T extends ReturnType<typeof Togglable<U>> = ReturnType<typeof Togglable<U>>,
+	T extends Constructor<ChocoBase<U>> = Constructor<ChocoBase<U>>,
 >(
 	superclass: T,
 ) => {
-	return class extends superclass {
+	return class extends Togglable(superclass) {
 		constructor(...options: any[]) {
 			super(...options);
 
