@@ -1,66 +1,44 @@
-import {
-	createPrinter,
-	createSourceFile,
-	EmitHint,
-	factory,
-	isArrayLiteralExpression,
-	isCallExpression,
-	isIdentifier,
-	isObjectLiteralExpression,
-	isPropertyAssignment,
-	isShorthandPropertyAssignment,
-	isStringLiteral,
-	ModuleKind,
-	ScriptKind,
-	ScriptTarget,
-	SyntaxKind,
-	visitEachChild,
-	visitNode,
-	type Expression,
-	type ObjectLiteralElementLike,
-	type StringLiteral,
-	type Visitor,
-} from "typescript";
+import ts from "typescript";
 
-const visitor: Visitor = (node) => {
+const visitor: ts.Visitor = (node) => {
 	if (
-		isCallExpression(node) &&
-		isIdentifier(node.expression) &&
+		ts.isCallExpression(node) &&
+		ts.isIdentifier(node.expression) &&
 		node.expression.getText() === "bind"
 	) {
 		const [object, array] = node.arguments;
 
-		if (!object || !isObjectLiteralExpression(object)) {
+		if (!object || !ts.isObjectLiteralExpression(object)) {
 			throw new Error("auto-sync: bind's first argument must be an object literal");
 		}
 
-		if (array && !isArrayLiteralExpression(array)) {
+		if (array && !ts.isArrayLiteralExpression(array)) {
 			throw new Error("auto-sync: bind's second argument must be an array literal");
 		}
 
-		if (array && array.elements?.some((el) => !isStringLiteral(el))) {
+		if (array && array.elements?.some((el) => !ts.isStringLiteral(el))) {
 			throw new Error("auto-sync: bind's second argument must be an array of string literals");
 		}
 
-		const keys: string[] = array?.elements.map((e) => (e as StringLiteral).text) ?? [];
+		const keys: string[] = array?.elements.map((e) => (e as ts.StringLiteral).text) ?? [];
 
-		const properties: ObjectLiteralElementLike[] = [];
+		const properties: ts.ObjectLiteralElementLike[] = [];
 
 		for (const property of object.properties) {
 			const setter = property.name && keys.includes(property.name.getText());
 			let name!: string;
-			let initializer!: Expression;
+			let initializer!: ts.Expression;
 			let stringLiteral = false;
 
-			if (isShorthandPropertyAssignment(property)) {
+			if (ts.isShorthandPropertyAssignment(property)) {
 				name = property.name.getText();
 				initializer = property.name;
-			} else if (isPropertyAssignment(property)) {
-				if (isStringLiteral(property.name)) {
+			} else if (ts.isPropertyAssignment(property)) {
+				if (ts.isStringLiteral(property.name)) {
 					name = property.name.text;
 					initializer = property.initializer;
 					stringLiteral = true;
-				} else if (isIdentifier(property.name)) {
+				} else if (ts.isIdentifier(property.name)) {
 					name = property.name.getText();
 					initializer = property.initializer;
 				}
@@ -79,29 +57,29 @@ const visitor: Visitor = (node) => {
 		return createObjectLiteralExpression(properties);
 	}
 
-	return visitEachChild(node, visitor, undefined);
+	return ts.visitEachChild(node, visitor, undefined);
 };
 
-const printer = createPrinter();
+const printer = ts.createPrinter();
 
 export const expand = ({ filename, content }: { filename: string; content: string }) => {
-	const source = createSourceFile(
+	const source = ts.createSourceFile(
 		filename,
 		content,
 		{
-			languageVersion: ScriptTarget.ESNext,
-			impliedNodeFormat: ModuleKind.ESNext,
+			languageVersion: ts.ScriptTarget.ESNext,
+			impliedNodeFormat: ts.ModuleKind.ESNext,
 		},
 		/** setParentNodes */ true,
-		ScriptKind.TS,
+		ts.ScriptKind.TS,
 	);
 
-	const transformed = visitNode(source, visitor);
+	const transformed = ts.visitNode(source, visitor);
 
 	if (!transformed)
 		throw new Error(`auto-sync: something went wrong when transforming module ${filename}`);
 
-	return printer.printNode(EmitHint.Unspecified, transformed, source);
+	return printer.printNode(ts.EmitHint.Unspecified, transformed, source);
 };
 
 const createGetter = ({
@@ -110,28 +88,28 @@ const createGetter = ({
 	stringLiteral,
 }: {
 	name: string;
-	initializer: Expression;
+	initializer: ts.Expression;
 	stringLiteral?: boolean;
 }) => {
-	return factory.createGetAccessorDeclaration(
+	return ts.factory.createGetAccessorDeclaration(
 		undefined,
-		stringLiteral ? factory.createStringLiteral(name) : factory.createIdentifier(name),
+		stringLiteral ? ts.factory.createStringLiteral(name) : ts.factory.createIdentifier(name),
 		[],
 		undefined,
-		factory.createBlock([factory.createReturnStatement(initializer)], false),
+		ts.factory.createBlock([ts.factory.createReturnStatement(initializer)], false),
 	);
 };
 
-const createSetter = ({ name, initializer }: { name: string; initializer: Expression }) => {
+const createSetter = ({ name, initializer }: { name: string; initializer: ts.Expression }) => {
 	// Prevent shadowing
 	const local = ["v", "_v", "__v"].find((v) => !new Set([name, initializer]).has(v)) as string;
-	const localIdentifier = factory.createIdentifier(local);
+	const localIdentifier = ts.factory.createIdentifier(local);
 
-	return factory.createSetAccessorDeclaration(
+	return ts.factory.createSetAccessorDeclaration(
 		undefined,
-		factory.createIdentifier(name),
+		ts.factory.createIdentifier(name),
 		[
-			factory.createParameterDeclaration(
+			ts.factory.createParameterDeclaration(
 				undefined,
 				undefined,
 				localIdentifier,
@@ -140,12 +118,12 @@ const createSetter = ({ name, initializer }: { name: string; initializer: Expres
 				undefined,
 			),
 		],
-		factory.createBlock(
+		ts.factory.createBlock(
 			[
-				factory.createExpressionStatement(
-					factory.createBinaryExpression(
+				ts.factory.createExpressionStatement(
+					ts.factory.createBinaryExpression(
 						initializer,
-						factory.createToken(SyntaxKind.EqualsToken),
+						ts.factory.createToken(ts.SyntaxKind.EqualsToken),
 						localIdentifier,
 					),
 				),
@@ -155,6 +133,6 @@ const createSetter = ({ name, initializer }: { name: string; initializer: Expres
 	);
 };
 
-const createObjectLiteralExpression = (properties: ObjectLiteralElementLike[]) => {
-	return factory.createObjectLiteralExpression(properties);
+const createObjectLiteralExpression = (properties: ts.ObjectLiteralElementLike[]) => {
+	return ts.factory.createObjectLiteralExpression(properties);
 };
