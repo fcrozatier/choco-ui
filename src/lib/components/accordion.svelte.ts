@@ -1,5 +1,4 @@
 import { Triggerable } from "$lib/mixins/triggerable.svelte";
-import type { OmitSupertype } from "$lib/mixins/types";
 import { role } from "$lib/utils/roles";
 import { merge, nanoId } from "@fcrozatier/ts-helpers";
 import { Group, type GroupOptions } from "../mixins/group.svelte";
@@ -10,7 +9,7 @@ type AccordionBaseOptions = {
 };
 
 export type AccordionOptions = AccordionBaseOptions & {
-	focus?: OmitSupertype<GroupOptions, { roving?: boolean }>;
+	focus?: Omit<GroupOptions, "roving">;
 };
 
 const defaults = {
@@ -70,7 +69,7 @@ export class Accordion extends Group(Header) {
 	headingLevel: number;
 
 	constructor(options?: AccordionOptions) {
-		super(merge(defaults.focus, options?.focus));
+		super(merge(defaults.focus, options?.focus as GroupOptions));
 		this.headingLevel = options?.headingLevel ?? defaults.headingLevel;
 	}
 
