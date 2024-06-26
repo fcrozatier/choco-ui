@@ -27,7 +27,7 @@ class Checkbox extends Togglable<HTMLInputElement>(ChocoBase) {
 		const active = !!options?.checked;
 		this.value = options.value;
 		this.initTogglable({ active, initial: { checked: active }, toggle: "click" });
-		this.extendAttributes({ type: "checkbox", value: options?.value });
+		this.extendAttributes({ type: "checkbox", value: options.value });
 	}
 }
 
