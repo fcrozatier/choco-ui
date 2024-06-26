@@ -15,6 +15,8 @@ export type TriggerableOptions = {
 	target?: TogglableOptions["initial"];
 } & Omit<TogglableOptions, "initial">;
 
+export type ConcreteTriggerableOptions = Bind<TriggerableOptions, "active">;
+
 const defaults = { active: false } satisfies TriggerableOptions;
 
 export const Triggerable = <
@@ -34,7 +36,7 @@ export const Triggerable = <
 			this.target = new targetClass();
 		}
 
-		initTriggerable(options?: Bind<TriggerableOptions, "active">) {
+		initTriggerable(options?: ConcreteTriggerableOptions) {
 			this.#options = merge(defaults, options);
 			const opts = this.#options;
 
