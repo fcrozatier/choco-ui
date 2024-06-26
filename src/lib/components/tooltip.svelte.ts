@@ -1,11 +1,15 @@
 import { Hoverable } from "$lib/mixins/hoverable.svelte";
+import type { Required } from "$lib/mixins/types";
 import { role } from "$lib/utils/roles";
 import { merge, nanoId } from "@fcrozatier/ts-helpers";
+import { bind, type Bind } from "choco-ui/plugin";
 import { ChocoBase } from "./base.svelte";
 
-export type TooltipOptions = { isOpen?: boolean; position?: "top" | "bottom" | "left" | "right" };
+export type TooltipOptions = { active?: boolean; position?: "top" | "bottom" | "left" | "right" };
 
-const defaults = { isOpen: false, position: "top" } satisfies TooltipOptions;
+export type ConcreteTooltipOptions = Bind<TooltipOptions, "active">;
+
+const defaults = { active: false, position: "top" } satisfies TooltipOptions;
 
 /**
  * ## Tooltip
@@ -19,9 +23,9 @@ const defaults = { isOpen: false, position: "top" } satisfies TooltipOptions;
  * [WCAG Content on Hover or Focus](https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html)
  */
 export class Tooltip extends Hoverable(ChocoBase) {
-	#options: Required<TooltipOptions> = $state(defaults);
+	#options: Required<TooltipOptions, "active"> = $state(defaults);
 
-	constructor(options?: TooltipOptions) {
+	constructor(options?: ConcreteTooltipOptions) {
 		super();
 		this.#options = merge(defaults, options);
 
@@ -39,9 +43,14 @@ export class Tooltip extends Hoverable(ChocoBase) {
 			"data-position": opts.position,
 		});
 
-		this.initHoverable({
-			active: opts.isOpen,
-			target: { "data-open": opts.isOpen },
-		});
+		this.initHoverable(
+			bind(
+				{
+					active: opts.active,
+					target: { "data-open": opts.active },
+				},
+				["active"],
+			),
+		);
 	}
 }

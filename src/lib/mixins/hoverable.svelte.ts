@@ -3,7 +3,12 @@ import { ChocoBase } from "$lib/components/base.svelte";
 import { convexHullFromElements, pointInConvexPolygon, type Point } from "$lib/utils/geometry";
 import { key } from "$lib/utils/keyboard";
 import { debounce, merge } from "@fcrozatier/ts-helpers";
-import { Triggerable, type TriggerableOptions } from "./triggerable.svelte";
+import { bind } from "choco-ui/plugin";
+import {
+	Triggerable,
+	type ConcreteTriggerableOptions,
+	type TriggerableOptions,
+} from "./triggerable.svelte";
 import type { Constructor } from "./types";
 
 const defaults = { active: false } satisfies TriggerableOptions;
@@ -19,18 +24,35 @@ export const Hoverable = <
 ) => {
 	return class extends Triggerable(superclass) {
 		#hull: Point[] | undefined;
+		#options = $state(defaults);
 
-		initHoverable(options?: TriggerableOptions) {
-			this.initTriggerable({
-				...merge(defaults, options),
-				on: ["pointerenter", "focusin"],
-				off: ["focusout"],
-			});
+		initHoverable(options?: ConcreteTriggerableOptions) {
+			this.#options = merge(defaults, options);
+			const opts = this.#options;
+			this.initTriggerable(
+				bind(
+					{
+						...opts,
+						active: opts.active,
+						on: ["pointerenter", "focusin"],
+						off: ["focusout"],
+					},
+					["active"],
+				),
+			);
 			// Allow hoverable text nodes
 			this.extendActions(makeFocusable);
+
+			$effect(() => {
+				if (this.#options.active) {
+					this.on();
+				} else {
+					this.off();
+				}
+			});
 		}
 
-		override on(e: Event) {
+		override on(e?: Event) {
 			if (!this.#hull && this.element && this.target.element) {
 				this.#hull = convexHullFromElements([this.element, this.target.element]);
 			}

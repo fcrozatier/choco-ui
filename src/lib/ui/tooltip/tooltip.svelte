@@ -2,6 +2,7 @@
 	import { choco } from "$lib/actions/choco";
 	import { Tooltip, type TooltipOptions } from "$lib/components/tooltip.svelte";
 	import { cn } from "$lib/utils/styles";
+	import { bind } from "choco-ui/plugin";
 	import { type Snippet } from "svelte";
 	import type { HTMLAttributes } from "svelte/elements";
 
@@ -12,13 +13,13 @@
 
 	let {
 		class: className,
-		isOpen = $bindable(false),
+		active = $bindable(false),
 		position,
 		children,
 		target,
 	}: TooltipProps = $props();
 
-	const tooltip = new Tooltip({ isOpen, position });
+	const tooltip = new Tooltip(bind({ active, position }, ["active"]));
 </script>
 
 <span class="relative select-none" use:choco={tooltip}>
