@@ -12,8 +12,8 @@ export const Cancellable = <
 	superclass: T,
 ) => {
 	return class extends superclass {
-		constructor(..._options: any[]) {
-			super();
+		constructor(...options: any[]) {
+			super(...options);
 
 			this.initTogglable({
 				initial: { "data-active": false },
