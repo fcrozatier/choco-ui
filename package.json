@@ -49,6 +49,7 @@
 		"eslint": "^9.5.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.41.0",
+		"globals": "^15.6.0",
 		"happy-dom": "^14.12.3",
 		"jest-axe": "^8.0.0",
 		"prettier": "^3.3.2",
@@ -60,6 +61,7 @@
 		"svelte-target-blank": "^1.0.0",
 		"tslib": "^2.6.3",
 		"typescript": "5.5.2",
+		"typescript-eslint": "^7.14.1",
 		"vite": "^5.3.1",
 		"vite-plugin-inspect": "^0.8.4",
 		"vitest": "^1.6.0"
