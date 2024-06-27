@@ -18,11 +18,23 @@
 		"test:unit": "vitest"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"plugin",
+		"preprocessor",
+		"!dist/**/*.test.*",
+		"!plugin/**/*.test.*",
+		"!preprocessor/**/*.test.*"
 	],
 	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js"
+		},
 		"./plugin": "./plugin/index.js",
 		"./preprocessor": "./preprocessor/index.js"
+	},
+	"peerDependencies": {
+		"svelte": "^5.0.0-next.1"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.45.0",
