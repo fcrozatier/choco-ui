@@ -6,7 +6,7 @@ import path from "path";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-	plugins: [, /**Inspect()*/ autoBind(), sveltekit(), tailwindcss(), svelteTesting()],
+	plugins: [/**Inspect()*/ autoBind(), sveltekit(), tailwindcss(), svelteTesting()],
 
 	test: {
 		include: ["./**/*.{test,spec}.{js,ts}"],
