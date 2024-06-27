@@ -1,5 +1,7 @@
+import { mergeActions } from "$lib/actions/combineActions";
 import { ChocoBase } from "$lib/components/base.svelte";
-import { Togglable } from "$lib/mixins/togglable.svelte";
+import { ToggleBase } from "$lib/mixins/togglable.svelte";
+import type { Action } from "svelte/action";
 import type { Constructor } from "./types";
 
 /**
@@ -13,11 +15,22 @@ export const Cancellable = <
 >(
 	superclass: T,
 ) => {
-	return class extends Togglable(superclass) {
+	return class extends superclass {
+		#canceller;
+
+		override get attributes() {
+			return { ...this.#canceller.attributes, ...super.attributes };
+		}
+
+		override get action(): Action<U> {
+			return mergeActions(this.#canceller.action, super.action);
+		}
+
 		constructor(...options: any[]) {
 			super(...options);
 
-			this.initTogglable({
+			this.#canceller = new ToggleBase();
+			this.#canceller.initTogglable({
 				initial: { "data-active": false },
 				active: false,
 				on: "pointerdown",
