@@ -50,8 +50,6 @@
 	"dependencies": {
 		"@fcrozatier/ts-helpers": "^1.3.1",
 		"@tailwindcss/vite": "4.0.0-alpha.13",
-		"acorn": "^8.12.0",
-		"acorn-typescript": "^1.4.13",
 		"clsx": "^2.1.1",
 		"estree-walker": "^3.0.3",
 		"magic-string": "^0.30.10",
