@@ -2,7 +2,7 @@ import type { HTMLAttributes } from "svelte/elements";
 
 // TS Mixin constructor constraint
 // https://www.typescriptlang.org/docs/handbook/mixins.html#constrained-mixins
-export type Constructor<Class = {}> = new (...options: any[]) => Class;
+export type Constructor<Class> = new (...options: any[]) => Class;
 
 /**
  * Custom utility type to Omit a supertype from a type

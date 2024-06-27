@@ -3,7 +3,7 @@ import type { Action, ActionReturn } from "svelte/action";
 /**
  * Turn many parameter-less actions into one action
  */
-export function mergeActions<T extends Action<any>[]>(...actions: T) {
+export function mergeActions<T extends Action<unknown>[]>(...actions: T) {
 	return ((node) => {
 		const cleanups: (void | ActionReturn)[] = [];
 		for (const action of actions) {
