@@ -1,6 +1,6 @@
 import { addListener } from "$lib/actions/addListener";
+import type { Bind } from "$lib/plugin";
 import { merge } from "@fcrozatier/ts-helpers";
-import type { Bind } from "choco-ui/plugin";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../components/base.svelte";
 import type { Constructor, Required } from "./types";

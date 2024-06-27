@@ -24,9 +24,9 @@ export const expandMacro = ({ filename, content }: { filename: string; content: 
 	return { code: content.replace(scriptTag, code) };
 };
 
-export const autoSync = () => {
+export const autoBind = () => {
 	return {
-		name: "vite-plugin-auto-sync",
+		name: "vite-plugin-bind",
 		enforce: "pre",
 		transform(content, id) {
 			if (svelteModule.test(id) && callsBind.test(content)) {

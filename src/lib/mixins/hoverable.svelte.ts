@@ -1,9 +1,9 @@
 import { makeFocusable } from "$lib/actions/focus.svelte";
 import { ChocoBase } from "$lib/components/base.svelte";
+import { bind } from "$lib/plugin";
 import { convexHullFromElements, pointInConvexPolygon, type Point } from "$lib/utils/geometry";
 import { key } from "$lib/utils/keyboard";
 import { debounce, merge } from "@fcrozatier/ts-helpers";
-import { bind } from "choco-ui/plugin";
 import {
 	Triggerable,
 	type ConcreteTriggerableOptions,

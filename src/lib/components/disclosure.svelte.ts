@@ -1,7 +1,7 @@
 import { Triggerable } from "$lib/mixins/triggerable.svelte";
 import type { Required } from "$lib/mixins/types";
+import { bind, type Bind } from "$lib/plugin";
 import { merge, nanoId } from "@fcrozatier/ts-helpers";
-import { bind, type Bind } from "choco-ui/plugin";
 import { ChocoBase } from "./base.svelte";
 
 export type DisclosureOptions = {

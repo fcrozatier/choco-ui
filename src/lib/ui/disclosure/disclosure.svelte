@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco";
 	import { Disclosure, type DisclosureOptions } from "$lib/components/disclosure.svelte";
+	import { bind } from "$lib/plugin";
 	import { cn } from "$lib/utils/styles";
-	import { bind } from "choco-ui/plugin";
 	import { type Snippet } from "svelte";
 	import type { HTMLButtonAttributes } from "svelte/elements";
 	import { slide } from "svelte/transition";

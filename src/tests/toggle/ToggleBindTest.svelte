@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco";
 	import { ToggleButton } from "$lib/components/toggle.svelte";
-	import { bind } from "choco-ui/plugin";
+	import { bind } from "$lib/plugin";
 
 	let checked = $state(false);
 

@@ -2,7 +2,7 @@
 	import { choco } from "$lib/actions/choco";
 	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
 	import type { GroupOptions } from "$lib/mixins/group.svelte";
-	import { bind } from "choco-ui/plugin";
+	import { bind } from "$lib/plugin";
 
 	let { options }: { options: GroupOptions } = $props();
 

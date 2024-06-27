@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco";
 	import { Disclosure } from "$lib/components/disclosure.svelte";
+	import { bind } from "$lib/plugin";
 	import { DisclosureUI } from "$lib/ui/disclosure";
-	import { bind } from "choco-ui/plugin";
 
 	let active = $state(false);
 

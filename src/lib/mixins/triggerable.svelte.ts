@@ -1,5 +1,5 @@
+import { bind, type Bind } from "$lib/plugin";
 import { merge } from "@fcrozatier/ts-helpers";
-import { bind, type Bind } from "choco-ui/plugin";
 import { ChocoBase } from "../components/base.svelte";
 import { Togglable, type TogglableOptions } from "./togglable.svelte";
 import type { Constructor } from "./types";

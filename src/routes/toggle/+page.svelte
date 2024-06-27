@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco";
 	import { ToggleButton } from "$lib/components/toggle.svelte";
+	import { bind } from "$lib/plugin";
 	import { t } from "$lib/ui/theme";
 	import { Toggle } from "$lib/ui/toggle";
-	import { bind } from "choco-ui/plugin";
 
 	let disabled = $state(false);
 	let active = $state(true);

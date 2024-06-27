@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco";
 	import { Switch as SwitchToggle } from "$lib/components/switch.svelte";
+	import { bind } from "$lib/plugin";
 	import Switch from "$lib/ui/switch/switch.svelte";
-	import { bind } from "choco-ui/plugin";
 
 	let active = $state(true);
 

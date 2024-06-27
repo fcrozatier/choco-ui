@@ -1,9 +1,9 @@
 import { addListener } from "$lib/actions/addListener";
 import { type Toggler } from "$lib/mixins/togglable.svelte";
 import type { Constructor, Required } from "$lib/mixins/types";
+import type { Bind } from "$lib/plugin";
 import { key } from "$lib/utils/keyboard";
 import { merge, modulo } from "@fcrozatier/ts-helpers";
-import type { Bind } from "choco-ui/plugin";
 import { Map as RMap } from "svelte/reactivity";
 import { ChocoBase } from "../components/base.svelte";
 

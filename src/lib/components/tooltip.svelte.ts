@@ -1,8 +1,8 @@
 import { Hoverable } from "$lib/mixins/hoverable.svelte";
 import type { Required } from "$lib/mixins/types";
+import { bind, type Bind } from "$lib/plugin";
 import { role } from "$lib/utils/roles";
 import { merge, nanoId } from "@fcrozatier/ts-helpers";
-import { bind, type Bind } from "choco-ui/plugin";
 import { ChocoBase } from "./base.svelte";
 
 export type TooltipOptions = { active?: boolean; position?: "top" | "bottom" | "left" | "right" };

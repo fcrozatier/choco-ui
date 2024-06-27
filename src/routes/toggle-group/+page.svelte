@@ -2,9 +2,9 @@
 	import { choco } from "$lib/actions/choco";
 	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
 	import type { Orientation } from "$lib/mixins/types";
+	import { bind } from "$lib/plugin";
 	import { t } from "$lib/ui/theme";
 	import * as ToggleGroupUI from "$lib/ui/toggle-group";
-	import { bind } from "choco-ui/plugin";
 
 	let disabled: boolean | undefined = $state();
 	let variant: "outline" | "default" = $state("default");
