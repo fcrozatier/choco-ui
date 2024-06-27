@@ -132,3 +132,5 @@ const toggleValues = (state?: Record<string, Booleanish>) => {
 
 	return newState;
 };
+
+export const ToggleBase = class extends Togglable(ChocoBase) {};
