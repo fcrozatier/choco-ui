@@ -1,9 +1,9 @@
-import Panel from "./tabpanel.svelte";
-import Root from "./tabs.svelte";
+import type { Tabs } from "$lib/components/tabs.svelte.js";
+import { getContext, setContext } from "svelte";
 import Tab from "./tab.svelte";
 import TabList from "./tablist.svelte";
-import { getContext, setContext } from "svelte";
-import type { Tabs } from "$lib/components/tabs.svelte";
+import Panel from "./tabpanel.svelte";
+import Root from "./tabs.svelte";
 
 const key = Symbol();
 
@@ -15,4 +15,4 @@ export function getTabsContext() {
 	return getContext<Tabs>(key);
 }
 
-export { Root, Panel, Tab, TabList };
+export { Panel, Root, Tab, TabList };

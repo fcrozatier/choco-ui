@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { makeConvexHull } from ".";
+import { makeConvexHull } from "./index.js";
 
 describe("makeConvexHull", () => {
 	it("deals with edge cases", () => {

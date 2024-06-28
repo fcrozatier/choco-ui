@@ -1,15 +1,19 @@
-import { makeFocusable } from "$lib/actions/focus.svelte";
-import { ChocoBase } from "$lib/components/base.svelte";
-import { bind } from "$lib/plugin";
-import { convexHullFromElements, pointInConvexPolygon, type Point } from "$lib/utils/geometry";
-import { key } from "$lib/utils/keyboard";
+import { makeFocusable } from "$lib/actions/focus.svelte.js";
+import { ChocoBase } from "$lib/components/base.svelte.js";
+import { bind } from "$lib/plugin/bind.js";
+import {
+	convexHullFromElements,
+	pointInConvexPolygon,
+	type Point,
+} from "$lib/utils/geometry/index.js";
+import { key } from "$lib/utils/keyboard.js";
 import { debounce, merge } from "@fcrozatier/ts-helpers";
 import {
 	Triggerable,
 	type ConcreteTriggerableOptions,
 	type TriggerableOptions,
-} from "./triggerable.svelte";
-import type { Constructor } from "./types";
+} from "./triggerable.svelte.js";
+import type { Constructor } from "./types.js";
 
 const defaults = { active: false } satisfies TriggerableOptions;
 

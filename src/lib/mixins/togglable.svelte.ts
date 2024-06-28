@@ -1,9 +1,9 @@
-import { addListener } from "$lib/actions/addListener";
-import type { Bind } from "$lib/plugin";
+import { addListener } from "$lib/actions/addListener.js";
+import type { Bind } from "$lib/plugin/bind.js";
 import { merge } from "@fcrozatier/ts-helpers";
 import type { Booleanish } from "svelte/elements";
-import { ChocoBase } from "../components/base.svelte";
-import type { Constructor, Required } from "./types";
+import { ChocoBase } from "../components/base.svelte.js";
+import type { Constructor, Required } from "./types.js";
 
 type EventName = keyof HTMLElementEventMap;
 

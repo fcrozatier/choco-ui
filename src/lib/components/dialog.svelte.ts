@@ -1,9 +1,9 @@
-import { addListener } from "$lib/actions/addListener";
+import { addListener } from "$lib/actions/addListener.js";
 import DialogUI from "$lib/ui/dialog/Dialog.svelte";
-import type { role } from "$lib/utils/roles";
+import type { role } from "$lib/utils/roles.js";
 import { merge } from "@fcrozatier/ts-helpers";
 import { mount, unmount, type Snippet } from "svelte";
-import { ChocoBase } from "./base.svelte";
+import { ChocoBase } from "./base.svelte.js";
 
 export type DialogProps = {
 	class?: string;

@@ -1,8 +1,8 @@
-import { bind, type Bind } from "$lib/plugin";
+import { bind, type Bind } from "$lib/plugin/bind.js";
 import { merge } from "@fcrozatier/ts-helpers";
-import { ChocoBase } from "../components/base.svelte";
-import { Togglable, type TogglableOptions } from "./togglable.svelte";
-import type { Constructor } from "./types";
+import { ChocoBase } from "../components/base.svelte.js";
+import { Togglable, type TogglableOptions } from "./togglable.svelte.js";
+import type { Constructor } from "./types.js";
 
 export type TriggerableOptions = {
 	/**

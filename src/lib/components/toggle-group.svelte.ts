@@ -1,6 +1,6 @@
-import type { Required } from "$lib/mixins/types";
-import { Group } from "../mixins/group.svelte";
-import { ToggleButton, type ConcreteToggleOptions } from "./toggle.svelte";
+import type { Required } from "$lib/mixins/types.js";
+import { Group } from "../mixins/group.svelte.js";
+import { ToggleButton, type ConcreteToggleOptions } from "./toggle.svelte.js";
 
 export type ToggleGroupItemOptions = Required<ConcreteToggleOptions, "value">;
 

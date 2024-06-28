@@ -1,6 +1,6 @@
-import { mergeActions } from "$lib/actions/combineActions";
+import { mergeActions } from "$lib/actions/combineActions.js";
 import type { Action } from "svelte/action";
-import type { Attributes } from "../mixins/types";
+import type { Attributes } from "../mixins/types.js";
 
 export class ChocoBase<T extends HTMLElement = HTMLElement> {
 	#attributes: Attributes<T> = $state({});

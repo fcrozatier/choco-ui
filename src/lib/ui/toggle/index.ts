@@ -2,7 +2,7 @@ import type {
 	ConcreteToggleOptions,
 	ToggleButton,
 	ToggleOptions,
-} from "$lib/components/toggle.svelte";
+} from "$lib/components/toggle.svelte.js";
 import type { HTMLButtonAttributes } from "svelte/elements";
 import { type VariantProps, tv } from "tailwind-variants";
 import Toggle from "./toggle.svelte";

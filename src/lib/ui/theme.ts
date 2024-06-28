@@ -1,6 +1,6 @@
-import { buttonVariants } from "./button";
-import { toggleVariants } from "./toggle";
-import { toggleGroupVariants } from "./toggle-group";
+import { buttonVariants } from "./button/index.js";
+import { toggleGroupVariants } from "./toggle-group/index.js";
+import { toggleVariants } from "./toggle/index.js";
 
 export const t = {
 	btn: buttonVariants,

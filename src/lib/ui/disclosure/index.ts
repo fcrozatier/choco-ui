@@ -1,6 +1,6 @@
-import DisclosureUI from "./disclosure.svelte";
+import type { Disclosure } from "$lib/components/disclosure.svelte.js";
 import { getContext, setContext } from "svelte";
-import type { Disclosure } from "$lib/components/disclosure.svelte";
+import DisclosureUI from "./disclosure.svelte";
 
 const key = Symbol();
 

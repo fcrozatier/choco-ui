@@ -1,8 +1,8 @@
-import { mergeActions } from "$lib/actions/combineActions";
-import { ChocoBase } from "$lib/components/base.svelte";
-import { ToggleBase } from "$lib/mixins/togglable.svelte";
+import { mergeActions } from "$lib/actions/combineActions.js";
+import { ChocoBase } from "$lib/components/base.svelte.js";
+import { ToggleBase } from "$lib/mixins/togglable.svelte.js";
 import type { Action } from "svelte/action";
-import type { Constructor } from "./types";
+import type { Constructor } from "./types.js";
 
 /**
  * ## Cancellable

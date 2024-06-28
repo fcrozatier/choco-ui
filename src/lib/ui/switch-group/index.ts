@@ -1,4 +1,4 @@
-import type { SwitchGroup } from "$lib/components/switch-group.svelte";
+import type { SwitchGroup } from "$lib/components/switch-group.svelte.js";
 import { getContext, setContext } from "svelte";
 import Item from "./switch-group-item.svelte";
 import Root from "./switch-group.svelte";

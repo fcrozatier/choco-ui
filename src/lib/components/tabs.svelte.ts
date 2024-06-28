@@ -1,10 +1,10 @@
-import { makeFocusable } from "$lib/actions/focus.svelte";
-import { Triggerable } from "$lib/mixins/triggerable.svelte";
-import type { OmitSupertype, Orientation } from "$lib/mixins/types";
-import { role } from "$lib/utils/roles";
+import { makeFocusable } from "$lib/actions/focus.svelte.js";
+import { Triggerable } from "$lib/mixins/triggerable.svelte.js";
+import type { OmitSupertype, Orientation } from "$lib/mixins/types.js";
+import { role } from "$lib/utils/roles.js";
 import { merge, nanoId } from "@fcrozatier/ts-helpers";
-import { Group, type GroupOptions } from "../mixins/group.svelte";
-import { ChocoBase } from "./base.svelte";
+import { Group, type GroupOptions } from "../mixins/group.svelte.js";
+import { ChocoBase } from "./base.svelte.js";
 
 type BaseTabsOptions = {
 	orientation?: Orientation;

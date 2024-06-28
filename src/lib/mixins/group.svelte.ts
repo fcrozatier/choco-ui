@@ -1,11 +1,11 @@
-import { addListener } from "$lib/actions/addListener";
-import { type Toggler } from "$lib/mixins/togglable.svelte";
-import type { Constructor, Required } from "$lib/mixins/types";
-import type { Bind } from "$lib/plugin";
-import { key } from "$lib/utils/keyboard";
+import { addListener } from "$lib/actions/addListener.js";
+import { type Toggler } from "$lib/mixins/togglable.svelte.js";
+import type { Constructor, Required } from "$lib/mixins/types.js";
+import type { Bind } from "$lib/plugin/bind.js";
+import { key } from "$lib/utils/keyboard.js";
 import { merge, modulo } from "@fcrozatier/ts-helpers";
 import { Map as RMap } from "svelte/reactivity";
-import { ChocoBase } from "../components/base.svelte";
+import { ChocoBase } from "../components/base.svelte.js";
 
 export type GroupOptions = {
 	loop?: boolean;
