@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { choco } from "$lib/actions/choco";
+	import { choco } from "$lib/actions/choco.js";
 	import { getContext, type Snippet } from "svelte";
-	import { get } from ".";
-	import type { SwitchProps } from "../switch";
-	import { toggleVariants, type ToggleProps } from "../toggle";
+	import type { SwitchProps } from "../switch/index.js";
+	import { toggleVariants, type ToggleProps } from "../toggle/index.js";
+	import { get } from "./index.js";
 
 	let {
 		class: className,

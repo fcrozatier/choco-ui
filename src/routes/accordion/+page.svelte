@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as Accordion from "$lib/ui/accordion";
+	import * as Accordion from "$lib/ui/accordion/index.js";
 </script>
 
 <Accordion.Root class="max-w-xs" focus={{ exclusive: true, loop: true }}>

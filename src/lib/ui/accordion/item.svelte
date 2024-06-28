@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { cn } from "$lib/utils/styles";
+	import { choco } from "$lib/actions/choco.js";
+	import type { HeaderOptions } from "$lib/components/accordion.svelte";
+	import { cn } from "$lib/utils/styles.js";
 	import { type Snippet } from "svelte";
 	import type { HTMLButtonAttributes } from "svelte/elements";
-	import { get } from ".";
-	import { choco } from "$lib/actions/choco";
-	import type { HeaderOptions } from "$lib/components/accordion.svelte";
 	import { slide } from "svelte/transition";
+	import { get } from "./index.js";
 
 	let {
 		class: className,

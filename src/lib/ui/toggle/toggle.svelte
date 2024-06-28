@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
 	import { ToggleButton, type ConcreteToggleOptions } from "$lib/components/toggle.svelte.js";
-	import { bind } from "$lib/plugin";
+	import { bind } from "$lib/plugin/bind.js";
 	import { toggleVariants, type ToggleProps } from "./index.js";
 
 	let {

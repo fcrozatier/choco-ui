@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { cn } from "$lib/utils/styles";
+	import { cn } from "$lib/utils/styles.js";
 	import { type Snippet } from "svelte";
 	import type { HTMLAttributes } from "svelte/elements";
-	import { getTabsContext } from ".";
+	import { getTabsContext } from "./index.js";
 
 	let {
 		class: className,

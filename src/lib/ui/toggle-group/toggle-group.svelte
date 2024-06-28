@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
 	import type { GroupOptions } from "$lib/mixins/group.svelte";
-	import type { Orientation } from "$lib/mixins/types";
+	import type { Orientation } from "$lib/mixins/types.js";
 	import { type Snippet } from "svelte";
 	import type { HTMLFieldsetAttributes } from "svelte/elements";
-	import { setItemContext, setVariantContext, toggleGroupVariants } from ".";
-	import type { ToggleProps } from "../toggle";
+	import type { ToggleProps } from "../toggle/index.js";
+	import { setItemContext, setVariantContext, toggleGroupVariants } from "./index.js";
 
 	let {
 		class: className,

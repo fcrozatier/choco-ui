@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Orientation } from "$lib/mixins/types";
-	import * as SwitchGroup from "$lib/ui/switch-group";
+	import { choco } from "$lib/actions/choco.js";
 	import { SwitchGroup as SG } from "$lib/components/switch-group.svelte";
-	import { choco } from "$lib/actions/choco";
+	import type { Orientation } from "$lib/mixins/types.js";
+	import * as SwitchGroup from "$lib/ui/switch-group/index.js";
 
 	let disabled: boolean | undefined = $state();
 	let variant: "outline" | "default" = $state("default");

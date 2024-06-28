@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { clickOutside } from "$lib/actions/clickOutside";
+	import { clickOutside } from "$lib/actions/clickOutside.js";
 	import type { DialogProps } from "$lib/components/dialog.svelte";
 	import { onMount } from "svelte";
 

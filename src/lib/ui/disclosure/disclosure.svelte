@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { choco } from "$lib/actions/choco";
+	import { choco } from "$lib/actions/choco.js";
 	import { Disclosure, type DisclosureOptions } from "$lib/components/disclosure.svelte";
-	import { bind } from "$lib/plugin";
-	import { cn } from "$lib/utils/styles";
+	import { bind } from "$lib/plugin/bind.js";
+	import { cn } from "$lib/utils/styles.js";
 	import { type Snippet } from "svelte";
 	import type { HTMLButtonAttributes } from "svelte/elements";
 	import { slide } from "svelte/transition";
-	import { set } from "./index";
+	import { set } from "./index.js";
 
 	let {
 		class: className,

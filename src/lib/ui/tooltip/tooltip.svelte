@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { choco } from "$lib/actions/choco";
+	import { choco } from "$lib/actions/choco.js";
 	import { Tooltip, type TooltipOptions } from "$lib/components/tooltip.svelte";
-	import { bind } from "$lib/plugin";
-	import { cn } from "$lib/utils/styles";
+	import { bind } from "$lib/plugin/bind.js";
+	import { cn } from "$lib/utils/styles.js";
 	import { type Snippet } from "svelte";
 	import type { HTMLAttributes } from "svelte/elements";
 

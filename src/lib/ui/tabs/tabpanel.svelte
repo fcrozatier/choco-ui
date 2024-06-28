@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { choco } from "$lib/actions/choco.js";
 	import { type Snippet } from "svelte";
 	import type { HTMLAttributes } from "svelte/elements";
-	import { getTabsContext } from ".";
-	import { choco } from "$lib/actions/choco";
+	import { getTabsContext } from "./index.js";
 
 	let {
 		class: className,

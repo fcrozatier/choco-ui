@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { choco } from "$lib/actions/choco";
+	import { choco } from "$lib/actions/choco.js";
 	import { ChocoBase } from "$lib/components/base.svelte";
 	import { Triggerable } from "$lib/mixins/triggerable.svelte";
 

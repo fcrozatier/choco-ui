@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { choco } from "$lib/actions/choco";
+	import { choco } from "$lib/actions/choco.js";
 	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
-	import type { Orientation } from "$lib/mixins/types";
-	import { bind } from "$lib/plugin";
-	import { t } from "$lib/ui/theme";
-	import * as ToggleGroupUI from "$lib/ui/toggle-group";
+	import type { Orientation } from "$lib/mixins/types.js";
+	import { bind } from "$lib/plugin/bind.js";
+	import { t } from "$lib/ui/theme.js";
+	import * as ToggleGroupUI from "$lib/ui/toggle-group/index.js";
 
 	let disabled: boolean | undefined = $state();
 	let variant: "outline" | "default" = $state("default");

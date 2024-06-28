@@ -2,7 +2,7 @@
 	import { Tabs, type TabsOptions } from "$lib/components/tabs.svelte";
 	import { trimUndefined } from "@fcrozatier/ts-helpers";
 	import { type Snippet } from "svelte";
-	import { setTabsContext } from ".";
+	import { setTabsContext } from "./index.js";
 
 	let {
 		class: className,

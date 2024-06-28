@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { SwitchGroup } from "$lib/components/switch-group.svelte";
 	import type { GroupOptions } from "$lib/mixins/group.svelte";
-	import type { Orientation } from "$lib/mixins/types";
+	import type { Orientation } from "$lib/mixins/types.js";
 	import { setContext, type Snippet } from "svelte";
 	import type { HTMLFieldsetAttributes } from "svelte/elements";
-	import { set } from ".";
-	import type { ToggleProps } from "../toggle";
-	import { toggleGroupVariants } from "../toggle-group";
+	import { toggleGroupVariants } from "../toggle-group/index.js";
+	import type { ToggleProps } from "../toggle/index.js";
+	import { set } from "./index.js";
 
 	let {
 		class: className,

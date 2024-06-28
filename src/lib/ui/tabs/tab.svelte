@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { cn } from "$lib/utils/styles";
+	import { choco } from "$lib/actions/choco.js";
+	import type { TabOptions } from "$lib/components/tabs.svelte";
+	import { cn } from "$lib/utils/styles.js";
 	import { type Snippet } from "svelte";
 	import type { HTMLButtonAttributes } from "svelte/elements";
-	import { getTabsContext } from ".";
-	import { choco } from "$lib/actions/choco";
-	import type { TabOptions } from "$lib/components/tabs.svelte";
+	import { getTabsContext } from "./index.js";
 
 	let {
 		class: className,
