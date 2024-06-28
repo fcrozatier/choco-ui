@@ -5,4 +5,6 @@
 	let { children }: { children: Snippet } = $props();
 </script>
 
-{@render children()}
+<div class="mx-auto max-w-prose">
+	{@render children()}
+</div>
