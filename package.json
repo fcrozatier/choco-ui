@@ -39,6 +39,7 @@
 		"@sveltejs/kit": "^2.5.17",
 		"@sveltejs/package": "^2.3.2",
 		"@sveltejs/vite-plugin-svelte": "^3.1.1",
+		"@tailwindcss/vite": "4.0.0-alpha.16",
 		"@testing-library/jest-dom": "^6.4.6",
 		"@testing-library/svelte": "^5.1.0",
 		"@testing-library/user-event": "^14.5.2",
@@ -59,6 +60,7 @@
 		"svelte": "5.0.0-next.160",
 		"svelte-check": "^3.8.4",
 		"svelte-target-blank": "^1.0.0",
+		"tailwindcss": "4.0.0-alpha.16",
 		"tslib": "^2.6.3",
 		"typescript": "5.5.2",
 		"typescript-eslint": "^7.14.1",
@@ -68,12 +70,10 @@
 	},
 	"dependencies": {
 		"@fcrozatier/ts-helpers": "^1.3.1",
-		"@tailwindcss/vite": "4.0.0-alpha.16",
 		"clsx": "^2.1.1",
 		"estree-walker": "^3.0.3",
 		"magic-string": "^0.30.10",
 		"tailwind-merge": "^2.3.0",
-		"tailwind-variants": "^0.2.1",
-		"tailwindcss": "4.0.0-alpha.16"
+		"tailwind-variants": "^0.2.1"
 	}
 }
