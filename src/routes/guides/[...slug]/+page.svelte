@@ -2,4 +2,6 @@
 	let { data } = $props();
 </script>
 
-{@html data.code}
+<article class="">
+	{@html data.code}
+</article>

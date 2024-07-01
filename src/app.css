@@ -9,6 +9,7 @@
 	/* Colors */
 	--color-dark: #1b0f08;
 	--color-light: #fffcf2;
+	--color-coral: #ef8354;
 
 	--color-magnum-50: rgb(255 249 237);
 	--color-magnum-100: rgb(254 242 214);
@@ -46,7 +47,6 @@
 	--color-green-400: rgb(74 222 128);
 	--color-white: rgb(255 255 255);
 
-	/* Colors */
 	--color-background: hsl(0 0% 100%);
 	--color-foreground: hsl(222.2 84% 4.9%);
 
@@ -81,14 +81,145 @@
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);
+
+	/* Fonts */
+	--font-family-cursive: "Calistoga", serif;
+
+	/* Width */
+	--width-prose: 75ch;
 }
 
-@layer base {
-	* {
-		@apply border-border;
+@media (prefers-reduced-motion: reduce) {
+	html:focus-within {
+		scroll-behavior: auto;
 	}
 
-	body {
-		@apply bg-dark text-light;
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+* {
+	@apply border-border;
+}
+
+html,
+body {
+	height: 100%;
+	font-family: "Noto Serif", serif;
+	font-weight: 100;
+}
+
+body {
+	@apply bg-dark text-light;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@apply font-cursive text-center;
+}
+
+h1 {
+	@apply mb-4 pt-2 text-3xl md:mb-5 md:pt-3 md:text-4xl;
+}
+
+h2 {
+	@apply mb-4 pt-2 text-2xl md:mb-5 md:pt-3 md:text-3xl;
+}
+
+h3 {
+	@apply mb-3 pt-2 text-xl md:mb-4 md:pt-3 md:text-2xl;
+}
+
+h4 {
+	@apply mb-2 pt-2 text-lg md:mb-3 md:pt-3 md:text-xl;
+}
+
+h5 {
+	@apply mb-2 pt-2 text-lg font-bold md:pt-3;
+}
+
+h6 {
+	@apply mb-2 pt-2 text-base font-bold md:pt-3;
+}
+
+p,
+ul {
+	@apply my-5 leading-7 md:leading-8;
+}
+
+:is(p, h1, h2, h3, h4, h5, h6) {
+	/* Line break inside words instead of overflowing */
+	overflow-wrap: break-word;
+}
+
+a {
+	@apply text-coral rounded-sm underline underline-offset-4;
+}
+
+::marker {
+	@apply text-coral inline-block;
+}
+
+ul,
+ol {
+	@apply m-4 list-inside;
+}
+
+ol {
+	@apply list-decimal;
+}
+
+ul {
+	@apply list-disc;
+}
+
+li {
+	@apply mr-4 mb-3;
+}
+
+li > p:first-child {
+	@apply inline;
+}
+
+pre,
+code {
+	width: 100%;
+	overflow: scroll;
+}
+
+hr {
+	border-top: 1px solid var(--color-coral);
+	margin-block: 2rem;
+}
+
+table {
+	@apply w-full overflow-hidden rounded text-sm outline outline-1 outline-gray-200;
+
+	& thead {
+		@apply border-b;
+	}
+
+	& th {
+		@apply text-left font-medium;
+	}
+	& td,
+	& th {
+		@apply py-3.5 px-4;
+	}
+	& tbody tr:not(:last-of-type) {
+		@apply border-b;
+	}
+	& tbody tr:hover {
+		@apply text-dark bg-gray-100 opacity-90;
 	}
 }
