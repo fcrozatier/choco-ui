@@ -2,4 +2,4 @@
 	let { data } = $props();
 </script>
 
-{data.content}
+{@html data.code}
