@@ -121,10 +121,6 @@ body {
 	@apply bg-dark text-light;
 }
 
-a {
-	@apply text-coral rounded-sm underline underline-offset-4;
-}
-
 ::marker {
 	@apply text-coral inline-block;
 }
@@ -203,6 +199,10 @@ ul {
 	}
 
 	& :not(.shiki) > a > code {
+		@apply text-coral rounded-sm underline underline-offset-4;
+	}
+
+	& a {
 		@apply text-coral rounded-sm underline underline-offset-4;
 	}
 
