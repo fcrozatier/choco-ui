@@ -7,9 +7,11 @@
 
 @theme {
 	/* Colors */
-	--color-dark: #1b0f08;
-	--color-light: #fffcf2;
+	--color-dark: #1b120c;
+	--color-light: #e2e0dd;
 	--color-coral: #ef8354;
+	--color-sand-dark: #432818;
+	--color-sand-light: #e1c9b8;
 
 	--color-magnum-50: rgb(255 249 237);
 	--color-magnum-100: rgb(254 242 214);
@@ -86,7 +88,7 @@
 	--font-family-cursive: "Calistoga", serif;
 
 	/* Width */
-	--width-prose: 75ch;
+	--width-prose: 85ch;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -119,49 +121,6 @@ body {
 	@apply bg-dark text-light;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	@apply font-cursive text-center;
-}
-
-h1 {
-	@apply mb-4 pt-2 text-3xl md:mb-5 md:pt-3 md:text-4xl;
-}
-
-h2 {
-	@apply mb-4 pt-2 text-2xl md:mb-5 md:pt-3 md:text-3xl;
-}
-
-h3 {
-	@apply mb-3 pt-2 text-xl md:mb-4 md:pt-3 md:text-2xl;
-}
-
-h4 {
-	@apply mb-2 pt-2 text-lg md:mb-3 md:pt-3 md:text-xl;
-}
-
-h5 {
-	@apply mb-2 pt-2 text-lg font-bold md:pt-3;
-}
-
-h6 {
-	@apply mb-2 pt-2 text-base font-bold md:pt-3;
-}
-
-p,
-ul {
-	@apply my-5 leading-7 md:leading-8;
-}
-
-:is(p, h1, h2, h3, h4, h5, h6) {
-	/* Line break inside words instead of overflowing */
-	overflow-wrap: break-word;
-}
-
 a {
 	@apply text-coral rounded-sm underline underline-offset-4;
 }
@@ -183,43 +142,98 @@ ul {
 	@apply list-disc;
 }
 
-li {
-	@apply mr-4 mb-3;
-}
-
-li > p:first-child {
-	@apply inline;
-}
-
-pre,
-code {
-	width: 100%;
-	overflow: scroll;
-}
-
-hr {
-	border-top: 1px solid var(--color-coral);
-	margin-block: 2rem;
-}
-
-table {
-	@apply w-full overflow-hidden rounded text-sm outline outline-1 outline-gray-200;
-
-	& thead {
-		@apply border-b;
+.prose {
+	& h1,
+	& h2,
+	& h3,
+	& h4,
+	& h5,
+	& h6 {
+		@apply font-cursive text-center;
 	}
 
-	& th {
-		@apply text-left font-medium;
+	& h1 {
+		@apply mb-4 pt-2 text-3xl md:mb-5 md:pt-3 md:text-4xl;
 	}
-	& td,
-	& th {
-		@apply py-3.5 px-4;
+
+	& h2 {
+		@apply mb-4 pt-2 text-2xl md:mb-5 md:pt-3 md:text-3xl;
 	}
-	& tbody tr:not(:last-of-type) {
-		@apply border-b;
+
+	& h3 {
+		@apply mb-3 pt-2 text-xl md:mb-4 md:pt-3 md:text-2xl;
 	}
-	& tbody tr:hover {
-		@apply text-dark bg-gray-100 opacity-90;
+
+	& h4 {
+		@apply mb-2 pt-2 text-lg md:mb-3 md:pt-3 md:text-xl;
+	}
+
+	& h5 {
+		@apply mb-2 pt-2 text-lg font-bold md:pt-3;
+	}
+
+	& h6 {
+		@apply mb-2 pt-2 text-base font-bold md:pt-3;
+	}
+
+	& p,
+	& ul {
+		@apply my-5 leading-7 md:leading-8;
+	}
+
+	&:is(p, h1, h2, h3, h4, h5, h6) {
+		/* Line break inside words instead of overflowing */
+		overflow-wrap: break-word;
+	}
+
+	& li {
+		@apply mr-4 mb-3;
+	}
+
+	& li > p:first-child {
+		@apply inline;
+	}
+
+	& .shiki {
+		@apply overflow-x-scroll rounded py-5 px-6;
+	}
+
+	& :not(.shiki) > code {
+		@apply bg-sand-light text-dark rounded py-0.5 px-1;
+	}
+
+	& :not(.shiki) > a > code {
+		@apply text-coral rounded-sm underline underline-offset-4;
+	}
+
+	& figcaption {
+		@apply mt-2 mx-auto max-w-[80%] text-center text-sm text-gray-100;
+	}
+
+	& hr {
+		border-top: 1px solid var(--color-coral);
+		margin-block: 2rem;
+	}
+
+	& table {
+		@apply w-full overflow-hidden rounded text-sm outline outline-1 outline-gray-200;
+
+		& thead {
+			@apply border-b;
+		}
+
+		& th {
+			@apply text-left font-medium;
+		}
+		& td,
+		& th {
+			@apply py-3.5 px-4;
+		}
+		& tbody tr:not(:last-of-type) {
+			@apply border-b;
+		}
+		& tbody tr:hover {
+			@apply text-dark bg-gray-100 opacity-90;
+		}
 	}
 }

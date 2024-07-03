@@ -7,9 +7,7 @@ export const load = async ({ params }) => {
 
 	if (!Object.keys(guides).includes(path)) return error(404, "Not found");
 
-	// const module = await guides[path]?.();
-	const module = await import(`../../../../docs/guides/${params.slug}.md`);
-	console.log("module:", module);
+	const module = (await guides[path]?.()) as any;
 
 	return { meta: module.meta, content: module.default };
 };
