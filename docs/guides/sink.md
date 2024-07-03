@@ -1,7 +1,21 @@
-<p className="lead">
+---
+title: Tailwind Markdown Sink
+---
+
+<script lang="ts">
+  import Counter from './Counter.svelte';
+</script>
+
+<p class="lead">
   Until now, trying to style an article, document, or blog post with Tailwind has been a tedious
   task that required a keen eye for typography and a lot of complex custom CSS.
 </p>
+
+## Svelte component
+
+Here is a Svelte counter:
+
+<Counter value={3}></Counter>
 
 By default, Tailwind removes all of the default browser styling from paragraphs, headings, lists and more. This ends up being really useful for building application UIs because you spend less time undoing user-agent styles, but when you _really are_ just trying to style some content that came from a rich-text editor in a CMS or a markdown file, it can be surprising and unintuitive.
 
@@ -14,7 +28,7 @@ We hear you, but we're not convinced that simply disabling our base styles is wh
 The `@tailwindcss/typography` plugin is our attempt to give you what you _actually_ want, without any of the downsides of doing something stupid like disabling our base styles.
 
 It adds a new `prose` class that you can slap on any block of vanilla HTML content and turn it into a beautiful, well-formatted document:
-<!--
+
 ```html
 <article class="prose">
   <h1>Garlic bread with cheese: What the science tells us</h1>
@@ -28,7 +42,7 @@ It adds a new `prose` class that you can slap on any block of vanilla HTML conte
     springing up around the country.
   </p>
 </article>
-``` -->
+```
 
 For more information about how to use the plugin and the features it includes, [read the documentation](https://github.com/tailwindcss/typography/blob/master/README.md).
 
@@ -108,7 +122,7 @@ I think most people are going to use [highlight.js](https://highlightjs.org/) or
 
 Here's what a default `tailwind.config.js` file looks like at the time of writing:
 
-```js
+<!-- ```js
 module.exports = {
   purge: [],
   theme: {
@@ -117,7 +131,7 @@ module.exports = {
   variants: {},
   plugins: [],
 }
-```
+``` -->
 
 Hopefully that looks good enough to you.
 
@@ -225,3 +239,20 @@ Phew, with any luck we have styled the headings above this text and they look pr
 Let's add a closing paragraph here so things end with a decently sized block of text. I can't explain why I want things to end that way but I have to assume it's because I think things will look weird or unbalanced if there is a heading too close to the end of the document.
 
 What I've written here is probably long enough, but adding this final sentence can't hurt.
+
+## Math
+
+Here is a math formula $c^2 = a^2 + b^2$
+
+You can use a `math` code block
+
+```math
+L = \frac{1}{2} \rho v^2 S C_L
+```
+
+Or a Latex display block with `$$`
+
+
+$$
+L = \frac{1}{2} \rho v^2 S C_L
+$$

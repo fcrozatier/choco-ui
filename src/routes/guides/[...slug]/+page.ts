@@ -1,23 +1,15 @@
 import { error } from "@sveltejs/kit";
-import { compile } from "mdsvex";
 
-const guides = import.meta.glob(`/docs/guides/*.md`, {
-	eager: true,
-	// query: "?raw",
-	as: "raw",
-	import: "default",
-});
+const guides = import.meta.glob(`/docs/guides/*.md`);
 
 export const load = async ({ params }) => {
-	for (const [path, content] of Object.entries(guides)) {
-		if ("/docs/guides/" + params.slug + ".md" === path) {
-			const filename = path.split("/").at(-1);
-			const output = await compile(content, { extension: ".md", filename });
+	const path = "/docs/guides/" + params.slug + ".md";
 
-			if (!output) return error(404, "Not found");
+	if (!Object.keys(guides).includes(path)) return error(404, "Not found");
 
-			return { code: output.code };
-		}
-	}
-	return error(404, "Not found");
+	// const module = await guides[path]?.();
+	const module = await import(`../../../../docs/guides/${params.slug}.md`);
+	console.log("module:", module);
+
+	return { meta: module.meta, content: module.default };
 };
