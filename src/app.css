@@ -13,6 +13,8 @@
 	--color-sand-dark: #432818;
 	--color-sand-light: #e1c9b8;
 
+	--color-gray: #989592;
+
 	--color-magnum-50: rgb(255 249 237);
 	--color-magnum-100: rgb(254 242 214);
 	--color-magnum-200: rgb(252 224 172);
@@ -114,6 +116,7 @@ html,
 body {
 	height: 100%;
 	font-family: "Noto Serif", serif;
+	letter-spacing: 0.5px;
 	font-weight: 100;
 }
 
