@@ -51,6 +51,23 @@ async function parseMarkdown(content) {
 	return processor.toString();
 }
 
+/**
+ * Replace characters with HTML entities.
+ * @param {string} content
+ */
+function escapeHtml(content) {
+	content = content.replace(/{/g, "&#123;").replace(/}/g, "&#125;");
+
+	const componentRegex = /<[A-Z].*/g;
+	const components = content.match(componentRegex);
+	components?.forEach((component) => {
+		const replaced = component.replace("&#123;", "{").replace("&#125;", "}");
+		content = content.replace(component, replaced);
+	});
+
+	return content;
+}
+
 const isMarkdownFile = /\.md$/;
 const isDocsFile = /\/docs\//;
 export const md = () => {
@@ -63,8 +80,8 @@ export const md = () => {
 
 			const { meta, markdown } = frontMatter(content);
 			const html = await parseMarkdown(markdown);
-
-			return { code: meta + html };
+			const code = escapeHtml(html);
+			return { code: meta + code };
 		},
 	});
 };
