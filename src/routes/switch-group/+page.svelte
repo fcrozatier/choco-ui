@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
+	import * as SwitchGroup from "$lib/components/switch-group/index.js";
 	import { SwitchGroup as SG } from "$lib/headless/switch-group.svelte";
 	import type { Orientation } from "$lib/mixins/types.js";
-	import * as SwitchGroup from "$lib/ui/switch-group/index.js";
 
 	let disabled: boolean | undefined = $state();
 	let variant: "outline" | "default" = $state("default");

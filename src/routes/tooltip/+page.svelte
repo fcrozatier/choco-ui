@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Tooltip from "$lib/ui/tooltip/tooltip.svelte";
+	import Tooltip from "$lib/components/tooltip/tooltip.svelte";
 
 	let show = $state(false);
 </script>

@@ -1,5 +1,5 @@
 import { addListener } from "$lib/actions/addListener.js";
-import DialogUI from "$lib/ui/dialog/Dialog.svelte";
+import DialogUI from "$lib/components/dialog/Dialog.svelte";
 import type { role } from "$lib/utils/roles.js";
 import { merge } from "@fcrozatier/ts-helpers";
 import { mount, unmount, type Snippet } from "svelte";
