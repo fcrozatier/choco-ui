@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Accordion, type AccordionOptions } from "$lib/headless/accordion.svelte";
-	import { trimUndefined } from "@fcrozatier/ts-helpers";
 	import { type Snippet } from "svelte";
 	import { set } from "./index.js";
 
@@ -14,7 +13,7 @@
 		children: Snippet;
 	} = $props();
 
-	const accordion = new Accordion(trimUndefined({ focus, headingLevel }));
+	const accordion = new Accordion({ focus, headingLevel });
 
 	set(accordion);
 </script>

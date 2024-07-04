@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Tabs, type TabsOptions } from "$lib/headless/tabs.svelte";
-	import { trimUndefined } from "@fcrozatier/ts-helpers";
 	import { type Snippet } from "svelte";
 	import { setTabsContext } from "./index.js";
 
@@ -15,13 +14,11 @@
 		children: Snippet;
 	} = $props();
 
-	const tabs = new Tabs(
-		trimUndefined<TabsOptions>({
-			orientation,
-			value,
-			focus,
-		}),
-	);
+	const tabs = new Tabs({
+		orientation,
+		value,
+		focus,
+	});
 
 	setTabsContext(tabs);
 </script>
