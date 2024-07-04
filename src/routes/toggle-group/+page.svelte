@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
-	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
+	import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
 	import type { Orientation } from "$lib/mixins/types.js";
 	import { bind } from "$lib/plugin/bind.js";
 	import { t } from "$lib/ui/theme.js";

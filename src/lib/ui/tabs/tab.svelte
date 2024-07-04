@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
-	import type { TabOptions } from "$lib/components/tabs.svelte";
+	import type { TabOptions } from "$lib/headless/tabs.svelte";
 	import { cn } from "$lib/utils/styles.js";
 	import { type Snippet } from "svelte";
 	import type { HTMLButtonAttributes } from "svelte/elements";

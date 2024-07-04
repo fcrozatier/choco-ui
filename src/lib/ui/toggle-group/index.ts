@@ -1,5 +1,5 @@
-import type { ToggleGroup } from "$lib/components/toggle-group.svelte.js";
-import type { ConcreteToggleOptions, ToggleButton } from "$lib/components/toggle.svelte.js";
+import type { ToggleGroup } from "$lib/headless/toggle-group.svelte.js";
+import type { ConcreteToggleOptions, ToggleButton } from "$lib/headless/toggle.svelte.js";
 import { getContext, setContext } from "svelte";
 import { tv } from "tailwind-variants";
 import type { ToggleProps } from "../toggle/index.js";

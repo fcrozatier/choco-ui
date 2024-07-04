@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
-	import { Switch } from "$lib/components/switch.svelte";
+	import { Switch } from "$lib/headless/switch.svelte";
 
 	let disabled = $state(false);
 

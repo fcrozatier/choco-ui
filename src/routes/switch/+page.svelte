@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
-	import { Switch as SwitchToggle } from "$lib/components/switch.svelte";
+	import { Switch as SwitchToggle } from "$lib/headless/switch.svelte";
 	import { bind } from "$lib/plugin/bind.js";
 	import Switch from "$lib/ui/switch/switch.svelte";
 

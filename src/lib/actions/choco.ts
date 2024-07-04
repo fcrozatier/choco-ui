@@ -1,4 +1,4 @@
-import type { ChocoBase } from "$lib/components/base.svelte.js";
+import type { ChocoBase } from "$lib/headless/base.svelte.js";
 import type { Action } from "svelte/action";
 
 export const choco = (<T extends HTMLElement>(node: NoInfer<T>, _param: ChocoBase<T>) => {

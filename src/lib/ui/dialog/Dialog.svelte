@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { clickOutside } from "$lib/actions/clickOutside.js";
-	import type { DialogProps } from "$lib/components/dialog.svelte";
+	import type { DialogProps } from "$lib/headless/dialog.svelte";
 	import { onMount } from "svelte";
 
 	let { snippet, onclose, class: className, role, closeOnOutsideClick }: DialogProps = $props();

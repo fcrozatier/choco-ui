@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
-	import { Tabs } from "$lib/components/tabs.svelte";
+	import { Tabs } from "$lib/headless/tabs.svelte";
 	import * as TabsUI from "$lib/ui/tabs/index.js";
 
 	const { createItem, tablist } = new Tabs();

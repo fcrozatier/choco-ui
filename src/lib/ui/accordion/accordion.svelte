@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Accordion, type AccordionOptions } from "$lib/components/accordion.svelte";
+	import { Accordion, type AccordionOptions } from "$lib/headless/accordion.svelte";
 	import { trimUndefined } from "@fcrozatier/ts-helpers";
 	import { type Snippet } from "svelte";
 	import { set } from "./index.js";

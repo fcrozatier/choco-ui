@@ -1,4 +1,4 @@
-import type { ChocoBase } from "$lib/components/base.svelte.js";
+import type { ChocoBase } from "$lib/headless/base.svelte.js";
 import type { Constructor } from "./types.js";
 
 export const mix = <T extends Constructor<ChocoBase>>(superclass: T) =>

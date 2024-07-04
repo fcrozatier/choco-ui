@@ -1,4 +1,4 @@
-import type { Tabs } from "$lib/components/tabs.svelte.js";
+import type { Tabs } from "$lib/headless/tabs.svelte.js";
 import { getContext, setContext } from "svelte";
 import Tab from "./tab.svelte";
 import TabList from "./tablist.svelte";

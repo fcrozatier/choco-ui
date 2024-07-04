@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
-	import { SwitchGroup as SG } from "$lib/components/switch-group.svelte";
+	import { SwitchGroup as SG } from "$lib/headless/switch-group.svelte";
 	import type { Orientation } from "$lib/mixins/types.js";
 	import * as SwitchGroup from "$lib/ui/switch-group/index.js";
 

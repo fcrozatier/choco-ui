@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ChocoBase } from "$lib/components/base.svelte";
+	import { ChocoBase } from "$lib/headless/base.svelte";
 
 	const base = new ChocoBase({
 		hidden: false,

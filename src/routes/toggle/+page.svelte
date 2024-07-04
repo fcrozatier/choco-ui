@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
-	import { ToggleButton } from "$lib/components/toggle.svelte";
+	import { ToggleButton } from "$lib/headless/toggle.svelte";
 	import { bind } from "$lib/plugin/bind.js";
 	import { t } from "$lib/ui/theme.js";
 	import { Toggle } from "$lib/ui/toggle/index.js";

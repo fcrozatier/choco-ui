@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SwitchGroup } from "$lib/components/switch-group.svelte";
+	import { SwitchGroup } from "$lib/headless/switch-group.svelte";
 	import type { GroupOptions } from "$lib/mixins/group.svelte";
 	import type { Orientation } from "$lib/mixins/types.js";
 	import { setContext, type Snippet } from "svelte";

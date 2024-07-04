@@ -1,4 +1,4 @@
-import type { Disclosure } from "$lib/components/disclosure.svelte.js";
+import type { Disclosure } from "$lib/headless/disclosure.svelte.js";
 import { getContext, setContext } from "svelte";
 import DisclosureUI from "./disclosure.svelte";
 

@@ -1,4 +1,4 @@
-import type { SwitchOptions } from "$lib/components/switch.svelte.js";
+import type { SwitchOptions } from "$lib/headless/switch.svelte.js";
 import type { HTMLButtonAttributes } from "svelte/elements";
 import type { VariantProps } from "tailwind-variants";
 import type { toggleVariants } from "../toggle/index.js";

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
-	import { CheckboxGroup } from "$lib/components/checkbox-group.svelte";
+	import { CheckboxGroup } from "$lib/headless/checkbox-group.svelte";
 
 	const checkboxGroup = new CheckboxGroup({ checked: "mixed", roving: true });
 	const items = [

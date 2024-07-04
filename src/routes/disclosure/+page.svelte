@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
-	import { Disclosure } from "$lib/components/disclosure.svelte";
+	import { Disclosure } from "$lib/headless/disclosure.svelte";
 	import { bind } from "$lib/plugin/bind.js";
 	import { DisclosureUI } from "$lib/ui/disclosure/index.js";
 

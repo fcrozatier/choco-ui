@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
+	import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
 	import { nanoId } from "@fcrozatier/ts-helpers";
 
 	const group = new ToggleGroup();

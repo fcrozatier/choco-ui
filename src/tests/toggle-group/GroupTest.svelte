@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
-	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
+	import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
 	import type { GroupOptions } from "$lib/mixins/group.svelte";
 
 	let { options }: { options?: GroupOptions } = $props();

@@ -1,5 +1,5 @@
 import { makeFocusable } from "$lib/actions/focus.svelte.js";
-import { ChocoBase } from "$lib/components/base.svelte.js";
+import { ChocoBase } from "$lib/headless/base.svelte.js";
 import { bind } from "$lib/plugin/bind.js";
 import {
 	convexHullFromElements,

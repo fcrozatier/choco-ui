@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { choco } from "$lib/actions/choco.js";
-	import { ToggleButton } from "$lib/components/toggle.svelte";
+	import { ToggleButton } from "$lib/headless/toggle.svelte";
 
 	let disabled = $state(false);
 

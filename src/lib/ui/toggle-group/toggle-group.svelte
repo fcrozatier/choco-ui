@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ToggleGroup } from "$lib/components/toggle-group.svelte";
+	import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
 	import type { GroupOptions } from "$lib/mixins/group.svelte";
 	import type { Orientation } from "$lib/mixins/types.js";
 	import { type Snippet } from "svelte";
