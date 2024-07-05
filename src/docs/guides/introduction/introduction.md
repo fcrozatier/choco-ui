@@ -44,7 +44,7 @@ So these mixins are just functions taking a class and returning a decorated clas
 
 To use a mixin we just extend from its application on the base class, and to compose them we just compose the applications. For example, the `Togglable` mixin adds an `initTogglable` method taking the (initial) attributes to be toggled, whether this initial state is the active state, and what events toggle it. So the headless `ToggleButton` element could be implemented like this:
 
-<Highlighter code="mixin.svelte.ts" lang="ts" />
+<Highlighter code="mixin.svelte.ts" />
 
 You see how we could very easily adapt this to create a headless switch component (by toggling `aria-checked`), a disclosure component (toggling `aria-expanded`), a hoverable (by toggling on during `mouseenter` and off during `mouseleave`). Many things in a UI are togglable so this is a powerful abstraction and a good starting point.
 

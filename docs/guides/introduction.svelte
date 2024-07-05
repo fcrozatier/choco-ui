@@ -33,7 +33,7 @@
   </Accordion.Item>
 </Accordion.Root>
 
-`} lang='svelte'></Highlighter>
+`} lang="svelte"></Highlighter>
 <p>Feel free to open the component files and modify the styles to suit your design. If you feel like you want to modify the implementation then you may want to have a look at the corresponding headless component first.</p>
 <h2>Headless components</h2>
 <p>Each styled component has a corresponding headless (unstyled) component containing only the sharable logic, attributes and behavior.</p>
@@ -54,7 +54,7 @@
   </button>
 </p>
 
-`} lang='svelte'></Highlighter>
+`} lang="svelte"></Highlighter>
 <p>In the above example there is no clash between the toggle inner <code>click</code> event listener and the one declared on the button. The <code>ChocoBase</code> class and all headless components pass their behavior through an action, avoiding clashes with other declarative listeners.</p>
 <h2>Mixins</h2>
 <p>Every headless component is built from a few abstract primitives. By combining these primitives you can easily create your own headless components or extend the provided ones.</p>
@@ -78,7 +78,7 @@ class ToggleButton extends Togglable(ChocoBase) {
   }
 }
 
-`} lang='ts'></Highlighter>
+`} lang="ts"></Highlighter>
 <p>You see how we could very easily adapt this to create a headless switch component (by toggling <code>aria-checked</code>), a disclosure component (toggling <code>aria-expanded</code>), a hoverable (by toggling on during <code>mouseenter</code> and off during <code>mouseleave</code>). Many things in a UI are togglable so this is a powerful abstraction and a good starting point.</p>
 <p>Also notice how readable and short the code is.</p>
 <h2>And more…</h2>

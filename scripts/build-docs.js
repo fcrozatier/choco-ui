@@ -71,7 +71,7 @@ function getFiles(dir, files = []) {
 }
 
 const files = getFiles("./src/docs");
-const highlight = /<Highlighter code="(?<path>[^"]*)" *(?:lang="(?<lang>[^"]*)")? *\/>/;
+const highlight = /<Highlighter code="(?<path>[^"]*)" *\/>/;
 
 for (const path of files.filter((file) => file.endsWith(".md"))) {
   if (!path.endsWith("introduction.md")) continue;
@@ -87,15 +87,20 @@ for (const path of files.filter((file) => file.endsWith(".md"))) {
   let match;
 
   while ((match = highlight.exec(svelte))) {
-    const code = readFileSync(join(dirname(path), match.groups.path), {
+    const codePath = join(dirname(path), match.groups.path);
+    const code = readFileSync(codePath, {
       encoding: "utf-8",
     })
       .replace(/`/g, "\\`")
       .replace(/\$\{/g, "\\${");
 
+    const lang = codePath.split(".").at(-1);
+
+    if (!["svelte", "ts"].includes(lang)) throw new Error("Unrecognized lang");
+
     svelte = svelte.replace(
       highlight,
-      `<Highlighter code={\`\r\n${code}\r\n\`} lang='${match.groups?.lang ?? "svelte"}'></Highlighter>`,
+      `<Highlighter code={\`\n${code}\n\`} lang="${lang}"></Highlighter>`,
     );
   }
 
