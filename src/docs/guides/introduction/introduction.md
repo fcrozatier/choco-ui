@@ -2,6 +2,10 @@
 title: Introduction
 ---
 
+<script lang="ts">
+	import Highlighter from "$components/Highlighter.svelte";
+</script>
+
 # Introduction
 
 Choco-ui is a Svelte library to help you to create reactive, accessible, ssr-ready, composable & extendable components by either using and customizing the provided ones or by using the choco primitives they are built on to create your own.
@@ -14,37 +18,7 @@ That's the easiest way to get started. Just import a component from the `/compon
 
 For example to use the [Accordion](/components/accordion) component:
 
-```svelte
-<script lang="ts">
-	import * as Accordion from "$lib/components/accordion/index.js";
-</script>
-
-<Accordion.Root>
-	<Accordion.Item value="item-1">
-		{#snippet header()}
-			Is it accessible?
-		{/snippet}
-
-		Yes. It adheres to the WAI-ARIA design pattern.
-	</Accordion.Item>
-	<Accordion.Item value="item-2">
-		{#snippet header()}
-			Is it styled?
-		{/snippet}
-
-		Yes. It comes with default styles that matches
-the other components' aesthetic.
-	</Accordion.Item>
-	<Accordion.Item value="item-3">
-		{#snippet header()}
-			Is it animated?
-		{/snippet}
-
-		Yes. It's animated by default, but you can disable
-it if you prefer.
-	</Accordion.Item>
-</Accordion.Root>
-```
+<Highlighter code="styled.svelte" />
 
 Feel free to open the component files and modify the styles to suit your design. If you feel like you want to modify the implementation then you may want to have a look at the corresponding headless component first.
 
@@ -56,23 +30,7 @@ Once you've instanciated a headless component you can use it with the `choco` ac
 
 Here's an example using the headless `ToggleButton` class to create an unstyled toggle button:
 
-```svelte
-<script lang='ts'>
-  import { choco } from "$lib/actions/choco.js";
-  import { ToggleButton } from "$lib/headless/toggle.svelte";
-
-  const toggle = new ToggleButton();
-</script>
-
-<p>
-  <!-- Just use the choco action and you're done -->
-	<button
-    use:choco={toggle}
-    onclick={() => console.log("still toggling")}>
-      I'm {toggle.active ? "" : "not"} pressed
-  </button>
-</p>
-```
+<Highlighter code="unstyled.svelte" />
 
 In the above example there is no clash between the toggle inner `click` event listener and the one declared on the button. The `ChocoBase` class and all headless components pass their behavior through an action, avoiding clashes with other declarative listeners.
 
@@ -86,23 +44,7 @@ So these mixins are just functions taking a class and returning a decorated clas
 
 To use a mixin we just extend from its application on the base class, and to compose them we just compose the applications. For example, the `Togglable` mixin adds an `initTogglable` method taking the (initial) attributes to be toggled, whether this initial state is the active state, and what events toggle it. So the headless `ToggleButton` element could be implemented like this:
 
-```js
-class ToggleButton extends Togglable(ChocoBase) {
-
-  constructor(options?: {active: boolean}) {
-    super();
-    const active = options?.active ?? false;
-
-    this.initTogglable(
-      {
-        initial: { "aria-pressed": `${active}` },
-        active,
-        toggle: "click",
-      },
-    );
-	}
-}
-```
+<Highlighter code="mixin.svelte.ts" lang="ts" />
 
 You see how we could very easily adapt this to create a headless switch component (by toggling `aria-checked`), a disclosure component (toggling `aria-expanded`), a hoverable (by toggling on during `mouseenter` and off during `mouseleave`). Many things in a UI are togglable so this is a powerful abstraction and a good starting point.
 
