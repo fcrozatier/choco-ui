@@ -5,11 +5,11 @@ import { merge } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte.js";
 
 export type ToggleOptions = {
-	/**
-	 * Whether the toggle is initially pressed or not. Defaults to `false`
-	 */
-	active?: boolean;
-	value?: string;
+  /**
+   * Whether the toggle is initially pressed or not. Defaults to `false`
+   */
+  active?: boolean;
+  value?: string;
 };
 
 export type ConcreteToggleOptions = Bind<ToggleOptions, "active">;
@@ -32,29 +32,29 @@ const defaults = { active: false, value: "" } satisfies ToggleOptions;
  *
  */
 export class ToggleButton extends Togglable<HTMLButtonElement>(ChocoBase) {
-	#options: Required<ToggleOptions, "active" | "value"> = $state(defaults);
-	value = $derived(this.#options.value);
+  #options: Required<ToggleOptions, "active" | "value"> = $state(defaults);
+  value = $derived(this.#options.value);
 
-	constructor(options?: ConcreteToggleOptions) {
-		super();
+  constructor(options?: ConcreteToggleOptions) {
+    super();
 
-		this.#options = merge(defaults, options);
-		const opts = this.#options;
+    this.#options = merge(defaults, options);
+    const opts = this.#options;
 
-		this.extendAttributes({
-			type: "button",
-			value: opts.value,
-		});
+    this.extendAttributes({
+      type: "button",
+      value: opts.value,
+    });
 
-		this.initTogglable(
-			bind(
-				{
-					initial: { "aria-pressed": `${opts.active}` },
-					active: opts.active,
-					toggle: "click",
-				},
-				["active"],
-			),
-		);
-	}
+    this.initTogglable(
+      bind(
+        {
+          initial: { "aria-pressed": `${opts.active}` },
+          active: opts.active,
+          toggle: "click",
+        },
+        ["active"],
+      ),
+    );
+  }
 }

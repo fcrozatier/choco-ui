@@ -48,7 +48,6 @@ For more information about how to use the plugin and the features it includes, [
 
 ---
 
-
 ## What to expect from here on out
 
 What follows from here is just a bunch of absolute nonsense I've written to dogfood the plugin itself. It includes every sensible typographic element I could think of, like **bold text**, unordered lists, ordered lists, code blocks, block quotes, _and even italics_.
@@ -251,7 +250,6 @@ L = \frac{1}{2} \rho v^2 S C_L
 ```
 
 Or a Latex display block with `$$`
-
 
 $$
 L = \frac{1}{2} \rho v^2 S C_L

@@ -5,14 +5,14 @@ import choco from "./preprocessor/index.js";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	preprocess: [choco(), vitePreprocess(), targetBlank({ logLevel: "warn", quietList: "/**/*.md" })],
+  preprocess: [choco(), vitePreprocess(), targetBlank({ logLevel: "warn", quietList: "/**/*.md" })],
 
-	kit: {
-		adapter: adapter(),
-		alias: {
-			"$components/*": "./src/site/components/*",
-		},
-	},
+  kit: {
+    adapter: adapter(),
+    alias: {
+      "$components/*": "./src/site/components/*",
+    },
+  },
 };
 
 export default config;

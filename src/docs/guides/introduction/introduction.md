@@ -50,7 +50,6 @@ You see how we could very easily adapt this to create a headless switch componen
 
 Also notice how readable and short the code is.
 
-
 ## And more...
 
 Actually there is also a Vite plugin, which combined to some TypeScript choco spells will help you manage two-way bindings across boundaries in a type-safe way. More about this topic [here](/guide/plugin)

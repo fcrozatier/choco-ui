@@ -6,237 +6,237 @@
 @import "tailwindcss";
 
 @theme {
-	/* Colors */
-	--color-dark: #1b120c;
-	--color-light: #e2e0dd;
-	--color-coral: #ef8354;
-	--color-sand-dark: #432818;
-	--color-sand-light: #e1c9b8;
+  /* Colors */
+  --color-dark: #1b120c;
+  --color-light: #e2e0dd;
+  --color-coral: #ef8354;
+  --color-sand-dark: #432818;
+  --color-sand-light: #e1c9b8;
 
-	--color-gray: #989592;
+  --color-gray: #989592;
 
-	--color-magnum-50: rgb(255 249 237);
-	--color-magnum-100: rgb(254 242 214);
-	--color-magnum-200: rgb(252 224 172);
-	--color-magnum-300: rgb(249 201 120);
-	--color-magnum-400: rgb(247 177 85);
-	--color-magnum-500: rgb(243 141 28);
-	--color-magnum-600: rgb(228 115 18);
-	--color-magnum-700: rgb(189 87 17);
-	--color-magnum-800: rgb(150 69 22);
-	--color-magnum-900: rgb(121 58 21);
-	--color-magnum-950: rgb(65 28 9);
-	--color-neutral-50: rgb(250 250 250);
-	--color-neutral-100: rgb(245 245 245);
-	--color-neutral-200: rgb(229 229 229);
-	--color-neutral-300: rgb(212 212 212);
-	--color-neutral-400: rgb(163 163 163);
-	--color-neutral-500: rgb(115 115 115);
-	--color-neutral-600: rgb(82 82 82);
-	--color-neutral-700: rgb(64 64 64);
-	--color-neutral-800: rgb(38 38 38);
-	--color-neutral-900: rgb(23 23 23);
-	--color-neutral-950: rgb(10 10 10);
-	--color-zinc-50: rgb(250 250 250);
-	--color-zinc-100: rgb(244 244 245);
-	--color-zinc-200: rgb(228 228 231);
-	--color-zinc-300: rgb(212 212 216);
-	--color-zinc-400: rgb(161 161 170);
-	--color-zinc-500: rgb(113 113 122);
-	--color-zinc-600: rgb(82 82 91);
-	--color-zinc-700: rgb(63 63 70);
-	--color-zinc-800: rgb(39 39 42);
-	--color-zinc-900: rgb(24 24 27);
-	--color-zinc-950: rgb(9 9 11);
-	--color-green-400: rgb(74 222 128);
-	--color-white: rgb(255 255 255);
+  --color-magnum-50: rgb(255 249 237);
+  --color-magnum-100: rgb(254 242 214);
+  --color-magnum-200: rgb(252 224 172);
+  --color-magnum-300: rgb(249 201 120);
+  --color-magnum-400: rgb(247 177 85);
+  --color-magnum-500: rgb(243 141 28);
+  --color-magnum-600: rgb(228 115 18);
+  --color-magnum-700: rgb(189 87 17);
+  --color-magnum-800: rgb(150 69 22);
+  --color-magnum-900: rgb(121 58 21);
+  --color-magnum-950: rgb(65 28 9);
+  --color-neutral-50: rgb(250 250 250);
+  --color-neutral-100: rgb(245 245 245);
+  --color-neutral-200: rgb(229 229 229);
+  --color-neutral-300: rgb(212 212 212);
+  --color-neutral-400: rgb(163 163 163);
+  --color-neutral-500: rgb(115 115 115);
+  --color-neutral-600: rgb(82 82 82);
+  --color-neutral-700: rgb(64 64 64);
+  --color-neutral-800: rgb(38 38 38);
+  --color-neutral-900: rgb(23 23 23);
+  --color-neutral-950: rgb(10 10 10);
+  --color-zinc-50: rgb(250 250 250);
+  --color-zinc-100: rgb(244 244 245);
+  --color-zinc-200: rgb(228 228 231);
+  --color-zinc-300: rgb(212 212 216);
+  --color-zinc-400: rgb(161 161 170);
+  --color-zinc-500: rgb(113 113 122);
+  --color-zinc-600: rgb(82 82 91);
+  --color-zinc-700: rgb(63 63 70);
+  --color-zinc-800: rgb(39 39 42);
+  --color-zinc-900: rgb(24 24 27);
+  --color-zinc-950: rgb(9 9 11);
+  --color-green-400: rgb(74 222 128);
+  --color-white: rgb(255 255 255);
 
-	--color-background: hsl(0 0% 100%);
-	--color-foreground: hsl(222.2 84% 4.9%);
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(222.2 84% 4.9%);
 
-	--color-muted: hsl(210 40% 96.1%);
-	--color-muted-foreground: hsl(215.4 16.3% 46.9%);
+  --color-muted: hsl(210 40% 96.1%);
+  --color-muted-foreground: hsl(215.4 16.3% 46.9%);
 
-	--color-popover: hsl(0 0% 100%);
-	--color-popover-foreground: hsl(222.2 84% 4.9%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(222.2 84% 4.9%);
 
-	--color-card: hsl(0 0% 100%);
-	--color-card-foreground: hsl(222.2 84% 4.9%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(222.2 84% 4.9%);
 
-	--color-border: hsl(214.3 31.8% 91.4%);
-	--color-input: hsl(214.3 31.8% 91.4%);
+  --color-border: hsl(214.3 31.8% 91.4%);
+  --color-input: hsl(214.3 31.8% 91.4%);
 
-	--color-primary: hsl(222.2 47.4% 11.2%);
-	--color-primary-foreground: hsl(210 40% 98%);
+  --color-primary: hsl(222.2 47.4% 11.2%);
+  --color-primary-foreground: hsl(210 40% 98%);
 
-	--color-secondary: hsl(210 40% 96.1%);
-	--color-secondary-foreground: hsl(222.2 47.4% 11.2%);
+  --color-secondary: hsl(210 40% 96.1%);
+  --color-secondary-foreground: hsl(222.2 47.4% 11.2%);
 
-	--color-accent: hsl(210 40% 96.1%);
-	--color-accent-foreground: hsl(222.2 47.4% 11.2%);
+  --color-accent: hsl(210 40% 96.1%);
+  --color-accent-foreground: hsl(222.2 47.4% 11.2%);
 
-	--color-destructive: hsl(0 72.2% 50.6%);
-	--color-destructive-foreground: hsl(210 40% 98%);
+  --color-destructive: hsl(0 72.2% 50.6%);
+  --color-destructive-foreground: hsl(210 40% 98%);
 
-	--color-ring: hsl(222.2 84% 4.9%);
+  --color-ring: hsl(222.2 84% 4.9%);
 
-	/* Radii */
-	--radius: 0.5rem;
-	--radius-sm: calc(var(--radius) - 4px);
-	--radius-md: calc(var(--radius) - 2px);
-	--radius-lg: var(--radius);
+  /* Radii */
+  --radius: 0.5rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
 
-	/* Fonts */
-	--font-family-cursive: "Calistoga", serif;
+  /* Fonts */
+  --font-family-cursive: "Calistoga", serif;
 
-	/* Width */
-	--width-prose: 85ch;
+  /* Width */
+  --width-prose: 85ch;
 }
 
 @media (prefers-reduced-motion: reduce) {
-	html:focus-within {
-		scroll-behavior: auto;
-	}
+  html:focus-within {
+    scroll-behavior: auto;
+  }
 
-	*,
-	*::before,
-	*::after {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
-		scroll-behavior: auto !important;
-	}
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 * {
-	@apply border-border;
+  @apply border-border;
 }
 
 html,
 body {
-	height: 100%;
-	font-family: "Noto Serif", serif;
-	letter-spacing: 0.5px;
-	font-weight: 100;
+  height: 100%;
+  font-family: "Noto Serif", serif;
+  letter-spacing: 0.5px;
+  font-weight: 100;
 }
 
 body {
-	@apply bg-dark text-light;
+  @apply bg-dark text-light;
 }
 
 ::marker {
-	@apply text-coral inline-block;
+  @apply text-coral inline-block;
 }
 
 ul,
 ol {
-	@apply m-4 list-inside;
+  @apply m-4 list-inside;
 }
 
 ol {
-	@apply list-decimal;
+  @apply list-decimal;
 }
 
 ul {
-	@apply list-disc;
+  @apply list-disc;
 }
 
 .prose {
-	& h1,
-	& h2,
-	& h3,
-	& h4,
-	& h5,
-	& h6 {
-		@apply font-cursive text-center;
-	}
+  & h1,
+  & h2,
+  & h3,
+  & h4,
+  & h5,
+  & h6 {
+    @apply font-cursive text-center;
+  }
 
-	& h1 {
-		@apply mb-4 pt-2 text-3xl md:mb-5 md:pt-3 md:text-4xl;
-	}
+  & h1 {
+    @apply mb-4 pt-2 text-3xl md:mb-5 md:pt-3 md:text-4xl;
+  }
 
-	& h2 {
-		@apply mb-4 pt-2 text-2xl md:mb-5 md:pt-3 md:text-3xl;
-	}
+  & h2 {
+    @apply mb-4 pt-2 text-2xl md:mb-5 md:pt-3 md:text-3xl;
+  }
 
-	& h3 {
-		@apply mb-3 pt-2 text-xl md:mb-4 md:pt-3 md:text-2xl;
-	}
+  & h3 {
+    @apply mb-3 pt-2 text-xl md:mb-4 md:pt-3 md:text-2xl;
+  }
 
-	& h4 {
-		@apply mb-2 pt-2 text-lg md:mb-3 md:pt-3 md:text-xl;
-	}
+  & h4 {
+    @apply mb-2 pt-2 text-lg md:mb-3 md:pt-3 md:text-xl;
+  }
 
-	& h5 {
-		@apply mb-2 pt-2 text-lg font-bold md:pt-3;
-	}
+  & h5 {
+    @apply mb-2 pt-2 text-lg font-bold md:pt-3;
+  }
 
-	& h6 {
-		@apply mb-2 pt-2 text-base font-bold md:pt-3;
-	}
+  & h6 {
+    @apply mb-2 pt-2 text-base font-bold md:pt-3;
+  }
 
-	& p,
-	& ul {
-		@apply my-5 leading-7 md:leading-8;
-	}
+  & p,
+  & ul {
+    @apply my-5 leading-7 md:leading-8;
+  }
 
-	&:is(p, h1, h2, h3, h4, h5, h6) {
-		/* Line break inside words instead of overflowing */
-		overflow-wrap: break-word;
-	}
+  &:is(p, h1, h2, h3, h4, h5, h6) {
+    /* Line break inside words instead of overflowing */
+    overflow-wrap: break-word;
+  }
 
-	& li {
-		@apply mr-4 mb-3;
-	}
+  & li {
+    @apply mr-4 mb-3;
+  }
 
-	& li > p:first-child {
-		@apply inline;
-	}
+  & li > p:first-child {
+    @apply inline;
+  }
 
-	& .shiki {
-		@apply overflow-x-scroll rounded py-5 px-6;
-	}
+  & .shiki {
+    @apply overflow-x-scroll rounded py-5 px-6;
+  }
 
-	& :not(.shiki) > code {
-		@apply bg-sand-light text-dark rounded py-0.5 px-1;
-	}
+  & :not(.shiki) > code {
+    @apply bg-sand-light text-dark rounded py-0.5 px-1;
+  }
 
-	& :not(.shiki) > a > code {
-		@apply text-coral rounded-sm underline underline-offset-4;
-	}
+  & :not(.shiki) > a > code {
+    @apply text-coral rounded-sm underline underline-offset-4;
+  }
 
-	& a {
-		@apply text-coral rounded-sm underline underline-offset-4;
-	}
+  & a {
+    @apply text-coral rounded-sm underline underline-offset-4;
+  }
 
-	& figcaption {
-		@apply mt-2 mx-auto max-w-[80%] text-center text-sm text-gray-100;
-	}
+  & figcaption {
+    @apply mt-2 mx-auto max-w-[80%] text-center text-sm text-gray-100;
+  }
 
-	& hr {
-		border-top: 1px solid var(--color-coral);
-		margin-block: 2rem;
-	}
+  & hr {
+    border-top: 1px solid var(--color-coral);
+    margin-block: 2rem;
+  }
 
-	& table {
-		@apply w-full overflow-hidden rounded text-sm outline outline-1 outline-gray-200;
+  & table {
+    @apply w-full overflow-hidden rounded text-sm outline outline-1 outline-gray-200;
 
-		& thead {
-			@apply border-b;
-		}
+    & thead {
+      @apply border-b;
+    }
 
-		& th {
-			@apply text-left font-medium;
-		}
-		& td,
-		& th {
-			@apply py-3.5 px-4;
-		}
-		& tbody tr:not(:last-of-type) {
-			@apply border-b;
-		}
-		& tbody tr:hover {
-			@apply text-dark bg-gray-100 opacity-90;
-		}
-	}
+    & th {
+      @apply text-left font-medium;
+    }
+    & td,
+    & th {
+      @apply py-3.5 px-4;
+    }
+    & tbody tr:not(:last-of-type) {
+      @apply border-b;
+    }
+    & tbody tr:hover {
+      @apply text-dark bg-gray-100 opacity-90;
+    }
+  }
 }

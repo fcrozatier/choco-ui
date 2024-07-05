@@ -6,11 +6,11 @@ import Item from "./item.svelte";
 const key = Symbol();
 
 export function set(accordion: Accordion) {
-	setContext(key, accordion);
+  setContext(key, accordion);
 }
 
 export function get() {
-	return getContext<Accordion>(key);
+  return getContext<Accordion>(key);
 }
 
 export { Item, Root };

@@ -5,8 +5,8 @@ import type { toggleVariants } from "../toggle/index.js";
 import Switch from "./switch.svelte";
 
 export interface SwitchProps
-	extends Omit<HTMLButtonAttributes, "value">,
-		SwitchOptions,
-		Partial<VariantProps<typeof toggleVariants>> {}
+  extends Omit<HTMLButtonAttributes, "value">,
+    SwitchOptions,
+    Partial<VariantProps<typeof toggleVariants>> {}
 
 export { Switch };

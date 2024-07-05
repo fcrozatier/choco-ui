@@ -23,34 +23,34 @@ const defaults = { active: false, position: "top" } satisfies TooltipOptions;
  * [WCAG Content on Hover or Focus](https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html)
  */
 export class Tooltip extends Hoverable(ChocoBase) {
-	#options: Required<TooltipOptions, "active"> = $state(defaults);
+  #options: Required<TooltipOptions, "active"> = $state(defaults);
 
-	constructor(options?: ConcreteTooltipOptions) {
-		super();
-		this.#options = merge(defaults, options);
+  constructor(options?: ConcreteTooltipOptions) {
+    super();
+    this.#options = merge(defaults, options);
 
-		const id = nanoId();
-		const opts = this.#options;
+    const id = nanoId();
+    const opts = this.#options;
 
-		this.extendAttributes({
-			"aria-describedby": id,
-		});
+    this.extendAttributes({
+      "aria-describedby": id,
+    });
 
-		this.target.extendAttributes({
-			id,
-			inert: true,
-			role: role.tooltip,
-			"data-position": opts.position,
-		});
+    this.target.extendAttributes({
+      id,
+      inert: true,
+      role: role.tooltip,
+      "data-position": opts.position,
+    });
 
-		this.initHoverable(
-			bind(
-				{
-					active: opts.active,
-					target: { "data-open": opts.active },
-				},
-				["active"],
-			),
-		);
-	}
+    this.initHoverable(
+      bind(
+        {
+          active: opts.active,
+          target: { "data-open": opts.active },
+        },
+        ["active"],
+      ),
+    );
+  }
 }

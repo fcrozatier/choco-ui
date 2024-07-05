@@ -1,25 +1,25 @@
 <script lang="ts">
-	import { cn } from "$lib/utils/styles.js";
-	import { type Snippet } from "svelte";
-	import type { HTMLAttributes } from "svelte/elements";
-	import { getTabsContext } from "./index.js";
+  import { cn } from "$lib/utils/styles.js";
+  import { type Snippet } from "svelte";
+  import type { HTMLAttributes } from "svelte/elements";
+  import { getTabsContext } from "./index.js";
 
-	let {
-		class: className,
-		children,
-		...restProps
-	}: HTMLAttributes<HTMLDivElement> & { children: Snippet } = $props();
+  let {
+    class: className,
+    children,
+    ...restProps
+  }: HTMLAttributes<HTMLDivElement> & { children: Snippet } = $props();
 
-	const { tablist } = getTabsContext();
+  const { tablist } = getTabsContext();
 </script>
 
 <div
-	class={cn(
-		"bg-muted text-muted-foreground flex h-10 items-center justify-center rounded-md p-1",
-		className,
-	)}
-	{...tablist.attributes}
-	{...restProps}
+  class={cn(
+    "bg-muted text-muted-foreground flex h-10 items-center justify-center rounded-md p-1",
+    className,
+  )}
+  {...tablist.attributes}
+  {...restProps}
 >
-	{@render children()}
+  {@render children()}
 </div>

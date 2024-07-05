@@ -7,24 +7,24 @@ import { on } from "svelte/events";
  * Preserves the correct order of event handlers with respect to event delegation by relying on Svelte for orchestrating the handlers creation.
  */
 export const addListener = <T extends HTMLElement, K extends keyof HTMLElementEventMap>(
-	events: K | K[],
-	callback: EventListener,
-	options?: AddEventListenerOptions,
+  events: K | K[],
+  callback: EventListener,
+  options?: AddEventListenerOptions,
 ) => {
-	return ((node) => {
-		const eventsArray = Array.isArray(events) ? events : [events];
-		const cleanups: (() => void)[] = [];
+  return ((node) => {
+    const eventsArray = Array.isArray(events) ? events : [events];
+    const cleanups: (() => void)[] = [];
 
-		for (const event of eventsArray) {
-			cleanups.push(on(node, event, callback, options));
-		}
+    for (const event of eventsArray) {
+      cleanups.push(on(node, event, callback, options));
+    }
 
-		return {
-			destroy() {
-				for (const cleanup of cleanups) {
-					cleanup();
-				}
-			},
-		};
-	}) satisfies Action<T>;
+    return {
+      destroy() {
+        for (const cleanup of cleanups) {
+          cleanup();
+        }
+      },
+    };
+  }) satisfies Action<T>;
 };

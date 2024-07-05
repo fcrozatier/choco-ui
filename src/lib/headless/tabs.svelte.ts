@@ -7,68 +7,68 @@ import { Group, type GroupOptions } from "../mixins/group.svelte.js";
 import { ChocoBase } from "./base.svelte.js";
 
 type BaseTabsOptions = {
-	orientation?: Orientation;
-	/**
-	 * The default active tab. If not provided defaults to the first tab
-	 */
-	value?: string;
+  orientation?: Orientation;
+  /**
+   * The default active tab. If not provided defaults to the first tab
+   */
+  value?: string;
 };
 
 export type TabsOptions = BaseTabsOptions & {
-	focus?: OmitSupertype<
-		GroupOptions,
-		{ roving?: boolean; exclusive?: boolean; preventInactivation?: boolean }
-	>;
+  focus?: OmitSupertype<
+    GroupOptions,
+    { roving?: boolean; exclusive?: boolean; preventInactivation?: boolean }
+  >;
 };
 
 const defaults = {
-	focus: {
-		roving: true,
-		exclusive: true,
-		preventInactivation: true,
-		activateOnNext: true,
-	},
-	orientation: "horizontal",
+  focus: {
+    roving: true,
+    exclusive: true,
+    preventInactivation: true,
+    activateOnNext: true,
+  },
+  orientation: "horizontal",
 } satisfies BaseTabsOptions & { focus: GroupOptions };
 
 export type TabOptions = {
-	value: string;
-	/**
-	 * Whether the tab is the default active tab. If not provided the first tab is active
-	 */
-	active?: boolean;
+  value: string;
+  /**
+   * Whether the tab is the default active tab. If not provided the first tab is active
+   */
+  active?: boolean;
 };
 
 class Tab extends Triggerable<HTMLButtonElement>(ChocoBase) {
-	value: string;
+  value: string;
 
-	constructor(options: TabOptions) {
-		super();
-		const controlId = nanoId();
-		const targetId = nanoId();
-		const active = !!options.active;
+  constructor(options: TabOptions) {
+    super();
+    const controlId = nanoId();
+    const targetId = nanoId();
+    const active = !!options.active;
 
-		this.initTriggerable({
-			control: { "aria-selected": `${active}` },
-			target: { hidden: !active },
-			active,
-			on: "click",
-		});
-		this.extendAttributes({
-			id: controlId,
-			role: role.tab,
-			value: options.value,
-			"aria-controls": targetId,
-		});
-		this.target.extendAttributes({
-			id: targetId,
-			role: role.tabpanel,
-			"aria-labelledby": controlId,
-		});
-		// Make sure the panel is in the tab sequence
-		this.target.extendActions(makeFocusable);
-		this.value = options.value;
-	}
+    this.initTriggerable({
+      control: { "aria-selected": `${active}` },
+      target: { hidden: !active },
+      active,
+      on: "click",
+    });
+    this.extendAttributes({
+      id: controlId,
+      role: role.tab,
+      value: options.value,
+      "aria-controls": targetId,
+    });
+    this.target.extendAttributes({
+      id: targetId,
+      role: role.tabpanel,
+      "aria-labelledby": controlId,
+    });
+    // Make sure the panel is in the tab sequence
+    this.target.extendActions(makeFocusable);
+    this.value = options.value;
+  }
 }
 
 /**
@@ -79,27 +79,27 @@ class Tab extends Triggerable<HTMLButtonElement>(ChocoBase) {
  * [WAI-ARIA Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
  */
 export class Tabs extends Group(Tab) {
-	#options: BaseTabsOptions & GroupOptions;
-	tablist;
+  #options: BaseTabsOptions & GroupOptions;
+  tablist;
 
-	constructor(options?: TabsOptions) {
-		super(merge(defaults.focus, options?.focus));
+  constructor(options?: TabsOptions) {
+    super(merge(defaults.focus, options?.focus));
 
-		this.#options = merge(defaults, options);
-		this.tablist = new ChocoBase({
-			role: role.tablist,
-			"aria-orientation": this.#options.orientation,
-			"aria-multiselectable": "false",
-		});
-	}
+    this.#options = merge(defaults, options);
+    this.tablist = new ChocoBase({
+      role: role.tablist,
+      "aria-orientation": this.#options.orientation,
+      "aria-multiselectable": "false",
+    });
+  }
 
-	createItem = (options: TabOptions): Tab => {
-		// The first tab is active by default
-		const active =
-			this.#options.value === undefined
-				? this.items.length === 0
-				: this.#options.value === options.value;
+  createItem = (options: TabOptions): Tab => {
+    // The first tab is active by default
+    const active =
+      this.#options.value === undefined
+        ? this.items.length === 0
+        : this.#options.value === options.value;
 
-		return new this.Item({ ...options, active });
-	};
+    return new this.Item({ ...options, active });
+  };
 }

@@ -6,11 +6,11 @@ import Root from "./switch-group.svelte";
 const key = Symbol();
 
 export function set(group: SwitchGroup) {
-	setContext(key, group);
+  setContext(key, group);
 }
 
 export function get() {
-	return getContext<SwitchGroup>(key);
+  return getContext<SwitchGroup>(key);
 }
 
 export { Item, Root };

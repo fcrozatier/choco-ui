@@ -5,7 +5,7 @@ import { ToggleButton, type ConcreteToggleOptions } from "./toggle.svelte.js";
 export type ToggleGroupItemOptions = Required<ConcreteToggleOptions, "value">;
 
 export class ToggleGroup extends Group(ToggleButton) {
-	createItem = (options: ToggleGroupItemOptions) => {
-		return new this.Item(options);
-	};
+  createItem = (options: ToggleGroupItemOptions) => {
+    return new this.Item(options);
+  };
 }

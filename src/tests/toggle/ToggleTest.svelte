@@ -1,21 +1,21 @@
 <script lang="ts">
-	import { choco } from "$lib/actions/choco.js";
-	import { ToggleButton } from "$lib/headless/toggle.svelte";
+  import { choco } from "$lib/actions/choco.js";
+  import { ToggleButton } from "$lib/headless/toggle.svelte";
 
-	let disabled = $state(false);
+  let disabled = $state(false);
 
-	const toggle = new ToggleButton();
+  const toggle = new ToggleButton();
 </script>
 
 <main>
-	<label>
-		<input
-			data-testid="programmatic"
-			type="checkbox"
-			onchange={() => (toggle.active = !toggle.active)}
-		/>
-		toggle programmatically
-	</label>
+  <label>
+    <input
+      data-testid="programmatic"
+      type="checkbox"
+      onchange={() => (toggle.active = !toggle.active)}
+    />
+    toggle programmatically
+  </label>
 
-	<button use:choco={toggle} {disabled}>press</button>
+  <button use:choco={toggle} {disabled}>press</button>
 </main>

@@ -5,11 +5,11 @@ import DisclosureUI from "./disclosure.svelte";
 const key = Symbol();
 
 export function set(disclosure: Disclosure) {
-	setContext(key, disclosure);
+  setContext(key, disclosure);
 }
 
 export function get() {
-	return getContext<Disclosure>(key);
+  return getContext<Disclosure>(key);
 }
 
 export { DisclosureUI };

@@ -6,11 +6,11 @@ import { merge } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte.js";
 
 export type SwitchOptions = {
-	/**
-	 * Whether the toggle is initially pressed or not. Defaults to `false`
-	 */
-	active?: boolean;
-	value?: string;
+  /**
+   * Whether the toggle is initially pressed or not. Defaults to `false`
+   */
+  active?: boolean;
+  value?: string;
 };
 
 export type ConcreteSwitchOptions = Bind<SwitchOptions, "active">;
@@ -33,28 +33,28 @@ const defaults = { active: false, value: "" } satisfies SwitchOptions;
  * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Switch_role#all_descendants_are_presentational
  */
 export class Switch extends Togglable<HTMLButtonElement>(ChocoBase) {
-	#options: Required<SwitchOptions, "active" | "value"> = $state(defaults);
-	value = $derived(this.#options.value);
+  #options: Required<SwitchOptions, "active" | "value"> = $state(defaults);
+  value = $derived(this.#options.value);
 
-	constructor(options?: ConcreteSwitchOptions) {
-		super();
-		this.#options = merge(defaults, options);
-		const opts = this.#options;
+  constructor(options?: ConcreteSwitchOptions) {
+    super();
+    this.#options = merge(defaults, options);
+    const opts = this.#options;
 
-		this.extendAttributes({
-			value: opts.value,
-			role: role.switch,
-		});
+    this.extendAttributes({
+      value: opts.value,
+      role: role.switch,
+    });
 
-		this.initTogglable(
-			bind(
-				{
-					initial: { "aria-checked": `${opts.active}` },
-					active: opts.active,
-					toggle: "click",
-				},
-				["active"],
-			),
-		);
-	}
+    this.initTogglable(
+      bind(
+        {
+          initial: { "aria-checked": `${opts.active}` },
+          active: opts.active,
+          toggle: "click",
+        },
+        ["active"],
+      ),
+    );
+  }
 }

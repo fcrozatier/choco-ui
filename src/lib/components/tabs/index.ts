@@ -8,11 +8,11 @@ import Root from "./tabs.svelte";
 const key = Symbol();
 
 export function setTabsContext(tabs: Tabs) {
-	setContext(key, tabs);
+  setContext(key, tabs);
 }
 
 export function getTabsContext() {
-	return getContext<Tabs>(key);
+  return getContext<Tabs>(key);
 }
 
 export { Panel, Root, Tab, TabList };

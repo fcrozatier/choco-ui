@@ -7,35 +7,35 @@ import Item from "./toggle-group-item.svelte";
 import Root from "./toggle-group.svelte";
 
 export const toggleGroupVariants = tv({
-	base: "flex items-center justify-center gap-1",
-	variants: {
-		orientation: {
-			horizontal: "",
-			vertical: "flex-col",
-		},
-	},
-	defaultVariants: {
-		orientation: "horizontal",
-	},
+  base: "flex items-center justify-center gap-1",
+  variants: {
+    orientation: {
+      horizontal: "",
+      vertical: "flex-col",
+    },
+  },
+  defaultVariants: {
+    orientation: "horizontal",
+  },
 });
 
 const toggleItemSymbol = Symbol();
 
 export function setItemContext(createItem: InstanceType<typeof ToggleGroup>["createItem"]) {
-	setContext(toggleItemSymbol, createItem);
+  setContext(toggleItemSymbol, createItem);
 }
 
 export function getItemContext() {
-	return getContext<(options?: ConcreteToggleOptions) => ToggleButton>(toggleItemSymbol);
+  return getContext<(options?: ConcreteToggleOptions) => ToggleButton>(toggleItemSymbol);
 }
 
 const toggleVariantSymbol = Symbol();
 export function setVariantContext(variant: ToggleProps["variant"]) {
-	setContext(toggleVariantSymbol, variant);
+  setContext(toggleVariantSymbol, variant);
 }
 
 export function getVariantContext() {
-	return getContext<ToggleProps["variant"]>(toggleVariantSymbol);
+  return getContext<ToggleProps["variant"]>(toggleVariantSymbol);
 }
 
 export { Item, Root };

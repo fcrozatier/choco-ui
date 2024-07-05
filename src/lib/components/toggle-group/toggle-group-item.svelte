@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { type ToggleProps } from "../toggle/index.js";
-	import Toggle from "../toggle/toggle.svelte.js";
-	import { getItemContext, getVariantContext } from "./index.js";
+  import { type ToggleProps } from "../toggle/index.js";
+  import Toggle from "../toggle/toggle.svelte.js";
+  import { getItemContext, getVariantContext } from "./index.js";
 
-	let { children, variant, active = $bindable(false), ...restProps }: ToggleProps = $props();
+  let { children, variant, active = $bindable(false), ...restProps }: ToggleProps = $props();
 
-	const builder = getItemContext();
-	const ctxVariant = getVariantContext();
+  const builder = getItemContext();
+  const ctxVariant = getVariantContext();
 </script>
 
 <Toggle {builder} variant={variant ?? ctxVariant} bind:active {...restProps}>
-	{@render children?.()}
+  {@render children?.()}
 </Toggle>

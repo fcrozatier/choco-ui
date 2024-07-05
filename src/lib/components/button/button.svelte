@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { buttonVariants, type ButtonProps } from "./index.js";
+  import { buttonVariants, type ButtonProps } from "./index.js";
 
-	let { class: className, children, variant, size, ...rest }: ButtonProps = $props();
+  let { class: className, children, variant, size, ...rest }: ButtonProps = $props();
 </script>
 
 <button class={buttonVariants({ variant, size, className })} {...rest}>
-	{@render children()}
+  {@render children()}
 </button>
