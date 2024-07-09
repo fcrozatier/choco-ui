@@ -194,7 +194,7 @@ ul {
   }
 
   & .shiki {
-    @apply overflow-x-scroll rounded py-5 px-6;
+    @apply overflow-x-scroll rounded py-2 px-8;
   }
 
   & :not(.shiki) > code {
