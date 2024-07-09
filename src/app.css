@@ -115,9 +115,8 @@
 html,
 body {
   height: 100%;
-  font-family: "Noto Serif", serif;
   letter-spacing: 0.5px;
-  font-weight: 100;
+  font-weight: 250;
 }
 
 body {
