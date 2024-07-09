@@ -1,10 +1,12 @@
 <svelte:options preserveWhitespace={true} />
 
 <script context="module" lang="ts">
-  import { type bundledLanguages, createHighlighter } from "shiki";
+  import { type bundledLanguages, type BundledTheme, createHighlighter } from "shiki";
+
+  const theme: BundledTheme = "dark-plus";
 
   export const highlighter = await createHighlighter({
-    themes: ["aurora-x"],
+    themes: [theme],
     langs: ["svelte", "ts", "shell"],
   });
 </script>
@@ -13,4 +15,4 @@
   let { code, lang = "svelte" }: { code: string; lang: keyof typeof bundledLanguages } = $props();
 </script>
 
-{@html highlighter.codeToHtml(code, { lang, theme: "aurora-x" })}
+{@html highlighter.codeToHtml(code, { lang, theme })}
