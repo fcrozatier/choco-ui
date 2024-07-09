@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import { keys } from "@fcrozatier/ts-helpers";
   import { type Snippet } from "svelte";
   import "../app.css";
@@ -41,11 +42,13 @@
       <h1 class="sr-only">Navigation</h1>
       {#each keys(paths) as key}
         <section class="flex flex-col">
-          <h2 class="mb-2 font-semibold capitalize">{key}</h2>
+          <h2 class=" mb-2 font-semibold capitalize">{key}</h2>
 
           {#each paths[key] as { href, title }}
-            <a class="text-gray hover:text-coral py-1 px-3 capitalize" href={`/${key}${href}`}
-              >{title}</a
+            <a
+              class="link"
+              aria-current={$page.url.pathname === `/${key}${href}` ? "page" : undefined}
+              href={`/${key}${href}`}>{title}</a
             >
           {/each}
         </section>
@@ -63,5 +66,25 @@
   .grid {
     display: grid;
     grid-template-columns: 256px auto;
+  }
+
+  .link {
+    color: var(--color-choco-light);
+    text-transform: capitalize;
+    padding-block: var(--spacing-1);
+    padding-inline: var(--spacing-3);
+    position: relative;
+
+    &:is([aria-current="page"], :hover) {
+      color: var(--color-coral);
+
+      &::before {
+        content: "›";
+        position: absolute;
+        left: 0;
+        bottom: 50%;
+        line-height: 0;
+      }
+    }
   }
 </style>
