@@ -116,6 +116,29 @@
 
 * {
   @apply border-border;
+
+  --track: var(--scrollbar-track, transparent);
+  --thumb: var(--scrollbar-thumb, var(--color-light));
+
+  /* Firefox, Chrome, Edge */
+  scrollbar-color: var(--thumb) var(--track);
+  scrollbar-width: thin;
+
+  /* Safari */
+  & ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  & ::-webkit-scrollbar-track {
+    background: var(--track);
+  }
+
+  & ::-webkit-scrollbar-thumb {
+    background-color: var(--thumb);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--track);
+  }
 }
 
 html,
