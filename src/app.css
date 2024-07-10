@@ -152,27 +152,27 @@ ul {
   }
 
   & h1 {
-    @apply mb-4 pt-2 text-3xl md:mb-5 md:pt-3 md:text-4xl;
+    @apply mt-2 mb-7 text-3xl md:mt-3 md:mb-8 md:text-4xl;
   }
 
   & h2 {
-    @apply mb-4 pt-2 text-2xl md:mb-5 md:pt-3 md:text-3xl;
+    @apply mt-2 mb-7 text-2xl md:mt-3 md:mb-8 md:text-3xl;
   }
 
   & h3 {
-    @apply mb-3 pt-2 text-xl md:mb-4 md:pt-3 md:text-2xl;
+    @apply mt-2 mb-6 text-xl md:mt-3 md:mb-7 md:text-2xl;
   }
 
   & h4 {
-    @apply mb-2 pt-2 text-lg md:mb-3 md:pt-3 md:text-xl;
+    @apply mt-2 mb-5 text-lg md:mt-3 md:mb-6 md:text-xl;
   }
 
   & h5 {
-    @apply mb-2 pt-2 text-lg font-bold md:pt-3;
+    @apply mt-2 mb-5 text-lg font-bold md:mt-3;
   }
 
   & h6 {
-    @apply mb-2 pt-2 text-base font-bold md:pt-3;
+    @apply mt-2 mb-5 text-base font-bold md:mt-3;
   }
 
   & p,
@@ -194,7 +194,7 @@ ul {
   }
 
   & .shiki {
-    @apply overflow-x-scroll rounded py-2 px-8;
+    @apply overflow-x-auto rounded py-2 px-8;
   }
 
   & :not(.shiki) > code {
@@ -214,8 +214,8 @@ ul {
   }
 
   & hr {
+    @apply my-8 md:my-12;
     border-top: 1px solid var(--color-coral);
-    margin-block: 2rem;
   }
 
   & table {
