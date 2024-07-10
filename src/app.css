@@ -9,10 +9,15 @@
   /* Colors */
   --color-dark: #1b120c;
   --color-light: #e2e0dd;
+
   --color-choco-light: #f7c48b;
+
   --color-coral: #ef8354;
+
   --color-sand-dark: #432818;
   --color-sand-light: #e1c9b8;
+
+  --color-amaranth: #e38e9d;
 
   --color-gray: #989592;
 
@@ -198,7 +203,7 @@ ul {
   }
 
   & :not(.shiki) > code {
-    @apply bg-sand-light text-dark rounded py-0.5 px-1;
+    @apply text-amaranth rounded py-0.5 px-1 font-medium;
   }
 
   & :not(.shiki) > a > code {
@@ -210,7 +215,7 @@ ul {
   }
 
   & figcaption {
-    @apply mt-2 mx-auto max-w-[80%] text-center text-sm text-gray-100;
+    @apply mt-2 mx-auto max-w-[80%] text-center text-xs text-gray-100;
   }
 
   & hr {
