@@ -74,8 +74,6 @@ const files = getFiles("./src/docs");
 const highlight = /<Highlighter code="(?<path>[^"]*)" *\/>/;
 
 for (const path of files.filter((file) => file.endsWith(".md"))) {
-  if (!path.endsWith("introduction.md")) continue;
-
   const dest = dirname(path).replace("src", ".") + ".svelte";
   const content = readFileSync(path, { encoding: "utf-8" });
 
@@ -96,7 +94,7 @@ for (const path of files.filter((file) => file.endsWith(".md"))) {
 
     const lang = codePath.split(".").at(-1);
 
-    if (!["svelte", "ts"].includes(lang)) throw new Error("Unrecognized lang");
+    if (!["svelte", "ts"].includes(lang)) throw new Error("Unrecognized code snippet language");
 
     svelte = svelte.replace(
       highlight,
