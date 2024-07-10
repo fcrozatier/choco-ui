@@ -200,18 +200,22 @@ ul {
 
   & .shiki {
     @apply overflow-x-auto rounded py-2 px-8;
+
+    &.dark-plus {
+      background-color: #342e2ac4 !important;
+    }
   }
 
   & :not(.shiki) > code {
-    @apply text-amaranth rounded py-0.5 px-1 font-medium;
-  }
-
-  & :not(.shiki) > a > code {
-    @apply text-coral rounded-sm underline underline-offset-4;
+    @apply text-amaranth py-0.5 px-1 font-medium;
   }
 
   & a {
     @apply text-coral rounded-sm underline underline-offset-4;
+  }
+
+  & :not(.shiki) > a > code {
+    @apply text-coral font-bold;
   }
 
   & figcaption {
