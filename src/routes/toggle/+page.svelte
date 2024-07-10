@@ -1,6 +1,5 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { t } from "$lib/components/theme.js";
   import { Toggle } from "$lib/components/toggle/index.js";
   import { ToggleButton } from "$lib/headless/toggle.svelte";
   import { bind } from "$lib/plugin/bind.js";
@@ -53,4 +52,4 @@
 
 <Toggle variant="outline" bind:active>toggle</Toggle>
 
-<button class={t.toggle()} use:choco={toggle3}>toggle</button>
+<button use:choco={toggle3}>toggle</button>

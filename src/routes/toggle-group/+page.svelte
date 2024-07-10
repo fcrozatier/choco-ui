@@ -1,6 +1,5 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { t } from "$lib/components/theme.js";
   import * as ToggleGroupUI from "$lib/components/toggle-group/index.js";
   import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
   import type { Orientation } from "$lib/mixins/types.js";
@@ -28,7 +27,7 @@
 </script>
 
 <button>before</button>
-<div class={t.toggleGroup.root({ orientation: "horizontal" })}>
+<div>
   <legend>toggle group</legend>
 
   {#each toggleGroup.items as item}
@@ -85,11 +84,11 @@ checked
 active
 <pre>{active}</pre>
 
-<fieldset class={t.toggleGroup.root()}>
+<fieldset>
   <legend>toggle group</legend>
 
   {#each toggleGroup2.items as item}
-    <button use:choco={item} class={t.toggleGroup.item()}>{item.value}</button>
+    <button use:choco={item}>{item.value}</button>
   {/each}
 </fieldset>
 
