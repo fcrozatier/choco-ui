@@ -8,7 +8,7 @@ title: Introduction
 
 # Introduction
 
-Choco-ui is a Svelte library to help you to create reactive, accessible, ssr-ready, composable & extendable components by either using and customizing the provided ones or by using the primitives they are built on to create your own.
+Choco-ui is a Svelte library to help you to create reactive, accessible, ssr-ready, composable & extendable components by either using and customizing the provided components or by using the primitives they are built on to create your own.
 
 There are 3 levels you can work with when using Choco-UI, and you can mix and match them anyway you like. You can use the UI components, the headless components or the primitive mixin classes everything is built on. Let's have a look at each level.
 
