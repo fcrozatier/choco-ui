@@ -37,8 +37,8 @@
 </script>
 
 <div class="grid">
-  <div class="relative">
-    <nav class="fixed w-64 space-y-10 p-4">
+  <div class="">
+    <nav class="fixed mt-10 ml-10 w-64 space-y-10 p-4">
       <h1 class="sr-only">Navigation</h1>
       {#each keys(paths) as key}
         <section class="flex flex-col">
@@ -55,9 +55,9 @@
       {/each}
     </nav>
   </div>
-  <div class="max-w-prose px-8">
+  <main class="overflow-auto px-8 md:max-w-prose">
     {@render children()}
-  </div>
+  </main>
 </div>
 
 <footer class="mt-auto">footer</footer>
@@ -65,7 +65,7 @@
 <style>
   .grid {
     display: grid;
-    grid-template-columns: 256px auto;
+    grid-template-columns: 16rem 1fr;
   }
 
   .link {
