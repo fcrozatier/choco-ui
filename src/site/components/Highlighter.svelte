@@ -1,5 +1,3 @@
-<svelte:options preserveWhitespace={true} />
-
 <script context="module" lang="ts">
   import { type bundledLanguages, type BundledTheme, createHighlighter } from "shiki";
 
