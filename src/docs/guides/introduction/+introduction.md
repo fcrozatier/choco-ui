@@ -61,3 +61,12 @@ Also notice how readable and short the code is.
 ## And more...
 
 The library comes with a Vite plugin, which combined to some TypeScript choco spells will help you manage two-way bindings across boundaries in a type-safe way. More about this topic [here](/guide/plugin)
+
+## Credits
+
+This project draws inspiration from:
+
+- Melt - [https://melt-ui.com/](https://melt-ui.com/)
+- HeadlessUI - [https://headlessui.com/](https://headlessui.com/)
+- ReactAria - [https://react-spectrum.adobe.com/react-aria](https://react-spectrum.adobe.com/react-aria)
+- Skeleton - [https://skeleton.dev/](https://skeleton.dev/)
