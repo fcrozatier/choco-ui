@@ -18,7 +18,7 @@ There are 3 levels you can work with when using Choco-UI, and you can mix and ma
 
 The easiest way to get started. Just copy & paste the `/components` folder or import from there and customize the styles to your liking.
 
-For example to use the [`Accordion`](/components/accordion) component:
+For example to use the [`Accordion`](/) component:
 
 <Highlighter code="styled.svelte" />
 
@@ -60,7 +60,7 @@ Also notice how readable and short the code is.
 
 ## And more...
 
-The library comes with a Vite plugin, which combined to some TypeScript choco spells will help you manage two-way bindings across boundaries in a type-safe way. More about this topic [here](/guide/plugin)
+The library comes with a Vite plugin, which combined to some TypeScript choco spells will help you manage two-way bindings across boundaries in a type-safe way. More about this topic [here](/)
 
 ---
 
