@@ -12,7 +12,6 @@
     "prepublishOnly": "npm run package",
     "test": "npm run test:integration && npm run test:unit",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "format": "prettier --write .",
     "test:integration": "playwright test",
     "test:unit": "vitest"
