@@ -6,7 +6,7 @@
 	import Highlighter from "$components/Highlighter.svelte";
 </script>
 <h1>Introduction</h1>
-<p>Choco-ui is a Svelte library to help you to create reactive, accessible, ssr-ready, composable &#x26; extendable components by either using and customizing the provided ones or by using the primitives they are built on to create your own.</p>
+<p>Choco-ui is a Svelte library to help you to create reactive, accessible, ssr-ready, composable &#x26; extendable components by either using and customizing the provided components or by using the primitives they are built on to create your own.</p>
 <p>There are 3 levels you can work with when using Choco-UI, and you can mix and match them anyway you like. You can use the UI components, the headless components or the primitive mixin classes everything is built on. Let’s have a look at each level.</p>
 <hr>
 <h2>UI components</h2>
@@ -87,3 +87,11 @@ export class ToggleButton extends Togglable(ChocoBase) {
 <hr>
 <h2>And more…</h2>
 <p>The library comes with a Vite plugin, which combined to some TypeScript choco spells will help you manage two-way bindings across boundaries in a type-safe way. More about this topic <a href="/guide/plugin">here</a></p>
+<h2>Credits</h2>
+<p>This project draws inspiration from:</p>
+<ul>
+<li>Melt - <a href="https://melt-ui.com/">https://melt-ui.com/</a></li>
+<li>HeadlessUI - <a href="https://headlessui.com/">https://headlessui.com/</a></li>
+<li>ReactAria - <a href="https://react-spectrum.adobe.com/react-aria">https://react-spectrum.adobe.com/react-aria</a></li>
+<li>Skeleton - <a href="https://skeleton.dev/">https://skeleton.dev/</a></li>
+</ul>
