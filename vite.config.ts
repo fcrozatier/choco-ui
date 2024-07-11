@@ -8,6 +8,10 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   plugins: [/**Inspect()*/ autoBind(), sveltekit(), tailwindcss(), svelteTesting()],
 
+  build: {
+    target: "es2022",
+  },
+
   test: {
     include: ["./**/*.{test,spec}.{js,ts}"],
     setupFiles: ["./scripts/vitest-setup.ts"],
