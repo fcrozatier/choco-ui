@@ -1,4 +1,4 @@
-import adapter from "@sveltejs/adapter-node";
+import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import targetBlank from "svelte-target-blank";
 import choco from "./preprocessor/index.js";
@@ -8,7 +8,12 @@ const config = {
   preprocess: [choco(), vitePreprocess(), targetBlank({ logLevel: "warn", quietList: "/**/*.md" })],
 
   kit: {
-    adapter: adapter(),
+    adapter: adapter({
+      pages: "build",
+      assets: "build",
+      precompress: true,
+      strict: true,
+    }),
     alias: {
       "$components/*": "./src/site/components/*",
     },
