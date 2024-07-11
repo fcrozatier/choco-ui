@@ -1,9 +1,9 @@
 import { error } from "@sveltejs/kit";
 
-const guides = import.meta.glob("/docs/guides/*.svelte");
+const guides = import.meta.glob("/docs/**/*.svelte");
 
 export const load = async ({ params }) => {
-  const path = "/docs/guides/" + params.slug + ".svelte";
+  const path = `/docs/${params.slug}.svelte`;
 
   if (!Object.keys(guides).includes(path)) return error(404, "Not found");
 
