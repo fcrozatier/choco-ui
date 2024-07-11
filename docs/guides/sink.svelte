@@ -1,4 +1,4 @@
-<!-- Generated file from src/docs/guides/sink/sink.md -- do not modify -->
+<!-- Generated file from src/docs/guides/sink/+sink.md -- do not modify -->
   <script context="module">
     export const meta = {"title":"Tailwind Markdown Sink"}
   </script>

@@ -11,7 +11,7 @@
 <hr>
 <h2>UI components</h2>
 <p>The easiest way to get started. Just copy &#x26; paste the <code>/components</code> folder or import from there and customize the styles to your liking.</p>
-<p>For example to use the <a href="/components/accordion"><code>Accordion</code></a> component:</p>
+<p>For example to use the <a href="/"><code>Accordion</code></a> component:</p>
 <Highlighter code={`
 <script lang="ts">
   import * as Accordion from "$lib/components/accordion/index.js";
@@ -63,7 +63,7 @@
 <p>The headless components are built from a few abstract primitives. By combining these primitives you can easily create your own headless components and extend the provided ones.</p>
 <p>These primitives take the form of mixins. What’s a mixin? It’s like a class decorator, but we don’t officially have decorators in js yet, so mixins do the job with no additional setup or preprocessing.</p>
 <p>So mixins are just functions taking a class and returning a decorated class with new attributes or new behavior. And since functions compose well together, they are nicely composable primitives.</p>
-<p>To use a mixin we just extend from its application on the base class, and to compose them we just compose the applications. For example, the <code>Togglable</code> mixin adds an <code>initTogglable</code> method taking the (initial) attributes to be toggled, whether this initial state is the active state, and the events toggling it. So the headless <code>ToggleButton</code> element could be implemented like this:</p>
+<p>To use a mixin we just extend from its application on the base class, and to compose them we just compose the applications. For example, the <code>Togglable</code> mixin adds an <code>initTogglable</code> method taking the (initial) attributes to be toggled, whether this initial state is the active state, and the events toggling it. So the headless <code>ToggleButton</code> class could be implemented like this:</p>
 <Highlighter code={`
 import { ChocoBase } from "$lib/headless/base.svelte.js";
 import { Togglable } from "$lib/mixins/togglable.svelte.js";
@@ -82,16 +82,17 @@ export class ToggleButton extends Togglable(ChocoBase) {
 }
 
 `} lang="ts"></Highlighter>
-<p>You see how we could very easily adapt this to create a headless switch component (by toggling <code>aria-checked</code>). Many things in a UI are togglable so this is a powerful abstraction. From there we can also build a disclosure component by toggling <code>aria-expanded</code>, a hoverable by toggling on <code>mouseenter</code> and off during <code>mouseleave</code>. See the corresponding mixins for more on these low level primitives.</p>
+<p>You see how we could very easily adapt this to create a headless switch component, by toggling <code>aria-checked</code> on click. Many things in a UI are togglable so this is a powerful abstraction. From there we can also build a disclosure component by toggling <code>aria-expanded</code>, a hoverable by toggling on <code>mouseenter</code> and off during <code>mouseleave</code>. See the corresponding mixins for more on these low level primitives.</p>
 <p>Also notice how readable and short the code is.</p>
 <hr>
 <h2>And more…</h2>
-<p>The library comes with a Vite plugin, which combined to some TypeScript choco spells will help you manage two-way bindings across boundaries in a type-safe way. More about this topic <a href="/guide/plugin">here</a></p>
+<p>The library comes with a Vite plugin, which combined to some TypeScript choco spells will help you manage two-way bindings across boundaries in a type-safe way. More about this topic <a href="/">here</a></p>
+<hr>
 <h2>Credits</h2>
 <p>This project draws inspiration from:</p>
 <ul>
-<li>Melt - <a href="https://melt-ui.com/">https://melt-ui.com/</a></li>
-<li>HeadlessUI - <a href="https://headlessui.com/">https://headlessui.com/</a></li>
+<li>Melt - <a href="https://melt-ui.com">https://melt-ui.com</a></li>
+<li>HeadlessUI - <a href="https://headlessui.com">https://headlessui.com</a></li>
 <li>ReactAria - <a href="https://react-spectrum.adobe.com/react-aria">https://react-spectrum.adobe.com/react-aria</a></li>
-<li>Skeleton - <a href="https://skeleton.dev/">https://skeleton.dev/</a></li>
+<li>Skeleton - <a href="https://skeleton.dev">https://skeleton.dev</a></li>
 </ul>
