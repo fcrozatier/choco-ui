@@ -8,8 +8,10 @@
 @theme {
   /* Colors */
   --color-dark: #1b120c;
+  --color-dark-muted: #342e2ac4;
   --color-light: #e2e0dd;
 
+  --color-sky: #7efbff;
   --color-choco-light: #f7c48b;
 
   --color-coral: #ef8354;
@@ -222,12 +224,12 @@ ul {
     @apply overflow-x-auto rounded py-2 px-8;
 
     &.dark-plus {
-      background-color: #342e2ac4 !important;
+      background-color: var(--color-dark-muted) !important;
     }
   }
 
   & :not(.shiki) > code {
-    @apply text-amaranth py-0.5 px-1 font-medium;
+    @apply text-sky bg-dark-muted rounded py-0.5 px-1 font-medium;
   }
 
   & a {
