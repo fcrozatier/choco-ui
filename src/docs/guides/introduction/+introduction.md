@@ -48,11 +48,11 @@ These primitives take the form of mixins. What's a mixin? It's like a class deco
 
 So mixins are just functions taking a class and returning a decorated class with new attributes or new behavior. And since functions compose well together, they are nicely composable primitives.
 
-To use a mixin we just extend from its application on the base class, and to compose them we just compose the applications. For example, the `Togglable` mixin adds an `initTogglable` method taking the (initial) attributes to be toggled, whether this initial state is the active state, and the events toggling it. So the headless `ToggleButton` element could be implemented like this:
+To use a mixin we just extend from its application on the base class, and to compose them we just compose the applications. For example, the `Togglable` mixin adds an `initTogglable` method taking the (initial) attributes to be toggled, whether this initial state is the active state, and the events toggling it. So the headless `ToggleButton` class could be implemented like this:
 
 <Highlighter code="mixin.svelte.ts" />
 
-You see how we could very easily adapt this to create a headless switch component (by toggling `aria-checked`). Many things in a UI are togglable so this is a powerful abstraction. From there we can also build a disclosure component by toggling `aria-expanded`, a hoverable by toggling on `mouseenter` and off during `mouseleave`. See the corresponding mixins for more on these low level primitives.
+You see how we could very easily adapt this to create a headless switch component, by toggling `aria-checked` on click. Many things in a UI are togglable so this is a powerful abstraction. From there we can also build a disclosure component by toggling `aria-expanded`, a hoverable by toggling on `mouseenter` and off during `mouseleave`. See the corresponding mixins for more on these low level primitives.
 
 Also notice how readable and short the code is.
 
