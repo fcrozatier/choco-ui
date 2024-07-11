@@ -1,6 +1,6 @@
 <script lang="ts">
   import { type ToggleProps } from "../toggle/index.js";
-  import Toggle from "../toggle/toggle.svelte.js";
+  import Toggle from "../toggle/toggle.svelte";
   import { getItemContext, getVariantContext } from "./index.js";
 
   let { children, variant, active = $bindable(false), ...restProps }: ToggleProps = $props();
