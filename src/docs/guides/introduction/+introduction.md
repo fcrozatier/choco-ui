@@ -69,6 +69,7 @@ The library comes with a Vite plugin, which combined to some TypeScript choco sp
 This project draws inspiration from:
 
 - Melt - [https://melt-ui.com](https://melt-ui.com)
+- shadcn-svelte - [https://www.shadcn-svelte.com](https://www.shadcn-svelte.com)
 - HeadlessUI - [https://headlessui.com](https://headlessui.com)
 - ReactAria - [https://react-spectrum.adobe.com/react-aria](https://react-spectrum.adobe.com/react-aria)
 - Skeleton - [https://skeleton.dev](https://skeleton.dev)
