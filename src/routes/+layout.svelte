@@ -12,14 +12,14 @@
         href: "/introduction",
         title: "Introduction",
       },
-      {
-        href: "/getting-started",
-        title: "Getting Started",
-      },
-      {
-        href: "/preprocessor",
-        title: "Preprocessor",
-      },
+      // {
+      //   href: "/getting-started",
+      //   title: "Getting Started",
+      // },
+      // {
+      //   href: "/preprocessor",
+      //   title: "Preprocessor",
+      // },
     ],
     mixins: [
       {
@@ -27,12 +27,12 @@
         title: "Togglable",
       },
     ],
-    components: [
-      {
-        href: "/toggle",
-        title: "Toggle",
-      },
-    ],
+    // components: [
+    //   {
+    //     href: "/toggle",
+    //     title: "Toggle",
+    //   },
+    // ],
   };
 </script>
 
