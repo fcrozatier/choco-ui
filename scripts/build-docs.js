@@ -31,7 +31,7 @@ function frontMatter(content) {
   </script>
   `;
 
-  return { meta: metaString, markdown: content.replace(matter, "") };
+  return { meta: metaString, code: content.replace(matter, "") };
 }
 
 /**
@@ -47,8 +47,6 @@ async function parseMarkdown(content) {
     .process(content);
   return processor.toString();
 }
-
-await rm("./docs", { recursive: true, force: true });
 
 /**
  * Recursively get all file paths under dir
@@ -70,19 +68,117 @@ function getFiles(dir, files = []) {
   return files;
 }
 
-const files = getFiles("./src/docs");
+const api =
+  /<API (?=.*file="(?<file>.*?)")(?=.*type="(?<type>.*?)")(?=(?:.*bindable={(?<bindable>true|false)})?)(?=(?:.*defaults={(?<defaults>true|false)})?).*\/>/;
+
+const bindableOptions = /type BindableOptions = (?<bindable>.*);/;
+const defaultsRegex = /const defaults = (?<defaults>{.*?})( satisfies.*)?;/s;
+const isOptional = /\?$/;
+
+const apiHeader = `
+|Prop|Default|Type|Description|
+|----|-------|----|-----------|
+`;
+
+/**
+ *
+ * @param {string} md
+ * @param {string} path
+ */
+function preprocessMarkdown(md, path) {
+  const match = md.match(api);
+  if (match) {
+    const { type, bindable, defaults } = match.groups;
+
+    const file = readFileSync(dirname(path).replace("docs", "lib") + ".svelte.ts", {
+      encoding: "utf-8",
+    });
+
+    let bindableKeys = /** @type {string[]} */ ([]);
+    let defaultValues = {};
+    let types =
+      /** @type {{key: string; type: string; optional: boolean; default: string; description: string }[]} */ ([]);
+
+    if (bindable === "true") {
+      const bindableMatch = file.match(bindableOptions);
+      if (!bindableMatch) throw new Error("Cannot find BindableOptions type");
+
+      bindableKeys = bindableMatch.groups.bindable
+        .replace(/"/g, "")
+        .split("|")
+        .map((item) => item.trim());
+    }
+
+    if (defaults === "true") {
+      const defaultsMatch = file.match(defaultsRegex);
+
+      if (!defaultsMatch) throw new Error("Cannot find default values");
+
+      defaultValues = eval("const defaults = " + defaultsMatch.groups.defaults + "; defaults");
+    }
+
+    const typeRegex = new RegExp(`${type} = {(?<type>.*?)};`, "s");
+    const typeMatch = file.match(typeRegex);
+
+    if (!typeMatch) throw new Error("Couldn't find the types");
+
+    for (const item of typeMatch.groups.type.trim().split(";")) {
+      if (item === "") continue;
+
+      const lines = item
+        .trim()
+        .split("\n")
+        .map((line) => line.trim());
+
+      let description = "";
+      if (lines.length > 3) {
+        description = lines
+          .slice(1, -2)
+          .map((line) => line.replace(/^\*\s*/, ""))
+          .join("\n");
+      }
+
+      const [name, type] = lines
+        .at(-1)
+        .split(":")
+        .map((i) => i.trim());
+      const optional = isOptional.test(name);
+      const key = optional ? name.slice(0, -1) : name;
+
+      types.push({
+        key,
+        optional,
+        type,
+        bindable: bindableKeys.includes(key),
+        default: defaultValues[key] ?? "",
+        description,
+      });
+    }
+
+    const table =
+      apiHeader +
+      types.reduce(
+        (p, c) =>
+          p +
+          `|${c.key}|${JSON.stringify(c.default).replace("{", "$left-brace;").replace("}", "$right-brace;").replace('""', "-")}|${c.type.replace("|", "&#124;")}|${c.description}|\n`,
+        "",
+      );
+
+    md = md.replace(api, table);
+  }
+  return md;
+}
+
 const highlight = /<Highlighter code="(?<path>[^"]*)" *\/>/;
 
-for (const path of files.filter((file) => file.endsWith(".md"))) {
-  const dest = dirname(path).replace("src", ".") + ".svelte";
-  const content = readFileSync(path, { encoding: "utf-8" });
-
-  const { meta, markdown } = frontMatter(content);
-
-  const html = await parseMarkdown(markdown);
-
-  let svelte = html;
+/**
+ *
+ * @param {string} html
+ * @param {string} path
+ */
+function postprocessHTML(html, path) {
   let match;
+  let svelte = html;
 
   while ((match = highlight.exec(svelte))) {
     const codePath = join(dirname(path), match.groups.path);
@@ -102,6 +198,22 @@ for (const path of files.filter((file) => file.endsWith(".md"))) {
     );
   }
 
+  return svelte.replace(/\$left-brace;/g, "&lbrace;").replace(/\$right-brace;/g, "&rbrace;");
+}
+
+await rm("./docs", { recursive: true, force: true });
+
+const files = getFiles("./src/docs");
+
+for (const path of files.filter((file) => file.endsWith(".md"))) {
+  const dest = dirname(path).replace("src", ".") + ".svelte";
+  const content = readFileSync(path, { encoding: "utf-8" });
+
+  const { meta, code } = frontMatter(content);
+
+  const markdown = preprocessMarkdown(code, path);
+  const html = await parseMarkdown(markdown);
+  const svelte = postprocessHTML(html, path);
   const comment = `<!-- Generated file from ${path} -- do not modify -->`;
 
   mkdirSync(dirname(dest), { recursive: true });
