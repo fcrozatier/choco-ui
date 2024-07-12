@@ -33,4 +33,4 @@ These mixins are specialized `Togglable`:
 
 ## Options and API
 
-<!-- <API file="togglable.svelte.ts" type="TogglableOptions" bindable={true} defaults={true}/> -->
+<API file="togglable.svelte.ts" type="TogglableOptions" bindable={true} defaults={true}/>
