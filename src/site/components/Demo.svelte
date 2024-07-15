@@ -1,0 +1,17 @@
+<script lang="ts">
+  import * as TabsUI from "$lib/components/tabs/index.js";
+  import type { Component } from "svelte";
+  import Highlighter from "./Highlighter.svelte";
+
+  let { code, component }: { code: string; component: Component } = $props();
+</script>
+
+<TabsUI.Root value="result" focus={{ loop: true }} class="w-md">
+  <TabsUI.TabList aria-label="Update your code">
+    <TabsUI.Tab value="code">code</TabsUI.Tab>
+    <TabsUI.Tab value="result">result</TabsUI.Tab>
+  </TabsUI.TabList>
+
+  <TabsUI.Panel value="code"><Highlighter {code} lang="svelte"></Highlighter></TabsUI.Panel>
+  <TabsUI.Panel value="result"><svelte:component this={component} /></TabsUI.Panel>
+</TabsUI.Root>
