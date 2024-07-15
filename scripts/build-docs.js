@@ -170,6 +170,8 @@ function preprocessMarkdown(md, path) {
 }
 
 const highlight = /<Highlighter code="(?<path>[^"]*)" *\/>/;
+const demo = /<Demo file="(?<file>[^"]*)" *\/>/;
+const scriptTag = /<script (?!context=).*>/;
 
 /**
  *
@@ -197,8 +199,31 @@ function postprocessHTML(html, path) {
       `<Highlighter code={\`\n${code}\n\`} lang="${lang}"></Highlighter>`,
     );
   }
+  match = null;
 
-  return svelte.replace(/\$left-brace;/g, "&lbrace;").replace(/\$right-brace;/g, "&rbrace;");
+  while ((match = demo.exec(svelte))) {
+    const importPath = join(dirname(path), match.groups.file);
+    const importName = match.groups.file.split(".")[0];
+    const importString = `import ${importName} from "${importPath}";\n`;
+    const scriptTagIndex = svelte.match(scriptTag).index;
+
+    if (scriptTagIndex === undefined) throw new Error("Missing script tag");
+    const index = svelte.indexOf(">", scriptTagIndex) + 1;
+
+    const code = readFileSync(importPath, {
+      encoding: "utf-8",
+    })
+      .replace(/`/g, "\\`")
+      .replace(/\$\{/g, "\\${");
+
+    svelte = svelte.slice(0, index) + "\n" + importString + svelte.slice(index);
+    svelte = svelte.replace(demo, `<Demo code={\`\n${code}\n\`} component={${importName}}></Demo>`);
+  }
+
+  return svelte
+    .replace(/src\/docs/g, "$docs")
+    .replace(/\$left-brace;/g, "&lbrace;")
+    .replace(/\$right-brace;/g, "&rbrace;");
 }
 
 await rm("./docs", { recursive: true, force: true });
