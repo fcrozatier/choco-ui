@@ -233,7 +233,7 @@ ul {
   }
 
   & a,
-  a * {
+  a code {
     @apply text-coral rounded-sm underline underline-offset-4;
   }
 
