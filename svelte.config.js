@@ -16,6 +16,7 @@ const config = {
     }),
     alias: {
       "$components/*": "./src/site/components/*",
+      "$docs/*": "./src/docs/*",
     },
   },
 };
