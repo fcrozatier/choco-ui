@@ -4,6 +4,7 @@ title: Introduction
 
 <script lang="ts">
 	import Highlighter from "$components/Highlighter.svelte";
+	import Demo from "$components/Demo.svelte";
 </script>
 
 # Introduction
@@ -20,7 +21,7 @@ The easiest way to get started. Just copy & paste the `/components` folder or im
 
 For example to use the [`Accordion`](/) component:
 
-<Highlighter code="styled.svelte" />
+<Demo file="styled.svelte" />
 
 Feel free to open the component files and modify the styles to suit your design. If you want to tweak the logic in a reusable way then have a look at the corresponding headless component.
 
