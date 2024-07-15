@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  import { type bundledLanguages, type BundledTheme, createHighlighter } from "shiki";
+  import { type BundledTheme, createHighlighter } from "shiki";
 
   const theme: BundledTheme = "dark-plus";
 
@@ -10,7 +10,7 @@
 </script>
 
 <script lang="ts">
-  let { code, lang = "svelte" }: { code: string; lang: keyof typeof bundledLanguages } = $props();
+  let { code, lang = "svelte" }: { code: string; lang: "svelte" | "ts" | "shell" } = $props();
 </script>
 
 {@html highlighter.codeToHtml(code, { lang, theme })}
