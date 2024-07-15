@@ -229,7 +229,7 @@ ul {
   }
 
   & :not(.shiki) > code {
-    @apply text-sky bg-dark-muted rounded py-0.5 px-1 font-medium;
+    @apply text-sky bg-dark-muted rounded py-0.5 px-1 font-semibold;
   }
 
   & a {
@@ -237,7 +237,7 @@ ul {
   }
 
   & :not(.shiki) > a > code {
-    @apply text-coral font-bold;
+    @apply text-coral;
   }
 
   & figcaption {
