@@ -11,7 +11,7 @@
   --color-dark-muted: #342e2ac4;
   --color-light: #e2e0dd;
 
-  --color-sky: #7efbff;
+  --color-sky: #7ce1e5;
   --color-choco-light: #f7c48b;
 
   --color-coral: #ef8354;
@@ -229,7 +229,7 @@ ul {
   }
 
   & :where(:not(.shiki)) > code {
-    @apply text-sky bg-dark-muted rounded py-0.5 px-1 font-semibold;
+    @apply text-sky bg-dark-muted rounded py-0.5 px-1;
   }
 
   & a,
