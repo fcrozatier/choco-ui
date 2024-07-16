@@ -2,7 +2,7 @@
   import * as Accordion from "$lib/components/accordion/index.js";
 </script>
 
-<Accordion.Root>
+<Accordion.Root class="mx-auto max-w-md">
   <Accordion.Item value="item-1">
     {#snippet header()}
       Is it accessible?
