@@ -221,7 +221,7 @@ ul {
   }
 
   & .shiki {
-    @apply overflow-x-auto rounded py-2 px-8;
+    @apply overflow-x-auto rounded py-6 px-8;
 
     &.dark-plus {
       background-color: var(--color-dark-muted) !important;

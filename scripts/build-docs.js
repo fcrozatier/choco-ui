@@ -192,11 +192,12 @@ function postprocessHTML(html, path) {
 
     const lang = codePath.split(".").at(-1);
 
-    if (!["svelte", "ts"].includes(lang)) throw new Error("Unrecognized code snippet language");
+    if (!["svelte", "ts", "js", "sh"].includes(lang))
+      throw new Error("Unrecognized code snippet language");
 
     svelte = svelte.replace(
       highlight,
-      `<Highlighter code={\`\n${code}\n\`} lang="${lang}"></Highlighter>`,
+      `<Highlighter code={\`${code}\`} lang="${lang}"></Highlighter>`,
     );
   }
   match = null;
