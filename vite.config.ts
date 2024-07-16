@@ -2,11 +2,25 @@ import { autoBind } from "#plugin";
 import { sveltekit } from "@sveltejs/kit/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { svelteTesting } from "@testing-library/svelte/vite";
+import { spawn } from "node:child_process";
 import path from "node:path";
+import { type Plugin } from "vite";
 import { defineConfig } from "vitest/config";
 
+const watchDocs = {
+  name: "watch-and-build-docs",
+  configureServer(server) {
+    server.watcher.on("change", (p) => {
+      const isDocsPath = !path.relative("src/docs", p).startsWith("..");
+      if (isDocsPath) {
+        spawn("pnpm", ["build:docs"]);
+      }
+    });
+  },
+} satisfies Plugin;
+
 export default defineConfig({
-  plugins: [/**Inspect()*/ autoBind(), sveltekit(), tailwindcss(), svelteTesting()],
+  plugins: [/**Inspect()*/ autoBind(), sveltekit(), tailwindcss(), svelteTesting(), watchDocs],
 
   build: {
     target: "es2022",
