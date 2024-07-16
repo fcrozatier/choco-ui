@@ -5,12 +5,12 @@
 
   export const highlighter = await createHighlighter({
     themes: [theme],
-    langs: ["svelte", "ts", "shell"],
+    langs: ["svelte", "ts", "sh"],
   });
 </script>
 
 <script lang="ts">
-  let { code, lang = "svelte" }: { code: string; lang: "svelte" | "ts" | "shell" } = $props();
+  let { code, lang = "svelte" }: { code: string; lang: "svelte" | "ts" | "sh" } = $props();
 </script>
 
 {@html highlighter.codeToHtml(code, { lang, theme })}
