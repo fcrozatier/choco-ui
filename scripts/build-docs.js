@@ -239,7 +239,7 @@ for (const path of files.filter((file) => file.endsWith(".md"))) {
   const markdown = preprocessMarkdown(code, path);
   const html = await parseMarkdown(markdown);
   const svelte = postprocessHTML(html, path);
-  const comment = `<!-- Generated file from ${path} -- do not modify -->`;
+  const comment = `<!-- Generated from ${path} -->`;
 
   mkdirSync(dirname(dest), { recursive: true });
   writeFileSync(dest, comment + meta + svelte, { encoding: "utf-8" });
