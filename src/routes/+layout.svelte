@@ -12,14 +12,18 @@
         href: "/introduction",
         title: "Introduction",
       },
-      // {
-      //   href: "/getting-started",
-      //   title: "Getting Started",
-      // },
-      // {
-      //   href: "/preprocessor",
-      //   title: "Preprocessor",
-      // },
+      {
+        href: "/getting-started",
+        title: "Getting Started",
+      },
+      {
+        href: "/preprocessor",
+        title: "Preprocessor",
+      },
+      {
+        href: "/plugin",
+        title: "Plugin",
+      },
     ],
     mixins: [
       {
