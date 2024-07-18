@@ -169,7 +169,7 @@ function preprocessMarkdown(md, path) {
   return md;
 }
 
-const highlight = /<Highlighter code="(?<path>[^"]*)" *\/>/;
+const highlight = /<Highlighter file="(?<path>[^"]*)" *\/>/;
 const demo = /<Demo file="(?<file>[^"]*)" *\/>/;
 const scriptTag = /<script (?!context=).*>/;
 
