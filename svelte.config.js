@@ -7,6 +7,12 @@ import choco from "./preprocessor/index.js";
 export default {
   preprocess: [choco(), vitePreprocess(), targetBlank({ logLevel: "warn", quietList: "/**/*.md" })],
 
+  compilerOptions: {
+    warningFilter: (warning) => {
+      if (warning.code === "state_referenced_locally") return false;
+    },
+  },
+
   kit: {
     adapter: adapter({
       pages: "build",
