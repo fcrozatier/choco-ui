@@ -35,7 +35,7 @@ When you instanciate a headless component you can use it with the `choco` action
 
 Here's an example using the headless `ToggleButton` class to create an unstyled toggle button:
 
-<Highlighter code="headless.svelte" />
+<Highlighter file="./headless.svelte" />
 
 In the above example there is no clash between the toggle's inner `click` event listener and the one declared on the button. The `ChocoBase` class and all headless components pass their behavior through an action, avoiding clashes with other declarative listeners.
 
@@ -51,7 +51,7 @@ So mixins are just functions taking a class and returning a decorated class with
 
 To use a mixin we just extend from its application on the base class, and to compose them we just compose the applications. For example, the `Togglable` mixin adds an `initTogglable` method taking the (initial) attributes to be toggled, whether this initial state is the active state, and the events toggling it. So the headless `ToggleButton` class could be implemented like this:
 
-<Highlighter code="mixin.svelte.ts" />
+<Highlighter file="./mixin.svelte.ts" />
 
 You see how we could very easily adapt this to create a headless switch component, by toggling `aria-checked` on click. Many things in a UI are togglable so this is a powerful abstraction. From there we can also build a disclosure component by toggling `aria-expanded`, a hoverable by toggling on `mouseenter` and off during `mouseleave`. See the corresponding mixins for more on these low level primitives.
 

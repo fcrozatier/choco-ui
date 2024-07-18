@@ -16,7 +16,7 @@ The `Togglable` mixin gives classes the ability to toggle a set of properties on
 
 Let's say we want to implement improved clickable elements, by toggling a `data-active` attribute on when the element is clicked, and off as soon as either the click is released or the pointer leaves the target element. We could implement such a mixin as follows:
 
-<Highlighter code="example.svelte.ts" />
+<Highlighter file="./example.svelte.ts" />
 
 It decorates a given `superclass` by applying the `Togglable` mixin, and configures it in the `constructor` by calling it's initializing function.
 
