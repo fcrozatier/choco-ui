@@ -114,9 +114,6 @@ importers:
       tailwindcss:
         specifier: 4.0.0-alpha.16
         version: 4.0.0-alpha.16
-      tslib:
-        specifier: ^2.6.3
-        version: 2.6.3
       typescript:
         specifier: ^5.5.3
         version: 5.5.3
