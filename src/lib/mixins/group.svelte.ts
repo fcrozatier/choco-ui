@@ -4,7 +4,7 @@ import type { Constructor, Required } from "$lib/mixins/types.js";
 import type { Bind } from "$lib/plugin/bind.js";
 import { key } from "$lib/utils/keyboard.js";
 import { merge, modulo } from "@fcrozatier/ts-helpers";
-import { Map as RMap } from "svelte/reactivity";
+import { SvelteMap } from "svelte/reactivity";
 import { type ChocoBase } from "../headless/base.svelte.js";
 
 export type GroupOptions = {
@@ -63,7 +63,7 @@ export const Group = <
   superclass: T,
 ) => {
   return class {
-    #itemsMap: Map<HTMLElement, InstanceType<T>> = new RMap();
+    #itemsMap = new SvelteMap<HTMLElement, InstanceType<T>>();
 
     options: Required<GroupOptions, "active"> = $state(defaults);
     items: InstanceType<T>[] = $state([]);
