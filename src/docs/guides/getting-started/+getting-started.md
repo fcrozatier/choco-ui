@@ -20,7 +20,7 @@ title: Getting Started
 
 The preprocessor expands the `use:choco` shorthand syntax. [Learn more](/guides/preprocessor)
 
-3. Then add the vite plugin to your `vite.config.ts`:
+3. Then add the Vite plugin to your `vite.config.ts`:
 
 <Highlighter code="plugin.ts" />
 
