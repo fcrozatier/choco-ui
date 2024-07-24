@@ -4,7 +4,6 @@ title: Getting Started
 
 <script lang="ts">
   import Highlighter from "$components/Highlighter.svelte";
-  import Demo from "$components/Demo.svelte";
 </script>
 
 # Getting Started
