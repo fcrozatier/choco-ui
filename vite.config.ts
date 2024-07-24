@@ -13,14 +13,16 @@ const watchDocs = {
     server.watcher.on("change", (p) => {
       const isDocsPath = !path.relative("src/docs", p).startsWith("..");
       if (isDocsPath) {
-        spawn("pnpm", ["build:docs"]);
+        spawn("pnpm", ["build:docs"]).on("error", (e) => {
+          console.log("error in spawned process", e);
+        });
       }
     });
   },
 } satisfies Plugin;
 
 export default defineConfig({
-  plugins: [/**Inspect()*/ autoBind(), sveltekit(), tailwindcss(), svelteTesting(), watchDocs],
+  plugins: [autoBind(), sveltekit(), tailwindcss(), svelteTesting(), watchDocs],
 
   build: {
     target: "es2022",
