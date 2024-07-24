@@ -73,6 +73,11 @@ const toggle = new ToggleButton({ get active() { return active; }, set active(v)
 </script>
 		hello`,
   ],
+  [
+    "leaves Highlighter component",
+    `<Highlighter code={\`<script lang='ts'>f(bind({ active }, ['active']))</script>\`} lang="svelte"></Highlighter>`,
+    undefined,
+  ],
 ])("expand bind with %s", async (_desc, before, after) => {
   expect(expandMacro({ content: before, filename: "file.svelte" })?.code).toEqual(after);
 });

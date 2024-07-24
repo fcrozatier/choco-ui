@@ -1,8 +1,8 @@
 import type { Plugin } from "vite";
 import { expand } from "./transformer.js";
 
-const script = /<script.*>((.|\r?\n)*)<\/script>/;
-const svelte = /\.svelte$/;
+const script = /^<script (?!context).*>((.|\r?\n)*)<\/script>/;
+const svelteExt = /\.svelte$/;
 const svelteModule = /\.svelte(\.ts)?$/;
 const callsBind = /(^|[^.\w])bind\(/;
 
@@ -10,11 +10,13 @@ export const expandMacro = ({ filename, content }: { filename: string; content: 
   let scriptTag: string | undefined;
   let source = content;
 
-  if (svelte.test(filename)) {
+  if (svelteExt.test(filename)) {
     scriptTag = content.match(script)?.[1];
     if (!scriptTag) return null;
 
     source = scriptTag;
+
+    if (!callsBind.test(source)) return null;
   }
 
   const code = expand({ filename, content: source });
