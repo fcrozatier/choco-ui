@@ -1,5 +1,6 @@
 import { expect, test } from "vitest";
-import { expandMacro } from "./plugin.js";
+import { expandSvelteFile } from "./plugin.js";
+import { expand } from "./transformer.js";
 
 // TS files
 test.each([
@@ -31,12 +32,10 @@ test.each([
     'f({ get open() { return open; }, get active() { return active; }, set active(v) { active = v; }, get "aria-current"() { return current; } });',
   ],
 ])("expand bind with %s", async (_desc, before, after) => {
-  const expanded = expandMacro({
+  const expanded = expand({
     content: before,
     filename: "file.svelte.ts",
-  })?.code;
-
-  if (!expanded) throw new Error("no expanded code");
+  });
 
   expect(expanded.trim()).toEqual(after);
 });
@@ -75,9 +74,10 @@ const toggle = new ToggleButton({ get active() { return active; }, set active(v)
   ],
   [
     "leaves Highlighter component",
-    `<Highlighter code={\`<script lang='ts'>f(bind({ active }, ['active']))</script>\`} lang="svelte"></Highlighter>`,
-    undefined,
+    `<script>import Highlighter from 'path'</script>
+    <Highlighter code={\`<script lang='ts'>f(bind({ active }, ['active']))</script>\`} lang="svelte"></Highlighter>`,
+    null,
   ],
 ])("expand bind with %s", async (_desc, before, after) => {
-  expect(expandMacro({ content: before, filename: "file.svelte" })?.code).toEqual(after);
+  expect(expandSvelteFile({ content: before, filename: "file.svelte" })).toEqual(after);
 });
