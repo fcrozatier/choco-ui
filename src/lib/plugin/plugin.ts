@@ -22,14 +22,12 @@ export const autoBind = () => {
     transform(content, id) {
       if (svelteModule.test(id)) {
         if (!callsBind.test(content)) return null;
-
         const code = expand({ filename: id, content });
         return { code };
       }
 
       if (svelteFile.test(id)) {
         if (!content.match(script)?.groups?.script?.match(callsBind)) return null;
-
         const code = expandSvelteFile({ filename: id, content });
         if (code) return { code };
       }
