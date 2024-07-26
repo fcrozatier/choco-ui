@@ -206,7 +206,7 @@ function postprocessHTML(html, path) {
 
   while ((match = demo.exec(svelte))) {
     const importPath = join(dirname(path), match.groups.file);
-    const importName = match.groups.file.split(".")[0];
+    const importName = match.groups.file.replace("./", "").split(".")[0];
     const importString = `import ${importName} from "${importPath}";\n`;
     const scriptTagIndex = svelte.match(scriptTag).index;
 
