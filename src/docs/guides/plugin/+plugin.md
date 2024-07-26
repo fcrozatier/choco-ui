@@ -15,7 +15,7 @@ Sometimes you want reactivity to cross boundaries and keep many pieces in sync. 
 
 But what about reactivity between functions or classes? A sensible solution is to pass around getters and setters. In this example, it allows to keep the checkbox and toggle in sync:
 
-<Demo file="getters.svelte" />
+<Demo file="./getters.svelte" />
 
 But:
 
@@ -27,4 +27,4 @@ But:
 
 Once you've installed the [Vite plugin](/guides/getting-started), you can use the `bind` function which solves all three problems. It is a type-safe shorthand, and takes two arguments: the attribues object, and an array of keys to keep in sync.
 
-<Highlighter file="./bind.svelte" />
+<Demo file="./bind.svelte" />
