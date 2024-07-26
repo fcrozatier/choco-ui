@@ -1,6 +1,7 @@
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
+import * as prettier from "prettier";
 import rehypeStringify from "rehype-stringify";
 import remarkGFM from "remark-gfm";
 import remarkParse from "remark-parse";
@@ -243,7 +244,10 @@ for (const path of files.filter((file) => file.endsWith(".md"))) {
   const html = await parseMarkdown(markdown);
   const svelte = postprocessHTML(html, path);
   const comment = `<!-- Generated from ${path} -->`;
+  const text = comment + meta + svelte;
+  const config = await prettier.resolveConfig(dest, { config: ".prettierrc", useCache: true });
+  const formatted = await prettier.format(text, config);
 
   mkdirSync(dirname(dest), { recursive: true });
-  writeFileSync(dest, comment + meta + svelte, { encoding: "utf-8" });
+  writeFileSync(dest, formatted, { encoding: "utf-8" });
 }
