@@ -1,29 +1,18 @@
 import type { Plugin } from "vite";
 import { expand } from "./transformer.js";
 
-const script = /^<script (?!context).*>((.|\r?\n)*)<\/script>/;
-const svelteExt = /\.svelte$/;
-const svelteModule = /\.svelte(\.ts)?$/;
+const script = /<script(?!context).*?>(?<script>(.|\r?\n)*?)<\/script>/;
+const svelteFile = /\.svelte$/;
+const svelteModule = /\.svelte\.ts$/;
 const callsBind = /(^|[^.\w])bind\(/;
 
-export const expandMacro = ({ filename, content }: { filename: string; content: string }) => {
-  let scriptTag: string | undefined;
-  let source = content;
+export const expandSvelteFile = ({ filename, content }: { filename: string; content: string }) => {
+  let scriptTag = content.match(script)?.groups?.script;
+  if (!scriptTag || !callsBind.test(scriptTag)) return null;
 
-  if (svelteExt.test(filename)) {
-    scriptTag = content.match(script)?.[1];
-    if (!scriptTag) return null;
+  const code = expand({ filename, content: scriptTag });
 
-    source = scriptTag;
-
-    if (!callsBind.test(source)) return null;
-  }
-
-  const code = expand({ filename, content: source });
-
-  if (!scriptTag) return { code };
-
-  return { code: content.replace(scriptTag, code) };
+  return content.replace(scriptTag, code);
 };
 
 export const autoBind = () => {
@@ -31,11 +20,18 @@ export const autoBind = () => {
     name: "vite-plugin-bind",
     enforce: "pre",
     transform(content, id) {
-      if (svelteModule.test(id) && callsBind.test(content)) {
-        return expandMacro({
-          filename: id,
-          content,
-        });
+      if (svelteModule.test(id)) {
+        if (!callsBind.test(content)) return null;
+
+        const code = expand({ filename: id, content });
+        return { code };
+      }
+
+      if (svelteFile.test(id)) {
+        if (!content.match(script)?.groups?.script?.match(callsBind)) return null;
+
+        const code = expandSvelteFile({ filename: id, content });
+        if (code) return { code };
       }
     },
   } satisfies Plugin;
