@@ -7,12 +7,12 @@ const svelteModule = /\.svelte\.ts$/;
 const callsBind = /(^|[^.\w])bind\(/;
 
 export const expandSvelteFile = ({ filename, content }: { filename: string; content: string }) => {
-  let scriptTag = content.match(script)?.groups?.script;
-  if (!scriptTag || !callsBind.test(scriptTag)) return null;
+  let scriptContent = content.match(script)?.groups?.script;
+  if (!scriptContent || !callsBind.test(scriptContent)) return null;
 
-  const code = expand({ filename, content: scriptTag });
+  const code = expand({ filename, content: scriptContent });
 
-  return content.replace(scriptTag, code);
+  return content.replace(scriptContent, code);
 };
 
 export const chocoBind = () => {

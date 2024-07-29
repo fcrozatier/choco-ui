@@ -1,2 +1,2 @@
 export * from "./bind.js";
-export * from "./plugin.js";
+export { chocoBind } from "./plugin.js";
