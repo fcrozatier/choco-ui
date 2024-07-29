@@ -1,4 +1,4 @@
-import { autoBind } from "#plugin";
+import { chocoBind } from "#plugin";
 import { sveltekit } from "@sveltejs/kit/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { svelteTesting } from "@testing-library/svelte/vite";
@@ -25,7 +25,7 @@ const watchDocs = {
 export default defineConfig({
   plugins: [
     Inspect({ build: true }),
-    autoBind(),
+    chocoBind(),
     sveltekit(),
     tailwindcss(),
     svelteTesting(),

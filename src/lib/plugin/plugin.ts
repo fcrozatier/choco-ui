@@ -15,9 +15,9 @@ export const expandSvelteFile = ({ filename, content }: { filename: string; cont
   return content.replace(scriptTag, code);
 };
 
-export const autoBind = () => {
+export const chocoBind = () => {
   return {
-    name: "vite-plugin-bind",
+    name: "vite-plugin-choco-bind",
     enforce: "pre",
     transform(content, id) {
       if (svelteModule.test(id)) {
