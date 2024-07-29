@@ -11,7 +11,7 @@
         active: checked, // This will be expanded into getters and setters
         value: "toggle",
       },
-      ["active"], // List reactive props to bind
+      ["active"], // List reactive props to bind, discoverable, type-safe
     ),
   );
 </script>
