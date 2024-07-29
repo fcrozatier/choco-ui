@@ -190,13 +190,7 @@ function postprocessHTML(html, path) {
     })
       .replace(/`/g, "\\`")
       .replace(/\$\{/g, "\\${")
-      .replace(/<\/script>/g, "<\\/script>")
-      .replace(
-        'import { bind } from "$lib/plugin/bind.js"',
-        'import { bind as b } from "$lib/plugin/bind.js"',
-      )
-      .replace(/[^.]bind\(/, "b(");
-
+      .replace(/<\/script>/g, "<\\/script>");
     const lang = codePath.split(".").at(-1);
 
     if (!["svelte", "ts", "js", "sh"].includes(lang))
@@ -223,13 +217,7 @@ function postprocessHTML(html, path) {
     })
       .replace(/`/g, "\\`")
       .replace(/\$\{/g, "\\${")
-      .replace(/<\/script>/g, "<\\/script>")
-      .replace(
-        'import { bind } from "$lib/plugin/bind.js"',
-        'import { bind as b } from "$lib/plugin/bind.js"',
-      )
-      .replace(/[^.]bind\(/, "b(");
-
+      .replace(/<\/script>/g, "<\\/script>");
     svelte = svelte.slice(0, index) + "\n" + importString + svelte.slice(index);
     svelte = svelte.replace(demo, `<Demo code={\`\n${code}\n\`} component={${importName}}></Demo>`);
   }
