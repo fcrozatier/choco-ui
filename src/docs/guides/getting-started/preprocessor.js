@@ -1,7 +1,7 @@
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
-import choco from "chocobytes/preprocessor";
+import { chocoPreprocess } from "chocobytes/preprocessor";
 
 export default {
-  preprocess: [choco(), vitePreprocess()],
+  preprocess: [chocoPreprocess(), vitePreprocess()],
   //... rest of your Svelte config
 };

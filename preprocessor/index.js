@@ -11,7 +11,7 @@ function walk(ast, args) {
   return estreeWalk(ast, args);
 }
 
-export default () => {
+export const chocoPreprocess = () => {
   return /** @satisfies {import("svelte/compiler").PreprocessorGroup} */ ({
     name: "Choco preprocessor",
     markup: ({ content, filename }) => {

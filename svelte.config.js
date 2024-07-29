@@ -1,11 +1,15 @@
 import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import targetBlank from "svelte-target-blank";
-import choco from "./preprocessor/index.js";
+import { chocoPreprocess } from "./preprocessor/index.js";
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
-  preprocess: [choco(), vitePreprocess(), targetBlank({ logLevel: "warn", quietList: "/**/*.md" })],
+  preprocess: [
+    chocoPreprocess(),
+    vitePreprocess(),
+    targetBlank({ logLevel: "warn", quietList: "/**/*.md" }),
+  ],
 
   compilerOptions: {
     warningFilter: (warning) => {

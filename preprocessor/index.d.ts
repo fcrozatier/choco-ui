@@ -20,10 +20,9 @@ export type WalkerArgs = {
   leave?: SyncHandler<TemplateNode>;
 };
 
-declare const _default: () => {
+export declare const chocoPreprocess: () => {
   name: string;
   markup: ({ content, filename }: { content: string; filename?: string | undefined }) => {
     code: string;
   };
 };
-export default _default;
