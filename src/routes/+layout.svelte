@@ -64,8 +64,6 @@
   </main>
 </div>
 
-<footer class="mt-auto">footer</footer>
-
 <style>
   .grid {
     display: grid;
