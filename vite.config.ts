@@ -5,7 +5,6 @@ import { svelteTesting } from "@testing-library/svelte/vite";
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { type Plugin } from "vite";
-import Inspect from "vite-plugin-inspect";
 import { defineConfig } from "vitest/config";
 
 const watchDocs = {
@@ -23,14 +22,7 @@ const watchDocs = {
 } satisfies Plugin;
 
 export default defineConfig({
-  plugins: [
-    Inspect({ build: true }),
-    chocoBind(),
-    sveltekit(),
-    tailwindcss(),
-    svelteTesting(),
-    watchDocs,
-  ],
+  plugins: [chocoBind(), sveltekit(), tailwindcss(), svelteTesting(), watchDocs],
 
   build: {
     target: "es2022",
