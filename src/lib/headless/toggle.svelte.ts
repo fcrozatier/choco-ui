@@ -12,7 +12,9 @@ export type ToggleOptions = {
   value?: string;
 };
 
-export type ConcreteToggleOptions = Bind<ToggleOptions, "active">;
+type BindableOptions = "active";
+
+export type ConcreteToggleOptions = Bind<ToggleOptions, BindableOptions>;
 
 const defaults = { active: false, value: "" } satisfies ToggleOptions;
 
@@ -23,12 +25,7 @@ const defaults = { active: false, value: "" } satisfies ToggleOptions;
  *
  * Semantics: pressed or not pressed
  *
- * The label should not change when the state changes
- *
- *
- * Refs:
- *
- * [WAI-ARIA Button Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/button/)
+ * Note: The label should not change when the state changes
  *
  */
 export class ToggleButton extends Togglable<HTMLButtonElement>(ChocoBase) {
