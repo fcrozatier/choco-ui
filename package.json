@@ -25,7 +25,11 @@
   ],
   "exports": {
     "./plugin": "./dist/plugin/index.js",
-    "./preprocessor": "./preprocessor/index.js"
+    "./preprocessor": "./preprocessor/index.js",
+    "./components/*": "./dist/components/*",
+    "./headless/*": "./dist/headless/*",
+    "./mixins/*": "./dist/mixins/*",
+    "./actions/*": "./dist/actions/*"
   },
   "imports": {
     "#plugin": "./dist/plugin/index.js"
