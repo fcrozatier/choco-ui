@@ -77,8 +77,8 @@ const defaultsRegex = /const defaults = (?<defaults>{.*?})( satisfies.*)?;/s;
 const isOptional = /\?$/;
 
 const apiHeader = `
-|Prop|Default|Type|Description|
-|----|-------|----|-----------|
+|Prop|Default|Type|Bindable|Description|
+|----|-------|----|--------|-----------|
 `;
 
 /**
@@ -91,14 +91,17 @@ function preprocessMarkdown(md, path) {
   if (match) {
     const { type, bindable, defaults } = match.groups;
 
-    const file = readFileSync(dirname(path).replace("docs", "lib") + ".svelte.ts", {
-      encoding: "utf-8",
-    });
+    const file = readFileSync(
+      dirname(path).replace("docs", "lib").replace("components", "headless") + ".svelte.ts",
+      {
+        encoding: "utf-8",
+      },
+    );
 
     let bindableKeys = /** @type {string[]} */ ([]);
     let defaultValues = {};
     let types =
-      /** @type {{key: string; type: string; optional: boolean; default: string; description: string }[]} */ ([]);
+      /** @type {{key: string; type: string; optional: boolean; default: string; bindable: boolean; description: string }[]} */ ([]);
 
     if (bindable === "true") {
       const bindableMatch = file.match(bindableOptions);
@@ -161,7 +164,7 @@ function preprocessMarkdown(md, path) {
       types.reduce(
         (p, c) =>
           p +
-          `|${c.key}|${JSON.stringify(c.default).replace("{", "$left-brace;").replace("}", "$right-brace;").replace('""', "-")}|${c.type.replace("|", "&#124;")}|${c.description}|\n`,
+          `|${c.key}|${JSON.stringify(c.default).replace("{", "$left-brace;").replace("}", "$right-brace;").replace('""', "-")}|${c.type.replace("|", "&#124;")}|${c.bindable}|${c.description}|\n`,
         "",
       );
 
