@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import Icon from "$components/Icon.svelte";
   import { keys } from "@fcrozatier/ts-helpers";
   import { type Snippet } from "svelte";
   import "../app.css";
@@ -46,8 +47,9 @@
 
 <div class="grid">
   <div class="">
-    <nav class="fixed mt-10 ml-10 w-64 space-y-10 p-4">
-      <h1 class="sr-only">Navigation</h1>
+    <nav
+      class="fixed top-0 bottom-0 flex h-full w-64 flex-col gap-10 overflow-auto p-4 pt-10 pb-8 pl-10"
+    >
       {#each keys(paths) as key}
         <section class="flex flex-col">
           <h2 class=" mb-2 font-semibold capitalize">{key}</h2>
@@ -61,6 +63,14 @@
           {/each}
         </section>
       {/each}
+      <footer class="mt-auto">
+        <a
+          href="https://github.com/fcrozatier/choco-ui"
+          class="fill-white opacity-50 hover:opacity-70"
+          target="_blank"
+          ><Icon name="github" width="2rem"></Icon> <span class="sr-only">GitHub</span>
+        </a>
+      </footer>
     </nav>
   </div>
   <main class="overflow-auto px-8 md:max-w-prose">
