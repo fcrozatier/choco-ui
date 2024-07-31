@@ -31,7 +31,7 @@ Feel free to open the component files and modify the styles to suit your design.
 
 Every UI component has a corresponding headless component built from sharable building blocs and logic, and containing the attributes and behavior.
 
-When you instanciate a headless component you can use it with the `choco` action. The preprocessor takes care of spreading the attributes and manages actions for you.
+When you instanciate a headless component you can use it with the `choco` action. The preprocessor takes care of spreading the attributes and managing actions for you.
 
 Here's an example using the headless `ToggleButton` class to create an unstyled toggle button:
 
@@ -61,7 +61,7 @@ Also notice how readable and short the code is.
 
 ## And more...
 
-The library comes with a Vite plugin, which combined to some TypeScript choco spells will help you manage two-way bindings across boundaries in a type-safe way. More about this topic [here](/)
+The library comes with a Vite plugin, which combined to some TypeScript choco spells will help you manage two-way bindings across boundaries in a type-safe way. More about this topic [here](/plugin)
 
 ---
 
