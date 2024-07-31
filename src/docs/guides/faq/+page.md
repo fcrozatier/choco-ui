@@ -33,3 +33,11 @@ This also means better SSR, because we know the element and it's attributes ahea
 No, the design is minimalist, with the goal of having a consistent and simple way of getting started and extending things.
 
 Less dependencies implies a smaller API surface, a smaller bundle and more developer happiness.
+
+---
+
+## Is it extendable?
+
+Yes, the UI components are built from the headless components, which are built using the mixins building blocs, and all three levels are part of the lib and documented.
+
+So you can reuse the mixins to build your own headless components and then implement your own custom UI component.

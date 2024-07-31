@@ -13,10 +13,6 @@
         title: "Introduction",
       },
       {
-        href: "/why",
-        title: "Why?",
-      },
-      {
         href: "/getting-started",
         title: "Getting Started",
       },
@@ -27,6 +23,10 @@
       {
         href: "/plugin",
         title: "Plugin",
+      },
+      {
+        href: "/faq",
+        title: "FAQ",
       },
     ],
     components: [
