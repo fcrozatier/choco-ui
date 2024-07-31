@@ -23,13 +23,13 @@ But:
 
 ## Solution
 
-Once you've [installed](/guides/getting-started) the Choco Vite plugin, you can use the `bind` function which solves all three problems above. It is a type-safe shorthand, and takes two arguments: the attribues object, and an array of keys to keep in sync.
+Once you've [setup](/guides/getting-started) the Choco Vite plugin, you can use the `bind` function which solves all three problems above. It is a type-safe shorthand, and takes two arguments: the attribues object, and an array of keys to keep in sync.
 
 <Demo file="./bind.svelte" />
 
-This way, you can easily discover bindable attributes of a headless component without leaving the code, and have a type-safety guarantee along with it.
+This way, you can easily discover bindable attributes of a headless component without leaving the code, and have type-safety along with it.
 
-Svelte doesn't know about the transform and in the above example would therefore give you a warning message: "State referenced in its own scope will never update".
+Since Svelte doesn't know about the plugin transform, the above example would therefore give you a warning message: "State referenced in its own scope will never update".
 
 This is a false positive and you can easily remove these messages by adding the following to your `svelte.config.js`:
 
