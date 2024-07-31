@@ -29,7 +29,7 @@ Feel free to open the component files and modify the styles to suit your design.
 
 ## Headless components
 
-Every UI component has a corresponding headless component containing only the sharable logic, attributes and behavior.
+Every UI component has a corresponding headless component built from sharable building blocs and logic, and containing the attributes and behavior.
 
 When you instanciate a headless component you can use it with the `choco` action. The preprocessor takes care of spreading the attributes and manages actions for you.
 
