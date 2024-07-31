@@ -13,6 +13,10 @@
         title: "Introduction",
       },
       {
+        href: "/why",
+        title: "Why?",
+      },
+      {
         href: "/getting-started",
         title: "Getting Started",
       },
