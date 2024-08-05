@@ -1,7 +1,7 @@
 import { expect, test } from "vitest";
-import preprocess from "./index";
+import { chocoPreprocess } from "./index";
 
-const { markup } = preprocess();
+const { markup } = chocoPreprocess();
 
 test.each([
   [
