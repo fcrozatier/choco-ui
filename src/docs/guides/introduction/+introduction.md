@@ -61,7 +61,7 @@ Also notice how readable and short the code is.
 
 ## And more...
 
-The library comes with a Vite plugin, which combined to some TypeScript choco spells will help you manage two-way bindings across boundaries in a type-safe way. More about this topic [here](/plugin)
+The library comes with a Vite plugin, which combined to some TypeScript choco spells will help you manage two-way bindings across boundaries in a type-safe way. More about this topic [here](/guides/plugin)
 
 ---
 
