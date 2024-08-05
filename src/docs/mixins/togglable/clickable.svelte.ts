@@ -4,12 +4,12 @@ import type { Constructor } from "$lib/mixins/types.js";
 
 export const Clickable = (superclass: Constructor<ChocoBase>) => {
   return class extends Togglable(superclass) {
-    constructor(options: { active: boolean }) {
+    constructor(options?: { active: boolean }) {
       super();
-
+      const active = options?.active ?? false;
       this.initTogglable({
-        initial: { "data-active": options.active },
-        active: options.active,
+        initial: { "data-active": active },
+        active,
         on: "pointerdown",
         off: ["pointerup", "pointerleave"],
       });
