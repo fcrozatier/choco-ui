@@ -1,5 +1,5 @@
 import { addListener } from "$lib/actions/addListener.js";
-import type { Bind } from "$lib/plugin/bind.js";
+import type { Bind } from "$plugin/bind.js";
 import { merge } from "@fcrozatier/ts-helpers";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../headless/base.svelte.js";

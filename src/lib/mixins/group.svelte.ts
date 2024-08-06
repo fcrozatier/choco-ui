@@ -1,8 +1,8 @@
 import { addListener } from "$lib/actions/addListener.js";
 import { type Toggler } from "$lib/mixins/togglable.svelte.js";
 import type { Constructor, Required } from "$lib/mixins/types.js";
-import type { Bind } from "$lib/plugin/bind.js";
 import { key } from "$lib/utils/keyboard.js";
+import type { Bind } from "$plugin/bind.js";
 import { merge, modulo } from "@fcrozatier/ts-helpers";
 import { SvelteMap } from "svelte/reactivity";
 import { type ChocoBase } from "../headless/base.svelte.js";

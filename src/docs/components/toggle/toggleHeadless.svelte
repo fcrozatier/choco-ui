@@ -1,7 +1,7 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
   import { ToggleButton } from "$lib/headless/toggle.svelte";
-  import { bind } from "$lib/plugin/bind.js";
+  import { bind } from "$plugin/bind.js";
 
   let active = $state(true);
 

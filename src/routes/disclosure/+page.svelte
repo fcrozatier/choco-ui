@@ -2,7 +2,7 @@
   import { choco } from "$lib/actions/choco.js";
   import { DisclosureUI } from "$lib/components/disclosure/index.js";
   import { Disclosure } from "$lib/headless/disclosure.svelte";
-  import { bind } from "$lib/plugin/bind.js";
+  import { bind } from "$plugin/bind.js";
 
   let active = $state(false);
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
   import { Disclosure, type DisclosureOptions } from "$lib/headless/disclosure.svelte";
-  import { bind } from "$lib/plugin/bind.js";
+  import { bind } from "$plugin/bind.js";
   import { cn } from "$lib/utils/styles.js";
   import { type Snippet } from "svelte";
   import type { HTMLButtonAttributes } from "svelte/elements";

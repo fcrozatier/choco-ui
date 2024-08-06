@@ -1,6 +1,6 @@
 import { Hoverable } from "$lib/mixins/hoverable.svelte.js";
 import type { Required } from "$lib/mixins/types.js";
-import { bind, type Bind } from "$lib/plugin/bind.js";
+import { bind, type Bind } from "$plugin/bind.js";
 import { role } from "$lib/utils/roles.js";
 import { merge, nanoId } from "@fcrozatier/ts-helpers";
 import { ChocoBase } from "./base.svelte.js";

@@ -2,7 +2,7 @@
   import { choco } from "$lib/actions/choco.js";
   import { Toggle } from "$lib/components/toggle/index.js";
   import { ToggleButton } from "$lib/headless/toggle.svelte";
-  import { bind } from "$lib/plugin/bind.js";
+  import { bind } from "$plugin/bind.js";
 
   let disabled = $state(false);
   let active = $state(true);
