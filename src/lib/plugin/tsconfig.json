@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    /* Modules */
+    "module": "NodeNext",
+    "resolveJsonModule": true,
+
+    /* JavaScript Support */
+    "checkJs": true,
+
+    /* Emit */
+    "declaration": true,
+    "sourceMap": false,
+    "outDir": ".",
+    "noEmitOnError": false,
+
+    /* Interop Constraints */
+    "verbatimModuleSyntax": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+
+    /* Completeness */
+    "skipLibCheck": true
+  },
+  "include": ["./*.ts", "./*.js"],
+  "exclude": []
+}
