@@ -55,7 +55,7 @@ async function parseMarkdown(content) {
  * @param {string[]} files
  * @returns
  */
-function getFiles(dir, files = []) {
+export function getFiles(dir, files = []) {
   let items = readdirSync(dir, { withFileTypes: true });
 
   for (const file of items) {
