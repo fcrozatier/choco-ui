@@ -6,8 +6,8 @@ import {
   type Point,
 } from "$lib/utils/geometry/index.js";
 import { key } from "$lib/utils/keyboard.js";
-import { bind } from "$plugin/bind.js";
 import { debounce, merge } from "@fcrozatier/ts-helpers";
+import { bind } from "chocobytes/plugin";
 import {
   Triggerable,
   type ConcreteTriggerableOptions,

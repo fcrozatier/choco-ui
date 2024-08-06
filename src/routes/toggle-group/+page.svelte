@@ -3,7 +3,7 @@
   import * as ToggleGroupUI from "$lib/components/toggle-group/index.js";
   import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
   import type { Orientation } from "$lib/mixins/types.js";
-  import { bind } from "$plugin/bind.js";
+  import { bind } from "chocobytes/plugin";
 
   let disabled: boolean | undefined = $state();
   let variant: "outline" | "default" = $state("default");

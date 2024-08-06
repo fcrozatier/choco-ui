@@ -1,7 +1,7 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
   import { Switch } from "$lib/headless/switch.svelte";
-  import { bind } from "$plugin/bind.js";
+  import { bind } from "chocobytes/plugin";
 
   let checked = $state(false);
 
