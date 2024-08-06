@@ -1,4 +1,4 @@
-import { chocoBind } from "#plugin";
+import { chocoBind } from "chocobytes/plugin";
 import { readFileSync, writeFileSync } from "node:fs";
 import { getFiles } from "./build-docs.js";
 
