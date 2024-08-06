@@ -1,7 +1,7 @@
-import { chocoBind } from "#plugin";
 import { sveltekit } from "@sveltejs/kit/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { svelteTesting } from "@testing-library/svelte/vite";
+import { chocoBind } from "chocobytes/plugin";
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { type Plugin } from "vite";
