@@ -8,7 +8,7 @@
     "build": "pnpm build:plugin && pnpm build:docs && vite build && pnpm package && pnpm build:dist",
     "build:dist": "node scripts/build-dist.js",
     "build:docs": "node scripts/build-docs.js",
-    "build:plugin": "tsc --project ./src/lib/plugin/tsconfig.json --outDir ./plugin",
+    "build:plugin": "tsc --project ./plugin/tsconfig.json",
     "preview": "vite preview",
     "package": "svelte-kit sync && svelte-package && pnpm build:dist && publint",
     "prepublishOnly": "pnpm package",
