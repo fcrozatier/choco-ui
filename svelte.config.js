@@ -28,7 +28,6 @@ export default {
 
     alias: {
       "$components/*": "./src/site/components/*",
-      "$plugin/*": "./plugin/*",
       "$docs/*": "./src/docs/*",
     },
 
