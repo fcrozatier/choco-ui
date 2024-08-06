@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
-    "build": "node scripts/build-docs.js && vite build && pnpm package",
+    "build": "pnpm build:docs && vite build && pnpm package && node scripts/build-dist.js",
     "build:docs": "node scripts/build-docs.js",
     "preview": "vite preview",
     "package": "svelte-kit sync && svelte-package && publint",
