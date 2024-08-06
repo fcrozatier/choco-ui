@@ -31,9 +31,5 @@ export default {
       "$plugin/*": "./plugin/*",
       "$docs/*": "./src/docs/*",
     },
-
-    prerender: {
-      handleHttpError: "warn",
-    },
   },
 };
