@@ -33,9 +33,6 @@
     "./mixins/*": "./dist/mixins/*",
     "./actions/*": "./dist/actions/*"
   },
-  "imports": {
-    "#plugin": "./plugin/index.js"
-  },
   "peerDependencies": {
     "svelte": "^5.0.0-next.1"
   },
