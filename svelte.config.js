@@ -25,10 +25,15 @@ export default {
       precompress: true,
       strict: true,
     }),
+
     alias: {
       "$components/*": "./src/site/components/*",
       "$plugin/*": "./plugin/*",
       "$docs/*": "./src/docs/*",
+    },
+
+    prerender: {
+      handleHttpError: "warn",
     },
   },
 };
