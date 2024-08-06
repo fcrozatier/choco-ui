@@ -3,7 +3,7 @@ import { expand } from "./transformer.js";
 
 const script = /<script(?!context).*?>(?<script>(.|\r?\n)*?)<\/script>/;
 const svelteFile = /\.svelte$/;
-const svelteModule = /\.svelte\.ts$/;
+const svelteModule = /\.svelte\.(js|ts)$/;
 const callsBind = /(^|[^.\w])bind\(/;
 
 export const expandSvelteFile = ({ filename, content }: { filename: string; content: string }) => {
