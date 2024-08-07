@@ -2,22 +2,23 @@
   import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
   import type { GroupOptions } from "$lib/mixins/group.svelte";
   import type { Orientation } from "$lib/mixins/types.js";
+  import { cn } from "$lib/utils/styles.js";
   import { type Snippet } from "svelte";
   import type { HTMLFieldsetAttributes } from "svelte/elements";
   import type { ToggleProps } from "../toggle/index.js";
-  import { setItemContext, setVariantContext, toggleGroupVariants } from "./index.js";
+  import { setItemContext, setVariantContext } from "./index.js";
 
   let {
     class: className,
     orientation = "horizontal",
-    variant,
+    variant = "default",
     focus,
     children,
     ...rest
   }: HTMLFieldsetAttributes & {
     focus?: GroupOptions;
     orientation?: Orientation;
-    variant?: ToggleProps["variant"];
+    variant: ToggleProps["variant"];
     children: Snippet;
   } = $props();
 
@@ -29,6 +30,13 @@
   setVariantContext(variant);
 </script>
 
-<fieldset class={toggleGroupVariants({ orientation, className })} {...rest}>
+<fieldset
+  class={cn([
+    "flex items-center justify-center gap-1",
+    { "flex-col": orientation === "vertical" },
+    className,
+  ])}
+  {...rest}
+>
   {@render children?.()}
 </fieldset>
