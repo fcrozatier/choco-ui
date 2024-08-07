@@ -8,8 +8,7 @@
   let {
     class: className,
     variant,
-    value,
-    active,
+    active = $bindable(false),
     children,
     ...restProps
   }: SwitchProps & { value: string; children: Snippet } = $props();
