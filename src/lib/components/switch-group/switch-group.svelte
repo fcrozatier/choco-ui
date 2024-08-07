@@ -22,7 +22,7 @@
     children: Snippet;
   } = $props();
 
-  const switchGroup = new SwitchGroup({ ...focus });
+  const switchGroup = new SwitchGroup({ ...focus, exclusive: true });
 
   export const selected = () => switchGroup.active;
 
