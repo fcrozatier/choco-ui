@@ -42,7 +42,7 @@
     "url": "git+https://github.com/fcrozatier/choco-ui.git"
   },
   "devDependencies": {
-    "@playwright/test": "^1.45.3",
+    "@playwright/test": "^1.46.0",
     "@shikijs/rehype": "^1.12.1",
     "@sveltejs/adapter-static": "^3.0.2",
     "@sveltejs/kit": "^2.5.20",
@@ -82,7 +82,6 @@
     "clsx": "^2.1.1",
     "estree-walker": "^3.0.3",
     "magic-string": "^0.30.11",
-    "tailwind-merge": "^2.4.0",
-    "tailwind-variants": "^0.2.1"
+    "tailwind-merge": "^2.4.0"
   }
 }
