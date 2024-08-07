@@ -31,6 +31,7 @@
       "h-9 px-2.5": size === "sm",
       "h-11 px-5": size === "lg",
     },
+    className,
   ])}
   {...restProps}
 >
