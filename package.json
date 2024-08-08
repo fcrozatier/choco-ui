@@ -25,6 +25,7 @@
     "preprocessor",
     "!dist/**/*.test.*",
     "!preprocessor/**/*.test.*",
+    "!plugin/**/*.ts",
     "!plugin/**/*.test.*"
   ],
   "exports": {
