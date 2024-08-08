@@ -1,6 +1,8 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
   import * as ToggleGroupUI from "$lib/components/toggle-group/index.js";
+  import ToggleGroupItem from "$lib/components/toggle-group/toggle-group-item.svelte";
+  import ToggleGroupRoot from "$lib/components/toggle-group/toggle-group.svelte";
   import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
   import type { Orientation } from "$lib/mixins/types.js";
   import { bind } from "chocobytes/plugin";
@@ -23,6 +25,7 @@
   toggleGroup2.createItem({ value: "U", active: true });
 
   let toggleUI: ToggleGroupUI.Root | undefined = $state();
+  let toggleUI2: ToggleGroupUI.Root | undefined = $state();
   const active = $derived(toggleUI?.active());
 </script>
 
@@ -81,8 +84,21 @@ checked
   </ToggleGroupUI.Root>
 {/key}
 
+<ToggleGroupRoot
+  bind:this={toggleUI2}
+  {orientation}
+  {variant}
+  {disabled}
+  focus={{ loop: true, roving: true }}
+>
+  <ToggleGroupItem value="B">B</ToggleGroupItem>
+  <ToggleGroupItem value="I" variant="outline">I</ToggleGroupItem>
+  <ToggleGroupItem value="U" active>U</ToggleGroupItem>
+</ToggleGroupRoot>
+
 active
-<pre>{active}</pre>
+<pre>1: {active}</pre>
+<pre>2: {toggleUI2?.active()}</pre>
 
 <fieldset>
   <legend>toggle group</legend>
