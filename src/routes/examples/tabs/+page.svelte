@@ -31,7 +31,7 @@
   <TabsUI.Root value="password" focus={{ loop: true }} class="w-md">
     <TabsUI.TabList aria-label="Update your account">
       <TabsUI.Tab value="account">Account</TabsUI.Tab>
-      <TabsUI.Tab value="password" active={true}>Password</TabsUI.Tab>
+      <TabsUI.Tab value="password">Password</TabsUI.Tab>
     </TabsUI.TabList>
 
     <TabsUI.Panel value="account">Make changes to your account <button>here</button>.</TabsUI.Panel>
@@ -40,9 +40,9 @@
 
   <button>after</button>
 
-  <TabsUI.Root value="account" focus={{ loop: true }} class="w-md">
+  <TabsUI.Root focus={{ loop: true }} class="w-md">
     <TabsUI.TabList aria-label="Update your account">
-      <TabsUI.Tab value="account" active={true}>Account</TabsUI.Tab>
+      <TabsUI.Tab value="account">Account</TabsUI.Tab>
       <TabsUI.Tab value="password">Password</TabsUI.Tab>
     </TabsUI.TabList>
 
