@@ -3,7 +3,6 @@ title: Toggle
 ---
 
 <script lang="ts">
-  import Highlighter from "$components/Highlighter.svelte";
   import Demo from "$components/Demo.svelte";
 </script>
 
@@ -11,7 +10,7 @@ title: Toggle
 
 As the name suggest, toggles a value
 
-<Demo file="./toggleComponent.svelte" />
+<Demo file="./toggleComponent.svelte" value="code" />
 
 
 ## Headless component
@@ -24,7 +23,7 @@ Note that for accessibility the label of the button should not change when the s
 
 The `active` prop is bindable.
 
-<Demo file="./toggleHeadless.svelte" />
+<Demo file="./toggleHeadless.svelte" value="code" />
 
 ### API
 
