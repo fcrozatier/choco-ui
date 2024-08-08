@@ -108,7 +108,7 @@ export const Group = <
         case key.ARROW_RIGHT:
         case key.ARROW_DOWN:
           newIndex = this.options.loop
-            ? (index + 1) % this.items.length
+            ? modulo(index + 1, this.items.length)
             : Math.min(this.items.length - 1, index + 1);
           break;
         case key.HOME:
