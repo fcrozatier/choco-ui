@@ -174,7 +174,7 @@ function preprocessMarkdown(md, path) {
 }
 
 const highlight = /<Highlighter file="(?<path>[^"]*)" *\/>/;
-const demo = /<Demo file="(?<file>[^"]*)" *\/>/;
+const demo = /<Demo (?<params>.*?) *\/>/;
 const scriptTag = /<script (?!context=).*>/;
 
 /**
@@ -207,22 +207,30 @@ function postprocessHTML(html, path) {
   match = null;
 
   while ((match = demo.exec(svelte))) {
-    const importPath = join(dirname(path), match.groups.file);
-    const importName = match.groups.file.replace("./", "").split(".")[0];
+    const { file, value } = Object.fromEntries(
+      match.groups.params
+        .replaceAll('"', "")
+        .split(" ")
+        .map((p) => p.split("=")),
+    );
+
+    const importPath = join(dirname(path), file);
+    const importName = file.replace("./", "").split(".")[0];
     const importString = `import ${importName} from "${importPath}";\n`;
     const scriptTagIndex = svelte.match(scriptTag).index;
 
     if (scriptTagIndex === undefined) throw new Error("Missing script tag");
     const index = svelte.indexOf(">", scriptTagIndex) + 1;
 
-    const code = readFileSync(importPath, {
-      encoding: "utf-8",
-    })
+    const code = readFileSync(importPath, { encoding: "utf-8" })
       .replace(/`/g, "\\`")
       .replace(/\$\{/g, "\\${")
       .replace(/<\/script>/g, "<\\/script>");
     svelte = svelte.slice(0, index) + "\n" + importString + svelte.slice(index);
-    svelte = svelte.replace(demo, `<Demo code={\`\n${code}\n\`} component={${importName}}></Demo>`);
+    svelte = svelte.replace(
+      demo,
+      `<Demo code={\`\n${code}\n\`} component={${importName}} value="${value ?? "result"}"></Demo>`,
+    );
   }
 
   return svelte
