@@ -13,7 +13,7 @@
     <TabsUI.Tab value="result">result</TabsUI.Tab>
   </TabsUI.TabList>
 
-  <TabsUI.Panel {value}>
+  <TabsUI.Panel value="code">
     <Highlighter {code} lang="svelte"></Highlighter>
   </TabsUI.Panel>
   <TabsUI.Panel class="bg-dark-muted mx-auto overflow-x-auto rounded p-10" value="result">
