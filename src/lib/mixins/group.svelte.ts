@@ -86,11 +86,7 @@ export const Group = <
       $effect(() => {
         // Update from options
         for (const item of this.items) {
-          if (this.options.active.includes(item.value)) {
-            item.on();
-          } else {
-            item.off();
-          }
+          this.options.active.includes(item.value) ? item.on() : item.off();
         }
       });
     }
