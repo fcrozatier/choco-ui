@@ -3,7 +3,7 @@
   import type { Component } from "svelte";
   import Highlighter from "./Highlighter.svelte";
 
-  let { code, component, value }: { code: string; component: Component; value: "code" | "result" } =
+  let { code, Component, value }: { code: string; Component: Component; value: "code" | "result" } =
     $props();
 </script>
 
@@ -17,6 +17,6 @@
     <Highlighter {code} lang="svelte"></Highlighter>
   </TabsUI.Panel>
   <TabsUI.Panel class="bg-dark-muted mx-auto overflow-x-auto rounded p-10" value="result">
-    <svelte:component this={component} />
+    <Component />
   </TabsUI.Panel>
 </TabsUI.Root>

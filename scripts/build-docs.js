@@ -229,7 +229,7 @@ function postprocessHTML(html, path) {
     svelte = svelte.slice(0, index) + "\n" + importString + svelte.slice(index);
     svelte = svelte.replace(
       demo,
-      `<Demo code={\`\n${code}\n\`} component={${importName}} value="${value ?? "result"}"></Demo>`,
+      `<Demo code={\`\n${code}\n\`} Component={${importName}} value="${value ?? "result"}"></Demo>`,
     );
   }
 
