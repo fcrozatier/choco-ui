@@ -35,6 +35,10 @@
         href: "/togglable",
         title: "Togglable",
       },
+      {
+        href: "/group",
+        title: "Group",
+      },
     ],
     components: [
       {
