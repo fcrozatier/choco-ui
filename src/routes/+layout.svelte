@@ -30,16 +30,16 @@
         title: "FAQ",
       },
     ],
-    components: [
-      {
-        href: "/toggle",
-        title: "Toggle",
-      },
-    ],
     mixins: [
       {
         href: "/togglable",
         title: "Togglable",
+      },
+    ],
+    components: [
+      {
+        href: "/toggle",
+        title: "Toggle",
       },
     ],
   };
