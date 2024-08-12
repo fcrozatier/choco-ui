@@ -46,9 +46,9 @@
   "devDependencies": {
     "@playwright/test": "^1.46.0",
     "@shikijs/rehype": "^1.12.1",
-    "@sveltejs/adapter-static": "^3.0.2",
-    "@sveltejs/kit": "^2.5.20",
-    "@sveltejs/package": "^2.3.2",
+    "@sveltejs/adapter-static": "^3.0.3",
+    "@sveltejs/kit": "^2.5.21",
+    "@sveltejs/package": "^2.3.3",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "@tailwindcss/vite": "4.0.0-alpha.18",
     "@testing-library/jest-dom": "^6.4.8",
@@ -60,7 +60,7 @@
     "mdsvex": "^0.11.2",
     "prettier": "^3.3.3",
     "prettier-plugin-svelte": "^3.2.6",
-    "prettier-plugin-tailwindcss": "^0.6.5",
+    "prettier-plugin-tailwindcss": "^0.6.6",
     "publint": "^0.2.9",
     "rehype-stringify": "^10.0.0",
     "rehype-target-plugin": "^1.0.1",
@@ -84,6 +84,6 @@
     "clsx": "^2.1.1",
     "estree-walker": "^3.0.3",
     "magic-string": "^0.30.11",
-    "tailwind-merge": "^2.4.0"
+    "tailwind-merge": "^2.5.1"
   }
 }
