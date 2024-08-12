@@ -10,7 +10,7 @@
 
 <p class="p-10">
   <button class="py-2 px-4" use:choco={btn}>Improved button</button>
-  <button class="active:bg-coral py-2 px-4 active:scale-95">Using :active button</button>
+  <button class="active:bg-coral py-2 px-4 active:scale-95">Standard button</button>
 </p>
 
 <style>
