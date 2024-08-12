@@ -69,7 +69,7 @@
     "remark-rehype": "^11.1.0",
     "remark-smartypants": "^3.0.2",
     "shiki": "^1.12.1",
-    "svelte": "5.0.0-next.210",
+    "svelte": "5.0.0-next.217",
     "svelte-check": "^3.8.5",
     "svelte-target-blank": "^1.0.0",
     "tailwindcss": "4.0.0-alpha.18",
