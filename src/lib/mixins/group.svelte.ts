@@ -10,7 +10,7 @@ import { type ChocoBase } from "../headless/base.svelte.js";
 export type GroupOptions = {
   loop?: boolean;
   /**
-   * With roving focus, only one item in the list is in the tab sequence. Arrows are used to focus another item of the collection
+   * With roving focus, only one item in the list is in the tab sequence at a given moment. Arrows are used to focus another item of the collection
    */
   roving?: boolean;
   /**
@@ -39,7 +39,8 @@ export type GroupOptions = {
     }
 );
 
-export type ConcreteGroupOptions = Bind<GroupOptions, "active">;
+type BindableOptions = "active";
+export type ConcreteGroupOptions = Bind<GroupOptions, BindableOptions>;
 
 const defaults = {
   active: [],
