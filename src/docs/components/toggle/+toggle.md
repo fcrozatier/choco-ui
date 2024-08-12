@@ -8,18 +8,16 @@ title: Toggle
 
 # Toggle
 
-As the name suggest, toggles a value
+A button which can be in either of two states, like "on" and "off", "pressed" and "not pressed".
 
-<Demo file="./toggleComponent.svelte" value="code" />
+<Demo file="./toggleComponent.svelte" value="result" />
 
 
 ## Headless component
 
-For complete control, you can use the headless component.
+The headless component is meant to be used on a button element when you need a "pressed" - "not pressed" semantic.
 
-It's meant to be used on a button element, when you need a "pressed" - "not pressed" semantics.
-
-Note that for accessibility the label of the button should not change when the state changes.
+For accessibility, the label of the button should not change when the state changes.
 
 The `active` prop is bindable.
 
