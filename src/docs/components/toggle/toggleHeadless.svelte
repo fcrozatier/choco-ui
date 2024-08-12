@@ -14,7 +14,7 @@
 </label>
 
 <p class="flex justify-center">
-  <button class="outline" use:choco={toggle}> toggle</button>
+  <button class="py-2 px-4 outline" use:choco={toggle}> toggle</button>
 </p>
 
 <output>{toggle.active ? "active" : "inactive"}</output>
