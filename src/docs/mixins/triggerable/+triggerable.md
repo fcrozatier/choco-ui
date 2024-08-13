@@ -1,0 +1,5 @@
+---
+title: Triggerable
+---
+
+# Triggerable
