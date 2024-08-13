@@ -1,7 +1,8 @@
 import { mergeActions } from "$lib/actions/combineActions.js";
-import { type ChocoBase } from "$lib/headless/base.svelte.js";
-import { ToggleBase } from "$lib/mixins/togglable.svelte.js";
+import { ChocoBase } from "$lib/headless/base.svelte.js";
+import { Togglable, ToggleBase } from "$lib/mixins/togglable.svelte.js";
 import type { Action } from "svelte/action";
+import { mix } from "./index.js";
 import type { Constructor } from "./types.js";
 
 /**
@@ -39,3 +40,25 @@ export const Cancellable = <
     }
   };
 };
+
+export const Cancellable2 = <
+  U extends HTMLElement = HTMLElement,
+  T extends Constructor<ChocoBase<U>> = Constructor<ChocoBase<U>>,
+>(
+  superclass: T,
+) => {
+  return class extends Togglable(superclass) {
+    constructor(...options: any[]) {
+      super(...options);
+
+      this.initTogglable({
+        initial: { "data-active": false },
+        active: false,
+        on: "pointerdown",
+        off: ["pointerup", "pointerleave"],
+      });
+    }
+  };
+};
+
+export const Canceller = mix(ChocoBase, Cancellable2, "cancellable");
