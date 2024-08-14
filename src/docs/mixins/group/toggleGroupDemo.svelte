@@ -20,10 +20,10 @@
 <p>
   Topping amount:
 
-  {#if group.active.length === 0}
+  {#if group.group.length === 0}
     none
   {:else}
-    {group.active[0]}
+    {group.group[0]}
   {/if}
 </p>
 

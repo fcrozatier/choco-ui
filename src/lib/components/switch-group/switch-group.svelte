@@ -9,7 +9,7 @@
     orientation = "horizontal",
     variant,
     focus,
-    active = $bindable([]),
+    group = $bindable([]),
     children,
     ...rest
   }: SwitchGroupProps = $props();
@@ -17,9 +17,9 @@
   const switchGroup = new SwitchGroup({
     ...focus,
     exclusive: true,
-    active: () => active,
-    setActive(v) {
-      active = v;
+    group: () => group,
+    setGroup(v) {
+      group = v;
     },
   });
 

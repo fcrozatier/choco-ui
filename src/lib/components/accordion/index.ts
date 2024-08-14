@@ -6,9 +6,9 @@ import Item from "./item.svelte";
 
 export type AccordionProps = OmitSupertype<
   AccordionOptions,
-  { focus?: { active?: string[] | (() => string[]); setActive?: (v: string[]) => void } }
+  { focus?: { group?: string[] | (() => string[]); setGroup?: (v: string[]) => void } }
 > & {
-  active?: string[];
+  group?: string[];
   class?: string;
   children: Snippet;
 };

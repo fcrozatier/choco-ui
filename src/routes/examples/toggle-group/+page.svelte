@@ -19,8 +19,8 @@
   let checked: string[] = $state(["B"]);
   const toggleGroup2 = new ToggleGroup({
     loop: true,
-    active: () => checked,
-    setActive(v) {
+    group: () => checked,
+    setGroup(v) {
       checked = v;
     },
   });
@@ -29,8 +29,8 @@
   toggleGroup2.createItem({ value: "I", active: false });
   toggleGroup2.createItem({ value: "U", active: true });
 
-  let active1 = $state([]);
-  let active2 = $state([]);
+  let group1 = $state([]);
+  let group2 = $state([]);
 </script>
 
 <section class="my-10">
@@ -47,7 +47,7 @@
 
   <p><button>after</button></p>
   <p>checked</p>
-  <pre>{toggleGroup.active}</pre>
+  <pre>{toggleGroup.group}</pre>
 </section>
 
 <label>
@@ -73,7 +73,7 @@
 
 {#key variant}
   <ToggleGroupUI.Root
-    bind:active={active1}
+    bind:group={group1}
     {orientation}
     {variant}
     {disabled}
@@ -86,7 +86,7 @@
 {/key}
 
 <ToggleGroupRoot
-  bind:active={active2}
+  bind:group={group2}
   {orientation}
   {variant}
   {disabled}
@@ -98,8 +98,8 @@
 </ToggleGroupRoot>
 
 active
-<pre>1: {active1}</pre>
-<pre>2: {active2}</pre>
+<pre>1: {group1}</pre>
+<pre>2: {group2}</pre>
 
 <section class="my-10">
   <fieldset>
@@ -132,7 +132,7 @@ active
   </fieldset>
 
   toggle
-  {toggleGroup2.active}
+  {toggleGroup2.group}
   <br />
   check
   {checked}

@@ -4,7 +4,7 @@
 
   let {
     class: className,
-    active = $bindable([]),
+    group = $bindable([]),
     orientation,
     value,
     focus,
@@ -16,9 +16,9 @@
     value,
     focus: {
       ...focus,
-      active: () => active,
-      setActive(v) {
-        active = v;
+      group: () => group,
+      setGroup(v) {
+        group = v;
       },
     },
   });

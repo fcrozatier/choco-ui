@@ -8,16 +8,16 @@
     orientation = "horizontal",
     variant = "default",
     focus,
-    active = $bindable([]),
+    group = $bindable([]),
     children,
     ...rest
   }: ToggleGroupProps = $props();
 
   const toggleGroup = new ToggleGroup({
     ...focus,
-    active: () => active,
-    setActive(v) {
-      active = v;
+    group: () => group,
+    setGroup(v) {
+      group = v;
     },
   });
 

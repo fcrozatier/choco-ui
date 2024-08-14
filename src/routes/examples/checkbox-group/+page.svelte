@@ -30,7 +30,7 @@
   </ul>
 </fieldset>
 
-{checkboxGroup.active}
+{checkboxGroup.group}
 {checkboxGroup.checked}
 
 <pre>{JSON.stringify(checkboxGroup.root?.checked, null, 2)}</pre>

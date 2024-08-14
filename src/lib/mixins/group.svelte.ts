@@ -28,13 +28,13 @@ export type GroupOptions = {
   /**
    * The list of active values
    */
-  active?: string[] | (() => string[]);
-  setActive?: (v: string[]) => void;
+  group?: string[] | (() => string[]);
+  setGroup?: (v: string[]) => void;
   onFocus?: <T extends HTMLElement>(from: T, to: T) => void;
 };
 
 const defaults = {
-  active: [],
+  group: [],
   loop: false,
   roving: false,
   preventInactivation: false,
@@ -58,14 +58,14 @@ export const Group = <
     Item: T;
     #itemsMap = new SvelteMap<HTMLElement, InstanceType<T>>();
 
-    options: Required<GroupOptions, "active"> = $state(defaults);
+    options: Required<GroupOptions, "group"> = $state(defaults);
     items: InstanceType<T>[] = $state([]);
 
     activeItems = $derived(this.items.filter((item) => item.active));
-    #active = $derived(getValue(this.options.active));
+    #group = $derived(getValue(this.options.group));
 
-    get active() {
-      return this.#active;
+    get group() {
+      return this.#group;
     }
 
     constructor(options?: GroupOptions) {
@@ -75,7 +75,7 @@ export const Group = <
       $effect(() => {
         // Update from options
         for (const item of this.items) {
-          getValue(this.options.active).includes(item.value) ? item.on() : item.off();
+          getValue(this.options.group).includes(item.value) ? item.on() : item.off();
         }
       });
     }
@@ -162,8 +162,8 @@ export const Group = <
 
           if (!this.value) throw new Error("All items in a group must have a value");
 
-          if (this.active && !getValue(options.active).includes(this.value)) {
-            getValue(options.active).push(this.value);
+          if (this.active && !getValue(options.group).includes(this.value)) {
+            getValue(options.group).push(this.value);
           }
 
           items.push(this as InstanceType<T>);
@@ -189,10 +189,10 @@ export const Group = <
             }
           }
 
-          if (typeof options.active === "function") {
-            options.setActive?.(items.filter((i) => i.active).map((i) => i.value));
+          if (typeof options.group === "function") {
+            options.setGroup?.(items.filter((i) => i.active).map((i) => i.value));
           } else {
-            options.active = items.filter((i) => i.active).map((i) => i.value);
+            options.group = items.filter((i) => i.active).map((i) => i.value);
           }
         }
       };

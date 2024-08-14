@@ -8,8 +8,8 @@ import Item from "./switch-group-item.svelte";
 import Root from "./switch-group.svelte";
 
 export type SwitchGroupProps = HTMLFieldsetAttributes & {
-  focus?: Omit<GroupOptions, "active" | "setActive">;
-  active: string[];
+  focus?: Omit<GroupOptions, "group" | "setGroup">;
+  group: string[];
   orientation?: Orientation;
   variant?: ToggleProps["variant"];
   children: Snippet;

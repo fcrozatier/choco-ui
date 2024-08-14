@@ -13,5 +13,5 @@
   group2.createItem({ value: "U", active: false });
 </script>
 
-<span data-testid="group1">{group1.active}</span>
-<span data-testid="group2">{group2.active}</span>
+<span data-testid="group1">{group1.group}</span>
+<span data-testid="group2">{group2.group}</span>

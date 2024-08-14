@@ -8,9 +8,9 @@ import Root from "./tabs.svelte";
 
 export type TabsProps = OmitSupertype<
   TabsOptions,
-  { focus?: { active?: string[] | (() => string[]); setActive?: (v: string[]) => void } }
+  { focus?: { group?: string[] | (() => string[]); setGroup?: (v: string[]) => void } }
 > & {
-  active?: string[];
+  group?: string[];
   class?: string;
   children: Snippet;
 };

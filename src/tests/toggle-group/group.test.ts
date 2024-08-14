@@ -207,7 +207,7 @@ describe("Toggle Group", () => {
     const { getByTestId, unmount } = render(GroupTest, {
       props: {
         focus: {
-          active: ["A"],
+          group: ["A"],
           exclusive: true,
           preventInactivation: true,
         },

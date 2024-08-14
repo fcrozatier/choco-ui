@@ -5,7 +5,7 @@
   let {
     class: className,
     focus,
-    active = $bindable([]),
+    group = $bindable([]),
     headingLevel,
     children,
   }: AccordionProps = $props();
@@ -13,9 +13,9 @@
   const accordion = new Accordion({
     focus: {
       ...focus,
-      active: () => active,
-      setActive(v) {
-        active = v;
+      group: () => group,
+      setGroup(v) {
+        group = v;
       },
     },
     headingLevel,

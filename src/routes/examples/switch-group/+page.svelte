@@ -8,15 +8,15 @@
   let variant: "outline" | "default" = $state("default");
   let orientation: Orientation = $state("horizontal");
 
-  const group = new SG({ exclusive: true });
+  const sGroup = new SG({ exclusive: true });
 
   const items = [
-    group.createItem({ value: "left" }),
-    group.createItem({ value: "center" }),
-    group.createItem({ value: "right" }),
+    sGroup.createItem({ value: "left" }),
+    sGroup.createItem({ value: "center" }),
+    sGroup.createItem({ value: "right" }),
   ];
 
-  let active: string[] = $state([]);
+  let group: string[] = $state([]);
 </script>
 
 <fieldset>
@@ -27,7 +27,7 @@
 </fieldset>
 
 selected
-<pre>{group.active}</pre>
+<pre>{sGroup.group}</pre>
 
 <label>
   disable
@@ -51,7 +51,7 @@ selected
 </label>
 
 {#key variant}
-  <SwitchGroup.Root {orientation} {variant} {disabled} bind:active>
+  <SwitchGroup.Root {orientation} {variant} {disabled} bind:group>
     <SwitchGroup.Item value="B" active>B</SwitchGroup.Item>
     <SwitchGroup.Item value="I" variant="outline">I</SwitchGroup.Item>
     <SwitchGroup.Item value="U">U</SwitchGroup.Item>
@@ -59,4 +59,4 @@ selected
 {/key}
 
 selected
-<pre>{active}</pre>
+<pre>{group}</pre>

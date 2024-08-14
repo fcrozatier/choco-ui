@@ -1,22 +1,16 @@
 <script lang="ts">
   import * as Accordion from "$lib/components/accordion/index.js";
 
-  let active = $state([]);
+  let group = $state([]);
 </script>
 
 <div class="my-10 flex gap-4">
-  <label class="inline-flex gap-2"
-    ><input type="checkbox" bind:group={active} value="item-1" />item-1</label
-  >
-  <label class="inline-flex gap-2"
-    ><input type="checkbox" bind:group={active} value="item-2" />item-2</label
-  >
-  <label class="inline-flex gap-2"
-    ><input type="checkbox" bind:group={active} value="item-3" />item-3</label
-  >
+  <label class="inline-flex gap-2"><input type="checkbox" bind:group value="item-1" />item-1</label>
+  <label class="inline-flex gap-2"><input type="checkbox" bind:group value="item-2" />item-2</label>
+  <label class="inline-flex gap-2"><input type="checkbox" bind:group value="item-3" />item-3</label>
 </div>
 
-<Accordion.Root class="max-w-xs" focus={{ exclusive: true, loop: true }} bind:active>
+<Accordion.Root class="max-w-xs" focus={{ exclusive: true, loop: true }} bind:group>
   <Accordion.Item value="item-1">
     {#snippet header()}
       Is it accessible?

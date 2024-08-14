@@ -99,7 +99,7 @@ export class CheckboxGroup extends Group(Checkbox) {
       this.root.setState(this.checked);
 
       if (this.checked === "mixed") {
-        this.#lastActive = $state.snapshot(this.active);
+        this.#lastActive = $state.snapshot(this.group);
       }
     });
   }

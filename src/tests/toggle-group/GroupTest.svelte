@@ -24,4 +24,4 @@
 
 <button data-testid="after">after</button>
 
-<span data-testid="active">{toggleGroup.active}</span>
+<span data-testid="active">{toggleGroup.group}</span>

@@ -9,8 +9,8 @@ import Item from "./toggle-group-item.svelte";
 import Root from "./toggle-group.svelte";
 
 export type ToggleGroupProps = HTMLFieldsetAttributes & {
-  focus?: Omit<GroupOptions, "active" | "setActive">;
-  active?: string[];
+  focus?: Omit<GroupOptions, "group" | "setGroup">;
+  group?: string[];
   orientation?: Orientation;
   variant?: ToggleProps["variant"];
   children: Snippet;
