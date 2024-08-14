@@ -1,30 +1,25 @@
 <script lang="ts">
   import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
-  import type { GroupOptions } from "$lib/mixins/group.svelte";
-  import type { Orientation } from "$lib/mixins/types.js";
   import { cn } from "$lib/utils/styles.js";
-  import { type Snippet } from "svelte";
-  import type { HTMLFieldsetAttributes } from "svelte/elements";
-  import type { ToggleProps } from "../toggle/index.js";
-  import { setItemContext, setVariantContext } from "./index.js";
+  import { setItemContext, setVariantContext, type ToggleGroupProps } from "./index.js";
 
   let {
     class: className,
     orientation = "horizontal",
     variant = "default",
     focus,
+    active = $bindable([]),
     children,
     ...rest
-  }: HTMLFieldsetAttributes & {
-    focus?: GroupOptions;
-    orientation?: Orientation;
-    variant: ToggleProps["variant"];
-    children: Snippet;
-  } = $props();
+  }: ToggleGroupProps = $props();
 
-  const toggleGroup = new ToggleGroup(focus);
-
-  export const active = () => toggleGroup.active;
+  const toggleGroup = new ToggleGroup({
+    ...focus,
+    active: () => active,
+    setActive(v) {
+      active = v;
+    },
+  });
 
   setItemContext(toggleGroup.createItem);
   setVariantContext(variant);

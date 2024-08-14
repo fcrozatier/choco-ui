@@ -3,9 +3,9 @@
   import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
   import type { GroupOptions } from "$lib/mixins/group.svelte";
 
-  let { options }: { options?: GroupOptions } = $props();
+  let { focus }: { focus?: GroupOptions } = $props();
 
-  const toggleGroup = new ToggleGroup(options);
+  const toggleGroup = new ToggleGroup(focus);
 
   toggleGroup.createItem({ value: "A" });
   toggleGroup.createItem({ value: "B" });

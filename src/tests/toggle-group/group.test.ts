@@ -5,15 +5,15 @@ import { describe, expect, it } from "vitest";
 import GroupBindTest from "./GroupBindTest.svelte";
 import GroupTest from "./GroupTest.svelte";
 
-it("GroupTest has no accessibility violations", async () => {
-  const { container, unmount } = render(GroupTest);
-  expect(await axe(container)).toHaveNoViolations();
-  unmount();
-});
+describe("Toggle Group", () => {
+  it("has no accessibility violations", async () => {
+    const { container, unmount } = render(GroupTest);
+    expect(await axe(container)).toHaveNoViolations();
+    unmount();
+  });
 
-describe("Group", () => {
   it("keyboard navigation with Arrows + loop:true", async () => {
-    const { getByTestId, unmount } = render(GroupTest, { props: { options: { loop: true } } });
+    const { getByTestId, unmount } = render(GroupTest, { props: { focus: { loop: true } } });
 
     const a = getByTestId("A");
     const b = getByTestId("B");
@@ -44,7 +44,7 @@ describe("Group", () => {
   });
 
   it("keyboard navigation with Arrows + loop:false", async () => {
-    const { getByTestId, unmount } = render(GroupTest, { props: { options: { loop: false } } });
+    const { getByTestId, unmount } = render(GroupTest, { props: { focus: { loop: false } } });
 
     const a = getByTestId("A");
     const b = getByTestId("B");
@@ -93,26 +93,26 @@ describe("Group", () => {
   });
 
   // Doesn't work in testing env
-  // it.only("with roving focus", async () => {
-  // 	const { getByTestId, unmount } = render(GroupTest, { props: { options: { roving: true } } });
+  it("with roving focus", async () => {
+    const { getByTestId, unmount } = render(GroupTest, { props: { focus: { roving: true } } });
 
-  // 	const before = getByTestId("before");
-  // 	const a = getByTestId("A");
-  // 	const b = getByTestId("B");
-  // 	const c = getByTestId("C");
-  // 	const after = getByTestId("after");
+    const before = getByTestId("before");
+    const a = getByTestId("A");
+    const b = getByTestId("B");
+    const c = getByTestId("C");
+    const after = getByTestId("after");
 
-  // 	before.focus();
-  // 	expect(document.activeElement).toBe(before);
+    before.focus();
+    expect(document.activeElement).toBe(before);
 
-  // 	await userEvent.tab();
-  // 	expect(document.activeElement).toBe(a);
+    await userEvent.tab();
+    expect(document.activeElement).toBe(a);
 
-  // 	await userEvent.tab();
-  // 	expect(document.activeElement).toBe(after);
+    // await userEvent.tab();
+    // expect(document.activeElement).toBe(after);
 
-  // 	unmount();
-  // });
+    unmount();
+  });
 
   it("active / inactive elements", async () => {
     const { getByTestId, unmount } = render(GroupTest);
@@ -138,7 +138,7 @@ describe("Group", () => {
   });
 
   it("exclusive element", async () => {
-    const { getByTestId, unmount } = render(GroupTest, { props: { options: { exclusive: true } } });
+    const { getByTestId, unmount } = render(GroupTest, { props: { focus: { exclusive: true } } });
 
     const a = getByTestId("A");
     const b = getByTestId("B");
@@ -165,7 +165,7 @@ describe("Group", () => {
 
   it("exclusive element + activate on next with arrows", async () => {
     const { getByTestId, unmount } = render(GroupTest, {
-      props: { options: { exclusive: true, activateOnNext: true } },
+      props: { focus: { exclusive: true, activateOnNext: true } },
     });
 
     const a = getByTestId("A");
@@ -206,7 +206,7 @@ describe("Group", () => {
   it("prevent inactivation", async () => {
     const { getByTestId, unmount } = render(GroupTest, {
       props: {
-        options: {
+        focus: {
           active: ["A"],
           exclusive: true,
           preventInactivation: true,
@@ -234,47 +234,69 @@ describe("Group", () => {
 
     unmount();
   });
+});
+
+describe("Toggle Group Component", () => {
+  it("has no accessibility violations", async () => {
+    const { container, unmount } = render(GroupBindTest);
+    expect(await axe(container)).toHaveNoViolations();
+    unmount();
+  });
 
   it("toggle <-> checkbox", async () => {
     const { getByTestId, unmount } = render(GroupBindTest);
 
     const a = getByTestId("A");
     const b = getByTestId("B");
+    const c = getByTestId("C");
     const x1 = getByTestId("checkbox-1");
     const x2 = getByTestId("checkbox-2");
     const x3 = getByTestId("checkbox-3");
-    const active = getByTestId("active");
     const checked = getByTestId("checked");
 
     // group -> checkbox
     await userEvent.click(a);
-    expect(active.textContent).toBe("A");
     expect(checked.textContent).toBe("A");
+    expect(a.getAttribute("aria-pressed")).toBe("true");
+    expect(b.getAttribute("aria-pressed")).toBe("false");
+    expect(c.getAttribute("aria-pressed")).toBe("false");
 
     await userEvent.click(b);
-    expect(active.textContent).toBe("A,B");
     expect(checked.textContent).toBe("A,B");
+    expect(a.getAttribute("aria-pressed")).toBe("true");
+    expect(b.getAttribute("aria-pressed")).toBe("true");
+    expect(c.getAttribute("aria-pressed")).toBe("false");
 
     await userEvent.click(a);
-    expect(active.textContent).toBe("B");
     expect(checked.textContent).toBe("B");
+    expect(a.getAttribute("aria-pressed")).toBe("false");
+    expect(b.getAttribute("aria-pressed")).toBe("true");
+    expect(c.getAttribute("aria-pressed")).toBe("false");
 
     // group <- checkbox
     await userEvent.click(x3);
-    expect(active.textContent).toBe("B,C");
     expect(checked.textContent).toBe("B,C");
+    expect(a.getAttribute("aria-pressed")).toBe("false");
+    expect(b.getAttribute("aria-pressed")).toBe("true");
+    expect(c.getAttribute("aria-pressed")).toBe("true");
 
     await userEvent.click(x2);
-    expect(active.textContent).toBe("C");
     expect(checked.textContent).toBe("C");
+    expect(a.getAttribute("aria-pressed")).toBe("false");
+    expect(b.getAttribute("aria-pressed")).toBe("false");
+    expect(c.getAttribute("aria-pressed")).toBe("true");
 
     await userEvent.click(x1);
-    expect(active.textContent).toBe("A,C");
     expect(checked.textContent).toBe("A,C");
+    expect(a.getAttribute("aria-pressed")).toBe("true");
+    expect(b.getAttribute("aria-pressed")).toBe("false");
+    expect(c.getAttribute("aria-pressed")).toBe("true");
 
     await userEvent.click(x3);
-    expect(active.textContent).toBe("A");
     expect(checked.textContent).toBe("A");
+    expect(a.getAttribute("aria-pressed")).toBe("true");
+    expect(b.getAttribute("aria-pressed")).toBe("false");
+    expect(c.getAttribute("aria-pressed")).toBe("false");
 
     unmount();
   });

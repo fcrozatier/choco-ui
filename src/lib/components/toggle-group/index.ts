@@ -1,9 +1,20 @@
 import type { ToggleGroup } from "$lib/headless/toggle-group.svelte.js";
-import type { ConcreteToggleOptions, ToggleButton } from "$lib/headless/toggle.svelte.js";
-import { getContext, setContext } from "svelte";
+import type { ToggleButton, ToggleOptions } from "$lib/headless/toggle.svelte.js";
+import type { GroupOptions } from "$lib/mixins/group.svelte.js";
+import type { Orientation } from "$lib/mixins/types.js";
+import { getContext, setContext, type Snippet } from "svelte";
+import type { HTMLFieldsetAttributes } from "svelte/elements";
 import type { ToggleProps } from "../toggle/index.js";
 import Item from "./toggle-group-item.svelte";
 import Root from "./toggle-group.svelte";
+
+export type ToggleGroupProps = HTMLFieldsetAttributes & {
+  focus?: Omit<GroupOptions, "active" | "setActive">;
+  active?: string[];
+  orientation?: Orientation;
+  variant?: ToggleProps["variant"];
+  children: Snippet;
+};
 
 const toggleItemSymbol = Symbol();
 
@@ -12,7 +23,7 @@ export function setItemContext(createItem: InstanceType<typeof ToggleGroup>["cre
 }
 
 export function getItemContext() {
-  return getContext<(options?: ConcreteToggleOptions) => ToggleButton>(toggleItemSymbol);
+  return getContext<(options?: ToggleOptions) => ToggleButton>(toggleItemSymbol);
 }
 
 const toggleVariantSymbol = Symbol();

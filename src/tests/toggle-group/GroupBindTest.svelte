@@ -1,26 +1,8 @@
 <script lang="ts">
-  import { choco } from "$lib/actions/choco.js";
-  import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
-  import type { GroupOptions } from "$lib/mixins/group.svelte";
-  import { bind } from "chocobytes/plugin";
+  import * as ToggleGroupUI from "$lib/components/toggle-group/index.js";
 
-  let { options }: { options: GroupOptions } = $props();
-
-  let checked = $state([]);
-  const toggleGroup = new ToggleGroup(bind({ ...options, active: checked }, ["active"]));
-
-  toggleGroup.createItem({ value: "A" });
-  toggleGroup.createItem({ value: "B" });
-  toggleGroup.createItem({ value: "C" });
+  let checked: string[] = $state([]);
 </script>
-
-<fieldset>
-  <legend>toggle group</legend>
-
-  {#each toggleGroup.items as item}
-    <button data-testid={item.value} use:choco={item}>{item.value}</button>
-  {/each}
-</fieldset>
 
 <fieldset>
   <legend>checkbox list</legend>
@@ -39,5 +21,10 @@
   </label>
 </fieldset>
 
-<span data-testid="active">{toggleGroup.active}</span>
+<ToggleGroupUI.Root bind:active={checked} variant="default">
+  <ToggleGroupUI.Item value="A" data-testid="A">A</ToggleGroupUI.Item>
+  <ToggleGroupUI.Item value="B" data-testid="B">B</ToggleGroupUI.Item>
+  <ToggleGroupUI.Item value="C" data-testid="C">C</ToggleGroupUI.Item>
+</ToggleGroupUI.Root>
+
 <span data-testid="checked">{checked}</span>

@@ -1,9 +1,9 @@
 import { addListener } from "$lib/actions/addListener.js";
 import { type Toggler } from "$lib/mixins/togglable.svelte.js";
 import type { Constructor, Required } from "$lib/mixins/types.js";
+import { getValue } from "$lib/utils/binding.js";
 import { key } from "$lib/utils/keyboard.js";
 import { merge, modulo } from "@fcrozatier/ts-helpers";
-import type { Bind } from "chocobytes/plugin";
 import { SvelteMap } from "svelte/reactivity";
 import { type ChocoBase } from "../headless/base.svelte.js";
 
@@ -18,29 +18,20 @@ export type GroupOptions = {
    */
   preventInactivation?: boolean;
   /**
+   * Whether only a single item can be active at a time. Defaults to `false`
+   */
+  exclusive?: boolean;
+  /**
+   * Whether arrows immediately activate the previous/next item. This only makes sense when the group is `exclusive`. Defaults to `false`
+   */
+  activateOnNext?: boolean;
+  /**
    * The list of active values
    */
-  active?: string[];
+  active?: string[] | (() => string[]);
+  setActive?: (v: string[]) => void;
   onFocus?: <T extends HTMLElement>(from: T, to: T) => void;
-} & (
-  | {
-      /**
-       * Whether only a single item can be active at a time. Defaults to `false`
-       */
-      exclusive?: true;
-      /**
-       * Whether arrows immediately activate the previous/next item. This only makes sense when the group is `exclusive`. Defaults to `false`
-       */
-      activateOnNext?: boolean;
-    }
-  | {
-      exclusive?: false;
-      activateOnNext?: never;
-    }
-);
-
-type BindableOptions = "active";
-export type ConcreteGroupOptions = Bind<GroupOptions, BindableOptions>;
+};
 
 const defaults = {
   active: [],
@@ -64,30 +55,27 @@ export const Group = <
   superclass: T,
 ) => {
   return class {
+    Item: T;
     #itemsMap = new SvelteMap<HTMLElement, InstanceType<T>>();
 
     options: Required<GroupOptions, "active"> = $state(defaults);
     items: InstanceType<T>[] = $state([]);
-    Item: T;
 
     activeItems = $derived(this.items.filter((item) => item.active));
+    #active = $derived(getValue(this.options.active));
 
     get active() {
-      return this.options.active;
+      return this.#active;
     }
 
-    set active(v: string[]) {
-      this.options.active = v;
-    }
-
-    constructor(options?: ConcreteGroupOptions) {
+    constructor(options?: GroupOptions) {
       this.options = merge(defaults, options);
       this.Item = this.#Focusable(superclass);
 
       $effect(() => {
         // Update from options
         for (const item of this.items) {
-          this.options.active.includes(item.value) ? item.on() : item.off();
+          getValue(this.options.active).includes(item.value) ? item.on() : item.off();
         }
       });
     }
@@ -174,9 +162,8 @@ export const Group = <
 
           if (!this.value) throw new Error("All items in a group must have a value");
 
-          if (this.active && !options.active.includes(this.value)) {
-            // join
-            options.active.push(this.value);
+          if (this.active && !getValue(options.active).includes(this.value)) {
+            getValue(options.active).push(this.value);
           }
 
           items.push(this as InstanceType<T>);
@@ -202,7 +189,11 @@ export const Group = <
             }
           }
 
-          options.active = items.filter((i) => i.active).map((i) => i.value);
+          if (typeof options.active === "function") {
+            options.setActive?.(items.filter((i) => i.active).map((i) => i.value));
+          } else {
+            options.active = items.filter((i) => i.active).map((i) => i.value);
+          }
         }
       };
     };

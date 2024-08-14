@@ -5,7 +5,6 @@
   import ToggleGroupRoot from "$lib/components/toggle-group/toggle-group.svelte";
   import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
   import type { Orientation } from "$lib/mixins/types.js";
-  import { bind } from "chocobytes/plugin";
 
   let disabled: boolean | undefined = $state();
   let variant: "outline" | "default" = $state("default");
@@ -18,36 +17,38 @@
   toggleGroup.createItem({ value: "apple" });
 
   let checked: string[] = $state(["B"]);
-  const toggleGroup2 = new ToggleGroup(bind({ loop: true, active: checked }, ["active"]));
+  const toggleGroup2 = new ToggleGroup({
+    loop: true,
+    active: () => checked,
+    setActive(v) {
+      checked = v;
+    },
+  });
 
   toggleGroup2.createItem({ value: "B", active: false });
   toggleGroup2.createItem({ value: "I", active: false });
   toggleGroup2.createItem({ value: "U", active: true });
 
-  let toggleUI: ToggleGroupUI.Root | undefined = $state();
-  let toggleUI2: ToggleGroupUI.Root | undefined = $state();
-  const active = $derived(toggleUI?.active());
+  let active1 = $state([]);
+  let active2 = $state([]);
 </script>
 
-<button>before</button>
-<div>
+<section class="my-10">
+  <p>
+    <button>before</button>
+  </p>
   <legend>toggle group</legend>
 
-  {#each toggleGroup.items as item}
-    <button use:choco={item}>{item.attributes.value}</button>
-  {/each}
-</div>
+  <div class="flex gap-2">
+    {#each toggleGroup.items as item}
+      <button use:choco={item}>{item.attributes.value}</button>
+    {/each}
+  </div>
 
-<button>after</button>
-
-<fieldset>
-  <input type="radio" name="group" value="A" id="" />
-  <input type="radio" name="group" value="B" id="" />
-  <input type="radio" name="group" value="C" id="" />
-</fieldset>
-
-checked
-<pre>{toggleGroup.active}</pre>
+  <p><button>after</button></p>
+  <p>checked</p>
+  <pre>{toggleGroup.active}</pre>
+</section>
 
 <label>
   disable
@@ -72,7 +73,7 @@ checked
 
 {#key variant}
   <ToggleGroupUI.Root
-    bind:this={toggleUI}
+    bind:active={active1}
     {orientation}
     {variant}
     {disabled}
@@ -85,7 +86,7 @@ checked
 {/key}
 
 <ToggleGroupRoot
-  bind:this={toggleUI2}
+  bind:active={active2}
   {orientation}
   {variant}
   {disabled}
@@ -97,36 +98,42 @@ checked
 </ToggleGroupRoot>
 
 active
-<pre>1: {active}</pre>
-<pre>2: {toggleUI2?.active()}</pre>
+<pre>1: {active1}</pre>
+<pre>2: {active2}</pre>
 
-<fieldset>
-  <legend>toggle group</legend>
+<section class="my-10">
+  <fieldset>
+    <legend>toggle group</legend>
 
-  {#each toggleGroup2.items as item}
-    <button use:choco={item}>{item.value}</button>
-  {/each}
-</fieldset>
+    <div class="flex gap-2">
+      {#each toggleGroup2.items as item}
+        <button class="rounded py-2 px-4 outline aria-pressed:underline" use:choco={item}
+          >{item.value}</button
+        >
+      {/each}
+    </div>
+  </fieldset>
 
-<fieldset>
-  <legend>checkbox list</legend>
+  <fieldset>
+    <legend>checkbox list</legend>
 
-  <label for="1">
-    B
-    <input type="checkbox" bind:group={checked} value="B" id="1" />
-  </label>
-  <label for="2">
-    I
-    <input type="checkbox" bind:group={checked} value="I" id="2" />
-  </label>
-  <label for="3">
-    U
-    <input type="checkbox" bind:group={checked} value="U" id="3" />
-  </label>
-</fieldset>
+    <label for="1">
+      B
+      <input type="checkbox" bind:group={checked} value="B" id="1" />
+    </label>
+    <label for="2">
+      I
+      <input type="checkbox" bind:group={checked} value="I" id="2" />
+    </label>
+    <label for="3">
+      U
+      <input type="checkbox" bind:group={checked} value="U" id="3" />
+    </label>
+  </fieldset>
 
-toggle
-{toggleGroup2.active}
-<br />
-check
-{checked}
+  toggle
+  {toggleGroup2.active}
+  <br />
+  check
+  {checked}
+</section>
