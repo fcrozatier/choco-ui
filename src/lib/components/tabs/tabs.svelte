@@ -1,23 +1,26 @@
 <script lang="ts">
-  import { Tabs, type TabsOptions } from "$lib/headless/tabs.svelte";
-  import { type Snippet } from "svelte";
-  import { setTabsContext } from "./index.js";
+  import { Tabs } from "$lib/headless/tabs.svelte";
+  import { setTabsContext, type TabsProps } from "./index.js";
 
   let {
     class: className,
+    active = $bindable([]),
     orientation,
     value,
     focus,
     children,
-  }: TabsOptions & {
-    class?: string;
-    children: Snippet;
-  } = $props();
+  }: TabsProps = $props();
 
   const tabs = new Tabs({
     orientation,
     value,
-    focus,
+    focus: {
+      ...focus,
+      active: () => active,
+      setActive(v) {
+        active = v;
+      },
+    },
   });
 
   setTabsContext(tabs);
