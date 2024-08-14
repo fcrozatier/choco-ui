@@ -2,11 +2,15 @@
   import { choco } from "$lib/actions/choco.js";
   import Switch from "$lib/components/switch/switch.svelte";
   import { Switch as SwitchToggle } from "$lib/headless/switch.svelte";
-  import { bind } from "chocobytes/plugin";
 
   let active = $state(true);
 
-  const toggle = new SwitchToggle(bind({ active }, ["active"]));
+  const switchToggle = new SwitchToggle({
+    active: () => active,
+    setActive(v) {
+      active = v;
+    },
+  });
 </script>
 
 <p>
@@ -17,14 +21,13 @@
 <form>
   <div class="flex items-center">
     <button
-      use:choco={toggle}
-      class="bg-magnum-800 aria-checked:bg-magnum-600 relative h-6 cursor-default rounded-full transition-colors"
-      id="airplane-mode"
-      aria-labelledby="airplane-mode-label">Airplane mode</button
+      use:choco={switchToggle}
+      class=" relative h-6 cursor-default rounded-full transition-colors aria-checked:outline"
+      >Airplane mode</button
     >
   </div>
 </form>
 
 <div class="flex items-center space-x-2">
-  <Switch id="airplane-mode" bind:active />
+  <Switch bind:active />
 </div>
