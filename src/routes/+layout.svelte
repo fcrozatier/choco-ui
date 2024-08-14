@@ -22,10 +22,6 @@
         title: "Preprocessor",
       },
       {
-        href: "/plugin",
-        title: "Plugin",
-      },
-      {
         href: "/faq",
         title: "FAQ",
       },
