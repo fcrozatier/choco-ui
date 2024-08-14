@@ -1,12 +1,16 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { DisclosureUI } from "$lib/components/disclosure/index.js";
+  import { Disclosure as DisclosureUI } from "$lib/components/disclosure/index.js";
   import { Disclosure } from "$lib/headless/disclosure.svelte";
-  import { bind } from "chocobytes/plugin";
 
   let active = $state(false);
 
-  const disclosure = new Disclosure(bind({ active }, ["active"]));
+  const disclosure = new Disclosure({
+    active: () => active,
+    setActive(v) {
+      active = v;
+    },
+  });
 </script>
 
 <p>
@@ -15,23 +19,29 @@
     <input type="checkbox" bind:checked={active} />
   </label>
 </p>
+<section class="my-10">
+  <h2 class="mb-8 font-semibold">Headless</h2>
 
-<button class="cursor-pointer" use:choco={disclosure}>
-  <span
-    class={`inline-flex size-2 ${disclosure.active ? "rotate-90" : ""} origin-center items-center justify-center transition-transform duration-200`}
-  >
-    &rsaquo;
-  </span>
-  When is the deadline?
-</button>
+  <button class="cursor-pointer" use:choco={disclosure}>
+    <span
+      class={`inline-flex size-2 ${disclosure.active ? "rotate-90" : ""} origin-center items-center justify-center transition-transform duration-200`}
+    >
+      &rsaquo;
+    </span>
+    Do you have dark chocolate?
+  </button>
 
-{#if disclosure.active}
-  <div>There is no deadline, ship when you are ready!</div>
-{/if}
+  {#if disclosure.active}
+    <div>Absolutely!</div>
+  {/if}
+</section>
 
-<DisclosureUI bind:active>
-  {#snippet header()}
-    When is the deadline?
-  {/snippet}
-  <div>There is no deadline, ship when you are ready!</div>
-</DisclosureUI>
+<section class="my-10">
+  <h2 class="mb-8 font-semibold">Component</h2>
+  <DisclosureUI bind:active>
+    {#snippet header()}
+      What's the secret ingredient?
+    {/snippet}
+    <div>Magic!</div>
+  </DisclosureUI>
+</section>

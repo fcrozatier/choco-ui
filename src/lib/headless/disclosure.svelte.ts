@@ -1,17 +1,16 @@
 import { Triggerable } from "$lib/mixins/triggerable.svelte.js";
 import type { Required } from "$lib/mixins/types.js";
+import { getValue } from "$lib/utils/binding.js";
 import { merge, nanoId } from "@fcrozatier/ts-helpers";
-import { bind, type Bind } from "chocobytes/plugin";
 import { ChocoBase } from "./base.svelte.js";
 
 export type DisclosureOptions = {
   /**
    * Whether the tab is the default active tab. If not provided the first tab is active
    */
-  active?: boolean;
+  active?: boolean | (() => boolean);
+  setActive?: (v: boolean) => void;
 };
-
-type BindableOptions = "active";
 
 const defaults = { active: false } satisfies DisclosureOptions;
 
@@ -23,7 +22,7 @@ const defaults = { active: false } satisfies DisclosureOptions;
 export class Disclosure extends Triggerable<HTMLButtonElement>(ChocoBase) {
   #options: Required<DisclosureOptions, "active"> = $state(defaults);
 
-  constructor(options?: Bind<DisclosureOptions, BindableOptions>) {
+  constructor(options?: DisclosureOptions) {
     super();
     this.#options = merge(defaults, options);
 
@@ -31,17 +30,13 @@ export class Disclosure extends Triggerable<HTMLButtonElement>(ChocoBase) {
     const targetId = nanoId();
     const opts = this.#options;
 
-    this.initTriggerable(
-      bind(
-        {
-          control: { "aria-expanded": `${opts.active}` },
-          target: { hidden: !opts.active },
-          active: opts.active,
-          toggle: "click",
-        },
-        ["active"],
-      ),
-    );
+    this.initTriggerable({
+      control: { "aria-expanded": `${getValue(opts.active)}` },
+      target: { hidden: !getValue(opts.active) },
+      active: opts.active,
+      setActive: opts.setActive,
+      toggle: "click",
+    });
 
     this.extendAttributes({
       id: controlId,
