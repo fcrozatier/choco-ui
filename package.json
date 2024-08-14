@@ -5,12 +5,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
-    "build": "pnpm build:plugin && pnpm build:docs && vite build && pnpm package && pnpm build:dist",
-    "build:dist": "node scripts/build-dist.js",
+    "build": "pnpm build:docs && vite build && pnpm package",
     "build:docs": "node scripts/build-docs.js",
-    "build:plugin": "tsc --project ./plugin/tsconfig.json",
     "preview": "vite preview",
-    "package": "svelte-kit sync && svelte-package && pnpm build:dist && publint",
+    "package": "svelte-kit sync && svelte-package && publint",
     "prepublishOnly": "pnpm package",
     "postpublish": "git push --follow-tags",
     "test": "pnpm test:integration && pnpm test:unit",
@@ -21,15 +19,11 @@
   },
   "files": [
     "dist",
-    "plugin",
     "preprocessor",
     "!dist/**/*.test.*",
-    "!preprocessor/**/*.test.*",
-    "!plugin/**/*.ts",
-    "!plugin/**/*.test.*"
+    "!preprocessor/**/*.test.*"
   ],
   "exports": {
-    "./plugin": "./plugin/index.js",
     "./preprocessor": "./preprocessor/index.js",
     "./components/*": "./dist/components/*",
     "./headless/*": "./dist/headless/*",

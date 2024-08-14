@@ -11,13 +11,6 @@ export default {
     targetBlank({ logLevel: "warn", quietList: "/**/*.md" }),
   ],
 
-  compilerOptions: {
-    warningFilter: (warning) => {
-      if (warning.code === "state_referenced_locally") return false;
-      return true;
-    },
-  },
-
   kit: {
     adapter: adapter({
       pages: "build",
