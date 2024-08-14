@@ -15,7 +15,7 @@
 
 <p>
   <input type="checkbox" name="bind" id="bind" bind:checked={active} />
-  <label for="bind" class="select-none">Bind active</label>
+  <label for="bind" class="select-none" id="label">Bind active</label>
 </p>
 
 <form>
@@ -29,5 +29,5 @@
 </form>
 
 <div class="flex items-center space-x-2">
-  <Switch bind:active />
+  <Switch bind:active labelledby="label" />
 </div>

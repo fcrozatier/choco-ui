@@ -31,7 +31,7 @@ const defaults = { active: false, value: "" } satisfies SwitchOptions;
  *
  * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Switch_role#all_descendants_are_presentational
  */
-export class Switch extends Togglable<HTMLButtonElement | HTMLInputElement>(ChocoBase) {
+export class Switch extends Togglable<HTMLButtonElement>(ChocoBase) {
   #options: Required<SwitchOptions, "active" | "value"> = $state(defaults);
   value = $derived(this.#options.value);
 

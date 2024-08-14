@@ -10,8 +10,6 @@
     toggle
   </label>
 
-  <label>
-    switch
-    <Switch data-testid="switch" bind:active={checked}></Switch>
-  </label>
+  <span id="label">label</span>
+  <Switch bind:active={checked} element={{ "data-testid": "switch" }} labelledby="label"></Switch>
 </main>
