@@ -6,13 +6,13 @@
 
   let {
     class: className,
+    element,
     size = "default",
     variant = "default",
     active = $bindable(false),
     value,
     children,
     builder = (options?: ToggleOptions) => new ToggleButton(options),
-    ...restProps
   }: ToggleProps = $props();
 
   const toggle = builder({
@@ -43,7 +43,7 @@
     },
     className,
   ])}
-  {...restProps}
+  {...element}
 >
   {@render children?.()}
 </button>

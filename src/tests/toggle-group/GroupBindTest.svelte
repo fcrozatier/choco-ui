@@ -22,9 +22,9 @@
 </fieldset>
 
 <ToggleGroupUI.Root bind:active={checked} variant="default">
-  <ToggleGroupUI.Item value="A" data-testid="A">A</ToggleGroupUI.Item>
-  <ToggleGroupUI.Item value="B" data-testid="B">B</ToggleGroupUI.Item>
-  <ToggleGroupUI.Item value="C" data-testid="C">C</ToggleGroupUI.Item>
+  <ToggleGroupUI.Item value="A" element={{ "data-testid": "A" }}>A</ToggleGroupUI.Item>
+  <ToggleGroupUI.Item value="B" element={{ "data-testid": "B" }}>B</ToggleGroupUI.Item>
+  <ToggleGroupUI.Item value="C" element={{ "data-testid": "C" }}>C</ToggleGroupUI.Item>
 </ToggleGroupUI.Root>
 
 <span data-testid="checked">{checked}</span>
