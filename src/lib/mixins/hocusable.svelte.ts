@@ -1,5 +1,6 @@
 import { makeFocusable } from "$lib/actions/focus.svelte.js";
 import { ChocoBase } from "$lib/headless/base.svelte.js";
+import { getValue } from "$lib/utils/binding.js";
 import {
   convexHullFromElements,
   pointInConvexPolygon,
@@ -7,12 +8,7 @@ import {
 } from "$lib/utils/geometry/index.js";
 import { key } from "$lib/utils/keyboard.js";
 import { debounce, merge } from "@fcrozatier/ts-helpers";
-import { bind } from "chocobytes/plugin";
-import {
-  Triggerable,
-  type ConcreteTriggerableOptions,
-  type TriggerableOptions,
-} from "./triggerable.svelte.js";
+import { Triggerable, type TriggerableOptions } from "./triggerable.svelte.js";
 import type { Constructor } from "./types.js";
 
 const defaults = { active: false } satisfies TriggerableOptions;
@@ -20,7 +16,7 @@ const defaults = { active: false } satisfies TriggerableOptions;
 /**
  * Triggers on hover and focus
  */
-export const Hoverable = <
+export const Hocusable = <
   S extends HTMLElement = HTMLElement,
   T extends Constructor<ChocoBase<S>> = Constructor<ChocoBase<S>>,
 >(
@@ -28,27 +24,22 @@ export const Hoverable = <
 ) => {
   return class extends Triggerable(superclass) {
     #hull: Point[] | undefined;
-    #options = $state(defaults);
+    #options: TriggerableOptions = $state(defaults);
 
-    initHoverable(options?: ConcreteTriggerableOptions) {
+    initHocusable(options?: TriggerableOptions) {
       this.#options = merge(defaults, options);
       const opts = this.#options;
-      this.initTriggerable(
-        bind(
-          {
-            ...opts,
-            active: opts.active,
-            on: ["pointerenter", "focusin"],
-            off: ["focusout"],
-          },
-          ["active"],
-        ),
-      );
+
+      this.initTriggerable({
+        ...opts,
+        on: ["pointerenter", "focusin"],
+        off: ["focusout"],
+      });
       // Allow hoverable text nodes
       this.extendActions(makeFocusable);
 
       $effect(() => {
-        if (this.#options.active) {
+        if (getValue(this.#options.active)) {
           this.on();
         } else {
           this.off();

@@ -1,12 +1,12 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
   import { Tooltip, type TooltipOptions } from "$lib/headless/tooltip.svelte";
+  import type { StripThunks } from "$lib/utils/binding.js";
   import { cn } from "$lib/utils/styles.js";
-  import { bind } from "chocobytes/plugin";
   import { type Snippet } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";
 
-  interface TooltipProps extends HTMLAttributes<HTMLDivElement>, TooltipOptions {
+  interface TooltipProps extends HTMLAttributes<HTMLDivElement>, StripThunks<TooltipOptions> {
     children: Snippet;
     target: Snippet;
   }
@@ -19,7 +19,13 @@
     target,
   }: TooltipProps = $props();
 
-  const tooltip = new Tooltip(bind({ active, position }, ["active"]));
+  const tooltip = new Tooltip({
+    active: () => active,
+    setActive(v) {
+      active = v;
+    },
+    position,
+  });
 </script>
 
 <span class="relative select-none" use:choco={tooltip}>
