@@ -2,8 +2,6 @@
   import { choco } from "$lib/actions/choco.js";
   import { ToggleButton } from "$lib/headless/toggle.svelte";
 
-  let disabled = $state(false);
-
   const toggle = new ToggleButton();
 </script>
 
@@ -17,5 +15,5 @@
     toggle programmatically
   </label>
 
-  <button use:choco={toggle} {disabled}>press</button>
+  <button use:choco={toggle}>press</button>
 </main>

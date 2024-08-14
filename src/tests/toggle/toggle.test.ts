@@ -2,7 +2,7 @@ import { act, render } from "@testing-library/svelte/svelte5";
 import { userEvent } from "@testing-library/user-event";
 import { axe } from "jest-axe";
 import { describe, expect, it } from "vitest";
-import ToggleBindTest from "./ToggleBindTest.svelte";
+import ToggleComponentTest from "./ToggleComponentTest.svelte";
 import ToggleTest from "./ToggleTest.svelte";
 
 describe("Toggle", () => {
@@ -43,15 +43,15 @@ describe("Toggle", () => {
   });
 });
 
-describe("Toggle binding", () => {
+describe("Toggle component", () => {
   it("has no accessibility violations", async () => {
-    const { container, unmount } = render(ToggleBindTest);
+    const { container, unmount } = render(ToggleComponentTest);
     expect(await axe(container)).toHaveNoViolations();
     unmount();
   });
 
   it("toggle <-> checkbox", async () => {
-    const { getByRole, unmount } = render(ToggleBindTest);
+    const { getByRole, unmount } = render(ToggleComponentTest);
     const button = getByRole("button");
     const checkbox = getByRole("checkbox") as HTMLInputElement;
 
