@@ -20,40 +20,6 @@
 
   --color-gray: #989592;
 
-  --color-magnum-50: rgb(255 249 237);
-  --color-magnum-100: rgb(254 242 214);
-  --color-magnum-200: rgb(252 224 172);
-  --color-magnum-300: rgb(249 201 120);
-  --color-magnum-400: rgb(247 177 85);
-  --color-magnum-500: rgb(243 141 28);
-  --color-magnum-600: rgb(228 115 18);
-  --color-magnum-700: rgb(189 87 17);
-  --color-magnum-800: rgb(150 69 22);
-  --color-magnum-900: rgb(121 58 21);
-  --color-magnum-950: rgb(65 28 9);
-  --color-neutral-50: rgb(250 250 250);
-  --color-neutral-100: rgb(245 245 245);
-  --color-neutral-200: rgb(229 229 229);
-  --color-neutral-300: rgb(212 212 212);
-  --color-neutral-400: rgb(163 163 163);
-  --color-neutral-500: rgb(115 115 115);
-  --color-neutral-600: rgb(82 82 82);
-  --color-neutral-700: rgb(64 64 64);
-  --color-neutral-800: rgb(38 38 38);
-  --color-neutral-900: rgb(23 23 23);
-  --color-neutral-950: rgb(10 10 10);
-  --color-zinc-50: rgb(250 250 250);
-  --color-zinc-100: rgb(244 244 245);
-  --color-zinc-200: rgb(228 228 231);
-  --color-zinc-300: rgb(212 212 216);
-  --color-zinc-400: rgb(161 161 170);
-  --color-zinc-500: rgb(113 113 122);
-  --color-zinc-600: rgb(82 82 91);
-  --color-zinc-700: rgb(63 63 70);
-  --color-zinc-800: rgb(39 39 42);
-  --color-zinc-900: rgb(24 24 27);
-  --color-zinc-950: rgb(9 9 11);
-  --color-green-400: rgb(74 222 128);
   --color-white: rgb(255 255 255);
 
   --color-background: hsl(0 0% 100%);
@@ -62,26 +28,14 @@
   --color-muted: hsl(210 40% 96.1%);
   --color-muted-foreground: hsl(215.4 16.3% 46.9%);
 
-  --color-popover: hsl(0 0% 100%);
-  --color-popover-foreground: hsl(222.2 84% 4.9%);
-
-  --color-card: hsl(0 0% 100%);
-  --color-card-foreground: hsl(222.2 84% 4.9%);
-
   --color-border: hsl(214.3 31.8% 91.4%);
   --color-input: hsl(214.3 31.8% 91.4%);
 
   --color-primary: hsl(222.2 47.4% 11.2%);
   --color-primary-foreground: hsl(210 40% 98%);
 
-  --color-secondary: hsl(210 40% 96.1%);
-  --color-secondary-foreground: hsl(222.2 47.4% 11.2%);
-
   --color-accent: hsl(210 40% 96.1%);
   --color-accent-foreground: hsl(222.2 47.4% 11.2%);
-
-  --color-destructive: hsl(0 72.2% 50.6%);
-  --color-destructive-foreground: hsl(210 40% 98%);
 
   --color-ring: hsl(222.2 84% 4.9%);
 
