@@ -1,5 +1,5 @@
 import { merge } from "@fcrozatier/ts-helpers";
-import { bind, type Bind } from "chocobytes/plugin";
+import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../headless/base.svelte.js";
 import { Togglable, type TogglableOptions } from "./togglable.svelte.js";
 import type { Constructor } from "./types.js";
@@ -8,14 +8,12 @@ export type TriggerableOptions = {
   /**
    * Initial state of the control
    */
-  control?: TogglableOptions["initial"];
+  control?: Record<string, Booleanish>;
   /**
    * Initial state of the target
    */
-  target?: TogglableOptions["initial"];
+  target?: Record<string, Booleanish>;
 } & Omit<TogglableOptions, "initial">;
-
-export type ConcreteTriggerableOptions = Bind<TriggerableOptions, "active">;
 
 const defaults = { active: false } satisfies TriggerableOptions;
 
@@ -36,20 +34,16 @@ export const Triggerable = <
       this.target = new targetClass();
     }
 
-    initTriggerable(options?: ConcreteTriggerableOptions) {
+    initTriggerable(options?: TriggerableOptions) {
       this.#options = merge(defaults, options);
       const opts = this.#options;
 
-      this.initTogglable(
-        bind(
-          {
-            ...opts,
-            initial: opts.control,
-            active: opts.active,
-          },
-          ["active"],
-        ),
-      );
+      this.initTogglable({
+        ...opts,
+        initial: opts.control,
+        active: opts.active,
+        setActive: opts.setActive,
+      });
 
       this.target.initTogglable({
         initial: opts.target,
