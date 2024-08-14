@@ -16,7 +16,7 @@
     group.createItem({ value: "right" }),
   ];
 
-  let switchGroup: SwitchGroup.Root | undefined = $state();
+  let active: string[] = $state([]);
 </script>
 
 <fieldset>
@@ -51,7 +51,7 @@ selected
 </label>
 
 {#key variant}
-  <SwitchGroup.Root {orientation} {variant} {disabled} bind:this={switchGroup}>
+  <SwitchGroup.Root {orientation} {variant} {disabled} bind:active>
     <SwitchGroup.Item value="B" active>B</SwitchGroup.Item>
     <SwitchGroup.Item value="I" variant="outline">I</SwitchGroup.Item>
     <SwitchGroup.Item value="U">U</SwitchGroup.Item>
@@ -59,4 +59,4 @@ selected
 {/key}
 
 selected
-<pre>{switchGroup?.selected()}</pre>
+<pre>{active}</pre>

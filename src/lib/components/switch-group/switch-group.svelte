@@ -1,30 +1,27 @@
 <script lang="ts">
   import { SwitchGroup } from "$lib/headless/switch-group.svelte";
-  import type { GroupOptions } from "$lib/mixins/group.svelte";
-  import type { Orientation } from "$lib/mixins/types.js";
   import { cn } from "$lib/utils/styles.js";
-  import { setContext, type Snippet } from "svelte";
-  import type { HTMLFieldsetAttributes } from "svelte/elements";
-  import type { ToggleProps } from "../toggle/index.js";
-  import { set } from "./index.js";
+  import { setContext } from "svelte";
+  import { set, type SwitchGroupProps } from "./index.js";
 
   let {
     class: className,
     orientation = "horizontal",
     variant,
     focus,
+    active = $bindable([]),
     children,
     ...rest
-  }: HTMLFieldsetAttributes & {
-    focus?: GroupOptions;
-    orientation?: Orientation;
-    variant?: ToggleProps["variant"];
-    children: Snippet;
-  } = $props();
+  }: SwitchGroupProps = $props();
 
-  const switchGroup = new SwitchGroup({ ...focus, exclusive: true });
-
-  export const selected = () => switchGroup.active;
+  const switchGroup = new SwitchGroup({
+    ...focus,
+    exclusive: true,
+    active: () => active,
+    setActive(v) {
+      active = v;
+    },
+  });
 
   set(switchGroup);
   setContext("choco-variant", variant);
