@@ -27,6 +27,5 @@ The `active` prop is bindable.
 
 <API file="toggle.svelte.ts" type="ToggleOptions" bindable={true} defaults={true}/>
 
-### Accessibility
 
 Follows the [WAI-ARIA Toggle Button Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/button/)

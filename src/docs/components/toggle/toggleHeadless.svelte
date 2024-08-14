@@ -1,11 +1,10 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
   import { ToggleButton } from "$lib/headless/toggle.svelte";
-  import { bind } from "chocobytes/plugin";
 
   let active = $state(true);
 
-  const toggle = new ToggleButton(bind({ active }, ["active"]));
+  const toggle = new ToggleButton({ active: () => active, setActive: (v) => (active = v) });
 </script>
 
 <label>
