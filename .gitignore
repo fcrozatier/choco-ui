@@ -10,6 +10,7 @@ node_modules
 /docs
 /plugin/*.js
 /plugin/*.d.ts
+/test-results
 
 # OS
 .DS_Store
