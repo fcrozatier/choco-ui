@@ -69,16 +69,14 @@ export function getFiles(dir, files = []) {
   return files;
 }
 
-const api =
-  /<API (?=.*file="(?<file>.*?)")(?=.*type="(?<type>.*?)")(?=(?:.*bindable={(?<bindable>true|false)})?)(?=(?:.*defaults={(?<defaults>true|false)})?).*\/>/;
+const api = /<API (?=.*file="(?<file>.*?)")(?=.*type="(?<type>.*?)").*\/>/;
 
-const bindableOptions = /type BindableOptions = (?<bindable>.*);/;
 const defaultsRegex = /const defaults = (?<defaults>{.*?})( satisfies.*)?;/s;
 const isOptional = /\?$/;
 
 const apiHeader = `
-|Prop|Default|Type|Bindable|Description|
-|----|-------|----|--------|-----------|
+|Prop|Default|Type|Description|
+|----|-------|----|-----------|
 `;
 
 /**
@@ -89,7 +87,7 @@ const apiHeader = `
 function preprocessMarkdown(md, path) {
   const match = md.match(api);
   if (match) {
-    const { type, bindable, defaults } = match.groups;
+    const { type } = match.groups;
 
     const file = readFileSync(
       dirname(path).replace("docs", "lib").replace("components", "headless") + ".svelte.ts",
@@ -98,29 +96,18 @@ function preprocessMarkdown(md, path) {
       },
     );
 
-    let bindableKeys = /** @type {string[]} */ ([]);
-    let defaultValues = {};
     let types =
-      /** @type {{key: string; type: string; optional: boolean; default: string; bindable: boolean; description: string }[]} */ ([]);
+      /** @type {{key: string; type: string; optional: boolean; default: string; description: string }[]} */ ([]);
 
-    if (bindable === "true") {
-      const bindableMatch = file.match(bindableOptions);
-      if (!bindableMatch) throw new Error("Cannot find BindableOptions type");
+    // Defaults
+    let defaultValues = {};
+    const defaultsMatch = file.match(defaultsRegex);
 
-      bindableKeys = bindableMatch.groups.bindable
-        .replace(/"/g, "")
-        .split("|")
-        .map((item) => item.trim());
-    }
+    if (!defaultsMatch) throw new Error("Cannot find default values");
 
-    if (defaults === "true") {
-      const defaultsMatch = file.match(defaultsRegex);
+    defaultValues = eval("const defaults = " + defaultsMatch.groups.defaults + "; defaults");
 
-      if (!defaultsMatch) throw new Error("Cannot find default values");
-
-      defaultValues = eval("const defaults = " + defaultsMatch.groups.defaults + "; defaults");
-    }
-
+    // Type
     const typeRegex = new RegExp(`${type} = {(?<type>.*?)};`, "s");
     const typeMatch = file.match(typeRegex);
 
@@ -134,8 +121,9 @@ function preprocessMarkdown(md, path) {
         .split("\n")
         .map((line) => line.trim());
 
+      // Description
       let description = "";
-      if (lines.length > 3) {
+      if (lines[0] === "/**") {
         description = lines
           .slice(1, -2)
           .map((line) => line.replace(/^\*\s*/, ""))
@@ -144,17 +132,14 @@ function preprocessMarkdown(md, path) {
 
       const [name, type] = lines
         .at(-1)
-        .split(":")
+        .split("?:")
         .map((i) => i.trim());
-      const optional = isOptional.test(name);
-      const key = optional ? name.slice(0, -1) : name;
 
       types.push({
-        key,
-        optional,
+        key: name,
+        optional: true,
         type,
-        bindable: bindableKeys.includes(key),
-        default: defaultValues[key] ?? "",
+        default: defaultValues[name] ?? "",
         description,
       });
     }
@@ -164,7 +149,7 @@ function preprocessMarkdown(md, path) {
       types.reduce(
         (p, c) =>
           p +
-          `|${c.key}|${JSON.stringify(c.default).replace("{", "$left-brace;").replace("}", "$right-brace;").replace('""', "-")}|${c.type.replace("|", "&#124;")}|${c.bindable}|${c.description}|\n`,
+          `|${c.key}|${JSON.stringify(c.default).replace("{", "$left-brace;").replace("}", "$right-brace;").replace('""', "-")}|${c.type?.replace("|", "&#124;")}|${c.description}|\n`,
         "",
       );
 
