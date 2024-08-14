@@ -6,19 +6,19 @@ import type { Constructor } from "./types.js";
 export const mix = <
   T extends HTMLElement,
   U extends (superclass: Constructor<ChocoBase<T>>) => Constructor<ChocoBase<T>>,
+  K extends string,
 >(
   superclass: Constructor<ChocoBase<T>>,
   mixin: U,
-  key?: string,
+  key: K,
 ) => {
   const Mixin = class extends mixin(ChocoBase) {};
-  const prop = key ?? mixin.name;
   const symbol = Symbol();
 
   return class extends superclass {
     [symbol]: InstanceType<typeof Mixin>;
 
-    get [prop]() {
+    get [key]() {
       return this[symbol];
     }
 
@@ -35,5 +35,7 @@ export const mix = <
 
       this[symbol] = new Mixin();
     }
-  };
+  } as unknown as typeof superclass extends { new (...options: infer Options): infer Instance }
+    ? new (...options: Options) => Instance & { [Key in K]: InstanceType<ReturnType<U>> }
+    : never;
 };
