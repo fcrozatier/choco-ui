@@ -1,6 +1,6 @@
 import { addListener } from "$lib/actions/addListener.js";
+import { getValue } from "$lib/utils/binding.js";
 import { merge } from "@fcrozatier/ts-helpers";
-import type { Bind } from "chocobytes/plugin";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../headless/base.svelte.js";
 import type { Constructor, Required } from "./types.js";
@@ -15,7 +15,8 @@ export type TogglableOptions = {
   /**
    * Whether the initial state is the active state
    */
-  active: boolean;
+  active: boolean | (() => boolean);
+  setActive?: (v: boolean) => void;
   /**
    * Event(s) on which to toggle
    */
@@ -29,8 +30,6 @@ export type TogglableOptions = {
    */
   off?: EventName | EventName[];
 };
-
-type BindableOptions = "active";
 
 export interface Toggler {
   active: boolean;
@@ -53,7 +52,7 @@ export const Togglable = <
   return class extends superclass implements Toggler {
     #initial_state = false;
     #options: Required<TogglableOptions, "active" | "initial"> = $state(defaults);
-    #active = $derived(this.#options.active);
+    #active = $derived(getValue(this.#options.active));
     #attributes: Record<string, Booleanish> = $derived(
       this.#active === this.#initial_state
         ? this.#options.initial
@@ -79,9 +78,9 @@ export const Togglable = <
       this.on = this.on.bind(this);
     }
 
-    initTogglable = (opts?: Bind<TogglableOptions, BindableOptions>) => {
+    initTogglable = (opts?: TogglableOptions) => {
       this.#options = merge(defaults, opts);
-      this.#initial_state = this.#options.active;
+      this.#initial_state = getValue(this.#options.active);
 
       if (this.#options.toggle) {
         this.extendActions(addListener(this.#options.toggle, this.toggle));
@@ -99,7 +98,12 @@ export const Togglable = <
     };
 
     toggle(_?: Event) {
-      this.#options.active = !this.#active;
+      const newValue = !this.#active;
+      if (typeof this.#options.active === "function") {
+        this.#options.setActive?.(newValue);
+      } else {
+        this.#options.active = newValue;
+      }
     }
 
     on(e?: Event) {
