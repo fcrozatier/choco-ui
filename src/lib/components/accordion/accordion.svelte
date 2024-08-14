@@ -1,19 +1,25 @@
 <script lang="ts">
-  import { Accordion, type AccordionOptions } from "$lib/headless/accordion.svelte";
-  import { type Snippet } from "svelte";
-  import { set } from "./index.js";
+  import { Accordion } from "$lib/headless/accordion.svelte";
+  import { set, type AccordionProps } from "./index.js";
 
   let {
     class: className,
     focus,
+    active = $bindable([]),
     headingLevel,
     children,
-  }: AccordionOptions & {
-    class?: string;
-    children: Snippet;
-  } = $props();
+  }: AccordionProps = $props();
 
-  const accordion = new Accordion({ focus, headingLevel });
+  const accordion = new Accordion({
+    focus: {
+      ...focus,
+      active: () => active,
+      setActive(v) {
+        active = v;
+      },
+    },
+    headingLevel,
+  });
 
   set(accordion);
 </script>
