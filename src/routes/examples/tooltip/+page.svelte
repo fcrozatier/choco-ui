@@ -1,7 +1,7 @@
 <script lang="ts">
   import Tooltip from "$lib/components/tooltip/tooltip.svelte";
 
-  let show = $state(false);
+  let active = $state(false);
 </script>
 
 <p>
@@ -11,10 +11,10 @@
 </p>
 
 <label for="checkbox">show tooltip</label>
-<input id="checkbox" type="checkbox" bind:checked={show} />
+<input id="checkbox" type="checkbox" bind:checked={active} />
 
 <div class="ml-40">
-  <Tooltip bind:active={show} position="right">
+  <Tooltip bind:active position="right">
     HTML
     {#snippet target()}
       Hyper Text Markup Language
@@ -22,4 +22,4 @@
   </Tooltip>
 </div>
 show
-{show}
+{active}
