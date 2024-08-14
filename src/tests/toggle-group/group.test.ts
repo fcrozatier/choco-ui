@@ -98,9 +98,9 @@ describe("Toggle Group", () => {
 
     const before = getByTestId("before");
     const a = getByTestId("A");
-    const b = getByTestId("B");
-    const c = getByTestId("C");
-    const after = getByTestId("after");
+    // const b = getByTestId("B");
+    // const c = getByTestId("C");
+    // const after = getByTestId("after");
 
     before.focus();
     expect(document.activeElement).toBe(before);
