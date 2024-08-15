@@ -1,9 +1,9 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
   import type { HeaderOptions } from "$lib/headless/accordion.svelte";
+  import type { Attributes } from "$lib/mixins/types.js";
   import { cn } from "$lib/utils/styles.js";
   import { type Snippet } from "svelte";
-  import type { HTMLButtonAttributes } from "svelte/elements";
   import { slide } from "svelte/transition";
   import { get } from "./index.js";
 
@@ -12,9 +12,13 @@
     value,
     header,
     children,
-    ...restProps
-  }: HTMLButtonAttributes &
-    Omit<HeaderOptions, "headingLevel"> & { header: Snippet; children: Snippet } = $props();
+    element,
+  }: Omit<HeaderOptions, "headingLevel"> & {
+    class?: string;
+    element?: Omit<Attributes<HTMLButtonElement>, "value" | "class">;
+    header: Snippet;
+    children: Snippet;
+  } = $props();
 
   const accordion = get();
   const item = accordion.createItem({ value });
@@ -27,7 +31,7 @@
       className,
     )}
     use:choco={item}
-    {...restProps}
+    {...element}
   >
     {@render header()}
     <span

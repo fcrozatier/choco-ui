@@ -51,7 +51,7 @@ selected
 </label>
 
 {#key variant}
-  <SwitchGroup.Root {orientation} {variant} {disabled} bind:group>
+  <SwitchGroup.Root {orientation} {variant} element={{ disabled: true }} bind:group>
     <SwitchGroup.Item value="B" active>B</SwitchGroup.Item>
     <SwitchGroup.Item value="I" variant="outline">I</SwitchGroup.Item>
     <SwitchGroup.Item value="U">U</SwitchGroup.Item>

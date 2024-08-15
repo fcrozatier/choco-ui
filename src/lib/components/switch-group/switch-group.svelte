@@ -6,12 +6,12 @@
 
   let {
     class: className = "",
+    element,
     orientation = "horizontal",
     variant,
     focus,
     group = $bindable([]),
     children,
-    ...rest
   }: SwitchGroupProps = $props();
 
   const switchGroup = new SwitchGroup({
@@ -33,7 +33,7 @@
     { "flex-col": orientation === "vertical" },
     className,
   ])}
-  {...rest}
+  {...element}
 >
   {@render children()}
 </fieldset>

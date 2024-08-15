@@ -8,9 +8,9 @@
   let {
     class: className = "",
     active = $bindable(false),
+    element,
     children,
     header,
-    ...restProps
   }: DisclosureProps = $props();
 
   const disclosure = new Disclosure({
@@ -28,7 +28,7 @@
       className,
     )}
     use:choco={disclosure}
-    {...restProps}
+    {...element}
   >
     <span
       class={`inline-flex size-2 ${active ? "rotate-90" : ""} origin-center items-center justify-center transition-transform duration-200`}

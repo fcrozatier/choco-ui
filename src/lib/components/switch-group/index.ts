@@ -1,13 +1,14 @@
 import type { SwitchGroup } from "$lib/headless/switch-group.svelte.js";
 import type { GroupOptions } from "$lib/mixins/group.svelte.js";
-import type { Orientation } from "$lib/mixins/types.js";
+import type { Attributes, Orientation } from "$lib/mixins/types.js";
 import { getContext, setContext, type Snippet } from "svelte";
-import type { HTMLFieldsetAttributes } from "svelte/elements";
 import type { ToggleProps } from "../toggle/index.js";
 import Item from "./switch-group-item.svelte";
 import Root from "./switch-group.svelte";
 
-export type SwitchGroupProps = HTMLFieldsetAttributes & {
+export type SwitchGroupProps = {
+  class?: string;
+  element?: Omit<Attributes<HTMLFieldSetElement>, "class">;
   focus?: Omit<GroupOptions, "group" | "setGroup">;
   group: string[];
   orientation?: Orientation;

@@ -1,17 +1,21 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
   import type { TabOptions } from "$lib/headless/tabs.svelte";
+  import type { Attributes } from "$lib/mixins/types.js";
   import { cn } from "$lib/utils/styles.js";
   import { type Snippet } from "svelte";
-  import type { HTMLButtonAttributes } from "svelte/elements";
   import { getTabsContext } from "./index.js";
 
   let {
     class: className = "",
+    element,
     value,
     children,
-    ...restProps
-  }: HTMLButtonAttributes & Omit<TabOptions, "active"> & { children: Snippet } = $props();
+  }: Omit<TabOptions, "active"> & {
+    class?: string;
+    element?: Omit<Attributes<HTMLButtonElement>, "class" | "value">;
+    children: Snippet;
+  } = $props();
 
   const tab = getTabsContext().createItem({ value });
 </script>
@@ -22,7 +26,7 @@
     className,
   )}
   use:choco={tab}
-  {...restProps}
+  {...element}
 >
   {@render children()}
 </button>

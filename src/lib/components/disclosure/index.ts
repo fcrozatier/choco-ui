@@ -1,14 +1,14 @@
 import type { DisclosureOptions } from "$lib/headless/disclosure.svelte.js";
+import type { Attributes } from "$lib/mixins/types.js";
 import type { StripThunks } from "$lib/utils/binding.js";
 import { type Snippet } from "svelte";
-import type { HTMLButtonAttributes } from "svelte/elements";
 import Disclosure from "./disclosure.svelte";
 
-export type DisclosureProps = HTMLButtonAttributes &
-  StripThunks<DisclosureOptions> & {
-    class?: string;
-    children: Snippet;
-    header: Snippet;
-  };
+export type DisclosureProps = StripThunks<DisclosureOptions> & {
+  class?: string;
+  element?: Omit<Attributes<HTMLButtonElement>, "class">;
+  children: Snippet;
+  header: Snippet;
+};
 
 export { Disclosure };
