@@ -39,10 +39,11 @@ export type Attributes<T extends HTMLElement> = Partial<
       `on:${string}` | `bind:${string}` | "children"
     >]?: HTMLAttributes<HTMLElement>[K];
   } & {
-    [K in WritableKeys<T> as K extends (typeof NonGlobalAttributes)[number] ? K : never]?:
-      | T[K]
-      | null
-      | undefined;
+    [K in WritableKeys<T> as K extends keyof TNonGlobalAttributes
+      ? K
+      : never]?: K extends keyof TNonGlobalAttributes
+      ? (TNonGlobalAttributes[K] & T[K]) | undefined | null
+      : T[K] | undefined | null;
   }
 >;
 
@@ -50,99 +51,95 @@ export type Required<T, K extends keyof T> = {
   [P in keyof T as P extends K ? P : never]-?: T[P];
 } & Omit<T, K>;
 
-const NonGlobalAttributes = [
-  "accept",
-  "accept-charset",
-  "action",
-  "allow",
-  "alt",
-  "as",
-  "async",
-  "autocomplete",
-  "autoplay",
-  "capture",
-  "charset",
-  "checked",
-  "cite",
-  "cols",
-  "colspan",
-  "content",
-  "controls",
-  "coords",
-  "crossorigin",
-  "csp",
-  "data",
-  "datetime",
-  "decoding",
-  "default",
-  "defer",
-  "dirname",
-  "disabled",
-  "download",
-  "enctype",
-  "enterkeyhint",
-  "for",
-  "form",
-  "formaction",
-  "formenctype",
-  "formmethod",
-  "formnovalidate",
-  "formtarget",
-  "headers",
-  "high",
-  "href",
-  "hreflang",
-  "http-equiv",
-  "integrity",
-  "inputmode",
-  "ismap",
-  "kind",
-  "label",
-  "loading",
-  "list",
-  "loop",
-  "low",
-  "max",
-  "maxlength",
-  "minlength",
-  "media",
-  "method",
-  "min",
-  "multiple",
-  "muted",
-  "name",
-  "novalidate",
-  "open",
-  "optimum",
-  "pattern",
-  "ping",
-  "placeholder",
-  "playsinline",
-  "poster",
-  "preload",
-  "readonly",
-  "referrerpolicy",
-  "rel",
-  "required",
-  "reversed",
-  "rows",
-  "rowspan",
-  "sandbox",
-  "scope",
-  "selected",
-  "shape",
-  "size",
-  "sizes",
-  "span",
-  "src",
-  "srcdoc",
-  "srclang",
-  "srcset",
-  "start",
-  "step",
-  "target",
-  "type",
-  "usemap",
-  "value",
-  "wrap",
-] as const;
+type TNonGlobalAttributes = {
+  accept: string;
+  action: string;
+  allow: string;
+  alt: string;
+  as: string;
+  async: boolean;
+  autocomplete: string;
+  autoplay: boolean;
+  capture: "user" | "environment";
+  charset: string;
+  checked: boolean;
+  cite: string;
+  cols: number;
+  colspan: number;
+  content: string;
+  controls: boolean;
+  coords: string;
+  crossorigin: string;
+  data: string;
+  datetime: string;
+  decoding: "async" | "auto" | "sync";
+  default: boolean;
+  defer: boolean;
+  dirname: string;
+  disabled: boolean;
+  download: string;
+  enctype: string;
+  for: string;
+  form: string;
+  formaction: string;
+  formenctype: string;
+  formmethod: string;
+  formnovalidate: boolean;
+  formtarget: string;
+  headers: string;
+  high: number;
+  href: string;
+  hreflang: string;
+  "http-equiv": string;
+  integrity: string;
+  ismap: boolean;
+  kind: string;
+  label: string;
+  loading: "eager" | "lazy";
+  list: string;
+  loop: boolean;
+  low: number;
+  max: number | string;
+  maxlength: number;
+  minlength: number;
+  media: string;
+  method: string;
+  min: number | string;
+  multiple: boolean;
+  muted: boolean;
+  name: string;
+  novalidate: boolean;
+  open: boolean;
+  optimum: number;
+  pattern: string;
+  ping: string;
+  placeholder: string;
+  playsinline: boolean;
+  poster: string;
+  preload: string;
+  readonly: boolean;
+  referrerpolicy: ReferrerPolicy;
+  rel: string;
+  required: boolean;
+  reversed: boolean;
+  rows: number;
+  rowspan: number;
+  sandbox: string;
+  scope: string;
+  selected: boolean;
+  shape: string;
+  size: number;
+  sizes: string;
+  span: number;
+  src: string;
+  srcdoc: string;
+  srclang: string;
+  srcset: string;
+  start: number;
+  step: number | string;
+  target: string;
+  type: string;
+  usemap: string;
+  value: string | string[] | number;
+  wrap: string;
+};
