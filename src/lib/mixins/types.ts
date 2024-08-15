@@ -150,20 +150,25 @@ const NonGlobalAttributes = [
   "wrap",
 ] as const;
 
+// Missing types
+type MissingTypes = {
+  HTMLButtonElement: { form: string };
+  HTMLFieldSetElement: { form: string };
+  HTMLIframeAttributes: { sandbox: string };
+  HTMLInputElement: { form: string; list: string };
+  HTMLLabelElement: { form: string };
+  HTMLMeterElement: { form: string };
+  HTMLObjectElement: { form: string };
+  HTMLOutputElement: { form: string };
+  HTMLSelectElement: { form: string };
+  HTMLTextAreaElement: { form: string };
+};
+
+// TS <-> Svelte mismatch
 type TNonGlobalAttributes = {
   capture: "user" | "environment";
-  colspan: number;
   crossorigin: "anonymous" | "use-credentials" | "";
-  datetime: string;
-  dirname: string;
-  form: string;
-  "http-equiv": string;
-  ismap: boolean;
   loading: "eager" | "lazy";
-  list: string;
-  rowspan: number;
-  sandbox: string;
   step: number | string;
-  value: string | string[] | number;
-  wrap: string;
+  wrap: "hard" | "soft";
 };
