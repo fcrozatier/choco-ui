@@ -7,7 +7,6 @@
   let {
     class: className,
     active = $bindable(false),
-    labelledby,
     builder = (options?: SwitchOptions) => new Switch(options),
     element,
   }: SwitchProps = $props();
@@ -20,16 +19,15 @@
   });
 </script>
 
-<button
-  type="button"
+<input
+  type="checkbox"
   class={cn(
     "handle h-6 w-12 shrink-0 cursor-pointer appearance-none rounded-full border border-gray-500 bg-gray-500 transition-shadow",
     className,
   )}
   use:choco={toggle}
-  aria-labelledby={labelledby}
   {...element}
-></button>
+/>
 
 <style>
   .handle {

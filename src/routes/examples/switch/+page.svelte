@@ -29,5 +29,5 @@
 </form>
 
 <div class="flex items-center space-x-2">
-  <Switch bind:active labelledby="label" />
+  <Switch bind:active element={{ "aria-labelledby": "label" }} />
 </div>

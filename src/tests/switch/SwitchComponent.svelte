@@ -11,5 +11,6 @@
   </label>
 
   <span id="label">label</span>
-  <Switch bind:active={checked} element={{ "data-testid": "switch" }} labelledby="label"></Switch>
+  <Switch bind:active={checked} element={{ "data-testid": "switch", "aria-labelledby": "label" }}
+  ></Switch>
 </main>
