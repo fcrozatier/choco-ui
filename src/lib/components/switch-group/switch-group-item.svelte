@@ -5,7 +5,7 @@
   import { get } from "./index.js";
 
   let {
-    class: className,
+    class: className = "",
     variant,
     active = $bindable(false),
     children,

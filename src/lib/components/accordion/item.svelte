@@ -8,7 +8,7 @@
   import { get } from "./index.js";
 
   let {
-    class: className,
+    class: className = "",
     value,
     header,
     children,

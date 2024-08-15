@@ -5,7 +5,7 @@
   import { set, type SwitchGroupProps } from "./index.js";
 
   let {
-    class: className,
+    class: className = "",
     orientation = "horizontal",
     variant,
     focus,

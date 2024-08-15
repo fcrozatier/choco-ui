@@ -5,7 +5,7 @@
   import type { SwitchProps } from "./index.js";
 
   let {
-    class: className,
+    class: className = "",
     active = $bindable(false),
     builder = (options?: SwitchOptions) => new Switch(options),
     element,

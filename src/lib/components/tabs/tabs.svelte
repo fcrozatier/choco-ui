@@ -3,7 +3,7 @@
   import { setTabsContext, type TabsProps } from "./index.js";
 
   let {
-    class: className,
+    class: className = "",
     group = $bindable([]),
     orientation,
     value,

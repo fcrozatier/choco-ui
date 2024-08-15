@@ -4,7 +4,7 @@
   import { setItemContext, setVariantContext, type ToggleGroupProps } from "./index.js";
 
   let {
-    class: className,
+    class: className = "",
     orientation = "horizontal",
     variant = "default",
     focus,

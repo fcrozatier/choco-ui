@@ -3,7 +3,13 @@
   import type { DialogProps } from "$lib/headless/dialog.svelte";
   import { onMount } from "svelte";
 
-  let { snippet, onclose, class: className, role, closeOnOutsideClick }: DialogProps = $props();
+  let {
+    class: className = "",
+    snippet,
+    onclose,
+    role,
+    closeOnOutsideClick,
+  }: DialogProps = $props();
 
   let dialog: HTMLDialogElement | undefined = $state();
 

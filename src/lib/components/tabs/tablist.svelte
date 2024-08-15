@@ -5,7 +5,7 @@
   import { getTabsContext } from "./index.js";
 
   let {
-    class: className,
+    class: className = "",
     children,
     ...restProps
   }: HTMLAttributes<HTMLDivElement> & { children: Snippet } = $props();

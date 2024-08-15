@@ -3,7 +3,7 @@
   import { set, type AccordionProps } from "./index.js";
 
   let {
-    class: className,
+    class: className = "",
     focus,
     group = $bindable([]),
     headingLevel,

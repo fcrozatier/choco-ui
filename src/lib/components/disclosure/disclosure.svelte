@@ -6,7 +6,7 @@
   import { type DisclosureProps } from "./index.js";
 
   let {
-    class: className,
+    class: className = "",
     active = $bindable(false),
     children,
     header,

@@ -12,7 +12,7 @@
   }
 
   let {
-    class: className,
+    class: className = "",
     active = $bindable(false),
     position,
     children,

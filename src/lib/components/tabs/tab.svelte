@@ -7,7 +7,7 @@
   import { getTabsContext } from "./index.js";
 
   let {
-    class: className,
+    class: className = "",
     value,
     children,
     ...restProps

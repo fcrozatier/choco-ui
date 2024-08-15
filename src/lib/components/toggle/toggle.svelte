@@ -5,7 +5,7 @@
   import { type ToggleProps } from "./index.js";
 
   let {
-    class: className,
+    class: className = "",
     element,
     size = "default",
     variant = "default",
