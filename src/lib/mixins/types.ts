@@ -151,18 +151,18 @@ const NonGlobalAttributes = [
 ] as const;
 
 // Missing types
-type MissingTypes = {
-  HTMLButtonElement: { form: string };
-  HTMLFieldSetElement: { form: string };
-  HTMLIframeAttributes: { sandbox: string };
-  HTMLInputElement: { form: string; list: string };
-  HTMLLabelElement: { form: string };
-  HTMLMeterElement: { form: string };
-  HTMLObjectElement: { form: string };
-  HTMLOutputElement: { form: string };
-  HTMLSelectElement: { form: string };
-  HTMLTextAreaElement: { form: string };
-};
+// type MissingTypes = {
+//   HTMLButtonElement: { form: string };
+//   HTMLFieldSetElement: { form: string };
+//   HTMLIframeAttributes: { sandbox: string };
+//   HTMLInputElement: { form: string; list: string };
+//   HTMLLabelElement: { form: string };
+//   HTMLMeterElement: { form: string };
+//   HTMLObjectElement: { form: string };
+//   HTMLOutputElement: { form: string };
+//   HTMLSelectElement: { form: string };
+//   HTMLTextAreaElement: { form: string };
+// };
 
 // TS <-> Svelte mismatch
 type TNonGlobalAttributes = {
