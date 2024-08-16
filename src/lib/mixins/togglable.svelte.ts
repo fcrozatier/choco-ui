@@ -44,7 +44,7 @@ const defaults = {
 } satisfies TogglableOptions;
 
 export const Togglable = <
-  U extends HTMLTag = "div",
+  U extends HTMLTag = "generic",
   T extends Constructor<ChocoBase<U>> = Constructor<ChocoBase<U>>,
 >(
   superclass: T,
