@@ -76,6 +76,7 @@ export interface HTMLElementsMap {
   figure: HTMLElement;
   footer: HTMLElement;
   form: HTMLFormElement;
+  generic: HTMLElement; // Alias for a generic element
   h1: HTMLHeadingElement;
   h2: HTMLHeadingElement;
   h3: HTMLHeadingElement;

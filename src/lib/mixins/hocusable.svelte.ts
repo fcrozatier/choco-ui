@@ -17,7 +17,7 @@ const defaults = { active: false } satisfies TriggerableOptions;
  * Triggers on hover and focus
  */
 export const Hocusable = <
-  S extends HTMLTag = "main",
+  S extends HTMLTag = "generic",
   T extends Constructor<ChocoBase<S>> = Constructor<ChocoBase<S>>,
 >(
   superclass: T,

@@ -19,7 +19,7 @@ const defaults = { active: false } satisfies TriggerableOptions;
 
 export const Triggerable = <
   CE extends HTMLTag = "button",
-  TE extends HTMLTag = "main",
+  TE extends HTMLTag = "generic",
   C extends Constructor<ChocoBase<CE>> = Constructor<ChocoBase<CE>>,
 >(
   controlClass: C,

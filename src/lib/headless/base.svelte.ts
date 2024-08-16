@@ -2,7 +2,7 @@ import { mergeActions } from "$lib/actions/combineActions.js";
 import type { Action } from "svelte/action";
 import type { Attributes, HTMLElementsMap, HTMLTag } from "../mixins/types.js";
 
-export class ChocoBase<T extends HTMLTag = "main"> {
+export class ChocoBase<T extends HTMLTag = "generic"> {
   // @ts-ignore
   #attributes: Attributes<T> = $state({});
   #actions: Action<T>[] = [];
