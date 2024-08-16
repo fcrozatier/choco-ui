@@ -23,7 +23,7 @@ const defaults = {
  *
  * Adheres to the [Disclosure WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/)
  */
-export class Dialog extends ChocoBase<HTMLButtonElement> {
+export class Dialog extends ChocoBase<"button"> {
   #options: DialogProps = $state({});
   returnValue: string | undefined = $state();
 

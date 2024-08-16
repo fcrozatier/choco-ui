@@ -1,12 +1,13 @@
 import { mergeActions } from "$lib/actions/combineActions.js";
 import type { Action } from "svelte/action";
-import type { Attributes } from "../mixins/types.js";
+import type { Attributes, HTMLElementsMap, HTMLTag } from "../mixins/types.js";
 
-export class ChocoBase<T extends HTMLElement = HTMLElement> {
+export class ChocoBase<T extends HTMLTag = "main"> {
+  // @ts-ignore
   #attributes: Attributes<T> = $state({});
   #actions: Action<T>[] = [];
 
-  element!: T;
+  element!: HTMLElementsMap[T];
 
   get attributes(): Attributes<T> {
     return this.#attributes;
@@ -16,7 +17,7 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> {
     this.#attributes = v;
   }
 
-  get action(): Action<T> {
+  get action(): Action<HTMLElementsMap[T]> {
     return mergeActions(...this.#actions);
   }
 
@@ -29,7 +30,7 @@ export class ChocoBase<T extends HTMLElement = HTMLElement> {
     });
   }
 
-  extendActions(...actions: Action<T>[]) {
+  extendActions(...actions: Action<HTMLElementsMap[T]>[]) {
     for (const action of actions) {
       this.#actions.push(action);
     }

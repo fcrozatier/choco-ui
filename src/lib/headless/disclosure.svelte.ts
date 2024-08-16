@@ -19,7 +19,7 @@ const defaults = { active: false } satisfies DisclosureOptions;
  *
  * Adheres to the [Disclosure WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/)
  */
-export class Disclosure extends Triggerable<HTMLButtonElement>(ChocoBase) {
+export class Disclosure extends Triggerable<"button">(ChocoBase) {
   #options: Required<DisclosureOptions, "active"> = $state(defaults);
 
   constructor(options?: DisclosureOptions) {

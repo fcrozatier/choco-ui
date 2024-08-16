@@ -19,7 +19,7 @@ export type CheckboxOptions = {
   value: string;
 };
 
-class Checkbox extends Togglable<HTMLInputElement>(ChocoBase) {
+class Checkbox extends Togglable<"input">(ChocoBase) {
   value;
 
   constructor(options: CheckboxOptions) {
@@ -31,7 +31,7 @@ class Checkbox extends Togglable<HTMLInputElement>(ChocoBase) {
   }
 }
 
-class TriState extends ChocoBase<HTMLInputElement> {
+class TriState extends ChocoBase<"input"> {
   checked?: boolean = $state();
   indeterminate?: boolean = $state();
 

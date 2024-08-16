@@ -39,7 +39,7 @@ export type TabOptions = {
   active?: boolean;
 };
 
-class Tab extends Triggerable<HTMLButtonElement>(ChocoBase) {
+class Tab extends Triggerable<"button">(ChocoBase) {
   value: string;
 
   constructor(options: TabOptions) {

@@ -25,7 +25,7 @@ const defaults = { active: false, value: "" } satisfies ToggleOptions;
  * Note: The label should not change when the state changes
  *
  */
-export class ToggleButton extends Togglable<HTMLButtonElement>(ChocoBase) {
+export class ToggleButton extends Togglable<"button">(ChocoBase) {
   #options: Required<ToggleOptions, "active" | "value"> = $state(defaults);
   value;
 

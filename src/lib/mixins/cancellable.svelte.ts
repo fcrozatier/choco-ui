@@ -3,7 +3,7 @@ import { ChocoBase } from "$lib/headless/base.svelte.js";
 import { Togglable, ToggleBase } from "$lib/mixins/togglable.svelte.js";
 import type { Action } from "svelte/action";
 import { mix } from "./index.js";
-import type { Constructor } from "./types.js";
+import type { Constructor, HTMLElementsMap, HTMLTag } from "./types.js";
 
 /**
  * ## Cancellable
@@ -11,7 +11,7 @@ import type { Constructor } from "./types.js";
  * Adds a `data-active` attribute to normalize the `:active` state for better styling: the `data-active` attribute is removed when the cursor leaves the target (which is not the case with the CSS `:active` pseudo selector), even when it is still pressed, to convey the cancellability of the action (which will not trigger).
  */
 export const Cancellable = <
-  U extends HTMLElement = HTMLElement,
+  U extends HTMLTag,
   T extends Constructor<ChocoBase<U>> = Constructor<ChocoBase<U>>,
 >(
   superclass: T,
@@ -23,7 +23,7 @@ export const Cancellable = <
       return { ...this.#canceller.attributes, ...super.attributes };
     }
 
-    override get action(): Action<U> {
+    override get action(): Action<HTMLElementsMap[U]> {
       return mergeActions(this.#canceller.action, super.action);
     }
 
@@ -42,12 +42,12 @@ export const Cancellable = <
 };
 
 export const Cancellable2 = <
-  U extends HTMLElement = HTMLElement,
+  U extends HTMLTag = "button",
   T extends Constructor<ChocoBase<U>> = Constructor<ChocoBase<U>>,
 >(
   superclass: T,
 ) => {
-  return class extends Togglable(superclass) {
+  return class extends Togglable<U>(superclass) {
     constructor(...options: any[]) {
       super(...options);
 

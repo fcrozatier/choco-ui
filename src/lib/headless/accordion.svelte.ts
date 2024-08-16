@@ -30,7 +30,7 @@ export type HeaderOptions = {
   active?: boolean;
 };
 
-class Header extends Triggerable<HTMLButtonElement>(ChocoBase) {
+class Header extends Triggerable<"button">(ChocoBase) {
   value: string;
   headingLevel: number;
 

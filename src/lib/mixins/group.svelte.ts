@@ -1,6 +1,6 @@
 import { addListener } from "$lib/actions/addListener.js";
 import { type Toggler } from "$lib/mixins/togglable.svelte.js";
-import type { Constructor, Required } from "$lib/mixins/types.js";
+import type { Constructor, HTMLTag, Required } from "$lib/mixins/types.js";
 import { getValue } from "$lib/utils/binding.js";
 import { key } from "$lib/utils/keyboard.js";
 import { merge, modulo } from "@fcrozatier/ts-helpers";
@@ -49,7 +49,7 @@ const defaults = {
  * If js is not available then the elements have their default focus behavior.
  */
 export const Group = <
-  U extends HTMLElement,
+  U extends HTMLTag,
   T extends Constructor<ChocoBase<U> & Toggler & { value: string }>,
 >(
   superclass: T,

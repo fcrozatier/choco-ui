@@ -7,7 +7,7 @@ import Toggle from "./toggle.svelte";
 
 export interface ToggleProps extends StripThunks<ToggleOptions> {
   class?: string;
-  element?: Omit<Attributes<HTMLButtonElement>, "value" | "class">;
+  element?: Omit<Attributes<"button">, "value" | "class">;
   variant?: "default" | "outline";
   size?: "default" | "sm" | "lg";
   children?: Snippet;

@@ -8,7 +8,7 @@ import Root from "./switch-group.svelte";
 
 export type SwitchGroupProps = {
   class?: string;
-  element?: Omit<Attributes<HTMLFieldSetElement>, "class">;
+  element?: Omit<Attributes<"fieldset">, "class">;
   focus?: Omit<GroupOptions, "group" | "setGroup">;
   group: string[];
   orientation?: Orientation;

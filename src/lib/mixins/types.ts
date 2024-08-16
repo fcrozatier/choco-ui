@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from "svelte/elements";
+import type { SvelteHTMLElements } from "svelte/elements";
 
 // TS Mixin constructor constraint
 // https://www.typescriptlang.org/docs/handbook/mixins.html#constrained-mixins
@@ -24,151 +24,132 @@ type Defined<T> = T extends undefined ? never : T;
 export type Orientation = "horizontal" | "vertical";
 export type Timeout = ReturnType<typeof setTimeout>;
 
-// https://github.com/Microsoft/TypeScript/issues/27024
-type Equals<X, Y> =
-  (<T>() => T extends X ? 1 : 0) extends <U>() => U extends Y ? 1 : 0 ? true : false;
-
-type WritableKeys<T> = {
-  [K in keyof T]: Equals<{ [P in K]: T[K] }, { -readonly [P in K]: T[K] }> extends true ? K : never;
-}[keyof T];
-
-export type Attributes<T extends HTMLElement> = Partial<
-  {
-    [K in keyof Omit<
-      HTMLAttributes<HTMLElement>,
-      `on:${string}` | `bind:${string}` | "children"
-    >]?: HTMLAttributes<HTMLElement>[K];
-  } & {
-    [K in WritableKeys<T> as K extends string
-      ? Lowercase<K> extends (typeof NonGlobalAttributes)[number]
-        ? Lowercase<K>
-        : never
-      : never]?: K extends keyof TNonGlobalAttributes
-      ? TNonGlobalAttributes[K] | undefined | null
-      : T[K] | undefined | null;
-  }
->;
-
 export type Required<T, K extends keyof T> = {
   [P in keyof T as P extends K ? P : never]-?: T[P];
 } & Omit<T, K>;
 
-const NonGlobalAttributes = [
-  "accept",
-  "accept-charset",
-  "action",
-  "allow",
-  "alt",
-  "as",
-  "async",
-  "autocomplete",
-  "autoplay",
-  "capture",
-  "charset",
-  "checked",
-  "cite",
-  "cols",
-  "colspan",
-  "content",
-  "controls",
-  "coords",
-  "crossorigin",
-  "csp",
-  "data",
-  "datetime",
-  "decoding",
-  "default",
-  "defer",
-  "dirname",
-  "disabled",
-  "download",
-  "enctype",
-  "enterkeyhint",
-  "for",
-  "form",
-  "formaction",
-  "formenctype",
-  "formmethod",
-  "formnovalidate",
-  "formtarget",
-  "headers",
-  "high",
-  "href",
-  "hreflang",
-  "http-equiv",
-  "integrity",
-  "inputmode",
-  "ismap",
-  "kind",
-  "label",
-  "loading",
-  "list",
-  "loop",
-  "low",
-  "max",
-  "maxlength",
-  "minlength",
-  "media",
-  "method",
-  "min",
-  "multiple",
-  "muted",
-  "name",
-  "novalidate",
-  "open",
-  "optimum",
-  "pattern",
-  "ping",
-  "placeholder",
-  "playsinline",
-  "poster",
-  "preload",
-  "readonly",
-  "referrerpolicy",
-  "rel",
-  "required",
-  "reversed",
-  "rows",
-  "rowspan",
-  "sandbox",
-  "scope",
-  "selected",
-  "shape",
-  "size",
-  "sizes",
-  "span",
-  "src",
-  "srcdoc",
-  "srclang",
-  "srcset",
-  "start",
-  "step",
-  "target",
-  "type",
-  "usemap",
-  "value",
-  "wrap",
-] as const;
-
-// Missing types
-// type MissingTypes = {
-//   HTMLButtonElement: { form: string };
-//   HTMLFieldSetElement: { form: string };
-//   HTMLIframeAttributes: { sandbox: string };
-//   HTMLInputElement: { form: string; list: string };
-//   HTMLLabelElement: { form: string };
-//   HTMLMeterElement: { form: string };
-//   HTMLObjectElement: { form: string };
-//   HTMLOutputElement: { form: string };
-//   HTMLSelectElement: { form: string };
-//   HTMLTextAreaElement: { form: string };
-// };
-
-// TS <-> Svelte mismatch
-type TNonGlobalAttributes = {
-  capture: "user" | "environment";
-  crossorigin: "anonymous" | "use-credentials" | "";
-  loading: "eager" | "lazy";
-  step: number | string;
-  wrap: "hard" | "soft";
+type HTMLKeys<T> = {
+  [K in keyof T as K extends `on:${string}` | `bind:${string}` | "children" ? never : K]: T[K];
 };
+
+export type Attributes<T extends HTMLTag> = HTMLKeys<SvelteHTMLElements[T]>;
+
+export type HTMLTag = keyof HTMLElementsMap;
+
+export interface HTMLElementsMap {
+  a: HTMLAnchorElement;
+  abbr: HTMLElement;
+  address: HTMLElement;
+  area: HTMLAreaElement;
+  article: HTMLElement;
+  aside: HTMLElement;
+  audio: HTMLAudioElement;
+  b: HTMLElement;
+  base: HTMLBaseElement;
+  bdi: HTMLElement;
+  bdo: HTMLElement;
+  big: HTMLElement;
+  blockquote: HTMLQuoteElement;
+  body: HTMLBodyElement;
+  br: HTMLBRElement;
+  button: HTMLButtonElement;
+  canvas: HTMLCanvasElement;
+  caption: HTMLElement;
+  cite: HTMLElement;
+  code: HTMLElement;
+  col: HTMLTableColElement;
+  colgroup: HTMLTableColElement;
+  data: HTMLDataElement;
+  datalist: HTMLDataListElement;
+  dd: HTMLElement;
+  del: HTMLModElement;
+  details: HTMLDetailsElement;
+  dfn: HTMLElement;
+  dialog: HTMLDialogElement;
+  div: HTMLDivElement;
+  dl: HTMLDListElement;
+  dt: HTMLElement;
+  em: HTMLElement;
+  embed: HTMLEmbedElement;
+  fieldset: HTMLFieldSetElement;
+  figcaption: HTMLElement;
+  figure: HTMLElement;
+  footer: HTMLElement;
+  form: HTMLFormElement;
+  h1: HTMLHeadingElement;
+  h2: HTMLHeadingElement;
+  h3: HTMLHeadingElement;
+  h4: HTMLHeadingElement;
+  h5: HTMLHeadingElement;
+  h6: HTMLHeadingElement;
+  head: HTMLElement;
+  header: HTMLElement;
+  hgroup: HTMLElement;
+  hr: HTMLHRElement;
+  html: HTMLHtmlElement;
+  i: HTMLElement;
+  iframe: HTMLIFrameElement;
+  img: HTMLImageElement;
+  input: HTMLInputElement;
+  ins: HTMLModElement;
+  kbd: HTMLElement;
+  keygen: HTMLElement;
+  label: HTMLLabelElement;
+  legend: HTMLLegendElement;
+  li: HTMLLIElement;
+  link: HTMLLinkElement;
+  main: HTMLElement;
+  map: HTMLMapElement;
+  mark: HTMLElement;
+  menu: HTMLMenuElement;
+  menuitem: HTMLElement;
+  meta: HTMLMetaElement;
+  meter: HTMLMeterElement;
+  nav: HTMLElement;
+  noscript: HTMLElement;
+  object: HTMLObjectElement;
+  ol: HTMLOListElement;
+  optgroup: HTMLOptGroupElement;
+  option: HTMLOptionElement;
+  output: HTMLOutputElement;
+  p: HTMLParagraphElement;
+  picture: HTMLElement;
+  pre: HTMLPreElement;
+  progress: HTMLProgressElement;
+  q: HTMLQuoteElement;
+  rp: HTMLElement;
+  rt: HTMLElement;
+  ruby: HTMLElement;
+  s: HTMLElement;
+  samp: HTMLElement;
+  slot: HTMLSlotElement;
+  script: HTMLScriptElement;
+  section: HTMLElement;
+  select: HTMLSelectElement;
+  small: HTMLElement;
+  source: HTMLSourceElement;
+  span: HTMLSpanElement;
+  strong: HTMLElement;
+  style: HTMLStyleElement;
+  sub: HTMLElement;
+  summary: HTMLElement;
+  sup: HTMLElement;
+  table: HTMLTableElement;
+  template: HTMLTemplateElement;
+  tbody: HTMLTableSectionElement;
+  td: HTMLTableCellElement;
+  textarea: HTMLTextAreaElement;
+  tfoot: HTMLTableSectionElement;
+  th: HTMLTableCellElement;
+  thead: HTMLTableSectionElement;
+  time: HTMLTimeElement;
+  title: HTMLTitleElement;
+  tr: HTMLTableRowElement;
+  track: HTMLTrackElement;
+  u: HTMLElement;
+  ul: HTMLUListElement;
+  var: HTMLElement;
+  video: HTMLVideoElement;
+  wbr: HTMLElement;
+  webview: HTMLElement;
+}

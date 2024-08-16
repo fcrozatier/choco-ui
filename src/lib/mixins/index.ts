@@ -1,10 +1,10 @@
 import { mergeActions } from "$lib/actions/combineActions.js";
 import { ChocoBase } from "$lib/headless/base.svelte.js";
 import type { Action } from "svelte/action";
-import type { Constructor } from "./types.js";
+import type { Constructor, HTMLElementsMap, HTMLTag } from "./types.js";
 
 export const mix = <
-  T extends HTMLElement,
+  T extends HTMLTag,
   U extends (superclass: Constructor<ChocoBase<T>>) => Constructor<ChocoBase<T>>,
   K extends string,
 >(
@@ -26,7 +26,7 @@ export const mix = <
       return { ...this[symbol].attributes, ...super.attributes };
     }
 
-    override get action(): Action<T> {
+    override get action(): Action<HTMLElementsMap[T]> {
       return mergeActions(this[symbol].action, super.action);
     }
 

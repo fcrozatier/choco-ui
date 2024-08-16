@@ -3,7 +3,7 @@ import { getValue } from "$lib/utils/binding.js";
 import { merge } from "@fcrozatier/ts-helpers";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../headless/base.svelte.js";
-import type { Constructor, Required } from "./types.js";
+import type { Constructor, HTMLTag, Required } from "./types.js";
 
 type EventName = keyof HTMLElementEventMap;
 
@@ -44,7 +44,7 @@ const defaults = {
 } satisfies TogglableOptions;
 
 export const Togglable = <
-  U extends HTMLElement = HTMLElement,
+  U extends HTMLTag = "div",
   T extends Constructor<ChocoBase<U>> = Constructor<ChocoBase<U>>,
 >(
   superclass: T,

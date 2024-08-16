@@ -5,7 +5,7 @@ import Switch from "./switch.svelte";
 
 export type SwitchProps = StripThunks<SwitchOptions> & {
   class?: string;
-  element?: Omit<Attributes<HTMLInputElement>, "class" | "value" | "checked">;
+  element?: Omit<Attributes<"input">, "class" | "value" | "checked">;
   variant?: "default" | "outline";
   builder?: (_options?: SwitchOptions) => TSwitch;
 };

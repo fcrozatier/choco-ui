@@ -9,7 +9,7 @@ import {
 import { key } from "$lib/utils/keyboard.js";
 import { debounce, merge } from "@fcrozatier/ts-helpers";
 import { Triggerable, type TriggerableOptions } from "./triggerable.svelte.js";
-import type { Constructor } from "./types.js";
+import type { Constructor, HTMLTag } from "./types.js";
 
 const defaults = { active: false } satisfies TriggerableOptions;
 
@@ -17,12 +17,12 @@ const defaults = { active: false } satisfies TriggerableOptions;
  * Triggers on hover and focus
  */
 export const Hocusable = <
-  S extends HTMLElement = HTMLElement,
+  S extends HTMLTag = "main",
   T extends Constructor<ChocoBase<S>> = Constructor<ChocoBase<S>>,
 >(
   superclass: T,
 ) => {
-  return class extends Triggerable(superclass) {
+  return class extends Triggerable<S>(superclass) {
     #hull: Point[] | undefined;
     #options: TriggerableOptions = $state(defaults);
 

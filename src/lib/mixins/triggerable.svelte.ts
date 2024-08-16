@@ -2,7 +2,7 @@ import { merge } from "@fcrozatier/ts-helpers";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../headless/base.svelte.js";
 import { Togglable, type TogglableOptions } from "./togglable.svelte.js";
-import type { Constructor } from "./types.js";
+import type { Constructor, HTMLTag } from "./types.js";
 
 export type TriggerableOptions = {
   /**
@@ -18,14 +18,14 @@ export type TriggerableOptions = {
 const defaults = { active: false } satisfies TriggerableOptions;
 
 export const Triggerable = <
-  CE extends HTMLElement = HTMLElement,
-  TE extends HTMLElement = HTMLElement,
+  CE extends HTMLTag = "button",
+  TE extends HTMLTag = "main",
   C extends Constructor<ChocoBase<CE>> = Constructor<ChocoBase<CE>>,
 >(
   controlClass: C,
   targetClass = class extends Togglable<TE>(ChocoBase) {},
 ) => {
-  return class extends Togglable(controlClass) {
+  return class extends Togglable<CE>(controlClass) {
     #options: TriggerableOptions = $state(defaults);
     target: InstanceType<typeof targetClass>;
 

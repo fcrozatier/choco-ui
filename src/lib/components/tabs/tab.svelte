@@ -13,7 +13,7 @@
     children,
   }: Omit<TabOptions, "active"> & {
     class?: string;
-    element?: Omit<Attributes<HTMLButtonElement>, "class" | "value">;
+    element?: Omit<Attributes<"button">, "class" | "value">;
     children: Snippet;
   } = $props();
 

@@ -15,7 +15,7 @@
     element,
   }: Omit<HeaderOptions, "headingLevel"> & {
     class?: string;
-    element?: Omit<Attributes<HTMLButtonElement>, "value" | "class">;
+    element?: Omit<Attributes<"button">, "value" | "class">;
     header: Snippet;
     children: Snippet;
   } = $props();

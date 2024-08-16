@@ -6,7 +6,7 @@ import Disclosure from "./disclosure.svelte";
 
 export type DisclosureProps = StripThunks<DisclosureOptions> & {
   class?: string;
-  element?: Omit<Attributes<HTMLButtonElement>, "class">;
+  element?: Omit<Attributes<"button">, "class">;
   children: Snippet;
   header: Snippet;
 };
