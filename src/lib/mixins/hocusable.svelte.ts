@@ -1,4 +1,3 @@
-import { makeFocusable } from "$lib/actions/focus.svelte.js";
 import { ChocoBase } from "$lib/headless/base.svelte.js";
 import { getValue } from "$lib/utils/binding.js";
 import {
@@ -8,6 +7,7 @@ import {
 } from "$lib/utils/geometry/index.js";
 import { key } from "$lib/utils/keyboard.js";
 import { debounce, merge } from "@fcrozatier/ts-helpers";
+import { makeFocusable } from "chocobytes/actions/focus.svelte.js";
 import { Triggerable, type TriggerableOptions } from "./triggerable.svelte.js";
 import type { Constructor, HTMLTag } from "./types.js";
 

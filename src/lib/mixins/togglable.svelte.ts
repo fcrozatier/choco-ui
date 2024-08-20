@@ -1,6 +1,6 @@
-import { addListener } from "$lib/actions/addListener.js";
-import { getValue } from "$lib/utils/binding.js";
 import { merge } from "@fcrozatier/ts-helpers";
+import { addListener } from "chocobytes/actions/addListener.js";
+import { getValue } from "chocobytes/utils/binding.js";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../headless/base.svelte.js";
 import type { Constructor, HTMLTag, Required } from "./types.js";

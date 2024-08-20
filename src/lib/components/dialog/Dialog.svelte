@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { clickOutside } from "$lib/actions/clickOutside.js";
   import type { DialogProps } from "$lib/headless/dialog.svelte";
+  import { clickOutside } from "chocobytes/actions/clickOutside.js";
   import { onMount } from "svelte";
 
   let {

@@ -1,4 +1,4 @@
-import { mergeActions } from "$lib/actions/combineActions.js";
+import { mergeActions } from "chocobytes/actions/combineActions.js";
 import type { Action } from "svelte/action";
 import type { Attributes, HTMLElementsMap, HTMLTag } from "../mixins/types.js";
 

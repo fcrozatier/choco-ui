@@ -1,6 +1,6 @@
-import { mergeActions } from "$lib/actions/combineActions.js";
 import { ChocoBase } from "$lib/headless/base.svelte.js";
 import { Togglable, ToggleBase } from "$lib/mixins/togglable.svelte.js";
+import { mergeActions } from "chocobytes/actions/combineActions.js";
 import type { Action } from "svelte/action";
 import { mix } from "./index.js";
 import type { Constructor, HTMLElementsMap, HTMLTag } from "./types.js";
