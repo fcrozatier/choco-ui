@@ -30,7 +30,7 @@
 <div class="my-8 flex gap-4">
   {#each group.items as item}
     <button class="rounded py-2 px-4 outline" class:underline={item.active} use:choco={item}>
-      {item.attributes.value}
+      {item.value}
     </button>
   {/each}
 </div>
