@@ -19,6 +19,7 @@
   },
   "files": [
     "dist",
+    "scripts/bin.js",
     "preprocessor",
     "!dist/**/*.test.*",
     "!preprocessor/**/*.test.*"
@@ -30,6 +31,9 @@
     "./mixins/*": "./dist/mixins/*",
     "./actions/*": "./dist/actions/*",
     "./utils/*": "./dist/utils/*"
+  },
+  "bin": {
+    "chocobytes": "./scripts/bin.js"
   },
   "peerDependencies": {
     "svelte": "^5.0.0-next.1"
