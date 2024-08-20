@@ -8,26 +8,17 @@ let cwd = process.cwd();
 
 p.intro("Welcome to chocobytes!");
 
-const options = await p.multiselect({
-  message: "Select the choco files to copy to your project (use arrow keys/space bar)",
-  required: true,
-  options: [
-    {
-      value: "components",
-      label: "Component files",
-    },
-    {
-      value: "headless",
-      label: "Headless files",
-    },
-  ],
+const confirm = await p.confirm({
+  message:
+    "You're about to copy the components, headless and mixin files from chocobytes to your project. Continue?",
+  initialValue: false,
 });
 
-if (p.isCancel(options)) process.exit(1);
+if (!confirm || p.isCancel(confirm)) process.exit(1);
 
 const source = "./node_modules/chocobytes/src/lib/";
 
-for (const value of ["components", "headless"]) {
+for (const value of ["components", "headless", "mixins"]) {
   if (options.includes(value)) {
     const target = path.join(cwd, `src/lib/${value}`);
 
