@@ -19,10 +19,12 @@
   },
   "files": [
     "dist",
-    "scripts/bin.js",
-    "preprocessor",
     "!dist/**/*.test.*",
-    "!preprocessor/**/*.test.*"
+    "preprocessor",
+    "!preprocessor/**/*.test.*",
+    "scripts/bin.js",
+    "src/lib/components/*",
+    "src/lib/headless/*"
   ],
   "exports": {
     "./preprocessor": "./preprocessor/index.js",
@@ -77,6 +79,7 @@
     "vitest": "^2.0.5"
   },
   "dependencies": {
+    "@clack/prompts": "^0.7.0",
     "@fcrozatier/ts-helpers": "^1.3.2",
     "clsx": "^2.1.1",
     "estree-walker": "^3.0.3",
