@@ -1,6 +1,6 @@
+import { addListener } from "$lib/actions/addListener.js";
 import { ChocoBase } from "$lib/base.svelte.js";
 import DialogUI from "$lib/components/dialog/Dialog.svelte";
-import { addListener } from "chocobytes/actions/addListener.js";
 import { merge } from "$lib/utils/index.js";
 import type { role } from "$lib/utils/roles.js";
 import { mount, unmount, type Snippet } from "svelte";

@@ -1,6 +1,6 @@
+import { mergeActions } from "$lib/actions/combineActions.js";
 import { ChocoBase } from "$lib/base.svelte.js";
 import type { Constructor, HTMLElementsMap, HTMLTag } from "$lib/utils/types.js";
-import { mergeActions } from "chocobytes/actions/combineActions.js";
 import type { Action } from "svelte/action";
 
 export const mix = <

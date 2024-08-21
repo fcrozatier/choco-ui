@@ -1,5 +1,5 @@
+import { addListener } from "$lib/actions/addListener.js";
 import { ChocoBase } from "$lib/base.svelte.js";
-import { addListener } from "chocobytes/actions/addListener.js";
 import { getValue } from "$lib/utils/binding.js";
 import { merge } from "$lib/utils/index.js";
 import type { Constructor, HTMLTag, Required } from "$lib/utils/types.js";

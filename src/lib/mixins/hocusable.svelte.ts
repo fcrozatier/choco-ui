@@ -1,3 +1,4 @@
+import { makeFocusable } from "$lib/actions/focus.svelte.js";
 import { ChocoBase } from "$lib/base.svelte.js";
 import { getValue } from "$lib/utils/binding.js";
 import {
@@ -8,7 +9,6 @@ import {
 import { debounce, merge } from "$lib/utils/index.js";
 import { key } from "$lib/utils/keyboard.js";
 import type { Constructor, HTMLTag } from "$lib/utils/types.js";
-import { makeFocusable } from "chocobytes/actions/focus.svelte.js";
 import { Triggerable, type TriggerableOptions } from "./triggerable.svelte.js";
 
 const defaults = { active: false } satisfies TriggerableOptions;
