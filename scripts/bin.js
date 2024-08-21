@@ -45,7 +45,8 @@ for (const value of ["components", "headless", "mixins"]) {
       .readFileSync(path, { encoding: "utf-8" })
       .replaceAll("$lib/utils", "chocobytes/utils")
       .replaceAll("$lib/actions", "chocobytes/actions")
-      .replaceAll("$lib/base.svelte.js", "chocobytes");
+      .replaceAll("$lib/base.svelte.js", "chocobytes")
+      .replaceAll("$lib/index.js", "chocobytes");
 
     fs.writeFileSync(path, file, { encoding: "utf-8" });
   }
