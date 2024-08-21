@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { choco } from "$lib/actions/choco.js";
   import { ChocoBase } from "$lib/base.svelte.js";
-  import { choco } from "$lib/choco.js";
   import { Cancellable } from "$lib/mixins/cancellable.svelte";
 
   class Button extends Cancellable(ChocoBase) {}

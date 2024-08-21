@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { choco } from "$lib/choco.js";
+  import { choco } from "$lib/actions/choco.js";
   import { ToggleButton, type ToggleOptions } from "$lib/headless/toggle.svelte.js";
   import { cn } from "$lib/utils/styles.js";
   import { type ToggleProps } from "./index.js";

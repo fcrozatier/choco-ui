@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { choco } from "$lib/choco.js";
+  import { choco } from "$lib/actions/choco.js";
   import { Dialog } from "$lib/headless/dialog.svelte";
 
   const dialog = new Dialog({ snippet: dialogSnippet, closeOnOutsideClick: true });

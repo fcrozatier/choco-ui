@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { choco } from "$lib/choco.js";
+  import { choco } from "$lib/actions/choco.js";
   import * as SwitchGroup from "$lib/components/switch-group/index.js";
   import { SwitchGroup as SG } from "$lib/headless/switch-group.svelte";
   import type { Orientation } from "$lib/utils/types.js";

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { choco } from "$lib/choco.js";
+  import { choco } from "$lib/actions/choco.js";
   import * as TabsUI from "$lib/components/tabs/index.js";
   import { Tabs } from "$lib/headless/tabs.svelte";
 

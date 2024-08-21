@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { choco } from "$lib/choco.js";
+  import { choco } from "$lib/actions/choco.js";
   import type { HeaderOptions } from "$lib/headless/accordion.svelte";
   import { cn } from "$lib/utils/styles.js";
   import type { Attributes } from "$lib/utils/types.js";

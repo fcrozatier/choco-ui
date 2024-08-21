@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { choco } from "$lib/choco.js";
+  import { choco } from "$lib/actions/choco.js";
   import * as ToggleGroupUI from "$lib/components/toggle-group/index.js";
   import ToggleGroupItem from "$lib/components/toggle-group/toggle-group-item.svelte";
   import ToggleGroupRoot from "$lib/components/toggle-group/toggle-group.svelte";

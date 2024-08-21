@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { choco } from "$lib/choco.js";
+  import { choco } from "$lib/actions/choco.js";
   import { type Snippet } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";
   import { getTabsContext } from "./index.js";
