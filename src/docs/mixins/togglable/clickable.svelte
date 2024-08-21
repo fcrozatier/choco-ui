@@ -1,6 +1,6 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { ChocoBase } from "$lib/headless/base.svelte";
+  import { ChocoBase } from "$lib/base.svelte.js";
   import { Clickable } from "./clickable.svelte.js";
 
   // The headless class is empty, it only needs the Clickable flavor
