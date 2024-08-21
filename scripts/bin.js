@@ -35,7 +35,12 @@ for (const value of ["components", "headless", "mixins"]) {
     }
   }
 
-  fs.cpSync(path.join(source, value), target, { recursive: true }, (err) => console.error(err));
+  const file = fs
+    .readFileSync(path.join(source, value), { encoding: "utf-8" })
+    .replaceAll("$lib/utils", "chocobytes/utils");
+
+  fs.writeFileSync(target, file, { encoding: "utf-8" });
+  // fs.cpSync(path.join(source, value), target, { recursive: true }, (err) => console.error(err));
 }
 
 p.outro("Your project is ready! 🚀");
