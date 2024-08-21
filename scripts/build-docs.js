@@ -8,7 +8,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import smartyPants from "remark-smartypants";
 import { unified } from "unified";
-import { getFiles } from "./utils";
+import { getFiles } from "./utils.js";
 
 const matter = /^---(?<matter>(.|\n)*?)---/;
 
