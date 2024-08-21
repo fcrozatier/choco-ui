@@ -1,8 +1,8 @@
 import { ChocoBase } from "$lib/base.svelte.js";
+import { Group, type GroupOptions } from "$lib/mixins/group.svelte.js";
 import { Togglable } from "$lib/mixins/togglable.svelte.js";
 import { nanoId } from "$lib/utils/index.js";
 import { addListener } from "chocobytes/actions/addListener.js";
-import { Group, type GroupOptions } from "../mixins/group.svelte.js";
 
 type CheckboxGroupOptions = GroupOptions & {
   /**
