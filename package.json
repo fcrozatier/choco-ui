@@ -23,6 +23,7 @@
     "preprocessor",
     "!preprocessor/**/*.test.*",
     "scripts/bin.js",
+    "scripts/utils.js",
     "src/lib/components/*",
     "src/lib/headless/*",
     "src/lib/mixins/*"
@@ -33,7 +34,8 @@
     "./headless/*": "./dist/headless/*",
     "./mixins/*": "./dist/mixins/*",
     "./actions/*": "./dist/actions/*",
-    "./utils/*": "./dist/utils/*"
+    "./utils/*": "./dist/utils/*",
+    ".": "./dist/index.js"
   },
   "bin": {
     "chocobytes": "./scripts/bin.js"
