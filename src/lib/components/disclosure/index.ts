@@ -1,6 +1,6 @@
 import type { DisclosureOptions } from "$lib/headless/disclosure.svelte.js";
-import type { StripThunks } from "$lib/utils/binding.js";
-import type { Attributes } from "$lib/utils/types.js";
+import type { StripThunks } from "chocobytes/utils/binding.js";
+import type { Attributes } from "chocobytes/utils/types.js";
 import { type Snippet } from "svelte";
 import Disclosure from "./disclosure.svelte";
 

@@ -1,9 +1,9 @@
 import { ChocoBase } from "$lib/base.svelte.js";
 import { Hocusable } from "$lib/mixins/hocusable.svelte.js";
-import { getValue } from "$lib/utils/binding.js";
-import { merge, nanoId } from "$lib/utils/index.js";
-import { role } from "$lib/utils/roles.js";
-import type { Required } from "$lib/utils/types.js";
+import { getValue } from "chocobytes/utils/binding.js";
+import { merge, nanoId } from "chocobytes/utils/index.js";
+import { role } from "chocobytes/utils/roles.js";
+import type { Required } from "chocobytes/utils/types.js";
 
 export type TooltipOptions = {
   active?: boolean | (() => boolean);

@@ -1,7 +1,7 @@
 import type { ToggleOptions } from "$lib/headless/toggle.svelte.js";
 import type { Togglable } from "$lib/mixins/togglable.svelte.js";
-import type { StripThunks } from "$lib/utils/binding.js";
-import type { Attributes } from "$lib/utils/types.js";
+import type { StripThunks } from "chocobytes/utils/binding.js";
+import type { Attributes } from "chocobytes/utils/types.js";
 import type { Snippet } from "svelte";
 import Toggle from "./toggle.svelte";
 

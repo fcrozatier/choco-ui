@@ -1,5 +1,5 @@
 import type { Tabs, TabsOptions } from "$lib/headless/tabs.svelte.js";
-import type { OmitSupertype } from "$lib/utils/types.js";
+import type { OmitSupertype } from "chocobytes/utils/types.js";
 import { getContext, setContext, type Snippet } from "svelte";
 import Tab from "./tab.svelte";
 import TabList from "./tablist.svelte";

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { cn } from "$lib/utils/styles.js";
+  import { cn } from "chocobytes/utils/styles.js";
   import { type Snippet } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";
   import { getTabsContext } from "./index.js";

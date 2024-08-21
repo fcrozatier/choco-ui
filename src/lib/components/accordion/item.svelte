@@ -1,8 +1,8 @@
 <script lang="ts">
   import { choco } from "$lib/choco.js";
   import type { HeaderOptions } from "$lib/headless/accordion.svelte";
-  import { cn } from "$lib/utils/styles.js";
-  import type { Attributes } from "$lib/utils/types.js";
+  import { cn } from "chocobytes/utils/styles.js";
+  import type { Attributes } from "chocobytes/utils/types.js";
   import { type Snippet } from "svelte";
   import { slide } from "svelte/transition";
   import { get } from "./index.js";

@@ -1,6 +1,6 @@
 import { ChocoBase } from "$lib/base.svelte.js";
-import { merge } from "$lib/utils/index.js";
-import type { Constructor, HTMLTag } from "$lib/utils/types.js";
+import { merge } from "chocobytes/utils/index.js";
+import type { Constructor, HTMLTag } from "chocobytes/utils/types.js";
 import type { Booleanish } from "svelte/elements";
 import { Togglable, type TogglableOptions } from "./togglable.svelte.js";
 
