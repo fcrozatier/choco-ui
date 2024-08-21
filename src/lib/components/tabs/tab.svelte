@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { choco } from "$lib/actions/choco.js";
+  import { choco } from "$lib/choco.js";
   import type { TabOptions } from "$lib/headless/tabs.svelte";
-  import type { Attributes } from "$lib/utils/types.js";
   import { cn } from "$lib/utils/styles.js";
+  import type { Attributes } from "$lib/utils/types.js";
   import { type Snippet } from "svelte";
   import { getTabsContext } from "./index.js";
 

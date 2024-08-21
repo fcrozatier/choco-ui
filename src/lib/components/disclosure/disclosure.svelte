@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { choco } from "$lib/actions/choco.js";
+  import { choco } from "$lib/choco.js";
   import { Disclosure } from "$lib/headless/disclosure.svelte";
   import { cn } from "$lib/utils/styles.js";
   import { slide } from "svelte/transition";

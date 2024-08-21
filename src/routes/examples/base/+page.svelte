@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { choco } from "$lib/actions/choco.js";
-  import { ChocoBase } from "$lib/headless/base.svelte";
+  import { ChocoBase } from "$lib/base.svelte";
+  import { choco } from "$lib/choco.js";
 
   const base = new ChocoBase({
     hidden: false,

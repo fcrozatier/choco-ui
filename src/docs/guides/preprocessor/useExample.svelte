@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { choco } from "$lib/actions/choco.js";
+  import { choco } from "$lib/choco.js";
   import { ToggleButton } from "$lib/headless/toggle.svelte.js";
 
   const toggle = new ToggleButton();

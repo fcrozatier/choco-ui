@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { choco } from "$lib/actions/choco.js";
+  import { choco } from "$lib/choco.js";
   import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
   import type { GroupOptions } from "$lib/mixins/group.svelte";
 
