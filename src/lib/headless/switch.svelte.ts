@@ -1,9 +1,9 @@
+import { ChocoBase } from "$lib/base.svelte.js";
 import { Togglable } from "$lib/mixins/togglable.svelte.js";
 import { getValue } from "$lib/utils/binding.js";
 import { merge } from "$lib/utils/index.js";
 import { role } from "$lib/utils/roles.js";
 import type { Required } from "$lib/utils/types.js";
-import { ChocoBase } from "./base.svelte.js";
 
 export type SwitchOptions = {
   /**

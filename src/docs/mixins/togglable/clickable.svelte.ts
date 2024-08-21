@@ -1,4 +1,4 @@
-import type { ChocoBase } from "$lib/headless/base.svelte.js";
+import type { ChocoBase } from "$lib/base.svelte.js";
 import { Togglable } from "$lib/mixins/togglable.svelte.js";
 import type { Constructor } from "$lib/utils/types.js";
 

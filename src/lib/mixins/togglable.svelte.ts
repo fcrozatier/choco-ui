@@ -1,9 +1,9 @@
-import type { Constructor, HTMLTag, Required } from "$lib/utils/types.js";
+import { ChocoBase } from "$lib/base.svelte.js";
 import { merge } from "$lib/utils/index.js";
+import type { Constructor, HTMLTag, Required } from "$lib/utils/types.js";
 import { addListener } from "chocobytes/actions/addListener.js";
 import { getValue } from "chocobytes/utils/binding.js";
 import type { Booleanish } from "svelte/elements";
-import { ChocoBase } from "../headless/base.svelte.js";
 
 type EventName = keyof HTMLElementEventMap;
 

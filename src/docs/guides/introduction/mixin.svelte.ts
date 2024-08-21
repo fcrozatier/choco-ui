@@ -1,4 +1,4 @@
-import { ChocoBase } from "$lib/headless/base.svelte.js";
+import { ChocoBase } from "$lib/base.svelte.js";
 import { Togglable } from "$lib/mixins/togglable.svelte.js";
 
 export class ToggleButton extends Togglable(ChocoBase) {
