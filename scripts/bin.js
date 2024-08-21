@@ -3,6 +3,7 @@
 import * as p from "@clack/prompts";
 import fs from "node:fs";
 import path from "node:path";
+import { getFiles } from "./utils";
 
 let cwd = process.cwd();
 
@@ -35,12 +36,19 @@ for (const value of ["components", "headless", "mixins"]) {
     }
   }
 
-  const file = fs
-    .readFileSync(path.join(source, value), { encoding: "utf-8" })
-    .replaceAll("$lib/utils", "chocobytes/utils");
+  fs.cpSync(path.join(source, value), target, { recursive: true }, (err) => console.error(err));
 
-  fs.writeFileSync(target, file, { encoding: "utf-8" });
-  // fs.cpSync(path.join(source, value), target, { recursive: true }, (err) => console.error(err));
+  const files = getFiles(target);
+
+  for (const path of files) {
+    const file = fs
+      .readFileSync(path, { encoding: "utf-8" })
+      .replaceAll("$lib/utils", "chocobytes/utils")
+      .replaceAll("$lib/actions", "chocobytes/actions")
+      .replaceAll("$lib/base.svelte.js", "chocobytes");
+
+    fs.writeFileSync(path, file, { encoding: "utf-8" });
+  }
 }
 
 p.outro("Your project is ready! 🚀");
