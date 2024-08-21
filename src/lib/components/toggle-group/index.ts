@@ -1,7 +1,7 @@
 import type { ToggleGroup } from "$lib/headless/toggle-group.svelte.js";
 import type { ToggleButton, ToggleOptions } from "$lib/headless/toggle.svelte.js";
 import type { GroupOptions } from "$lib/mixins/group.svelte.js";
-import type { Orientation } from "chocobytes/utils/types.js";
+import type { Orientation } from "$lib/utils/types.js";
 import { getContext, setContext, type Snippet } from "svelte";
 import type { HTMLFieldsetAttributes } from "svelte/elements";
 import type { ToggleProps } from "../toggle/index.js";

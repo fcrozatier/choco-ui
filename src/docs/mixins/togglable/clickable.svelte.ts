@@ -1,6 +1,6 @@
 import type { ChocoBase } from "$lib/base.svelte.js";
 import { Togglable } from "$lib/mixins/togglable.svelte.js";
-import type { Constructor } from "chocobytes/utils/types.js";
+import type { Constructor } from "$lib/utils/types.js";
 
 export const Clickable = (superclass: Constructor<ChocoBase>) => {
   return class extends Togglable(superclass) {

@@ -1,5 +1,5 @@
 import type { ChocoBase } from "$lib/base.svelte.js";
-import type { HTMLElementsMap, HTMLTag } from "chocobytes/utils/types.js";
+import type { HTMLElementsMap, HTMLTag } from "$lib/utils/types.js";
 
 export const choco = <T extends HTMLTag>(
   node: NoInfer<HTMLElementsMap[T]>,

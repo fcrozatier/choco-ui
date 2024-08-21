@@ -1,14 +1,14 @@
 import { ChocoBase } from "$lib/base.svelte.js";
-import { makeFocusable } from "chocobytes/actions/focus.svelte.js";
-import { getValue } from "chocobytes/utils/binding.js";
+import { getValue } from "$lib/utils/binding.js";
 import {
   convexHullFromElements,
   pointInConvexPolygon,
   type Point,
-} from "chocobytes/utils/geometry/index.js";
-import { debounce, merge } from "chocobytes/utils/index.js";
-import { key } from "chocobytes/utils/keyboard.js";
-import type { Constructor, HTMLTag } from "chocobytes/utils/types.js";
+} from "$lib/utils/geometry/index.js";
+import { debounce, merge } from "$lib/utils/index.js";
+import { key } from "$lib/utils/keyboard.js";
+import type { Constructor, HTMLTag } from "$lib/utils/types.js";
+import { makeFocusable } from "chocobytes/actions/focus.svelte.js";
 import { Triggerable, type TriggerableOptions } from "./triggerable.svelte.js";
 
 const defaults = { active: false } satisfies TriggerableOptions;

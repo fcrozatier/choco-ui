@@ -4,7 +4,7 @@
   import ToggleGroupItem from "$lib/components/toggle-group/toggle-group-item.svelte";
   import ToggleGroupRoot from "$lib/components/toggle-group/toggle-group.svelte";
   import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
-  import type { Orientation } from "chocobytes/utils/types.js";
+  import type { Orientation } from "$lib/utils/types.js";
 
   let disabled: boolean | undefined = $state();
   let variant: "outline" | "default" = $state("default");

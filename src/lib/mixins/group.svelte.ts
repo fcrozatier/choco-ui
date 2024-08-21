@@ -1,10 +1,10 @@
 import { type ChocoBase } from "$lib/base.svelte.js";
 import { type Toggler } from "$lib/mixins/togglable.svelte.js";
+import { getValue } from "$lib/utils/binding.js";
+import { merge, modulo } from "$lib/utils/index.js";
+import { key } from "$lib/utils/keyboard.js";
+import type { Constructor, HTMLTag, Required } from "$lib/utils/types.js";
 import { addListener } from "chocobytes/actions/addListener.js";
-import { getValue } from "chocobytes/utils/binding.js";
-import { merge, modulo } from "chocobytes/utils/index.js";
-import { key } from "chocobytes/utils/keyboard.js";
-import type { Constructor, HTMLTag, Required } from "chocobytes/utils/types.js";
 import { SvelteMap } from "svelte/reactivity";
 
 export type GroupOptions = {

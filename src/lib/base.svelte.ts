@@ -1,5 +1,5 @@
 import { mergeActions } from "$lib/actions/combineActions.js";
-import type { Attributes, HTMLElementsMap, HTMLTag } from "chocobytes/utils/types.js";
+import type { Attributes, HTMLElementsMap, HTMLTag } from "$lib/utils/types.js";
 import type { Action } from "svelte/action";
 
 export class ChocoBase<T extends HTMLTag = "generic"> {

@@ -1,8 +1,8 @@
 <script lang="ts">
   import { choco } from "$lib/choco.js";
   import { Tooltip, type TooltipOptions } from "$lib/headless/tooltip.svelte";
-  import type { StripThunks } from "chocobytes/utils/binding.js";
-  import { cn } from "chocobytes/utils/styles.js";
+  import type { StripThunks } from "$lib/utils/binding.js";
+  import { cn } from "$lib/utils/styles.js";
   import { type Snippet } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";
 
