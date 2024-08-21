@@ -1,7 +1,7 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
   import type { HeaderOptions } from "$lib/headless/accordion.svelte";
-  import type { Attributes } from "$lib/mixins/types.js";
+  import type { Attributes } from "$lib/utils/types.js";
   import { cn } from "$lib/utils/styles.js";
   import { type Snippet } from "svelte";
   import { slide } from "svelte/transition";

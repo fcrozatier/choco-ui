@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import Icon from "$components/Icon.svelte";
-  import { keys } from "@fcrozatier/ts-helpers";
+  import { keys } from "$lib/utils/index.js";
   import { type Snippet } from "svelte";
   import "../app.css";
 

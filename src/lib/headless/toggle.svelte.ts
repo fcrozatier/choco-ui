@@ -1,7 +1,7 @@
 import { Togglable } from "$lib/mixins/togglable.svelte.js";
-import type { Required } from "$lib/mixins/types.js";
 import { getValue } from "$lib/utils/binding.js";
-import { merge } from "@fcrozatier/ts-helpers";
+import { merge } from "$lib/utils/index.js";
+import type { Required } from "$lib/utils/types.js";
 import { ChocoBase } from "./base.svelte.js";
 
 export type ToggleOptions = {

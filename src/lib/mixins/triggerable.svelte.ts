@@ -1,5 +1,5 @@
 import type { Constructor, HTMLTag } from "$lib/utils/types.js";
-import { merge } from "@fcrozatier/ts-helpers";
+import { merge } from "$lib/utils/index.js";
 import type { Booleanish } from "svelte/elements";
 import { ChocoBase } from "../headless/base.svelte.js";
 import { Togglable, type TogglableOptions } from "./togglable.svelte.js";

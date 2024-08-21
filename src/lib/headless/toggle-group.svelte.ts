@@ -1,4 +1,4 @@
-import type { Required } from "$lib/mixins/types.js";
+import type { Required } from "$lib/utils/types.js";
 import { Group } from "../mixins/group.svelte.js";
 import { ToggleButton, type ToggleOptions } from "./toggle.svelte.js";
 

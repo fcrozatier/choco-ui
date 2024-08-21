@@ -1,5 +1,5 @@
 import type { Constructor, HTMLTag, Required } from "$lib/utils/types.js";
-import { merge } from "@fcrozatier/ts-helpers";
+import { merge } from "$lib/utils/index.js";
 import { addListener } from "chocobytes/actions/addListener.js";
 import { getValue } from "chocobytes/utils/binding.js";
 import type { Booleanish } from "svelte/elements";

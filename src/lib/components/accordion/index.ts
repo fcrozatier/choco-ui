@@ -1,5 +1,5 @@
 import type { Accordion, AccordionOptions } from "$lib/headless/accordion.svelte.js";
-import type { OmitSupertype } from "$lib/mixins/types.js";
+import type { OmitSupertype } from "$lib/utils/types.js";
 import { getContext, setContext, type Snippet } from "svelte";
 import Root from "./accordion.svelte";
 import Item from "./item.svelte";

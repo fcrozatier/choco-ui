@@ -1,8 +1,8 @@
 import { Hocusable } from "$lib/mixins/hocusable.svelte.js";
-import type { Required } from "$lib/mixins/types.js";
 import { getValue } from "$lib/utils/binding.js";
+import { merge, nanoId } from "$lib/utils/index.js";
 import { role } from "$lib/utils/roles.js";
-import { merge, nanoId } from "@fcrozatier/ts-helpers";
+import type { Required } from "$lib/utils/types.js";
 import { ChocoBase } from "./base.svelte.js";
 
 export type TooltipOptions = {
