@@ -19,25 +19,23 @@ if (!confirm || p.isCancel(confirm)) process.exit(1);
 const source = "./node_modules/chocobytes/src/lib/";
 
 for (const value of ["components", "headless", "mixins"]) {
-  if (options.includes(value)) {
-    const target = path.join(cwd, `src/lib/${value}`);
+  const target = path.join(cwd, `src/lib/${value}`);
 
-    if (fs.existsSync(target)) {
-      if (fs.readdirSync(cwd).length > 0) {
-        const force = await p.confirm({
-          message: `Your 'src/lib/${value}' directory is not empty. Continue?`,
-          initialValue: false,
-        });
+  if (fs.existsSync(target)) {
+    if (fs.readdirSync(cwd).length > 0) {
+      const force = await p.confirm({
+        message: `Your 'src/lib/${value}' directory is not empty. Continue?`,
+        initialValue: false,
+      });
 
-        // bail if `force` is `false` or the user cancelled with Ctrl-C
-        if (force !== true) {
-          process.exit(1);
-        }
+      // bail if `force` is `false` or the user cancelled with Ctrl-C
+      if (force !== true) {
+        process.exit(1);
       }
     }
-
-    fs.cpSync(path.join(source, value), target, { recursive: true }, (err) => console.error(err));
   }
+
+  fs.cpSync(path.join(source, value), target, { recursive: true }, (err) => console.error(err));
 }
 
 p.outro("Your project is ready! 🚀");
