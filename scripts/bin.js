@@ -3,7 +3,7 @@
 import * as p from "@clack/prompts";
 import fs from "node:fs";
 import path from "node:path";
-import { getFiles } from "./utils";
+import { getFiles } from "./utils.js";
 
 let cwd = process.cwd();
 
