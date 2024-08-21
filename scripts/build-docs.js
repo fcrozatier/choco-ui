@@ -1,4 +1,4 @@
-import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import * as prettier from "prettier";
@@ -8,6 +8,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import smartyPants from "remark-smartypants";
 import { unified } from "unified";
+import { getFiles } from "./utils";
 
 const matter = /^---(?<matter>(.|\n)*?)---/;
 
@@ -47,26 +48,6 @@ async function parseMarkdown(content) {
     .use(rehypeStringify, { allowDangerousCharacters: true, allowDangerousHtml: true })
     .process(content);
   return processor.toString();
-}
-
-/**
- * Recursively get all file paths under dir
- * @param {string} dir
- * @param {string[]} files
- * @returns
- */
-export function getFiles(dir, files = []) {
-  let items = readdirSync(dir, { withFileTypes: true });
-
-  for (const file of items) {
-    let path = join(dir, file.name);
-    if (file.isDirectory()) {
-      getFiles(path, files);
-    } else {
-      files.push(path);
-    }
-  }
-  return files;
 }
 
 const api = /<API (?=.*file="(?<file>.*?)")(?=.*type="(?<type>.*?)").*\/>/;
