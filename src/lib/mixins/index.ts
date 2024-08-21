@@ -1,7 +1,7 @@
 import { ChocoBase } from "$lib/headless/base.svelte.js";
+import type { Constructor, HTMLElementsMap, HTMLTag } from "$lib/utils/types.js";
 import { mergeActions } from "chocobytes/actions/combineActions.js";
 import type { Action } from "svelte/action";
-import type { Constructor, HTMLElementsMap, HTMLTag } from "./types.js";
 
 export const mix = <
   T extends HTMLTag,

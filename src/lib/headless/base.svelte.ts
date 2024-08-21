@@ -1,6 +1,6 @@
+import type { Attributes, HTMLElementsMap, HTMLTag } from "$lib/utils/types.js";
 import { mergeActions } from "chocobytes/actions/combineActions.js";
 import type { Action } from "svelte/action";
-import type { Attributes, HTMLElementsMap, HTMLTag } from "../mixins/types.js";
 
 export class ChocoBase<T extends HTMLTag = "generic"> {
   // @ts-ignore

@@ -6,10 +6,10 @@ import {
   type Point,
 } from "$lib/utils/geometry/index.js";
 import { key } from "$lib/utils/keyboard.js";
+import type { Constructor, HTMLTag } from "$lib/utils/types.js";
 import { debounce, merge } from "@fcrozatier/ts-helpers";
 import { makeFocusable } from "chocobytes/actions/focus.svelte.js";
 import { Triggerable, type TriggerableOptions } from "./triggerable.svelte.js";
-import type { Constructor, HTMLTag } from "./types.js";
 
 const defaults = { active: false } satisfies TriggerableOptions;
 
