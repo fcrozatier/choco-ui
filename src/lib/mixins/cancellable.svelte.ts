@@ -1,9 +1,9 @@
 import { mergeActions } from "$lib/actions/combineActions.js";
 import { ChocoBase } from "$lib/base.svelte.js";
+import { mix } from "$lib/index.js";
 import { Togglable, ToggleBase } from "$lib/mixins/togglable.svelte.js";
 import type { Constructor, HTMLElementsMap, HTMLTag } from "$lib/utils/types.js";
 import type { Action } from "svelte/action";
-import { mix } from "./index.js";
 
 /**
  * ## Cancellable
