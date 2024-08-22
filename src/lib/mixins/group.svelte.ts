@@ -22,7 +22,7 @@ export type GroupOptions = {
    */
   exclusive?: boolean;
   /**
-   * Whether arrows immediately activate the previous/next item. This only makes sense when the group is `exclusive`. Defaults to `false`
+   * Whether arrows immediately activate the previous/next item. This mostly makes sense when the group is `exclusive`. Defaults to `false`
    */
   activateOnNext?: boolean;
   /**
