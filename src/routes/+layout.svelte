@@ -38,6 +38,10 @@
     ],
     components: [
       {
+        href: "/switch",
+        title: "Switch",
+      },
+      {
         href: "/toggle",
         title: "Toggle",
       },
