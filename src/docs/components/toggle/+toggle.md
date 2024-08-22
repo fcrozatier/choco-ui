@@ -21,7 +21,7 @@ For accessibility, the label of the button should not change when the state chan
 
 The `active` prop is bindable.
 
-<Demo file="./toggleHeadless.svelte" value="code" />
+<Demo file="./toggleGroupHeadless.svelte" value="code" />
 
 ### API
 
