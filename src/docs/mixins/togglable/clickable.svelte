@@ -3,7 +3,7 @@
   import { ChocoBase } from "$lib/base.svelte.js";
   import { Clickable } from "./clickable.svelte.js";
 
-  // The headless class is empty, it only needs the Clickable flavor
+  // The headless class is empty, it only has the Clickable flavor
   class MyHeadlessButton extends Clickable(ChocoBase) {}
   const btn = new MyHeadlessButton();
 </script>
