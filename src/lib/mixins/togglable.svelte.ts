@@ -9,7 +9,7 @@ type EventName = keyof HTMLElementEventMap;
 
 export type TogglableOptions = {
   /**
-   * The initial state of the Togglable, describing the Booleanish attributes that are to be toggled
+   * A record of Booleanish attributes to be toggled
    */
   initial?: Record<string, Booleanish>;
   /**
@@ -18,15 +18,15 @@ export type TogglableOptions = {
   active: boolean | (() => boolean);
   setActive?: (v: boolean) => void;
   /**
-   * Event(s) on which to toggle
+   * Event(s) toggling the state
    */
   toggle?: EventName | EventName[];
   /**
-   * Event(s) on which to activate
+   * Event(s) triggering the activate state
    */
   on?: EventName | EventName[];
   /**
-   * Event(s) on which to deactivate
+   * Event(s) triggering the inactivate state
    */
   off?: EventName | EventName[];
 };
