@@ -14,9 +14,9 @@ The `Group` mixin allows you to create a container of togglables, track which on
 
 ---
 
-## Toggle group example
+## Example: Toggle group
 
-A toggle group is a group of toggle buttons, so we can apply the `Group` mixin to our `ToggleButton` class.
+Let's build a toy toggle group to see the `Group` mixin in action. A toggle group is a group of toggle buttons, so we should apply the `Group` mixin to the `ToggleButton` class.
 
 The `Group` mixin will internally extend the passed in `ToggleButton` class to manage focus, track active elements etc. and store this extended class in the `Item` property.
 
