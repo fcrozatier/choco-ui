@@ -7,7 +7,7 @@ import type { Required } from "$lib/utils/types.js";
 
 export type SwitchOptions = {
   /**
-   * Whether the toggle is initially pressed or not. Defaults to `false`
+   * Whether the switch is initially pressed or not. Defaults to `false`
    */
   active?: boolean | (() => boolean);
   setActive?: (v: boolean) => void;
@@ -21,7 +21,7 @@ const defaults = { active: false, value: "" } satisfies SwitchOptions;
  *
  * Semantics: on or off (switch toggle)
  *
- * The label should not change when the state changes. Use `simpleToggle` if needed.
+ * The label should not change when the state changes.
  *
  * All descendants of a `switch` have role `presentation`
  *
