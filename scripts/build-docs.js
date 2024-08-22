@@ -110,10 +110,10 @@ function preprocessMarkdown(md, path) {
           .join("\n");
       }
 
-      const [name, type] = lines
-        .at(-1)
-        .split("?:")
-        .map((i) => i.trim());
+      const data = lines.at(-1);
+      const match = data.match(/\??:/);
+      const name = data.slice(0, match.index).trim();
+      const type = data.slice(match.index + match[0].length).trim();
 
       types.push({
         key: name,
