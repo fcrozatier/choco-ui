@@ -42,6 +42,10 @@
         title: "Switch",
       },
       {
+        href: "/switch-group",
+        title: "Switch Group",
+      },
+      {
         href: "/toggle",
         title: "Toggle",
       },
