@@ -29,7 +29,7 @@
 
 <fieldset
   class={cn([
-    "flex items-center justify-center gap-1",
+    "flex items-center justify-center gap-1.5",
     { "flex-col": orientation === "vertical" },
     className,
   ])}
