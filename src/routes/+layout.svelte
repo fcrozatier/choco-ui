@@ -41,6 +41,10 @@
         href: "/toggle",
         title: "Toggle",
       },
+      {
+        href: "/toggle-group",
+        title: "Toggle Group",
+      },
     ],
   };
 </script>
