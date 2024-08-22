@@ -3,7 +3,7 @@
   import Icon from "$components/Icon.svelte";
   import { keys } from "$lib/utils/index.js";
   import { type Snippet } from "svelte";
-  import "../app.css";
+  import "../site.css";
 
   let { children }: { children: Snippet } = $props();
 
