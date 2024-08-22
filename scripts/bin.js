@@ -9,13 +9,13 @@ let cwd = process.cwd();
 
 p.intro("Welcome to chocobytes!");
 
-const confirm = await p.confirm({
+const files = await p.confirm({
   message:
     "You're about to copy the components, headless and mixin files from chocobytes to your project. Continue?",
   initialValue: false,
 });
 
-if (!confirm || p.isCancel(confirm)) process.exit(1);
+if (!files || p.isCancel(files)) process.exit(1);
 
 const source = "./node_modules/chocobytes/src/lib/";
 
@@ -46,5 +46,15 @@ for (const value of ["components", "headless", "mixins"]) {
     fs.writeFileSync(path, file, { encoding: "utf-8" });
   }
 }
+
+const styles = await p.confirm({
+  message:
+    "Do you want to add the default styles and copy the `app.css` theme file into your project? (Tailwind 4 required)",
+  initialValue: false,
+});
+
+if (!styles || p.isCancel(styles)) process.exit(1);
+
+fs.copyFileSync("./node_modules/chocobytes/src/app.css", path.join(cwd, `src/app.css`));
 
 p.outro("Your project is ready! 🚀");

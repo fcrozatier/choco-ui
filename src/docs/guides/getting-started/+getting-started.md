@@ -18,3 +18,11 @@ title: Getting Started
 <Highlighter file="./preprocessor.js" />
 
 The preprocessor expands the `use:choco` shorthand syntax. [Learn more](/guides/preprocessor)
+
+3. (Recommended). To copy the component, headless and mixin files from `chocobytes` to your own project, run:
+
+<Highlighter file="./copy.sh" />
+
+This way you own the files and can easily customize and tweak them or learn from them. Also copy-pasting examples from this documentation will just work, without adjusting the imports.
+
+1. (Optional). If you want the default styles to experiment with before using your own, you need to add Tailwind 4

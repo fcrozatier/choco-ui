@@ -26,7 +26,8 @@
     "scripts/utils.js",
     "src/lib/components/*",
     "src/lib/headless/*",
-    "src/lib/mixins/*"
+    "src/lib/mixins/*",
+    "src/app.css"
   ],
   "exports": {
     "./preprocessor": "./preprocessor/index.js",
