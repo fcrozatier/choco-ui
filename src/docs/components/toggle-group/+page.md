@@ -17,7 +17,7 @@ A group of toggle buttons. The `group` binding gives you the familiar Svelte fee
 
 ## Headless component
 
-The headless component is built in a few lines of code by applying the `Group` mixin to the `ToggleButton`. So all the heavy-lifting is done by the `Group` mixin, like tracking active items and managing focus
+The headless component is built in a few lines of code by applying the `Group` mixin to the `ToggleButton`. So all the heavy-lifting is done by the `Group` mixin, like tracking the active items and managing focus
 
 <Highlighter file="./toggle-group.svelte.ts" />
 
