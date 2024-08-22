@@ -20,3 +20,12 @@ export function getFiles(dir, files = []) {
   }
   return files;
 }
+
+export const processImports = (content) => {
+  return content
+    .replaceAll("$lib/utils", "chocobytes/utils")
+    .replaceAll("$lib/actions/choco.js", "chocobytes")
+    .replaceAll("$lib/actions", "chocobytes/actions")
+    .replaceAll("$lib/base.svelte.js", "chocobytes")
+    .replaceAll("$lib/index.js", "chocobytes");
+};

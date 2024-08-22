@@ -3,7 +3,7 @@
 import * as p from "@clack/prompts";
 import fs from "node:fs";
 import path from "node:path";
-import { getFiles } from "./utils.js";
+import { getFiles, processImports } from "./utils.js";
 
 let cwd = process.cwd();
 
@@ -41,12 +41,7 @@ for (const value of ["components", "headless", "mixins"]) {
   const files = getFiles(target);
 
   for (const path of files) {
-    const file = fs
-      .readFileSync(path, { encoding: "utf-8" })
-      .replaceAll("$lib/utils", "chocobytes/utils")
-      .replaceAll("$lib/actions", "chocobytes/actions")
-      .replaceAll("$lib/base.svelte.js", "chocobytes")
-      .replaceAll("$lib/index.js", "chocobytes");
+    const file = processImports(fs.readFileSync(path, { encoding: "utf-8" }));
 
     fs.writeFileSync(path, file, { encoding: "utf-8" });
   }

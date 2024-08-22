@@ -8,7 +8,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import smartyPants from "remark-smartypants";
 import { unified } from "unified";
-import { getFiles } from "./utils.js";
+import { getFiles, processImports } from "./utils.js";
 
 const matter = /^---(?<matter>(.|\n)*?)---/;
 
@@ -53,7 +53,6 @@ async function parseMarkdown(content) {
 const api = /<API (?=.*file="(?<file>.*?)")(?=.*type="(?<type>.*?)").*\/>/;
 
 const defaultsRegex = /const defaults = (?<defaults>{.*?})( satisfies.*)?;/s;
-const isOptional = /\?$/;
 
 const apiHeader = `
 |Prop|Default|Type|Description|
@@ -167,7 +166,7 @@ function postprocessHTML(html, path) {
 
     svelte = svelte.replace(
       highlight,
-      `<Highlighter code={\`${code}\`} lang="${lang}"></Highlighter>`,
+      `<Highlighter code={\`${processImports(code)}\`} lang="${lang}"></Highlighter>`,
     );
   }
   match = null;
@@ -195,7 +194,7 @@ function postprocessHTML(html, path) {
     svelte = svelte.slice(0, index) + "\n" + importString + svelte.slice(index);
     svelte = svelte.replace(
       demo,
-      `<Demo code={\`\n${code}\n\`} Component={${importName}} value="${value ?? "result"}"></Demo>`,
+      `<Demo code={\`\n${processImports(code)}\n\`} Component={${importName}} value="${value ?? "result"}"></Demo>`,
     );
   }
 
