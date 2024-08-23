@@ -36,6 +36,10 @@
         title: "Togglable",
       },
       {
+        href: "/triggerable",
+        title: "Triggerable",
+      },
+      {
         href: "/group",
         title: "Group",
       },
