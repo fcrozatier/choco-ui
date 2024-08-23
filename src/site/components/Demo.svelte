@@ -16,7 +16,7 @@
   <TabsUI.Panel value="code">
     <Highlighter {code} lang="svelte"></Highlighter>
   </TabsUI.Panel>
-  <TabsUI.Panel class="bg-dark-muted mx-auto overflow-x-auto rounded p-10" value="result">
+  <TabsUI.Panel class="bg-dark-muted/80 mx-auto overflow-x-auto rounded p-10" value="result">
     <Component />
   </TabsUI.Panel>
 </TabsUI.Root>

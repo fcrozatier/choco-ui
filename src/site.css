@@ -126,12 +126,16 @@ ul {
     @apply overflow-x-auto rounded py-6 px-8;
 
     &.dark-plus {
-      background-color: var(--color-dark-muted) !important;
+      background-color: color-mix(
+        in srgb,
+        var(--color-dark-muted, #342e2a) 80%,
+        transparent
+      ) !important;
     }
   }
 
   & :where(:not(.shiki)) > code {
-    @apply text-sky bg-dark-muted rounded py-0.5 px-1;
+    @apply text-sky bg-dark-muted/80 rounded py-0.5 px-1;
   }
 
   & a,
