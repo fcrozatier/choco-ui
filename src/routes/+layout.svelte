@@ -89,7 +89,6 @@
         class="bg-dark-muted/95 md:bg-dark-muted/80 fixed top-0 bottom-0 flex h-full w-64 flex-col gap-10 overflow-auto p-4 pt-10 pb-8 pl-10 shadow-2xl"
         transition:fly={{ x: -100, duration: 150 }}
         use:clickOutside={() => {
-          console.log(width);
           if (width < 48 * 16) {
             menu.off();
           }
