@@ -8,9 +8,9 @@ title: Triggerable
 
 # Triggerable
 
-A special kind of [Togglable](/mixins/togglable) controlling a target. This control-target pattern govern things like Tabs, Accordion, Disclosure, Popover, Carousel etc.
+A special kind of [Togglable](/mixins/togglable) which controls a target element. This control-target pattern govern things like Tabs, Accordion, Disclosure, Popover, Carousel etc.
 
-Both the control and target element have attributes that can be triggered on and off, and the Triggerable orchestrates this.
+Both the control and target element have attributes that are correlated and can be triggered on and off, and the Triggerable orchestrates this.
 
 ---
 
