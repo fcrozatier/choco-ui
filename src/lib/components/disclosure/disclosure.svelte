@@ -24,7 +24,7 @@
 <div class={className}>
   <button
     class={cn(
-      "flex flex-1 cursor-pointer items-center justify-between gap-2 border-t py-4 px-2 font-medium",
+      "flex flex-1 cursor-pointer items-center justify-between gap-2 py-4 px-2 font-medium",
       className,
     )}
     use:choco={disclosure}

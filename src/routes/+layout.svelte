@@ -50,6 +50,10 @@
         title: "Accordion",
       },
       {
+        href: "/disclosure",
+        title: "Disclosure",
+      },
+      {
         href: "/switch",
         title: "Switch",
       },

@@ -5,9 +5,6 @@ import { merge, nanoId } from "$lib/utils/index.js";
 import type { Required } from "$lib/utils/types.js";
 
 export type DisclosureOptions = {
-  /**
-   * Whether the tab is the default active tab. If not provided the first tab is active
-   */
   active?: boolean | (() => boolean);
   setActive?: (v: boolean) => void;
 };
