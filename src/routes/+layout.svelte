@@ -82,9 +82,33 @@
   });
 </script>
 
-<button class="absolute top-0 left-0 md:hidden" inert={width > 48 * 16} use:choco={menu}
-  >Menu</button
->
+<div>
+  <button
+    class="absolute top-0 left-0 flex items-center gap-1 p-4 md:hidden"
+    inert={width > 48 * 16}
+    title="Menu"
+    use:choco={menu}
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="30"
+      height="30"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="active:fill-current"
+    >
+      <rect x="3" y="3" width="7" height="7"></rect>
+      <rect x="14" y="3" width="7" height="7"></rect>
+      <rect x="14" y="14" width="7" height="7"></rect>
+      <rect x="3" y="14" width="7" height="7"></rect>
+    </svg>
+    <span class="text-sm"> Menu </span>
+  </button>
+</div>
 
 <div class="grid">
   <div class="">
@@ -124,7 +148,7 @@
     {/if}
   </div>
 
-  <main class="overflow-auto px-20 md:max-w-prose">
+  <main class="overflow-auto px-4 sm:px-20 md:max-w-prose">
     {@render children()}
   </main>
 </div>
