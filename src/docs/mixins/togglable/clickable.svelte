@@ -1,17 +1,16 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { ChocoBase } from "$lib/base.svelte.js";
   import { Clickable } from "./clickable.svelte.js";
 
-  // The headless class is empty, it only has the Clickable flavor
-  class MyHeadlessButton extends Clickable(ChocoBase) {}
-  const btn = new MyHeadlessButton();
+  const btn = new Clickable();
 </script>
 
-<p class="p-10">
+<div class="my-10 flex justify-center gap-2">
   <button class="py-2 px-4" use:choco={btn}>Improved button</button>
   <button class="active:bg-coral py-2 px-4 active:scale-95">Standard button</button>
-</p>
+</div>
+
+<pre>{JSON.stringify(btn.attributes, null, 2)}</pre>
 
 <style>
   button {
