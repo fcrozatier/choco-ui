@@ -46,6 +46,10 @@
     ],
     components: [
       {
+        href: "/accordion",
+        title: "Accordion",
+      },
+      {
         href: "/switch",
         title: "Switch",
       },
