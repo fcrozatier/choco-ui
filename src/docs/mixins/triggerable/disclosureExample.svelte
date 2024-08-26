@@ -7,7 +7,7 @@
   const Disclosure = class extends Triggerable(ChocoBase) {
     constructor() {
       super();
-      // The mixin does the heavy lifting, we just have to configure it
+      // We just have to configure the control and target booleanish states
       this.initTriggerable({
         control: { "aria-expanded": "false" },
         target: { hidden: true },
