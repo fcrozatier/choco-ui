@@ -9,17 +9,17 @@ title: Togglable
 
 # Togglable
 
-The `Togglable` mixin gives classes the ability to toggle a set of properties on specific events. You can think of it as a generalization of what a toggle button is.
+The `Togglable` mixin gives classes the ability to toggle a set of properties on specific events.
 
 ---
 
 ## Example: Clickable
 
-Let's implement an improved button that toggles a `data-active` attribute on when clicked, and off as soon as either the click is released or the pointer leaves the target element. We could implement such a mixin as follows:
+Let's implement an improved button that toggles a `data-active` attribute on when clicked, and off as soon as either the click is released or the pointer leaves the target element. We could implement such a headless component from the `Togglable` mixin as follows:
 
 <Highlighter file="./clickable.svelte.ts" />
 
-`Clickable` decorates the `superclass` by applying the `Togglable` mixin, and configures it in the `constructor` by calling it's `initTogglable` function.
+We only have to apply the `Togglable` mixin and configures it in the `constructor` by calling it's `initTogglable` function.
 
 The `initTogglable` takes a few parameters:
 - `initial` is a record of booleanish attributes that will be toggled on the element
@@ -36,7 +36,7 @@ A `Clickable` element styled using this `data-active` attribute instead of the C
 
 ## Relation to other mixins and components
 
-Almost everything is a togglable, from the [toggle](/components/toggle) and switch buttons to tabs and disclosures, carousels etc. This mixin is pervasive
+Almost everything is a togglable, from the [toggle](/components/toggle) and [switch](components/switch) buttons to tabs and disclosures, carousels etc.
 
 These mixins are specialized `Togglable`:
 - `Cancellable`
