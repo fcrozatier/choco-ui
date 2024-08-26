@@ -12,7 +12,7 @@
 </p>
 
 <p>
-  <!-- ...is expanded into this using the ChocoBase contract -->
+  <!-- ...is expanded into this using the preprocessor -->
   <button {...toggle.attributes} use:toggle.action> Click me. </button>
   <span>Active: {toggle.active}</span>
 </p>

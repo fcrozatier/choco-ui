@@ -9,27 +9,32 @@ title: Introduction
 
 # Introduction
 
-Choco-ui is a [Svelte 5](https://svelte.dev/) UI kit that will help you create reactive, accessible, SSR-ready, composable & extendable components by either using and customizing the provided components or by using the primitives they are built on to create your own.
+Choco-ui is a [Svelte](https://svelte.dev/) UI kit that will help you create reactive, accessible, SSR-ready, composable & extendable components by either using and customizing the provided components or by using the primitives they are built on to create your own.
 
-The 3 levels of control and customization you can work with when using Choco-ui are: the UI components, the headless components, and the primitive mixins everything is built on. Let's have a quick look at each one.
+You can customize:
+- the UI components
+- the headless components
+- the mixins everything is built on
+
+Let's have a quick look at each level.
 
 ---
 
 ## UI components
 
-The easiest way to get started. Just copy & paste the `/components` folder or import from there and customize the styles to your liking.
+The easiest way to get started. Just customize the styles to your liking.
 
 For example to use the [`Accordion`](/) component:
 
 <Demo file="styled.svelte" />
 
-Feel free to open the component files and modify the styles to suit your design. If you want to go to the next level and tweak the logic in a reusable way then you may want to have a look at the corresponding headless component.
+Feel free to open the components and modify the styles to suit your design. If you want to go to the next level and tweak the logic in a reusable way then you want to have a look at the corresponding headless component.
 
 ---
 
 ## Headless components
 
-Every UI component has a corresponding headless component built from sharable building blocs and logic, and managing the attributes and the behavior.
+Each UI component is paired with a corresponding headless component built from sharable building blocs and logic, and managing the attributes and the behavior.
 
 When you instantiate a headless component you can use it with the `choco` action. The preprocessor takes care of spreading the attributes and managing actions for you.
 

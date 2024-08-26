@@ -4,15 +4,11 @@ title: Why
 
 ## Is it a UI library?
 
-Choco is not really a UI library, it's more a UI kit.
+Not really, it's more a UI kit.
+
+It's not meant to give out of the box styling. Actually the provided components are only implementation examples of the headless components, and often use the [shadcn](https://www.shadcn-svelte.com) styles. The intent being that you own the files and can customize the component styles to follow your own design system.
 
 It will shine when you want more control over your components, create your own extendable headless components and at the same time reuse some of the logic and building blocs of the provided headless components and mixins. It's meant to be customized and extended.
-
----
-
-## Who is it not for?
-
-This is not meant to be an out of the box default UI. Actually the provided components are only implementation examples of the headless components, and often use the [shadcn](https://www.shadcn-svelte.com) styles. The intent being that you own the files and can customize the component styles to follow your own design system.
 
 ---
 
