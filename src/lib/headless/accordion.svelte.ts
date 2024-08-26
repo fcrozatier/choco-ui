@@ -4,11 +4,11 @@ import { Triggerable } from "$lib/mixins/triggerable.svelte.js";
 import { merge, nanoId } from "$lib/utils/index.js";
 import { role } from "$lib/utils/roles.js";
 
-type AccordionBaseOptions = {
+export type AccordionOptions = {
   headingLevel?: number;
-};
-
-export type AccordionOptions = AccordionBaseOptions & {
+  /**
+   * The Group focus options
+   */
   focus?: Omit<GroupOptions, "roving">;
 };
 
@@ -19,7 +19,7 @@ const defaults = {
     exclusive: false,
     preventInactivation: false,
   },
-} satisfies AccordionBaseOptions & { focus: GroupOptions };
+} satisfies AccordionOptions & { focus: GroupOptions };
 
 export type HeaderOptions = {
   headingLevel?: number;
@@ -69,7 +69,7 @@ export class Accordion extends Group(Header) {
   headingLevel: number;
 
   constructor(options?: AccordionOptions) {
-    super(merge(defaults.focus, options?.focus as GroupOptions));
+    super(merge(defaults.focus, options?.focus));
     this.headingLevel = options?.headingLevel ?? defaults.headingLevel;
   }
 
