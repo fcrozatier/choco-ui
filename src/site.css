@@ -115,7 +115,7 @@ ul {
   }
 
   & li {
-    @apply mr-4 mb-3;
+    @apply mr-4 mb-2;
   }
 
   & li > p:first-child {
