@@ -104,18 +104,19 @@
       xmlns="http://www.w3.org/2000/svg"
       width="30"
       height="30"
-      viewBox="0 0 24 24"
+      viewBox="0 0 24 34"
       fill="none"
       stroke="currentColor"
       stroke-width="1"
       stroke-linecap="round"
       stroke-linejoin="round"
-      class="active:fill-current"
     >
       <rect x="3" y="3" width="7" height="7"></rect>
       <rect x="14" y="3" width="7" height="7"></rect>
       <rect x="14" y="14" width="7" height="7"></rect>
       <rect x="3" y="14" width="7" height="7"></rect>
+      <rect x="3" y="25" width="7" height="7"></rect>
+      <rect x="14" y="25" width="7" height="7"></rect>
     </svg>
     <span class="text-sm"> Menu </span>
   </button>
@@ -138,11 +139,24 @@
             <h2 class=" mb-2 font-semibold capitalize">{key}</h2>
 
             {#each paths[key] as { href, title }}
-              <a
-                class="link"
-                aria-current={$page.url.pathname === `/${key}${href}` ? "page" : undefined}
-                href={`/${key}${href}`}>{title}</a
-              >
+              {@const current = $page.url.pathname === `/${key}${href}` ? "page" : undefined}
+              <div class="inline-flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="6"
+                  height="6"
+                  viewBox="0 0 10 10"
+                  fill="none"
+                  stroke-width="1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="stroke-coral fill-coral invisible"
+                  class:visible={current}
+                >
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                </svg>
+                <a class="link" aria-current={current} href={`/${key}${href}`}>{title}</a>
+              </div>
             {/each}
           </section>
         {/each}
@@ -180,18 +194,9 @@
     text-transform: capitalize;
     padding-block: var(--spacing-1);
     padding-inline: var(--spacing-3);
-    position: relative;
 
     &:is([aria-current="page"], :hover) {
       color: var(--color-coral);
-
-      &::before {
-        content: "›";
-        position: absolute;
-        left: 0;
-        bottom: 50%;
-        line-height: 0;
-      }
     }
   }
 </style>
