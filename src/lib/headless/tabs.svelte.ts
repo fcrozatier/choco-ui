@@ -6,15 +6,12 @@ import { merge, nanoId } from "$lib/utils/index.js";
 import { role } from "$lib/utils/roles.js";
 import type { OmitSupertype, Orientation } from "$lib/utils/types.js";
 
-type BaseTabsOptions = {
+export type TabsOptions = {
   orientation?: Orientation;
   /**
    * The default active tab. If not provided defaults to the first tab
    */
   value?: string;
-};
-
-export type TabsOptions = BaseTabsOptions & {
   focus?: OmitSupertype<
     GroupOptions,
     { roving?: boolean; exclusive?: boolean; preventInactivation?: boolean }
@@ -29,7 +26,7 @@ const defaults = {
     activateOnNext: true,
   },
   orientation: "horizontal",
-} satisfies BaseTabsOptions & { focus: GroupOptions };
+} satisfies TabsOptions & { focus: GroupOptions };
 
 export type TabOptions = {
   value: string;
@@ -79,7 +76,7 @@ class Tab extends Triggerable<"button">(ChocoBase) {
  * [WAI-ARIA Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
  */
 export class Tabs extends Group(Tab) {
-  #options: BaseTabsOptions & GroupOptions;
+  #options: TabsOptions;
   tablist;
 
   constructor(options?: TabsOptions) {
