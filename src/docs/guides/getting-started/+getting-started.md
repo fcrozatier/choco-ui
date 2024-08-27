@@ -19,7 +19,7 @@ title: Getting Started
 
 The preprocessor expands the `use:choco` shorthand syntax. [Learn more](/guides/preprocessor)
 
-3. (Recommended). To copy the component, headless and mixin files from `chocobytes` to your own project, run:
+3. (Recommended). To copy the component, headless and mixin files to your own project, run:
 
 <Highlighter file="./copy.sh" />
 
