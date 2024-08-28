@@ -61,4 +61,4 @@ export const Cancellable2 = <
   };
 };
 
-export const Canceller = mix(ChocoBase<"button">, Cancellable2, "cancellable");
+export const Canceller = mix(ChocoBase<"button" | "a">, Cancellable2, "cancellable");
