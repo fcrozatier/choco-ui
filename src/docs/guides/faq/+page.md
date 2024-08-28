@@ -1,5 +1,5 @@
 ---
-title: Why
+title: FAQ
 ---
 
 ## Is it a UI library?
