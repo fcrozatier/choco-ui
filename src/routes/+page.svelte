@@ -10,11 +10,11 @@
 </svelte:head>
 
 <article class="m-auto grid max-w-prose place-items-center items-center gap-y-12 text-white">
-  <h1 class="font-cursive text-3xl md:text-4xl">Choco UI</h1>
+  <h1 class="font-cursive text-4xl md:text-5xl">Choco <span class="text-coral">UI</span></h1>
 
-  <p class="max-w-2xl text-center">
+  <p class="max-w-2xl text-center font-light">
     Build your Svelte UI from a few building blocks allowing you to implement reactive, accessible,
-    SSR ready components and headless classes in a simple, reusable and extendable fashion.
+    SSR-ready components and headless classes in a simple, reusable and extendable fashion.
   </p>
 
   <div class="flex gap-10">
