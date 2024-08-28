@@ -3,7 +3,6 @@
   import { Canceller } from "$lib/mixins/cancellable.svelte.js";
 
   const cancel1 = new Canceller();
-  const cancel2 = new Canceller();
 </script>
 
 <svelte:head>
@@ -19,15 +18,8 @@
   </p>
 
   <div class="flex gap-10">
-    <a href="/guides/getting-started" class="bg-coral rounded py-4 px-8" use:choco={cancel1}
+    <a href="/guides/introduction" class="bg-coral rounded py-4 px-8" use:choco={cancel1}
       >Get Started</a
-    >
-    <a
-      href="/guides/introduction"
-      class="text-dark rounded bg-neutral-100 py-4 px-8"
-      use:choco={cancel2}
-    >
-      Learn More</a
     >
   </div>
 </article>
