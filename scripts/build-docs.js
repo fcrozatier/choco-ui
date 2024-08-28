@@ -33,7 +33,9 @@ function frontMatter(content) {
   </script>
   `;
 
-  return { meta: metaString, code: content.replace(matter, "") };
+  const head = `<svelte:head><title>${meta.title} &middot; ChocoUI</title></svelte:head>`;
+
+  return { meta: metaString, head, code: content.replace(matter, "") };
 }
 
 /**
@@ -212,13 +214,13 @@ for (const path of files.filter((file) => file.endsWith(".md"))) {
   const dest = dirname(path).replace("src", ".") + ".svelte";
   const content = readFileSync(path, { encoding: "utf-8" });
 
-  const { meta, code } = frontMatter(content);
+  const { meta, head, code } = frontMatter(content);
 
   const markdown = preprocessMarkdown(code, path);
   const html = await parseMarkdown(markdown);
   const svelte = postprocessHTML(html, path);
   const comment = `<!-- Generated from ${path} -->`;
-  const text = comment + meta + svelte;
+  const text = comment + meta + head + svelte;
   const config = await prettier.resolveConfig(dest, { config: ".prettierrc", useCache: true });
   const formatted = await prettier.format(text, config);
 
