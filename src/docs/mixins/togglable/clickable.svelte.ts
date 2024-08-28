@@ -2,7 +2,7 @@ import { ChocoBase } from "$lib/base.svelte.js";
 import { Togglable } from "$lib/mixins/togglable.svelte.js";
 
 // We apply the mixin to the ChocoBase class
-// and we can specify on which elements it can be used for type safety
+// and specify on which elements it can be used for type safety
 export class Clickable extends Togglable<"button">(ChocoBase) {
   constructor(options?: { active: boolean }) {
     super();
