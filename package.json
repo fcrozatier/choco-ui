@@ -3,6 +3,7 @@
   "version": "0.24.0",
   "type": "module",
   "license": "MIT",
+  "description": "A Svelte UI-kit providing reusable building blocks to implement your own UI components and headless classes",
   "scripts": {
     "dev": "vite dev",
     "build": "pnpm build:docs && vite build && pnpm package",
@@ -41,12 +42,13 @@
   "bin": {
     "chocobytes": "./scripts/bin.js"
   },
-  "peerDependencies": {
-    "svelte": "^5.0.0-next.1"
-  },
+  "homepage": "https://choco-ui.com/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fcrozatier/choco-ui.git"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0-next.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.46.1",
