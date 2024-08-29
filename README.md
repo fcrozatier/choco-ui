@@ -1,6 +1,6 @@
 # Choco UI
 
-A UI kit providing you building blocks for composable, extendable, reactive, Svelte 5 ready, SSR-ready UI components, headless classes and mixins.
+A Svelte UI-kit providing you building blocks for composable, extendable, reactive, SSR-ready UI components, headless classes and mixins.
 
 ## Getting Started
 
@@ -37,11 +37,11 @@ This way you own the files and can easily customize and tweak them or learn from
 
 ## Architecture
 
-A few building blocks allow to build the different headless classes and corresponding UI components.
+A few building blocks allow us to build the headless classes and corresponding UI components.
 
 These building blocks are the `Togglable`, `Group` and `Triggerable` mixins.
 
-## Inspiration
+## Credits
 
 - Melt - [https://melt-ui.com](https://melt-ui.com)
 - shadcn-svelte - [https://www.shadcn-svelte.com](https://www.shadcn-svelte.com)
