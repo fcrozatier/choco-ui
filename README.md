@@ -1,25 +1,50 @@
-## Composable, extensible, reactive, Svelte 5 ready, SSR ready, headless components builder
+# Choco UI
 
-HTML attributes are already reactive by default. So let's build upon this!
+A UI kit providing you building blocks for composable, extendable, reactive, Svelte 5 ready, SSR-ready UI components, headless classes and mixins.
 
-Also, Svelte being HTML centric, an HTML-first solution will let us benefit from all the Svelte goodness and bindings etc.
+## Getting Started
 
-This means adding a minimal API surface area: we rely as much as possible on standard HTML elements for taking care of state and functionality, and only add inner state and props when needed.
+1. First install the `chocobytes` package:
 
-The benefits are many:
+```sh
+pnpm add -D chocobytes
+```
 
-- First there is obviously less going back and forth with the documentation and less to remember. So it's already easier to use.
+2. Then configure your `svelte.config.js` by adding the choco preprocessor:
 
-- Second it forces us to use proper HTML Elements. Sometimes headless is too powerful, and we could use div everywhere, relying on the library to fix ARIA and functionality. But here since we rely on HTML wherever possible for state and behavior we have to use the correct elements. For example the toggle functionality only makes sense on a button or input, not on a span. The types will help go in the right direction by complaining if an incorrect element is used. So it's all safe and ensures best practices.
+```js
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
+import { chocoPreprocess } from "chocobytes/preprocessor";
 
-- Another benefit of a smaller API is less code. This means a lighter library, faster to load and to run.
+export default {
+  preprocess: [chocoPreprocess(), vitePreprocess()],
+  //... rest of your Svelte config
+};
 
-Even though HTML elements are reactive, the markup is not necessarily updated. We normalize this to make sure that the state is actually reflected in the DOM. This helps with debugging.
+```
+
+The preprocessor expands the `use:choco` shorthand syntax. [Learn more](/guides/preprocessor)
+
+3. (Recommended). To copy the component, headless and mixin files to your own project folder, run:
+
+```sh
+npx chocobytes
+```
+
+This way you own the files and can easily customize and tweak them or learn from them. Also copy-pasting examples from the documentation will just work, without adjusting the imports.
+
+4. (Optional). If you want the default styles to experiment with before using your own, you need Tailwind 4
+
+## Architecture
+
+A few building blocks allow to build the different headless classes and corresponding UI components.
+
+These building blocks are the `Togglable`, `Group` and `Triggerable` mixins.
 
 ## Inspiration
 
-- MeltUI
-- shadcn
-- SkeletonUI
-- HeadlessUI
-- ReactAria
+- Melt - [https://melt-ui.com](https://melt-ui.com)
+- shadcn-svelte - [https://www.shadcn-svelte.com](https://www.shadcn-svelte.com)
+- HeadlessUI - [https://headlessui.com](https://headlessui.com)
+- ReactAria - [https://react-spectrum.adobe.com/react-aria](https://react-spectrum.adobe.com/react-aria)
+- Skeleton - [https://skeleton.dev](https://skeleton.dev)
