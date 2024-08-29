@@ -43,6 +43,11 @@
     "chocobytes": "./scripts/bin.js"
   },
   "homepage": "https://choco-ui.com/",
+  "keywords": [
+    "svelte",
+    "choco-ui",
+    "chocobytes"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fcrozatier/choco-ui.git"
