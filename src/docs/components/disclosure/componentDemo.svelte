@@ -10,7 +10,10 @@
 
 <Disclosure bind:active>
   {#snippet header()}
-    Is it bindable?
+    White Chocolate: Is It Real Chocolate?
   {/snippet}
-  <div>Yup!</div>
+  <div>
+    Technically, white chocolate isn’t "real" chocolate because it doesn’t contain cocoa solids.
+    It’s made from cocoa butter, sugar, and milk, giving it a creamy texture and a sweeter flavor.
+  </div>
 </Disclosure>

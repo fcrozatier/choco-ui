@@ -9,7 +9,7 @@ title: Switch Group
 
 # Switch Group
 
-A group of switches. In the following example, the group is exclusive (the default):
+A group of switches. In the following example, the group is exclusive (the default), and items can be unselected, unlike with a traditional radio group:
 
 <Demo file="./switchGroupComponent.svelte" value="result" />
 

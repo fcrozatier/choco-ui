@@ -9,9 +9,9 @@
     preventInactivation: true,
   });
 
-  alignment.createItem({ value: "left", active: true });
-  alignment.createItem({ value: "center" });
-  alignment.createItem({ value: "right" });
+  alignment.createItem({ value: "mild", active: true });
+  alignment.createItem({ value: "medium" });
+  alignment.createItem({ value: "hot" });
 </script>
 
 <div class="flex justify-center gap-2">
@@ -22,5 +22,5 @@
   {/each}
 </div>
 
-selected text alignment:
+selected heat:
 <pre>{alignment.group}</pre>

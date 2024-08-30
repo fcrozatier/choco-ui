@@ -18,14 +18,12 @@
 </p>
 
 <div class="grid place-items-center">
-  <div class="relative">
-    <button
-      use:choco={switchToggle}
-      class="before:bg-coral h-6 cursor-default cursor-pointer rounded-full transition-colors before:absolute before:top-2 before:-left-4 before:h-2 before:w-2 before:rounded-full aria-checked:before:bg-green-500"
-      >Airplane mode:</button
-    >
-    <span class="absolute -right-8">{switchToggle.active ? "on " : "off"}</span>
-  </div>
+  <button
+    use:choco={switchToggle}
+    class="before:bg-coral relative h-6 cursor-default cursor-pointer rounded-full transition-colors before:absolute before:top-2 before:-left-4 before:h-2 before:w-2 before:rounded-full aria-checked:before:bg-green-500"
+    >Nutty Chocolate Option</button
+  >
 </div>
+<p class="font-semibold">{switchToggle.active ? "With nuts" : "Without nuts"}</p>
 
 <pre>{JSON.stringify(switchToggle.attributes, null, 2)}</pre>

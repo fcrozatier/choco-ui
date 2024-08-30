@@ -14,23 +14,29 @@
 <Accordion.Root class="mx-auto max-w-md" focus={{ exclusive: true, loop: true }} bind:group>
   <Accordion.Item value="item-1">
     {#snippet header()}
-      Is it accessible?
+      The Origins of Chocolate
     {/snippet}
 
-    Yes. It adheres to the WAI-ARIA design pattern.
+    Chocolate’s journey began in ancient Mesoamerica, where the Olmecs, and later the Mayans and
+    Aztecs, used cacao beans to make a rich, bitter drink called 'xocolatl.' It was often mixed with
+    spices and used in rituals and as currency.
   </Accordion.Item>
   <Accordion.Item value="item-2">
     {#snippet header()}
-      Is it styled?
+      The Sweet Science of Chocolate
     {/snippet}
 
-    Yes. It comes with default styles that matches the other components' aesthetic.
+    Chocolate isn’t just delicious—it’s also a complex food with over 600 flavor compounds. In
+    comparison, red wine has about 200. The magic happens during the fermentation and roasting of
+    cacao beans, which unlocks rich nuanced flavors.
   </Accordion.Item>
   <Accordion.Item value="item-3">
     {#snippet header()}
-      Is it animated?
+      The World’s Chocolate Capitals
     {/snippet}
 
-    Yes. It's animated by default, but you can disable it if you prefer.
+    Some of the best chocolate in the world comes from places like Belgium, Switzerland, and France.
+    Belgium is known for its pralines, while Switzerland boasts a history of milk chocolate
+    innovations.
   </Accordion.Item>
 </Accordion.Root>
