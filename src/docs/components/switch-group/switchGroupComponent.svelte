@@ -1,8 +1,7 @@
 <script lang="ts">
   import * as SwitchGroup from "$lib/components/switch-group/index.js";
-  import { Group } from "three";
 
-  let group = $state([]);
+  let group: string[] = $state([]);
 </script>
 
 <h2 class="text-sm">Spice level</h2>
