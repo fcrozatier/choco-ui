@@ -20,7 +20,7 @@
     Ever wonder why chocolate makes you feel good? It’s packed with flavonoids, which are believed
     to improve heart health, lower blood pressure, and even boost brain function.
   </Accordion.Item>
-  <Accordion.Item value="item-2">
+  <Accordion.Item value="item-3">
     {#snippet header()}
       The World’s Largest Chocolate Bar
     {/snippet}
