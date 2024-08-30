@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   import { type BundledTheme, createHighlighter } from "shiki";
 
   const theme: BundledTheme = "dark-plus";
