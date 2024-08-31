@@ -9,6 +9,15 @@
   bind
 </label>
 
+<p class="text-center">Are you craving chocolate?</p>
 <p class="flex justify-center">
-  <Toggle variant="outline" bind:active={checked}>toggle</Toggle>
+  <Toggle variant="outline" bind:active={checked}>Craving</Toggle>
+</p>
+
+<p>
+  {#if checked}
+    Craving Mode Activated! Time to indulge in your favorite chocolate treat
+  {:else}
+    Not Craving. Maybe later!
+  {/if}
 </p>

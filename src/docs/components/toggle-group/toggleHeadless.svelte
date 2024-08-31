@@ -2,9 +2,9 @@
   import { choco } from "$lib/actions/choco.js";
   import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
 
-  let group = $state(["B"]);
+  let group = $state(["nuts"]);
 
-  const toggleGroup = new ToggleGroup({
+  const toppings = new ToggleGroup({
     loop: true,
     // bind the group
     group: () => group,
@@ -13,13 +13,13 @@
     },
   });
 
-  toggleGroup.createItem({ value: "B", active: true });
-  toggleGroup.createItem({ value: "I" });
-  toggleGroup.createItem({ value: "U" });
+  toppings.createItem({ value: "nuts", active: true });
+  toppings.createItem({ value: "caramel" });
+  toppings.createItem({ value: "crunch" });
 </script>
 
 <div class="flex justify-center gap-2">
-  {#each toggleGroup.items as item}
+  {#each toppings.items as item}
     <button class="rounded py-2 px-4 outline aria-pressed:underline" use:choco={item}
       >{item.value}</button
     >
@@ -28,7 +28,7 @@
 
 <!-- This part is only to demonstrate the bindability -->
 <div class="mt-8 flex gap-2">
-  {#each ["B", "I", "U"] as value}
+  {#each ["nuts", "caramel", "crunch"] as value}
     <label>
       <input type="checkbox" {value} bind:group />
       {value}
@@ -36,4 +36,4 @@
   {/each}
 </div>
 
-<span>active {toggleGroup.group}</span>
+<p>Choice: {toppings.group}</p>

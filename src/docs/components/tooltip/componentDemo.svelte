@@ -9,11 +9,13 @@
   <input id="checkbox" type="checkbox" bind:checked={active} />
 </label>
 
-<div class="ml-40">
-  <Tooltip bind:active position="right">
-    HTML
+<div class="flex justify-center">
+  <Tooltip bind:active position="bottom">
+    Chocolate Truffe*
     {#snippet target()}
-      Hyper Text Markup Language
+      <span class="max-w-sm text-sm leading-tight">
+        A decadent treat made with a ganache center coated in cocoa powder, nuts, or more chocolate.
+      </span>
     {/snippet}
   </Tooltip>
 </div>

@@ -15,7 +15,7 @@
 
 <div
   class={cn(
-    "bg-muted text-muted-foreground flex h-10 items-center justify-center rounded-md p-1",
+    "bg-muted text-muted-foreground flex h-10 items-center justify-center gap-2 rounded-md p-1",
     className,
   )}
   {...tablist.attributes}

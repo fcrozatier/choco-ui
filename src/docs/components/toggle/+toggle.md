@@ -12,6 +12,7 @@ A button which can be in either of two states, like "on" and "off", "pressed" an
 
 <Demo file="./toggleComponent.svelte" value="result" />
 
+---
 
 ## Headless component
 
