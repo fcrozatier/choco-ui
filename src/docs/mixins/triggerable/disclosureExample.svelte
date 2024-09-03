@@ -18,7 +18,7 @@
       // We can always add more attributes or new actions to a Choco class
       const targetId = "123";
       this.extendAttributes({ "aria-controls": targetId });
-      this.target.extendAttributes({ id: "123" });
+      this.target.extendAttributes({ id: targetId });
     }
   };
 
