@@ -40,7 +40,7 @@ When you instantiate a headless component you can use it with the `choco` action
 
 Here's an example using the headless `ToggleButton` class to create an unstyled toggle button:
 
-<Highlighter file="./headless.svelte" />
+<Demo file="./headless.svelte" value="code" />
 
 In the above example there is no clash between the toggle's inner `click` event listener and the one declared on the button. The `ChocoBase` class and all headless components pass their behavior through an action, avoiding clashes with other declarative listeners.
 

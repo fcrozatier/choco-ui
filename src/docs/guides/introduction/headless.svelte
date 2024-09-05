@@ -7,7 +7,13 @@
 
 <p>
   <!-- Just use the choco action and you're done -->
-  <button use:choco={toggle} onclick={() => console.log("still toggling")}>
+  <button
+    use:choco={toggle}
+    onclick={() => console.log("still toggling")}
+    class="aria-pressed:text-dark rounded border border-white py-2 px-4 aria-pressed:bg-white"
+  >
     I'm {toggle.active ? "" : "not"} pressed
   </button>
 </p>
+
+<pre>{JSON.stringify(toggle.attributes, null, 2)}</pre>
