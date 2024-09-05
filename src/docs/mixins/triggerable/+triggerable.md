@@ -22,7 +22,7 @@ We can create this simple headless `Disclosure` by applying the `Triggerable` mi
 
 <Demo file="./disclosureExample.svelte" value="code" />
 
-The `initTriggerable` method added by the mixin allows to configure both the control and target initial states. The other options are similar to the [`Togglable`](/mixin/togglable) mixin and here we only want to toggle on click.
+The `initTriggerable` method added by the mixin allows to configure both the control and target initial states. The other options are similar to the [`Togglable`](/mixins/togglable) mixin and here we only want to toggle on click.
 
 Notice that we used the `extendAttribute` from the `ChocoBase` class. Here it allows us to programmatically add correlated attributes between the control and the target. Similarly there is an `extendAction` method on `ChocoBase` which allows to add more behavior to any class.
 
