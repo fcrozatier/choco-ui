@@ -9,7 +9,7 @@
   <title>ChocoUI</title>
 </svelte:head>
 
-<article class="m-auto grid max-w-prose place-items-center items-center gap-y-12 text-white">
+<article class="m-auto grid max-w-prose place-items-center items-center gap-y-12 px-4 text-white">
   <h1 class="font-cursive text-4xl md:text-5xl">Choco <span class="text-coral">UI</span></h1>
 
   <p class="max-w-2xl text-center font-light">
