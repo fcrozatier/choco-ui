@@ -24,9 +24,9 @@ We only have to apply the `Togglable` mixin and configures it in the `constructo
 The `initTogglable` takes a few parameters:
 - `initial` is a record of booleanish attributes that will be toggled on the element
 - `active` (required) labels this initial state as either the active or inactive state. Can be bound with a getter / setter pair (see API)
-- `on` corresponds the event(s) triggering the active state
-- `off` corresponds the event(s) triggering the inactive state
-- `toggle` corresponds the event(s) toggling the state
+- `on` event(s) triggering the active state
+- `off` event(s) triggering the inactive state
+- `toggle` event(s) toggling the state
 
 A `Clickable` element styled using this `data-active` attribute instead of the CSS `:active` pseudo class would then better confer the "cancelability" of a click. Try clicking these buttons and move the pointer outside the element while the pointer is down:
 
