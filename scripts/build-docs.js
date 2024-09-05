@@ -28,7 +28,7 @@ function frontMatter(content) {
   );
 
   const metaString = `
-  <script context="module">
+  <script module>
     export const meta = ${JSON.stringify(meta)}
   </script>
   `;
