@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as ToggleGroup from "$lib/components/toggle-group/index.js";
 
-  let group = $state([]);
+  let group: string[] = $state([]);
 </script>
 
 <p>Select your chocolate toppings</p>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as Accordion from "$lib/components/accordion/index.js";
 
-  let group = $state([]);
+  let group: string[] = $state([]);
 </script>
 
 <div class="mb-12 flex gap-4">

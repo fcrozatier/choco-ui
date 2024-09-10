@@ -29,8 +29,8 @@
   toggleGroup2.createItem({ value: "I", active: false });
   toggleGroup2.createItem({ value: "U", active: true });
 
-  let group1 = $state([]);
-  let group2 = $state([]);
+  let group1: string[] = $state([]);
+  let group2: string[] = $state([]);
 </script>
 
 <section class="my-10">
