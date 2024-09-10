@@ -28,11 +28,11 @@
 </script>
 
 <fieldset
-  class={cn([
+  class={cn(
     "flex items-center justify-center gap-1.5",
     { "flex-col": orientation === "vertical" },
     className,
-  ])}
+  )}
   {...element}
 >
   {@render children()}
