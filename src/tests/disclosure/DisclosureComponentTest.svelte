@@ -4,8 +4,8 @@
   let active = $state(false);
 </script>
 
-<label
-  >bind
+<label>
+  bind
   <input type="checkbox" bind:checked={active} />
 </label>
 
