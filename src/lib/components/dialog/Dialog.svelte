@@ -1,32 +1,47 @@
 <script lang="ts">
   import { clickOutside } from "$lib/actions/clickOutside.js";
   import type { DialogProps } from "$lib/headless/dialog.svelte";
-  import { onMount } from "svelte";
+  import { nanoId } from "@fcrozatier/ts-helpers";
 
   let {
     class: className = "",
-    snippet,
-    onclose,
-    role,
-    closeOnOutsideClick,
+    alertDialog = false,
+    closeOnClickOutside = true,
+    returnValue = $bindable(),
+    children,
+    onclose = (e) => {
+      returnValue = e.currentTarget.returnValue;
+    },
   }: DialogProps = $props();
 
   let dialog: HTMLDialogElement | undefined = $state();
 
-  onMount(() => {
+  export const showModal = () => {
     dialog?.showModal();
-  });
+  };
+
+  const id = nanoId();
 </script>
 
-<dialog {role} {onclose} class={className} bind:this={dialog} aria-modal="true">
+<dialog
+  class={className}
+  bind:this={dialog}
+  {onclose}
+  aria-modal="true"
+  aria-labelledby={`modal-title-${id}`}
+  aria-describedby={`modal-description-${id}`}
+  role={alertDialog ? "alertdialog" : "dialog"}
+>
   <form
     method="dialog"
     use:clickOutside={() => {
-      if (closeOnOutsideClick) {
+      if (closeOnClickOutside) {
         dialog?.close();
       }
     }}
   >
-    {@render snippet?.()}
+    <h2 id={`modal-title-${id}`}>title</h2>
+    <p id={`modal-description-${id}`}>description</p>
+    {@render children?.()}
   </form>
 </dialog>
