@@ -135,7 +135,7 @@ ul {
   }
 
   & :where(:not(.shiki)) > code {
-    @apply text-sky bg-dark-muted/80 rounded py-0.5 px-1;
+    @apply bg-dark-muted/80 rounded py-0.5 px-1 text-sky-300;
   }
 
   & a,
