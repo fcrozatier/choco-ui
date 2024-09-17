@@ -31,7 +31,7 @@ export class Tooltip extends Hocusable(ChocoBase) {
     super();
     this.#options = merge(defaults, options);
 
-    const id = nanoId();
+    const id = "tooltip-" + nanoId();
     const opts = this.#options;
 
     this.extendAttributes({
