@@ -41,8 +41,8 @@ class Tab extends Triggerable<"button">(ChocoBase) {
 
   constructor(options: TabOptions) {
     super();
-    const controlId = nanoId();
-    const targetId = nanoId();
+    const controlId = "tab-" + nanoId();
+    const targetId = "panel-" + nanoId();
     const active = !!options.active;
 
     this.initTriggerable({
