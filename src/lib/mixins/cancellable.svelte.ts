@@ -42,7 +42,7 @@ export const Cancellable = <
 };
 
 export const Cancellable2 = <
-  U extends HTMLTag = "button",
+  U extends HTMLTag = "button" | "a",
   T extends Constructor<ChocoBase<U>> = Constructor<ChocoBase<U>>,
 >(
   superclass: T,
