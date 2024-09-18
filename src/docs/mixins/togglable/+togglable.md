@@ -36,7 +36,7 @@ A `Clickable` element styled using this `data-active` attribute instead of the C
 
 ## Relation to other mixins and components
 
-Almost everything is a togglable, from the [toggle](/components/toggle) and [switch](components/switch) buttons to tabs and disclosures, carousels etc.
+Almost everything is a togglable, from the [toggle](/components/toggle) and [switch](/components/switch) buttons to tabs and disclosures, carousels etc.
 
 These mixins are specialized `Togglable`:
 - `Cancellable`
