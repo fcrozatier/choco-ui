@@ -5,7 +5,8 @@
   "license": "MIT",
   "description": "A Svelte UI-kit providing reusable building blocks to implement your own UI components and headless classes",
   "engines": {
-    "node": ">=22.0.0"
+    "node": "22.x",
+    "pnpm": "9.x"
   },
   "scripts": {
     "dev": "vite dev",
