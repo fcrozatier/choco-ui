@@ -1,21 +1,13 @@
-import { addListener } from "$lib/actions/addListener.js";
-import { ChocoBase } from "$lib/base.svelte.js";
-import DialogUI from "$lib/components/dialog/Dialog.svelte";
-import { merge } from "$lib/utils/index.js";
-import { mount, unmount, type Snippet } from "svelte";
-
-export type DialogProps = {
-  class?: string;
-  alertDialog?: boolean;
-  closeOnClickOutside?: boolean;
-  onclose?: (ev: HTMLElementEventMap["close"] & { currentTarget: HTMLDialogElement }) => void;
-  returnValue?: string;
-  children?: Snippet;
-};
+import DialogUI, { type DialogProps } from "$lib/components/dialog/Dialog.svelte";
+import { ChocoBase } from "$lib/index.js";
+import { addListener } from "chocobytes/actions/addListener.js";
+import { merge } from "chocobytes/utils/index.js";
+import { mount, unmount } from "svelte";
 
 const defaults = {
   alertDialog: false,
   closeOnClickOutside: true,
+  showOnMount: true,
 } satisfies DialogProps;
 
 /**
@@ -27,7 +19,7 @@ export class Dialog extends ChocoBase<"button"> {
   #options: DialogProps = $state({});
   returnValue: string | undefined = $state();
 
-  constructor(options?: DialogProps) {
+  constructor(options: DialogProps) {
     super();
     this.#options = merge(defaults, options);
     this.extendActions(addListener("click", this.showModal));

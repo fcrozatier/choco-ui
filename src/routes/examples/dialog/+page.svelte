@@ -3,9 +3,9 @@
   import DialogUI from "$lib/components/dialog/Dialog.svelte";
   import { Dialog } from "$lib/headless/dialog.svelte";
 
-  const dialog = new Dialog({ children: dialogSnippet, closeOnClickOutside: true });
+  const dialog = new Dialog({ title: "title", children: dialogSnippet, closeOnClickOutside: true });
 
-  let dialogElement: DialogUI;
+  let dialogElement: DialogUI | undefined = $state();
   let returnValue: string | undefined = $state();
 </script>
 
@@ -30,7 +30,7 @@
 
   <h2>Element</h2>
 
-  <button onclick={() => dialogElement.showModal()}>Open</button>
+  <button onclick={() => dialogElement?.showModal()}>Open</button>
 
   <DialogUI bind:this={dialogElement} bind:returnValue closeOnClickOutside>
     <div class="p-8">
