@@ -23,8 +23,8 @@
 </script>
 
 <script lang="ts">
+  import { clickOutside } from "$lib/actions/clickOutside.js";
   import { nanoId } from "@fcrozatier/ts-helpers";
-  import { clickOutside } from "chocobytes/actions/clickOutside.js";
   import { onMount, type Snippet } from "svelte";
 
   let {
