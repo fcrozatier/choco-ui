@@ -2,27 +2,22 @@
   export type DialogProps = {
     title?: string;
     description?: string;
-    /**
-     * @default false
-     */
     alertDialog?: boolean;
-    /**
-     * @default true
-     */
     closeOnClickOutside?: boolean;
-    /**
-     * @default false
-     */
     showOnMount?: boolean;
     onclose?: (
       ev: Event & {
         currentTarget: EventTarget & HTMLDialogElement;
       },
     ) => void;
-    /**
-     * The return value (bindable)
-     */
     returnValue?: string;
+    /**
+     * The list of buttons in the common case of a bottom action bar
+     */
+    actions?: Snippet;
+    /**
+     * When you need more than an action bar
+     */
     children?: Snippet;
   };
 </script>
@@ -43,6 +38,7 @@
       returnValue = e.currentTarget.returnValue;
     },
     children,
+    actions,
   }: DialogProps = $props();
 
   let dialog: HTMLDialogElement | undefined = $state();
@@ -61,7 +57,7 @@
 </script>
 
 <dialog
-  class={"my-auto mx-auto max-w-xl rounded-xl p-0 shadow-2xl backdrop:backdrop-blur-sm"}
+  class={"my-auto mx-auto max-w-xl min-w-xs rounded-xl p-0 shadow-2xl backdrop:backdrop-blur-sm sm:min-w-sm md:min-w-md"}
   bind:this={dialog}
   {onclose}
   aria-modal="true"
@@ -88,8 +84,15 @@
         </p>
       </div>
     </div>
-    <div class="mt-6 flex flex-col justify-end gap-2 sm:mt-4 sm:flex-row">
-      {@render children?.()}
-    </div>
+    {#if children}
+      <div class="mt-6">
+        {@render children()}
+      </div>
+    {/if}
+    {#if actions}
+      <div class="mt-6 flex flex-col justify-end gap-2 sm:mt-4 sm:flex-row">
+        {@render actions()}
+      </div>
+    {/if}
   </form>
 </dialog>
