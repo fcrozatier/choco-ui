@@ -12,6 +12,15 @@ export type TabsOptions = {
    * The default active tab. If not provided defaults to the first tab
    */
   value?: string;
+  /**
+   * @default focus: {
+   * loop: false,
+   * roving: true,
+   * exclusive: true,
+   * preventInactivation: true,
+   * activateOnNext: true,
+   * }
+   */
   focus?: OmitSupertype<
     GroupOptions,
     { roving?: boolean; exclusive?: boolean; preventInactivation?: boolean }
