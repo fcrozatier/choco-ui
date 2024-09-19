@@ -33,7 +33,7 @@
 
   <div
     class={cn(
-      "choco-tooltip bg-accent-foreground text-accent pointer-events-none absolute z-10 rounded py-1 px-2 text-center text-base opacity-0 shadow",
+      "choco-tooltip pointer-events-none absolute z-10 rounded bg-gray-900 py-1 px-2 text-center text-xs text-white opacity-0 shadow",
       className,
     )}
     use:choco={tooltip.target}
