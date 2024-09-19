@@ -1,6 +1,6 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { ToggleButton } from "$lib/headless/toggle.svelte";
+  import { ToggleButton } from "chocobytes/headless/toggle.svelte";
 
   const toggle = new ToggleButton();
 </script>

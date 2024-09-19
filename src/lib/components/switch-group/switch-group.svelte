@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { SwitchGroup } from "$lib/headless/switch-group.svelte";
   import { cn } from "$lib/utils/styles.js";
+  import { SwitchGroup } from "chocobytes/headless/switch-group.svelte";
   import { setContext } from "svelte";
   import { set, type SwitchGroupProps } from "./index.js";
 

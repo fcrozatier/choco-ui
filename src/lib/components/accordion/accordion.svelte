@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Accordion } from "$lib/headless/accordion.svelte";
+  import { Accordion } from "chocobytes/headless/accordion.svelte";
   import { set, type AccordionProps } from "./index.js";
 
   let {

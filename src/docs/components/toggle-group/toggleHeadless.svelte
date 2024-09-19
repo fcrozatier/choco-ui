@@ -1,6 +1,6 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
+  import { ToggleGroup } from "chocobytes/headless/toggle-group.svelte";
 
   let group = $state(["nuts"]);
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { Switch, type SwitchOptions } from "$lib/headless/switch.svelte";
   import { cn } from "$lib/utils/styles.js";
+  import { Switch, type SwitchOptions } from "chocobytes/headless/switch.svelte";
   import type { SwitchProps } from "./index.js";
 
   let {

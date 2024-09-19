@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { ToggleGroup } from "$lib/headless/toggle-group.svelte";
   import { cn } from "$lib/utils/styles.js";
+  import { ToggleGroup } from "chocobytes/headless/toggle-group.svelte";
   import { setItemContext, setVariantContext, type ToggleGroupProps } from "./index.js";
 
   let {
