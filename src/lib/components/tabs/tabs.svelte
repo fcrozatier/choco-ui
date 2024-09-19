@@ -5,14 +5,12 @@
   let {
     class: className = "",
     group = $bindable([]),
-    orientation,
     value,
     focus,
     children,
   }: TabsProps = $props();
 
   const tabs = new Tabs({
-    orientation,
     value,
     focus: {
       ...focus,

@@ -4,7 +4,7 @@ import { type Toggler } from "$lib/mixins/togglable.svelte.js";
 import { getValue } from "$lib/utils/binding.js";
 import { merge, modulo } from "$lib/utils/index.js";
 import { key } from "$lib/utils/keyboard.js";
-import type { Constructor, HTMLTag, Required } from "$lib/utils/types.js";
+import type { Constructor, HTMLTag, Orientation, Required } from "$lib/utils/types.js";
 import { SvelteMap } from "svelte/reactivity";
 
 export type GroupOptions = {
@@ -18,17 +18,18 @@ export type GroupOptions = {
    */
   preventInactivation?: boolean;
   /**
-   * Whether only a single item can be active at a time. Defaults to `false`
+   * Whether only a single item can be active at a time.
    */
   exclusive?: boolean;
   /**
-   * Whether arrows immediately activate the previous/next item. This mostly makes sense when the group is `exclusive`. Defaults to `false`
+   * Whether arrows immediately activate the previous/next item. This mostly makes sense when the group is `exclusive`.
    */
   activateOnNext?: boolean;
   /**
    * The list of active values
    */
   group?: string[] | (() => string[]);
+  orientation?: Orientation;
   setGroup?: (v: string[]) => void;
   onFocus?: <T extends HTMLElement>(from: T, to: T) => void;
 };
@@ -39,6 +40,7 @@ const defaults = {
   roving: false,
   preventInactivation: false,
   exclusive: false,
+  orientation: "horizontal",
 } satisfies GroupOptions;
 
 /**
@@ -88,14 +90,22 @@ export const Group = <
       let newIndex = index;
 
       switch (e.key) {
-        case key.ARROW_LEFT:
+        // @ts-ignore Fallthrough
         case key.ARROW_UP:
+          if (this.options.orientation === "horizontal") {
+            return;
+          }
+        case key.ARROW_LEFT:
           newIndex = this.options.loop
             ? modulo(index - 1, this.items.length)
             : Math.max(0, index - 1);
           break;
-        case key.ARROW_RIGHT:
+        // @ts-ignore Fallthrough
         case key.ARROW_DOWN:
+          if (this.options.orientation === "horizontal") {
+            return;
+          }
+        case key.ARROW_RIGHT:
           newIndex = this.options.loop
             ? modulo(index + 1, this.items.length)
             : Math.min(this.items.length - 1, index + 1);

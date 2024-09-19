@@ -8,7 +8,7 @@
 
   let disabled: boolean | undefined = $state();
   let variant: "outline" | "default" = $state("default");
-  let orientation: Orientation = $state("horizontal");
+  let orientation: Orientation = $state("vertical");
 
   const toggleGroup = new ToggleGroup({ roving: true, exclusive: true, activateOnNext: true });
 
@@ -72,25 +72,25 @@
 </label>
 
 {#key variant}
-  <ToggleGroupUI.Root
-    bind:group={group1}
-    {orientation}
-    {variant}
-    {disabled}
-    focus={{ loop: true, roving: true }}
-  >
-    <ToggleGroupUI.Item value="B" active>B</ToggleGroupUI.Item>
-    <ToggleGroupUI.Item value="I" variant="outline">I</ToggleGroupUI.Item>
-    <ToggleGroupUI.Item value="U">U</ToggleGroupUI.Item>
-  </ToggleGroupUI.Root>
+  {#key orientation}
+    <ToggleGroupUI.Root
+      bind:group={group1}
+      {variant}
+      {disabled}
+      focus={{ loop: true, roving: true, orientation }}
+    >
+      <ToggleGroupUI.Item value="B" active>B</ToggleGroupUI.Item>
+      <ToggleGroupUI.Item value="I" variant="outline">I</ToggleGroupUI.Item>
+      <ToggleGroupUI.Item value="U">U</ToggleGroupUI.Item>
+    </ToggleGroupUI.Root>
+  {/key}
 {/key}
 
 <ToggleGroupRoot
   bind:group={group2}
-  {orientation}
   {variant}
   {disabled}
-  focus={{ loop: true, roving: true }}
+  focus={{ loop: true, roving: true, orientation }}
 >
   <ToggleGroupItem value="B">B</ToggleGroupItem>
   <ToggleGroupItem value="I" variant="outline">I</ToggleGroupItem>

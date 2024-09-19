@@ -1,7 +1,6 @@
 import type { ToggleGroup } from "$lib/headless/toggle-group.svelte.js";
 import type { ToggleButton, ToggleOptions } from "$lib/headless/toggle.svelte.js";
 import type { GroupOptions } from "$lib/mixins/group.svelte.js";
-import type { Orientation } from "$lib/utils/types.js";
 import { getContext, setContext, type Snippet } from "svelte";
 import type { HTMLFieldsetAttributes } from "svelte/elements";
 import type { ToggleProps } from "../toggle/index.js";
@@ -19,7 +18,6 @@ export type ToggleGroupProps = HTMLFieldsetAttributes & {
    */
   focus?: Omit<GroupOptions, "group" | "setGroup">;
   group?: string[];
-  orientation?: Orientation;
   variant?: ToggleProps["variant"];
   children: Snippet;
 };

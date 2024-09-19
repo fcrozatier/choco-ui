@@ -5,7 +5,6 @@
 
   let {
     class: className = "",
-    orientation = "horizontal",
     variant = "default",
     focus,
     group = $bindable([]),
@@ -28,7 +27,7 @@
 <fieldset
   class={cn(
     "flex items-center justify-center gap-1",
-    { "flex-col": orientation === "vertical" },
+    { "flex-col": focus?.orientation === "vertical" },
     className,
   )}
   {...rest}

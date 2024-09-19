@@ -4,10 +4,9 @@ import { Group, type GroupOptions } from "$lib/mixins/group.svelte.js";
 import { Triggerable } from "$lib/mixins/triggerable.svelte.js";
 import { merge, nanoId } from "$lib/utils/index.js";
 import { role } from "$lib/utils/roles.js";
-import type { OmitSupertype, Orientation } from "$lib/utils/types.js";
+import type { OmitSupertype, Required } from "$lib/utils/types.js";
 
 export type TabsOptions = {
-  orientation?: Orientation;
   /**
    * The default active tab. If not provided defaults to the first tab
    */
@@ -19,6 +18,7 @@ export type TabsOptions = {
    * exclusive: true,
    * preventInactivation: true,
    * activateOnNext: true,
+   * orientation: "horizontal"
    * }
    */
   focus?: OmitSupertype<
@@ -33,8 +33,8 @@ const defaults = {
     exclusive: true,
     preventInactivation: true,
     activateOnNext: true,
+    orientation: "horizontal",
   },
-  orientation: "horizontal",
 } satisfies TabsOptions & { focus: GroupOptions };
 
 export type TabOptions = {
@@ -85,7 +85,7 @@ class Tab extends Triggerable<"button">(ChocoBase) {
  * [WAI-ARIA Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
  */
 export class Tabs extends Group(Tab) {
-  #options: TabsOptions;
+  #options: Required<TabsOptions, "focus">;
   tablist;
 
   constructor(options?: TabsOptions) {
@@ -94,7 +94,7 @@ export class Tabs extends Group(Tab) {
     this.#options = merge(defaults, options);
     this.tablist = new ChocoBase({
       role: role.tablist,
-      "aria-orientation": this.#options.orientation,
+      "aria-orientation": this.#options.focus.orientation,
       "aria-multiselectable": "false",
     });
   }
