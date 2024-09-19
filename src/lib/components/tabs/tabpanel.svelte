@@ -8,7 +8,6 @@
     class: className = "",
     children,
     value,
-    ...rest
   }: HTMLAttributes<HTMLElement> & { value: string; children: Snippet } = $props();
 
   const panel = getTabsContext().items.find((i) => i.value === value)?.target;
@@ -16,6 +15,6 @@
   if (!panel) throw new Error(`Panel not found ${value}`);
 </script>
 
-<div use:choco={panel} class={className} {...rest}>
+<div use:choco={panel} class={className} class:hidden={!panel.active}>
   {@render children()}
 </div>

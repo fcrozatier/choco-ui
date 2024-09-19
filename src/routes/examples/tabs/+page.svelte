@@ -20,7 +20,9 @@
       {/each}
     </div>
     {#each items as { item, content }}
-      <div use:choco={item.target}>{content}</div>
+      {#if item.active}
+        <div use:choco={item.target}>{content}</div>
+      {/if}
     {/each}
   </div>
 </section>

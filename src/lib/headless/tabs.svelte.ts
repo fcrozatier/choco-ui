@@ -56,7 +56,7 @@ class Tab extends Triggerable<"button">(ChocoBase) {
 
     this.initTriggerable({
       control: { "aria-selected": `${active}` },
-      target: { hidden: !active },
+      target: {},
       active,
       on: "click",
     });
