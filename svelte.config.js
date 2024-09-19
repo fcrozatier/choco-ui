@@ -7,7 +7,7 @@ import { chocoPreprocess } from "./preprocessor/index.js";
 export default {
   preprocess: [
     chocoPreprocess(),
-    vitePreprocess(),
+    vitePreprocess({ script: true }),
     targetBlank({ logLevel: "warn", quietList: "/**/*.md" }),
   ],
 
