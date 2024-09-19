@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Tabs } from "chocobytes/headless/tabs.svelte";
+  import { Tabs } from "chocobytes/headless/tabs.svelte.js";
   import { setTabsContext, type TabsProps } from "./index.js";
 
   let {

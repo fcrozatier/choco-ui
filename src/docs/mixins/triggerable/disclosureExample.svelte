@@ -1,7 +1,7 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
   import { ChocoBase } from "$lib/base.svelte";
-  import { Triggerable } from "chocobytes/mixins/triggerable.svelte";
+  import { Triggerable } from "chocobytes/mixins/triggerable.svelte.js";
   import { fly } from "svelte/transition";
 
   const Disclosure = class extends Triggerable(ChocoBase) {

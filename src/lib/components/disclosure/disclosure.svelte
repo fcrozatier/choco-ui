@@ -1,7 +1,7 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
   import { cn } from "$lib/utils/styles.js";
-  import { Disclosure } from "chocobytes/headless/disclosure.svelte";
+  import { Disclosure } from "chocobytes/headless/disclosure.svelte.js";
   import { slide } from "svelte/transition";
   import { type DisclosureProps } from "./index.js";
 

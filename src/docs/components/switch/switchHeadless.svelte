@@ -1,6 +1,6 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { Switch as SwitchToggle } from "chocobytes/headless/switch.svelte";
+  import { Switch as SwitchToggle } from "chocobytes/headless/switch.svelte.js";
 
   let active = $state(true);
 

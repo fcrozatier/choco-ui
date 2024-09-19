@@ -2,7 +2,7 @@
   import { choco } from "$lib/actions/choco.js";
   import { cn } from "$lib/utils/styles.js";
   import type { Attributes } from "$lib/utils/types.js";
-  import type { HeaderOptions } from "chocobytes/headless/accordion.svelte";
+  import type { HeaderOptions } from "chocobytes/headless/accordion.svelte.js";
   import { type Snippet } from "svelte";
   import { slide } from "svelte/transition";
   import { get } from "./index.js";

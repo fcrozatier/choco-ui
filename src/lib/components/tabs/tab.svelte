@@ -2,7 +2,7 @@
   import { choco } from "$lib/actions/choco.js";
   import { cn } from "$lib/utils/styles.js";
   import type { Attributes } from "$lib/utils/types.js";
-  import type { TabOptions } from "chocobytes/headless/tabs.svelte";
+  import type { TabOptions } from "chocobytes/headless/tabs.svelte.js";
   import { type Snippet } from "svelte";
   import { getTabsContext } from "./index.js";
 

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { SwitchGroup } from "chocobytes/headless/switch-group.svelte";
+  import { SwitchGroup } from "chocobytes/headless/switch-group.svelte.js";
 
   const alignment = new SwitchGroup({
     loop: false,

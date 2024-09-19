@@ -2,7 +2,7 @@
   import { choco } from "$lib/actions/choco.js";
   import type { StripThunks } from "$lib/utils/binding.js";
   import { cn } from "$lib/utils/styles.js";
-  import { Tooltip, type TooltipOptions } from "chocobytes/headless/tooltip.svelte";
+  import { Tooltip, type TooltipOptions } from "chocobytes/headless/tooltip.svelte.js";
   import { type Snippet } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";
 
