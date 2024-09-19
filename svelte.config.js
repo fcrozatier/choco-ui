@@ -22,6 +22,7 @@ export default {
     alias: {
       "$components/*": "./src/site/components/*",
       "$docs/*": "./src/docs/*",
+      "chocobytes/*": "./src/lib/*",
     },
 
     prerender: {
