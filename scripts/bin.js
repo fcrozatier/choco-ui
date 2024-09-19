@@ -10,8 +10,7 @@ let cwd = process.cwd();
 p.intro("Welcome to chocobytes!");
 
 const files = await p.confirm({
-  message:
-    "You're about to copy the components, headless and mixin files from chocobytes to your project. Continue?",
+  message: "You're about to copy the component files from chocobytes to your project. Continue?",
   initialValue: false,
 });
 
@@ -19,7 +18,7 @@ if (!files || p.isCancel(files)) process.exit(1);
 
 const source = "./node_modules/chocobytes/src/lib/";
 
-for (const value of ["components", "headless", "mixins"]) {
+for (const value of ["components"]) {
   const target = path.join(cwd, `src/lib/${value}`);
 
   if (fs.existsSync(target)) {
