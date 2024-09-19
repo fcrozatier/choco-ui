@@ -1,4 +1,4 @@
-import adapter from "@sveltejs/adapter-static";
+import adapter from "@sveltejs/adapter-node";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import targetBlank from "svelte-target-blank";
 import { chocoPreprocess } from "./preprocessor/index.js";
