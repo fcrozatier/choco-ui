@@ -7,7 +7,12 @@ import { role } from "$lib/utils/roles.js";
 export type AccordionOptions = {
   headingLevel?: number;
   /**
-   * The Group focus options
+   * @default focus: {
+   * loop: false,
+   * roving: false,
+   * preventInactivation: false,
+   * exclusive: false
+   * }
    */
   focus?: Omit<GroupOptions, "roving">;
 };

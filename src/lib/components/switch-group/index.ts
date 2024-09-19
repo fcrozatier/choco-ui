@@ -9,6 +9,14 @@ import Root from "./switch-group.svelte";
 export type SwitchGroupProps = {
   class?: string;
   element?: Omit<Attributes<"fieldset">, "class">;
+  /**
+   * @default focus: {
+   * loop: false,
+   * roving: false,
+   * preventInactivation: false,
+   * exclusive: false
+   * }
+   */
   focus?: Omit<GroupOptions, "group" | "setGroup">;
   group: string[];
   orientation?: Orientation;

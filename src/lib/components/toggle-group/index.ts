@@ -9,6 +9,14 @@ import Item from "./toggle-group-item.svelte";
 import Root from "./toggle-group.svelte";
 
 export type ToggleGroupProps = HTMLFieldsetAttributes & {
+  /**
+   * @default focus: {
+   * loop: false,
+   * roving: false,
+   * preventInactivation: false,
+   * exclusive: false
+   * }
+   */
   focus?: Omit<GroupOptions, "group" | "setGroup">;
   group?: string[];
   orientation?: Orientation;
