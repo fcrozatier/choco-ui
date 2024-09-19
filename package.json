@@ -30,8 +30,6 @@
     "scripts/bin.js",
     "scripts/utils.js",
     "src/lib/components/*",
-    "src/lib/headless/*",
-    "src/lib/mixins/*",
     "src/app.css"
   ],
   "exports": {
