@@ -19,6 +19,10 @@ export const paths = {
   ],
   blocks: [
     {
+      href: "/chocobase",
+      title: "ChocoBase",
+    },
+    {
       href: "/togglable",
       title: "Togglable",
     },
