@@ -19,10 +19,11 @@ title: Getting Started
 
 The preprocessor expands the `use:choco` shorthand syntax. [Learn more](/guides/preprocessor)
 
-3. (Recommended). To copy the component, headless and mixin files to your own project folder, run:
+3. (Optional). To copy the component files to your own project folder, run:
 
 <Highlighter file="./copy.sh" />
 
-This way you own the files and can easily customize and tweak them or learn from them. Also copy-pasting examples from this documentation will just work, without adjusting the imports.
+The CLI will let you choose which components to copy to your project's `$lib/components` folder.
+This way you own the files and can easily customize and tweak the styles.
 
-4. (Optional). If you want the default styles to experiment with before using your own, you need Tailwind 4
+Also copy-pasting examples from this documentation will just work out of the box, without adjusting the imports.
