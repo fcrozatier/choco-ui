@@ -62,7 +62,7 @@
   <div class="">
     {#if menu.active || width > 48 * 16}
       <nav
-        class="bg-dark-muted/95 md:bg-dark-muted/80 fixed top-0 bottom-0 flex h-full w-64 flex-col gap-10 overflow-auto p-4 pt-10 pb-8 pl-10 shadow-2xl"
+        class="bg-dark-muted/95 md:bg-dark-muted/80 fixed top-0 bottom-0 flex w-64 flex-col gap-10 overflow-auto p-4 pt-10 pb-8 shadow-2xl"
         transition:fly={{ x: -100, duration: 150 }}
         use:clickOutside={() => {
           if (width < 48 * 16) {
@@ -71,7 +71,7 @@
         }}
       >
         {#each keys(paths) as key}
-          <section class="flex flex-col">
+          <section class="flex flex-col pl-8">
             <h2 class=" mb-2 font-semibold capitalize">{key}</h2>
 
             {#each paths[key] as { href, title }}
@@ -96,13 +96,14 @@
             {/each}
           </section>
         {/each}
-        <footer class="mt-auto">
+        <footer class="">
           <a
             href="https://github.com/fcrozatier/choco-ui"
-            class="fill-white opacity-50 hover:opacity-70"
+            class="flex items-center justify-center gap-2 fill-slate-100 opacity-90 hover:opacity-70"
             target="_blank"
           >
-            <Icon name="github" width="2rem"></Icon> <span class="sr-only">GitHub</span>
+            <Icon name="github" width="2rem"></Icon>
+            <span class="">GitHub</span>
           </a>
         </footer>
       </nav>
