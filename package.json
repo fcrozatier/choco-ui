@@ -35,7 +35,7 @@
     "./preprocessor": "./preprocessor/index.js",
     "./components/*": "./dist/components/*",
     "./headless/*": "./dist/headless/*",
-    "./mixins/*": "./dist/mixins/*",
+    "./blocks/*": "./dist/blocks/*",
     "./actions/*": "./dist/actions/*",
     "./utils/*": "./dist/utils/*",
     ".": "./dist/index.js"
