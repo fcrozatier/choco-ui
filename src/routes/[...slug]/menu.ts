@@ -31,12 +31,12 @@ export const paths = {
       title: "Triggerable",
     },
     {
-      href: "/group",
-      title: "Group",
-    },
-    {
       href: "/hocusable",
       title: "Hocusable",
+    },
+    {
+      href: "/group",
+      title: "Group",
     },
   ],
   components: [
