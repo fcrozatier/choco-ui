@@ -61,6 +61,11 @@
   }
 }
 
+html,
+body {
+  @apply bg-dark text-slate-200;
+}
+
 ::marker {
   @apply text-coral inline-block;
 }
