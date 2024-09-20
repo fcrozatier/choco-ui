@@ -129,7 +129,7 @@ ul {
   }
 
   & blockquote {
-    @apply border-coral text-slate-100;
+    @apply border-coral border-l-2 text-slate-100;
   }
 
   & .lead {
@@ -181,8 +181,7 @@ ul {
   }
 
   & hr {
-    @apply my-8 md:my-12;
-    border-top: 1px solid var(--color-coral);
+    @apply border-coral my-8 md:my-12;
   }
 
   & table {
