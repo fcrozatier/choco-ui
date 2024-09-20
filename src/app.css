@@ -4,6 +4,7 @@
 /* Preflight */
 /* https://github.com/tailwindlabs/tailwindcss/blob/master/src/css/preflight.css */
 @import "tailwindcss";
+@plugin '@tailwindcss/typography';
 
 @theme {
   /* Colors */
@@ -60,17 +61,6 @@
   }
 }
 
-html,
-body {
-  height: 100%;
-  letter-spacing: 0.5px;
-  font-weight: 250;
-}
-
-body {
-  @apply bg-dark text-slate-200;
-}
-
 ::marker {
   @apply text-coral inline-block;
 }
@@ -89,6 +79,8 @@ ul {
 }
 
 .prose {
+  @apply bg-dark text-slate-200 [--tw-prose-headings:var(--text-slate-100)];
+
   & h1,
   & h2,
   & h3,
@@ -99,11 +91,11 @@ ul {
   }
 
   & h1 {
-    @apply mt-2 mb-7 text-3xl md:mt-3 md:mb-8 md:text-4xl;
+    @apply mt-2 mb-7 text-3xl leading-none md:mt-3 md:mb-8 md:text-4xl;
   }
 
   & h2 {
-    @apply mt-2 mb-7 text-2xl md:mt-3 md:mb-8 md:text-3xl;
+    @apply mt-2 mb-7 text-2xl leading-none md:mt-3 md:mb-8 md:text-3xl;
   }
 
   & h3 {
@@ -132,6 +124,18 @@ ul {
     overflow-wrap: break-word;
   }
 
+  & strong {
+    @apply text-teal-500;
+  }
+
+  & blockquote {
+    @apply border-coral text-white;
+  }
+
+  & .lead {
+    @apply text-coral;
+  }
+
   & li {
     @apply mr-4 mb-2;
   }
@@ -140,8 +144,19 @@ ul {
     @apply inline;
   }
 
+  & :is(ul, ol) :is(ul, ol) {
+    @apply mt-2;
+  }
+
+  & code {
+    &::before,
+    &::after {
+      content: "";
+    }
+  }
+
   & .shiki {
-    @apply overflow-x-auto rounded py-6 px-8;
+    @apply mt-0 overflow-x-auto rounded px-8;
 
     &.dark-plus {
       background-color: color-mix(
@@ -152,7 +167,7 @@ ul {
     }
   }
 
-  & :where(:not(.shiki)) > code {
+  & :where(:not(.shiki, pre)) > code {
     @apply bg-dark-muted/80 rounded py-0.5 px-1 text-sky-300;
   }
 
