@@ -46,14 +46,4 @@ for (const value of ["components"]) {
   }
 }
 
-const styles = await p.confirm({
-  message:
-    "Do you want to add the default styles and copy the `app.css` theme file into your project? (Tailwind 4 required)",
-  initialValue: false,
-});
-
-if (!styles || p.isCancel(styles)) process.exit(1);
-
-fs.copyFileSync("./node_modules/chocobytes/src/app.css", path.join(cwd, `src/app.css`));
-
 p.outro("Your project is ready! 🚀");

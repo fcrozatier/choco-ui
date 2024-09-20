@@ -29,8 +29,7 @@
     "!preprocessor/**/*.test.*",
     "scripts/bin.js",
     "scripts/utils.js",
-    "src/lib/components/*",
-    "src/app.css"
+    "src/lib/components/*"
   ],
   "exports": {
     "./preprocessor": "./preprocessor/index.js",
