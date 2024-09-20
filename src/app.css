@@ -124,7 +124,7 @@ ul {
 
   & p,
   & ul {
-    @apply my-5 leading-7;
+    @apply my-5 leading-6;
   }
 
   &:is(p, h1, h2, h3, h4, h5, h6) {
