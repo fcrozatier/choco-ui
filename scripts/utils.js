@@ -26,6 +26,7 @@ export const processImports = (content) => {
     .replaceAll("$lib/utils", "chocobytes/utils")
     .replaceAll("$lib/actions/choco.js", "chocobytes")
     .replaceAll("$lib/actions", "chocobytes/actions")
-    .replaceAll("$lib/base.svelte.js", "chocobytes")
+    .replaceAll("$lib/blocks", "chocobytes/blocks")
+    .replaceAll("$lib/headless", "chocobytes/headless")
     .replaceAll("$lib/index.js", "chocobytes");
 };

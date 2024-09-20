@@ -9,40 +9,51 @@ let cwd = process.cwd();
 
 p.intro("Welcome to chocobytes!");
 
-const files = await p.confirm({
-  message: "You're about to copy the component files from chocobytes to your project. Continue?",
-  initialValue: false,
-});
-
-if (!files || p.isCancel(files)) process.exit(1);
-
 const source = "./node_modules/chocobytes/src/lib/";
 
-for (const value of ["components"]) {
-  const target = path.join(cwd, `src/lib/${value}`);
+const components = fs
+  .readdirSync(source)
+  .filter((name) => fs.statSync(`${source}/${name}`).isDirectory());
 
-  if (fs.existsSync(target)) {
-    if (fs.readdirSync(cwd).length > 0) {
-      const force = await p.confirm({
-        message: `Your 'src/lib/${value}' directory is not empty. Continue?`,
-        initialValue: false,
-      });
+const choices = await p.multiselect({
+  message: "Select components to copy to your project's folder (use arrow keys/space bar)",
+  required: false,
+  options: components.map((c) => ({ value: c })),
+});
 
-      // bail if `force` is `false` or the user cancelled with Ctrl-C
-      if (force !== true) {
-        process.exit(1);
+if (p.isCancel(choices)) process.exit(1);
+
+for (const component of components) {
+  if (choices.includes(component)) {
+    const target = path.join(cwd, `src/lib/components/${component}`);
+
+    if (fs.existsSync(target)) {
+      if (fs.readdirSync(cwd).length > 0) {
+        const force = await p.confirm({
+          message: `Your 'src/lib/components/${component}' directory is not empty. Continue? (yes: override, no: skip)`,
+          initialValue: false,
+        });
+
+        // bail if `force` is `false` or the user cancelled with Ctrl-C
+        if (force === false) {
+          continue;
+        } else if (!force) {
+          process.exit(1);
+        }
       }
     }
-  }
 
-  fs.cpSync(path.join(source, value), target, { recursive: true }, (err) => console.error(err));
+    fs.cpSync(path.join(source, component), target, { recursive: true }, (err) =>
+      console.error(err),
+    );
 
-  const files = getFiles(target);
+    const files = getFiles(target);
 
-  for (const path of files) {
-    const file = processImports(fs.readFileSync(path, { encoding: "utf-8" }));
+    for (const path of files) {
+      const file = processImports(fs.readFileSync(path, { encoding: "utf-8" }));
 
-    fs.writeFileSync(path, file, { encoding: "utf-8" });
+      fs.writeFileSync(path, file, { encoding: "utf-8" });
+    }
   }
 }
 
