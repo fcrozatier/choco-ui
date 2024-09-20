@@ -1,6 +1,5 @@
-import { ChocoBase } from "$lib/base.svelte.js";
 import { merge } from "$lib/utils/index.js";
-import type { Constructor, HTMLTag } from "$lib/utils/types.js";
+import type { HTMLTag } from "chocobytes/utils/types.js";
 import type { Booleanish } from "svelte/elements";
 import { Togglable, type TogglableOptions } from "./togglable.svelte.js";
 
@@ -17,53 +16,39 @@ export type TriggerableOptions = {
 
 const defaults = { active: false } satisfies TriggerableOptions;
 
-export const Triggerable = <
-  CE extends HTMLTag = "button",
-  TE extends HTMLTag = "generic",
-  C extends Constructor<ChocoBase<CE>> = Constructor<ChocoBase<CE>>,
->(
-  controlClass: C,
-  targetClass = class extends Togglable<TE>(ChocoBase) {},
-) => {
-  return class extends Togglable<CE>(controlClass) {
-    #options: TriggerableOptions = $state(defaults);
-    target: InstanceType<typeof targetClass>;
+export class Triggerable<
+  C extends HTMLTag = "button",
+  T extends HTMLTag = "generic",
+> extends Togglable<C> {
+  target: Togglable<T>;
 
-    constructor(...options: any[]) {
-      super(...options);
-      this.target = new targetClass();
-    }
+  constructor(options?: TriggerableOptions) {
+    const opts = merge(defaults, options);
+    super({
+      ...opts,
+      initial: opts.control,
+      active: opts.active,
+      setActive: opts.setActive,
+    });
 
-    initTriggerable(options?: TriggerableOptions) {
-      this.#options = merge(defaults, options);
-      const opts = this.#options;
+    this.target = new Togglable({
+      initial: opts.target,
+      active: opts.active,
+    });
+  }
 
-      this.initTogglable({
-        ...opts,
-        initial: opts.control,
-        active: opts.active,
-        setActive: opts.setActive,
-      });
+  override toggle(e?: Event) {
+    super.toggle(e);
+    this.target.toggle(e);
+  }
 
-      this.target.initTogglable({
-        initial: opts.target,
-        active: opts.active,
-      });
-    }
+  override on(e?: Event) {
+    super.on(e);
+    this.target.on(e);
+  }
 
-    override toggle(e?: Event) {
-      super.toggle(e);
-      this.target.toggle(e);
-    }
-
-    override on(e?: Event) {
-      super.on(e);
-      this.target.on(e);
-    }
-
-    override off(e?: Event) {
-      super.off(e);
-      this.target.off(e);
-    }
-  };
-};
+  override off(e?: Event) {
+    super.off(e);
+    this.target.off(e);
+  }
+}

@@ -1,14 +1,12 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { ChocoBase } from "$lib/base.svelte";
   import { Triggerable } from "chocobytes/mixins/triggerable.svelte.js";
   import { fly } from "svelte/transition";
 
-  const Disclosure = class extends Triggerable(ChocoBase) {
+  class Disclosure extends Triggerable {
     constructor() {
-      super();
       // We just have to configure the control and target booleanish states
-      this.initTriggerable({
+      super({
         control: { "aria-expanded": "false" },
         target: { hidden: true },
         active: false,
@@ -20,7 +18,7 @@
       this.extendAttributes({ "aria-controls": targetId });
       this.target.extendAttributes({ id: targetId });
     }
-  };
+  }
 
   const disclosure = new Disclosure();
 </script>

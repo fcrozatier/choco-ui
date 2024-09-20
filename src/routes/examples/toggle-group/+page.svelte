@@ -41,7 +41,7 @@
 
   <div class="flex gap-2">
     {#each toggleGroup.items as item}
-      <button use:choco={item}>{item.attributes.value}</button>
+      <button use:choco={item}>{item.value}</button>
     {/each}
   </div>
 

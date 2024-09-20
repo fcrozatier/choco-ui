@@ -2,7 +2,7 @@ import { addListener } from "$lib/actions/addListener.js";
 import { ChocoBase } from "$lib/base.svelte.js";
 import { getValue } from "$lib/utils/binding.js";
 import { merge } from "$lib/utils/index.js";
-import type { Constructor, HTMLTag, Required } from "$lib/utils/types.js";
+import type { HTMLTag, Required } from "$lib/utils/types.js";
 import type { Booleanish } from "svelte/elements";
 
 type EventName = keyof HTMLElementEventMap;
@@ -43,78 +43,68 @@ const defaults = {
   active: false,
 } satisfies TogglableOptions;
 
-export const Togglable = <
-  U extends HTMLTag = "generic",
-  T extends Constructor<ChocoBase<U>> = Constructor<ChocoBase<U>>,
->(
-  superclass: T,
-) => {
-  return class extends superclass implements Toggler {
-    #initial_state = false;
-    #options: Required<TogglableOptions, "active" | "initial"> = $state(defaults);
-    #active = $derived(getValue(this.#options.active));
-    #attributes: Record<string, Booleanish> = $derived(
-      this.#active === this.#initial_state
-        ? this.#options.initial
-        : toggleValues(this.#options.initial)!,
-    );
+export class Togglable<T extends HTMLTag = "generic"> extends ChocoBase<T> {
+  #initial_state = false;
+  #options: Required<TogglableOptions, "active" | "initial"> = $state(defaults);
+  #active = $derived(getValue(this.#options.active));
+  #attributes: Record<string, Booleanish> = $derived(
+    this.#active === this.#initial_state
+      ? this.#options.initial
+      : toggleValues(this.#options.initial)!,
+  );
 
-    get active() {
-      return this.#active;
+  get active() {
+    return this.#active;
+  }
+
+  set active(v) {
+    if (this.#active !== v) this.toggle();
+  }
+
+  override get attributes() {
+    return { ...this.#attributes, ...super.attributes };
+  }
+
+  constructor(opts?: TogglableOptions) {
+    super();
+
+    this.toggle = this.toggle.bind(this);
+    this.off = this.off.bind(this);
+    this.on = this.on.bind(this);
+
+    this.#options = merge(defaults, opts);
+    this.#initial_state = getValue(this.#options.active);
+
+    if (this.#options.toggle) {
+      this.extendActions(addListener(this.#options.toggle, this.toggle));
     }
 
-    set active(v) {
-      if (this.#active !== v) this.toggle();
+    if (this.#options.on) {
+      this.extendActions(addListener(this.#options.on, this.on));
     }
 
-    override get attributes() {
-      return { ...this.#attributes, ...super.attributes };
+    if (this.#options.off) {
+      this.extendActions(addListener(this.#options.off, this.off));
     }
+  }
 
-    constructor(...options: any[]) {
-      super(...options);
-      this.toggle = this.toggle.bind(this);
-      this.off = this.off.bind(this);
-      this.on = this.on.bind(this);
+  toggle(_?: Event) {
+    const newValue = !this.#active;
+    if (typeof this.#options.active === "function") {
+      this.#options.setActive?.(newValue);
+    } else {
+      this.#options.active = newValue;
     }
+  }
 
-    initTogglable = (opts?: TogglableOptions) => {
-      this.#options = merge(defaults, opts);
-      this.#initial_state = getValue(this.#options.active);
+  on(e?: Event) {
+    if (!this.active) this.toggle(e);
+  }
 
-      if (this.#options.toggle) {
-        this.extendActions(addListener(this.#options.toggle, this.toggle));
-      }
-
-      if (this.#options.on) {
-        this.extendActions(addListener(this.#options.on, this.on));
-      }
-
-      if (this.#options.off) {
-        this.extendActions(addListener(this.#options.off, this.off));
-      }
-
-      return this;
-    };
-
-    toggle(_?: Event) {
-      const newValue = !this.#active;
-      if (typeof this.#options.active === "function") {
-        this.#options.setActive?.(newValue);
-      } else {
-        this.#options.active = newValue;
-      }
-    }
-
-    on(e?: Event) {
-      if (!this.active) this.toggle(e);
-    }
-
-    off(e?: Event) {
-      if (this.active) this.toggle(e);
-    }
-  };
-};
+  off(e?: Event) {
+    if (this.active) this.toggle(e);
+  }
+}
 
 /**
  * Pure function for toggling Booleanish values
@@ -136,5 +126,3 @@ const toggleValues = (state?: Record<string, Booleanish>) => {
 
   return newState;
 };
-
-export const ToggleBase = class extends Togglable(ChocoBase) {};

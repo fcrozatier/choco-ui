@@ -1,12 +1,8 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { ChocoBase } from "$lib/base.svelte";
   import { Triggerable } from "$lib/mixins/triggerable.svelte";
 
-  const Control = class extends Triggerable(ChocoBase) {};
-
-  const control = new Control();
-  control.initTriggerable({
+  const trigger = new Triggerable({
     control: { "aria-expanded": "false" },
     target: { "data-open": "false" },
     active: false,
@@ -14,6 +10,6 @@
   });
 </script>
 
-<button use:choco={control} data-testid="trigger">button</button>
+<button use:choco={trigger} data-testid="trigger">button</button>
 
-<div use:choco={control.target} data-testid="target">div</div>
+<div use:choco={trigger.target} data-testid="target">div</div>

@@ -1,9 +1,7 @@
-import { ChocoBase } from "$lib/base.svelte.js";
 import { Togglable } from "$lib/mixins/togglable.svelte.js";
 import { getValue } from "$lib/utils/binding.js";
 import { merge } from "$lib/utils/index.js";
 import { role } from "$lib/utils/roles.js";
-import type { Required } from "$lib/utils/types.js";
 
 export type SwitchOptions = {
   /**
@@ -31,25 +29,24 @@ const defaults = { active: false, value: "" } satisfies SwitchOptions;
  *
  * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Switch_role#all_descendants_are_presentational
  */
-export class Switch extends Togglable<"button" | "input">(ChocoBase) {
-  #options: Required<SwitchOptions, "active" | "value"> = $state(defaults);
-  value = $derived(this.#options.value);
+export class Switch extends Togglable<"button" | "input"> {
+  value;
 
   constructor(options?: SwitchOptions) {
-    super();
-    this.#options = merge(defaults, options);
-    const opts = this.#options;
+    const opts = merge(defaults, options);
 
-    this.extendAttributes({
-      value: opts.value,
-      role: role.switch,
-    });
-
-    this.initTogglable({
+    super({
       initial: { "aria-checked": `${getValue(opts.active)}` },
       active: opts.active,
       setActive: opts.setActive,
       toggle: "click",
+    });
+
+    this.value = opts.value;
+
+    this.extendAttributes({
+      value: opts.value,
+      role: role.switch,
     });
   }
 }

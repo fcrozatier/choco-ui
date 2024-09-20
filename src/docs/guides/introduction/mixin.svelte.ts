@@ -1,12 +1,9 @@
-import { ChocoBase } from "$lib/base.svelte.js";
 import { Togglable } from "chocobytes/mixins/togglable.svelte.js";
 
-export class ToggleButton extends Togglable(ChocoBase) {
+export class ToggleButton extends Togglable {
   constructor(options?: { active: boolean }) {
-    super();
     const active = options?.active ?? false;
-
-    this.initTogglable({
+    super({
       initial: { "aria-pressed": `${active}` },
       active,
       toggle: "click",

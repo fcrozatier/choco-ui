@@ -2,8 +2,8 @@ import { Group } from "$lib/mixins/group.svelte.js";
 import type { Required } from "$lib/utils/types.js";
 import { ToggleButton, type ToggleOptions } from "./toggle.svelte.js";
 
-export class ToggleGroup extends Group(ToggleButton) {
+export const ToggleGroup = class extends Group(ToggleButton) {
   createItem = (options: Required<ToggleOptions, "value">) => {
     return new this.Item(options);
   };
-}
+};

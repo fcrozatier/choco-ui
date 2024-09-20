@@ -32,6 +32,7 @@
     description,
     alertDialog = false,
     closeOnClickOutside = true,
+    // @ts-ignore identifier is read in `onclose`
     returnValue = $bindable(),
     showOnMount = false,
     onclose = (e) => {

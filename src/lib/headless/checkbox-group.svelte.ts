@@ -19,14 +19,13 @@ export type CheckboxOptions = {
   value: string;
 };
 
-class Checkbox extends Togglable<"input">(ChocoBase) {
+class Checkbox extends Togglable<"input"> {
   value;
 
   constructor(options: CheckboxOptions) {
-    super();
     const active = !!options?.checked;
+    super({ active, initial: { checked: active }, toggle: "click" });
     this.value = options.value;
-    this.initTogglable({ active, initial: { checked: active }, toggle: "click" });
     this.extendAttributes({ type: "checkbox", value: options.value });
   }
 }

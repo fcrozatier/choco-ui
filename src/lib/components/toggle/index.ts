@@ -11,7 +11,7 @@ export interface ToggleProps extends StripThunks<ToggleOptions> {
   variant?: "default" | "outline";
   size?: "default" | "sm" | "lg";
   children?: Snippet;
-  builder?: (_options?: ToggleOptions) => InstanceType<ReturnType<typeof Togglable>>;
+  builder?: (_options?: ToggleOptions) => Togglable;
 }
 
 export { Toggle };

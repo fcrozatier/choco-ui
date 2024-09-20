@@ -1,8 +1,8 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { Canceller } from "$lib/mixins/cancellable.svelte.js";
+  import { Cancellable } from "$lib/mixins/cancellable.svelte.js";
 
-  const cancel1 = new Canceller();
+  const cancel1 = new Cancellable();
 </script>
 
 <svelte:head>

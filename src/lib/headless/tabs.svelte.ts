@@ -45,21 +45,21 @@ export type TabOptions = {
   active?: boolean;
 };
 
-class Tab extends Triggerable<"button">(ChocoBase) {
+class Tab extends Triggerable<"button"> {
   value: string;
 
   constructor(options: TabOptions) {
-    super();
-    const controlId = "tab-" + nanoId();
-    const targetId = "panel-" + nanoId();
     const active = !!options.active;
 
-    this.initTriggerable({
+    super({
       control: { "aria-selected": `${active}` },
       target: {},
       active,
       on: "click",
     });
+    const controlId = "tab-" + nanoId();
+    const targetId = "panel-" + nanoId();
+
     this.extendAttributes({
       id: controlId,
       role: role.tab,

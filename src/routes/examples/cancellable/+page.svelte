@@ -1,22 +1,9 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { ChocoBase } from "$lib/base.svelte";
-  import { Cancellable, Cancellable2, Canceller } from "$lib/mixins/cancellable.svelte";
+  import { Cancellable } from "$lib/mixins/cancellable.svelte";
 
-  class Button extends Cancellable(ChocoBase) {}
-  class Button2 extends Cancellable2(ChocoBase) {}
-  const btn = new Button();
-  const btn2 = new Button2();
-  const b = new Canceller();
+  const b = new Cancellable();
 </script>
-
-<p class="p-10">
-  <button class="py-2 px-4" use:choco={btn}>Improved button</button>
-</p>
-
-<p class="p-10">
-  <button class="py-2 px-4" use:choco={btn2}>Improved button 2</button>
-</p>
 
 <p class="p-10">
   <button class="py-2 px-4" use:choco={b}>Improved button Canceller</button>

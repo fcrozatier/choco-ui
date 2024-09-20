@@ -1,4 +1,3 @@
-import { ChocoBase } from "$lib/base.svelte.js";
 import { Group, type GroupOptions } from "$lib/mixins/group.svelte.js";
 import { Triggerable } from "$lib/mixins/triggerable.svelte.js";
 import { merge, nanoId } from "$lib/utils/index.js";
@@ -35,23 +34,24 @@ export type HeaderOptions = {
   active?: boolean;
 };
 
-class Header extends Triggerable<"button">(ChocoBase) {
+class Header extends Triggerable<"button"> {
   value: string;
   headingLevel: number;
 
   constructor(options: HeaderOptions) {
-    super();
-    const controlId = nanoId();
-    const targetId = nanoId();
     const active = !!options.active;
-
-    this.headingLevel = options?.headingLevel ?? defaults.headingLevel;
-    this.initTriggerable({
+    super({
       control: { "aria-expanded": `${active}` },
       target: { hidden: !active },
       active,
       toggle: "click",
     });
+
+    const controlId = nanoId();
+    const targetId = nanoId();
+
+    this.headingLevel = options?.headingLevel ?? defaults.headingLevel;
+
     this.extendAttributes({
       id: controlId,
       role: role.tab,

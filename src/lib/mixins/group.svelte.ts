@@ -1,10 +1,9 @@
 import { addListener } from "$lib/actions/addListener.js";
-import { type ChocoBase } from "$lib/base.svelte.js";
-import { type Toggler } from "$lib/mixins/togglable.svelte.js";
+import { type Togglable } from "$lib/mixins/togglable.svelte.js";
 import { getValue } from "$lib/utils/binding.js";
 import { merge, modulo } from "$lib/utils/index.js";
 import { key } from "$lib/utils/keyboard.js";
-import type { Constructor, HTMLTag, Orientation, Required } from "$lib/utils/types.js";
+import type { Constructor, Orientation, Required } from "$lib/utils/types.js";
 import { SvelteMap } from "svelte/reactivity";
 
 export type GroupOptions = {
@@ -50,12 +49,7 @@ const defaults = {
  *
  * If js is not available then the elements have their default focus behavior.
  */
-export const Group = <
-  U extends HTMLTag,
-  T extends Constructor<ChocoBase<U> & Toggler & { value: string }>,
->(
-  superclass: T,
-) => {
+export const Group = <T extends Constructor<Togglable & { value: string }>>(superclass: T) => {
   return class {
     Item: T;
     #itemsMap = new SvelteMap<HTMLElement, InstanceType<T>>();
