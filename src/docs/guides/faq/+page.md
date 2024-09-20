@@ -6,7 +6,7 @@ title: FAQ
 
 ---
 
-## Is it a UI library?
+## Is it a UI library or a headless library?
 
 Let's call it a UI-kit. It's a hybrid approach, and as mentioned in the [introduction](/guides/introduction):
 
