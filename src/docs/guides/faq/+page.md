@@ -12,7 +12,7 @@ Let's call it a UI-kit. It's a hybrid approach, and as mentioned in the [introdu
 
 > You own the design, and we share the logic.
 
-So the components really are a starting point you can customize and adjust to fit your style guide. The provided components can be though of as implementation examples of the headless components. Their styling often use the [shadcn](https://www.shadcn-svelte.com) styles, the intent being that you own the files and can customize them to follow your own design system.
+So the components really are a starting point you can customize and adjust to fit your design system. The provided components can be thought of as implementation examples of the headless components. Their default styling often use the [shadcn](https://www.shadcn-svelte.com) styles, the intent being that you own the files and can customize them to follow your own design system.
 
 Choco will help you easily build accessible, reactive and SSR-ready components. The building blocks give you powerful primitives to go beyond what's provided when you'll need to create your own headless classes while reusing some of the logic and keyboard management from the provided headless classes.
 
