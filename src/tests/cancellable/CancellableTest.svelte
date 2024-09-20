@@ -1,6 +1,6 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { Cancellable } from "$lib/mixins/cancellable.svelte";
+  import { Cancellable } from "$lib/blocks/cancellable.svelte";
 
   const btn = new Cancellable();
 </script>

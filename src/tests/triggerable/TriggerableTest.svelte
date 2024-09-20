@@ -1,6 +1,6 @@
 <script lang="ts">
   import { choco } from "$lib/actions/choco.js";
-  import { Triggerable } from "$lib/mixins/triggerable.svelte";
+  import { Triggerable } from "$lib/blocks/triggerable.svelte";
 
   const trigger = new Triggerable({
     control: { "aria-expanded": "false" },

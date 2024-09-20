@@ -1,5 +1,5 @@
 import { addListener } from "$lib/actions/addListener.js";
-import { type Togglable } from "$lib/mixins/togglable.svelte.js";
+import { type Togglable } from "$lib/blocks/togglable.svelte.js";
 import { getValue } from "$lib/utils/binding.js";
 import { merge, modulo } from "$lib/utils/index.js";
 import { key } from "$lib/utils/keyboard.js";

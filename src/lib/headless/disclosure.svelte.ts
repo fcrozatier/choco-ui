@@ -1,4 +1,4 @@
-import { Triggerable } from "$lib/mixins/triggerable.svelte.js";
+import { Triggerable } from "$lib/blocks/triggerable.svelte.js";
 import { getValue } from "$lib/utils/binding.js";
 import { merge, nanoId } from "$lib/utils/index.js";
 

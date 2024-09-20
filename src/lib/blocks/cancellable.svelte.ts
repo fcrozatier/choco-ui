@@ -1,4 +1,4 @@
-import { Togglable } from "$lib/mixins/togglable.svelte.js";
+import { Togglable } from "$lib/blocks/togglable.svelte.js";
 
 /**
  * ## Cancellable

@@ -1,2 +1,2 @@
 export * from "./actions/choco.js";
-export * from "./base.svelte.js";
+export * from "./blocks/base.svelte.js";

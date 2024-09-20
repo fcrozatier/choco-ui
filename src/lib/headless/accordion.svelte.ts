@@ -1,5 +1,5 @@
-import { Group, type GroupOptions } from "$lib/mixins/group.svelte.js";
-import { Triggerable } from "$lib/mixins/triggerable.svelte.js";
+import { Group, type GroupOptions } from "$lib/blocks/group.svelte.js";
+import { Triggerable } from "$lib/blocks/triggerable.svelte.js";
 import { merge, nanoId } from "$lib/utils/index.js";
 import { role } from "$lib/utils/roles.js";
 

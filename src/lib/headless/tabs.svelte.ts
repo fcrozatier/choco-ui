@@ -1,10 +1,10 @@
 import { makeFocusable } from "$lib/actions/focus.svelte.js";
-import { ChocoBase } from "$lib/base.svelte.js";
-import { Group, type GroupOptions } from "$lib/mixins/group.svelte.js";
-import { Triggerable } from "$lib/mixins/triggerable.svelte.js";
+import { Group, type GroupOptions } from "$lib/blocks/group.svelte.js";
+import { Triggerable } from "$lib/blocks/triggerable.svelte.js";
 import { merge, nanoId } from "$lib/utils/index.js";
 import { role } from "$lib/utils/roles.js";
 import type { OmitSupertype, Required } from "$lib/utils/types.js";
+import { ChocoBase } from "chocobytes/blocks/base.svelte.js";
 
 export type TabsOptions = {
   /**

@@ -1,4 +1,4 @@
-import { Togglable } from "chocobytes/mixins/togglable.svelte.js";
+import { Togglable } from "$lib/blocks/togglable.svelte.js";
 
 export class Clickable extends Togglable<"button"> {
   constructor(options?: { active: boolean }) {

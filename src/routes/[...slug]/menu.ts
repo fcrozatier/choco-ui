@@ -17,7 +17,7 @@ export const paths = {
       title: "FAQ",
     },
   ],
-  mixins: [
+  blocks: [
     {
       href: "/togglable",
       title: "Togglable",

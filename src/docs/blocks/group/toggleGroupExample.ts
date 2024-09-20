@@ -1,5 +1,5 @@
-import { ToggleButton, type ToggleOptions } from "chocobytes/headless/toggle.svelte.js";
-import { Group } from "chocobytes/mixins/group.svelte.js";
+import { Group } from "$lib/blocks/group.svelte.js";
+import { ToggleButton, type ToggleOptions } from "$lib/headless/toggle.svelte.js";
 
 // It's that simple. You get roving focus and tracking for free
 export class ToggleGroup extends Group(ToggleButton) {
