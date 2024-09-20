@@ -79,7 +79,7 @@ ul {
 }
 
 .prose {
-  @apply bg-dark text-slate-200 [--tw-prose-headings:var(--text-slate-100)];
+  @apply text-slate-200 [--tw-prose-headings:var(--color-slate-100)];
 
   & h1,
   & h2,
@@ -129,7 +129,7 @@ ul {
   }
 
   & blockquote {
-    @apply border-coral text-white;
+    @apply border-coral text-slate-100;
   }
 
   & .lead {
