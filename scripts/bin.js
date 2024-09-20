@@ -9,7 +9,7 @@ let cwd = process.cwd();
 
 p.intro("Welcome to chocobytes!");
 
-const source = "./node_modules/chocobytes/src/lib/";
+const source = "./node_modules/chocobytes/src/lib/components";
 
 const components = fs
   .readdirSync(source)
