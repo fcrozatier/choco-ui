@@ -72,7 +72,7 @@ body {
 
 ul,
 ol {
-  @apply m-4 list-inside;
+  @apply list-inside ps-3 sm:ps-5 md:ps-7;
 }
 
 ol {
@@ -189,8 +189,12 @@ ul {
     @apply border-coral my-8 md:my-12;
   }
 
+  & .table-container {
+    @apply w-full overflow-auto px-1;
+  }
+
   & table {
-    @apply w-full overflow-hidden rounded text-sm outline outline-1 outline-gray-200;
+    @apply rounded text-sm outline outline-1 outline-gray-200;
 
     & thead {
       @apply border-b;
