@@ -24,6 +24,6 @@ The preprocessor expands the `use:choco` shorthand syntax. [Learn more](/guides/
 <Highlighter file="./copy.sh" />
 
 The CLI will let you choose which components to copy to your project's `$lib/components` folder.
-This way you own the files and can easily customize and tweak the styles.
+This way you own the files and can easily customize and tweak the Tailwind styles. Tailwind v4 is recommended for optimal results.
 
-Also copy-pasting examples from this documentation will just work out of the box, without adjusting the imports.
+Also, copy-pasting examples from this documentation will just work out of the box, without adjusting the imports.
