@@ -1,5 +1,5 @@
-import type { GroupOptions } from "$lib/blocks/group.svelte.js";
 import type { Attributes } from "$lib/utils/types.js";
+import type { GroupOptions } from "chocobytes/blocks/group.svelte.js";
 import type { SwitchGroup } from "chocobytes/headless/switch-group.svelte.js";
 import { getContext, setContext, type Snippet } from "svelte";
 import type { ToggleProps } from "../toggle/index.js";
