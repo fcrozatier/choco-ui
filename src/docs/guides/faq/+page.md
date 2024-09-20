@@ -8,11 +8,13 @@ title: FAQ
 
 ## Is it a UI library?
 
-Not really, it's more a UI-kit.
+Let's call it a UI-kit. It's a hybrid approach, and as mentioned in the [introduction](/guides/introduction):
 
-Meaning it's not meant to give out of the box styling. Actually the provided components are only implementation examples of the headless components. It's a starting point, and these components often use the [shadcn](https://www.shadcn-svelte.com) styles. The intent being that you own the files and can customize the component styles to follow your own design system.
+> You own the design, and we share the logic.
 
-It will help you to easily build accessible, reactive and SSR-ready components. The building blocks give you powerful primitives to go beyond what's provided and create your own headless classes while reusing some of the logic and keyboard management from the provided headless classes.
+So the components really are a starting point you can customize and adjust to fit your style guide. The provided components can be though of as implementation examples of the headless components. Their styling often use the [shadcn](https://www.shadcn-svelte.com) styles, the intent being that you own the files and can customize them to follow your own design system.
+
+Choco will help you easily build accessible, reactive and SSR-ready components. The building blocks give you powerful primitives to go beyond what's provided when you'll need to create your own headless classes while reusing some of the logic and keyboard management from the provided headless classes.
 
 ---
 
@@ -28,7 +30,7 @@ This also implies better SSR, because we know the element and its attributes ahe
 
 ---
 
-## Is it packed with third party libs?
+## Is it packed with third-party libs?
 
 Nope, the design is voluntarily minimalist, with the goal of having a consistent and simple way of getting started and extending things.
 

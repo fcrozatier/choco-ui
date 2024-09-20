@@ -12,7 +12,7 @@ title: Introduction
 Choco-ui is a UI-kit for [Svelte 5](https://svelte.dev/) that will help you create reactive, accessible, SSR-ready, composable & extendable components by either using and customizing the provided components or by using the primitives they are built on to create your own.
 
 We can describe the architecture in the following way:
-> You own the designs and we share the logic.
+> You own the design, and we share the logic.
 
 This is a hybrid approach where you literally own the component files and can modify them to suit your designs, and yet still get updates and bug fixes on the shared logic, headless classes and building blocks, all in a seamless way.
 
