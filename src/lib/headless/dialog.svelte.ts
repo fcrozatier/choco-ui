@@ -1,6 +1,6 @@
 import { addListener } from "$lib/actions/addListener.js";
+import { ChocoBase } from "$lib/blocks/base.svelte.js";
 import DialogUI, { type DialogProps } from "$lib/components/dialog/Dialog.svelte";
-import { ChocoBase } from "$lib/index.js";
 import { merge } from "$lib/utils/index.js";
 import { mount, unmount } from "svelte";
 
