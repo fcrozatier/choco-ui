@@ -9,58 +9,60 @@ title: Introduction
 
 # Introduction
 
-Choco-ui is a [Svelte](https://svelte.dev/) UI-kit that will help you create reactive, accessible, SSR-ready, composable & extendable components by either using and customizing the provided components or by using the primitives they are built on to create your own.
+Choco-ui is a UI-kit for [Svelte 5](https://svelte.dev/) that will help you create reactive, accessible, SSR-ready, composable & extendable components by either using and customizing the provided components or by using the primitives they are built on to create your own.
 
-You can customize:
-- the UI components
-- the headless components
-- the mixins everything is built on
+The best way to describe its architecture is:
+> You own the designs and we share the logic.
 
-Let's have a quick look at each level.
+This is a hybrid approach where you literally own the component files and can modify them to suit your designs, and yet still get updates and bug fixes for the shared logic, headless classes and building blocks, all in a seamless way.
+
+You can think of the provided components as implementation examples of the headless classes that you can customize. So `choco-ui` can be used both as a headless component library if you do not copy the components, or as a UI library if you want a solid starting point.
+
+The library is composed of components, headless classes, as well as a few primitive building blocks everything is built on. You can use these building blocks to go beyond what's provided and create your own headless classes.
+
+Let's have a quick look at these different parts.
 
 ---
 
 ## UI components
 
-The easiest way to get started. Just customize the styles to your liking.
+The easiest way to get started. Once you've [added the library](/guides/getting-started), the install script will ask you to choose the components you want to copy to your project's `$lib/components` folder. Then you can easily modify these files and tweak the Tailwind styles.
 
-For example to use the [`Accordion`](/) component:
+Here's an example using the [`Accordion`](/) component. The files live inside `$lib/components` and the implementation can be modified there. Again, you own the file.
 
-<Demo file="styled.svelte" />
-
-Feel free to open the components and modify the styles to suit your design. If you want to go to the next level and tweak the logic in a reusable way then you want to have a look at the corresponding headless component.
+<Demo file="component.svelte" />
 
 ---
 
-## Headless components
+## Headless classes
 
-Each UI component is paired with a corresponding headless component built from sharable building blocs and logic, and managing the attributes and the behavior.
+Each UI component is paired with a corresponding headless class built from the sharable building blocks and logic, and managing the attributes, behavior, accessibility etc.
 
-When you instantiate a headless component you can use it with the `choco` action. The preprocessor takes care of spreading the attributes and managing actions for you.
+You can use these headless classes directly with the `choco` action. The [preprocessor](/guides/preprocessor) takes care of everything for you.
 
 Here's an example using the headless `ToggleButton` class to create an unstyled toggle button:
 
 <Demo file="./headless.svelte" value="code" />
 
-In the above example there is no clash between the toggle's inner `click` event listener and the one declared on the button. The `ChocoBase` class and all headless components pass their behavior through an action, avoiding clashes with other declarative listeners.
+In the above example there is no clash between the toggle's inner `click` event listener and the one declared on the button. Internally, the [`ChocoBase`](/blocks/chocobase) everything inherits from manages behaviors with actions, avoiding clashes with other declarative listeners.
 
 ---
 
-## Mixins
+## Building blocks
 
-The headless components are built from a few primitives. By combining these primitives you can easily create your own headless components and extend the provided ones.
+The headless classes are built from a few building blocks. By combining these building blocks you can easily create your own headless classes. Here's an overview of these building blocks:
 
-These primitives are mixins. What's a mixin? It's like a class decorator, but we don't officially have decorators in js yet, so mixins do the job with no additional setup or preprocessing.
+- The main building block is the [`ChocoBase`](/blocks/chocobase) class. All headless classes inherit from it and its role is to set the simple contract that all components share.
 
-So mixins are just functions taking a class and returning a decorated class with new attributes or new behavior. And since functions compose well together, they are nicely composable primitives.
+- Two conceptual classes help solve recurring UI patterns:
+  1. The [`Togglable`](/blocks/togglable) class allows to toggle a set of attributes on specific events. Quite versatile: almost every interactive component toggles its attributes.
+  2. The [`Triggerable`](/blocks/triggerable) class helps orchestrate a control-target relation. Think Tabs, Disclosures, Accordions etc.
 
-To use a mixin we just extend from its application on the base class, and to compose them we just compose the applications. For example, the `Togglable` mixin adds an `initTogglable` method taking the (initial) attributes to be toggled, whether this initial state is the active state, and the events toggling it. So the headless `ToggleButton` class could be implemented like this:
+- The [`Group`](/blocks/group) mixin allows us to easily group things together as in toggle groups, tabs, accordions etc; track active elements and manage keyboard navigation.
 
-<Highlighter file="./mixin.svelte.ts" />
+What's a mixin? It's like a class decorator, but we don't officially have decorators in js yet, so mixins do the job with no additional setup or preprocessing.
 
-You see how we could very easily adapt this to create a headless switch component, by toggling `aria-checked` on click. Many things in a UI are togglable so this is a powerful abstraction. From there we can also build a disclosure component by toggling `aria-expanded`, a hoverable by toggling on `mouseenter` and off during `mouseleave`. See the corresponding mixins for more on these low level primitives.
-
-Also notice how readable and short the code is.
+So a mixin is just a function taking a class and returning a decorated class with new attributes or new behavior.
 
 ---
 
