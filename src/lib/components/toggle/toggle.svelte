@@ -28,18 +28,16 @@
   use:choco={toggle}
   class={cn(
     // Base
-    "ring-offset-background hover:text-muted-foreground focus-visible:ring-ring inline-flex cursor-pointer items-center justify-center rounded-md text-sm font-medium text-white transition-colors hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+    "inline-flex cursor-pointer items-center rounded-md text-sm font-medium text-slate-100 transition-colors hover:bg-slate-100 hover:text-orange-950 focus-visible:ring-2 focus-visible:ring-slate-100 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-950 focus-visible:outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
     {
       // Variants
-      "bg-transparent": variant === "default",
-      "border-input hover:bg-accent hover:text-accent-foreground border bg-transparent":
-        variant === "outline",
+      "border border-slate-100  ": variant === "outline",
       // Sizes
       "h-10 px-3": size === "default",
       "h-9 px-2.5": size === "sm",
       "h-11 px-5": size === "lg",
       // Active
-      "bg-accent text-accent-foreground": toggle.active,
+      "border-none bg-slate-100 text-orange-950": toggle.active,
     },
     className,
   )}

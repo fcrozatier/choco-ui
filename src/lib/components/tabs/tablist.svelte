@@ -14,10 +14,7 @@
 </script>
 
 <div
-  class={cn(
-    "text-muted-foreground flex h-10 items-center justify-center gap-2 rounded-md bg-slate-100 p-1",
-    className,
-  )}
+  class={cn("flex h-10 items-center justify-center gap-2 rounded-md bg-slate-100 p-1", className)}
   {...tablist.attributes}
   {...restProps}
 >

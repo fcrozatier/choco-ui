@@ -16,10 +16,8 @@
 }
 
 * {
-  @apply border-border;
-
   --track: var(--scrollbar-track, transparent);
-  --thumb: var(--scrollbar-thumb, var(--color-light));
+  --thumb: var(--scrollbar-thumb, var(--color-slate-200));
 
   /* Firefox, Chrome, Edge */
   scrollbar-color: var(--thumb) var(--track);
@@ -50,7 +48,7 @@ body {
 }
 
 body {
-  @apply bg-dark text-light;
+  @apply bg-dark text-slate-200;
 }
 
 ::marker {

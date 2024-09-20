@@ -14,8 +14,9 @@
 
 <p class="text-center">Indulge in Chocolate?</p>
 <p class="flex justify-center">
-  <button class="aria-pressed:text-dark py-2 px-4 outline aria-pressed:bg-white" use:choco={toggle}
-    >Indulge</button
+  <button
+    class="py-2 px-4 outline aria-pressed:bg-white aria-pressed:text-orange-950"
+    use:choco={toggle}>Indulge</button
   >
 </p>
 

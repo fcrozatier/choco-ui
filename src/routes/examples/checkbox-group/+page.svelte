@@ -47,9 +47,9 @@
     flex-shrink: 0;
     height: 1rem;
     width: 1rem;
-    color: var(--primary);
+    color: var(--color-orange-950);
     background-color: #fff;
-    border-color: #000;
+    border-color: var(--color-orange-950);
     border-width: 1px;
     border-radius: var(--radius-sm);
 

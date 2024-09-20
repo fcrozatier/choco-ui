@@ -9,35 +9,9 @@
   /* Colors */
   --color-dark: #1b120c;
   --color-dark-muted: #342e2a;
-  --color-light: #e2e0dd;
 
   --color-choco-light: #f7c48b;
-
   --color-coral: #ef8354;
-
-  --color-gray: #989592;
-
-  --color-background: hsl(0 0% 100%);
-  --color-foreground: hsl(222.2 84% 4.9%);
-
-  --color-muted-foreground: hsl(215.4 16.3% 46.9%);
-
-  --color-border: hsl(214.3 31.8% 91.4%);
-  --color-input: hsl(214.3 31.8% 91.4%);
-
-  --color-primary: hsl(222.2 47.4% 11.2%);
-  --color-primary-foreground: hsl(210 40% 98%);
-
-  --color-accent: hsl(210 40% 96.1%);
-  --color-accent-foreground: hsl(222.2 47.4% 11.2%);
-
-  --color-ring: hsl(222.2 84% 4.9%);
-
-  /* Radii */
-  --radius: 0.5rem;
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
 
   /* Fonts */
   --font-family-cursive: "Calistoga", serif;

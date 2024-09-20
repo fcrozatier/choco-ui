@@ -10,7 +10,7 @@
   <button
     use:choco={toggle}
     onclick={() => console.log("still toggling")}
-    class="aria-pressed:text-dark rounded border border-white py-2 px-4 aria-pressed:bg-white"
+    class="rounded border border-white py-2 px-4 aria-pressed:bg-white aria-pressed:text-black"
   >
     I'm {toggle.active ? "" : "not"} pressed
   </button>

@@ -14,27 +14,30 @@
   });
 </script>
 
-<h1>Toggle</h1>
+<article class="m-10">
+  <h1>Toggle</h1>
 
-<label>
-  <span>disable</span>
-  <input type="checkbox" bind:checked={disabled} />
-</label>
+  <label>
+    <span>disable</span>
+    <input type="checkbox" bind:checked={disabled} />
+  </label>
 
-<label>
-  <span>programmatic change</span>
-  <input type="checkbox" bind:checked={active} />
-</label>
+  <label>
+    <span>programmatic change</span>
+    <input type="checkbox" bind:checked={active} />
+  </label>
 
-<h2>Button</h2>
+  <h2>Button</h2>
 
-<p>
-  <button class="rounded py-2 px-4 outline" use:choco={toggle} {disabled}> press</button>
-</p>
-<p>
-  I'm {toggle.active ? "" : "not"} pressed
-</p>
+  <p>
+    <button class="rounded py-2 px-4 outline" use:choco={toggle} {disabled}> press</button>
+  </p>
+  <p>
+    I'm {toggle.active ? "" : "not"} pressed
+  </p>
 
-<h2>Styled</h2>
+  <h2>Styled</h2>
 
-<Toggle variant="outline" bind:active>toggle</Toggle>
+  <Toggle variant="default" bind:active>toggle</Toggle>
+  <Toggle variant="outline" bind:active>toggle</Toggle>
+</article>
