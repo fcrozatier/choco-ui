@@ -99,7 +99,7 @@
         <footer class="">
           <a
             href="https://github.com/fcrozatier/choco-ui"
-            class="flex items-center justify-center gap-2 fill-slate-100 opacity-90 hover:opacity-70"
+            class="ml-12 flex items-center gap-3 fill-slate-100 opacity-90 hover:opacity-70"
             target="_blank"
           >
             <Icon name="github" width="2rem"></Icon>
