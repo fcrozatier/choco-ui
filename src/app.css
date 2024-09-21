@@ -130,15 +130,15 @@ ul {
   }
 
   & strong {
-    @apply text-teal-500;
+    @apply text-rose-300;
   }
 
   & blockquote {
-    @apply border-coral border-l-2 text-slate-100;
+    @apply border-coral border-l-2 text-center text-slate-100;
   }
 
   & .lead {
-    @apply text-coral;
+    @apply text-coral leading-normal;
   }
 
   & li {
