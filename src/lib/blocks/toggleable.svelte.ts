@@ -7,7 +7,7 @@ import type { Booleanish } from "svelte/elements";
 
 type EventName = keyof HTMLElementEventMap;
 
-export type TogglableOptions = {
+export type ToggleableOptions = {
   /**
    * A record of Booleanish attributes to be toggled
    */
@@ -41,11 +41,11 @@ export interface Toggler {
 const defaults = {
   initial: {},
   active: false,
-} satisfies TogglableOptions;
+} satisfies ToggleableOptions;
 
-export class Togglable<T extends HTMLTag = "generic"> extends ChocoBase<T> {
+export class Toggleable<T extends HTMLTag = "generic"> extends ChocoBase<T> {
   #initial_state = false;
-  #options: Required<TogglableOptions, "active" | "initial"> = $state(defaults);
+  #options: Required<ToggleableOptions, "active" | "initial"> = $state(defaults);
   #active = $derived(getValue(this.#options.active));
   #attributes: Record<string, Booleanish> = $derived(
     this.#active === this.#initial_state
@@ -65,7 +65,7 @@ export class Togglable<T extends HTMLTag = "generic"> extends ChocoBase<T> {
     return { ...this.#attributes, ...super.attributes };
   }
 
-  constructor(opts?: TogglableOptions) {
+  constructor(opts?: ToggleableOptions) {
     super();
 
     this.toggle = this.toggle.bind(this);

@@ -1,6 +1,6 @@
 import type { StripThunks } from "$lib/utils/binding.js";
 import type { Attributes } from "$lib/utils/types.js";
-import type { Togglable } from "chocobytes/blocks/togglable.svelte.js";
+import type { Toggleable } from "chocobytes/blocks/toggleable.svelte.js";
 import type { ToggleOptions } from "chocobytes/headless/toggle.svelte.js";
 import type { Snippet } from "svelte";
 import Toggle from "./toggle.svelte";
@@ -11,7 +11,7 @@ export interface ToggleProps extends StripThunks<ToggleOptions> {
   variant?: "default" | "outline";
   size?: "default" | "sm" | "lg";
   children?: Snippet;
-  builder?: (_options?: ToggleOptions) => Togglable;
+  builder?: (_options?: ToggleOptions) => Toggleable;
 }
 
 export { Toggle };

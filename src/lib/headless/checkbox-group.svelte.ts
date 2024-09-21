@@ -1,6 +1,6 @@
 import { addListener } from "$lib/actions/addListener.js";
 import { Group, type GroupOptions } from "$lib/blocks/group.svelte.js";
-import { Togglable } from "$lib/blocks/togglable.svelte.js";
+import { Toggleable } from "$lib/blocks/toggleable.svelte.js";
 import { nanoId } from "$lib/utils/index.js";
 import { ChocoBase } from "chocobytes/blocks/base.svelte.js";
 
@@ -19,7 +19,7 @@ export type CheckboxOptions = {
   value: string;
 };
 
-class Checkbox extends Togglable<"input"> {
+class Checkbox extends Toggleable<"input"> {
   value;
 
   constructor(options: CheckboxOptions) {

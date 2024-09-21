@@ -1,4 +1,4 @@
-import { Togglable } from "$lib/blocks/togglable.svelte.js";
+import { Toggleable } from "$lib/blocks/toggleable.svelte.js";
 import { getValue } from "$lib/utils/binding.js";
 import { merge } from "$lib/utils/index.js";
 import { role } from "$lib/utils/roles.js";
@@ -29,7 +29,7 @@ const defaults = { active: false, value: "" } satisfies SwitchOptions;
  *
  * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Switch_role#all_descendants_are_presentational
  */
-export class Switch extends Togglable<"button" | "input"> {
+export class Switch extends Toggleable<"button" | "input"> {
   value;
 
   constructor(options?: SwitchOptions) {

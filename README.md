@@ -39,7 +39,7 @@ This way you own the files and can easily customize and tweak them or learn from
 
 A few building blocks allow us to build the headless classes and corresponding UI components.
 
-These building blocks are the `Togglable`, `Group` and `Triggerable` mixins.
+These building blocks are the `Toggleable`, `Group` and `Triggerable` mixins.
 
 ## Credits
 

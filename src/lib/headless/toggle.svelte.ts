@@ -1,4 +1,4 @@
-import { Togglable } from "$lib/blocks/togglable.svelte.js";
+import { Toggleable } from "$lib/blocks/toggleable.svelte.js";
 import { getValue } from "$lib/utils/binding.js";
 import { merge } from "$lib/utils/index.js";
 
@@ -23,7 +23,7 @@ const defaults = { active: false, value: "" } satisfies ToggleOptions;
  * Note: The label should not change when the state changes
  *
  */
-export class ToggleButton extends Togglable<"button"> {
+export class ToggleButton extends Toggleable<"button"> {
   value;
 
   constructor(options?: ToggleOptions) {

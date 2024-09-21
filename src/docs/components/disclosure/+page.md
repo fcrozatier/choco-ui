@@ -8,7 +8,7 @@ title: Disclosure
 
 # Disclosure
 
-A standalone [Togglable](/mixins/togglable) for revealing additional information.
+A standalone [Toggleable](/mixins/toggleable) for revealing additional information.
 
 <Demo file="./componentDemo.svelte" value="result" />
 

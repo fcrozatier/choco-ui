@@ -10,7 +10,7 @@ title: Group
 
 # Group
 
-The `Group` mixin allows you to create a container of togglables, track which ones are active, and manage keyboard focus easily. Tabs, Paginations, Disclosures, Accordion, Carousel etc. are all groups of [Togglables](/mixins/togglable).
+The `Group` mixin allows you to create a container of togglables, track which ones are active, and manage keyboard focus easily. Tabs, Paginations, Disclosures, Accordion, Carousel etc. are all groups of [Togglables](/mixins/toggleable).
 
 ---
 

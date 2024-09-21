@@ -1,5 +1,5 @@
 import { addListener } from "$lib/actions/addListener.js";
-import { type Togglable } from "$lib/blocks/togglable.svelte.js";
+import { type Toggleable } from "$lib/blocks/toggleable.svelte.js";
 import { getValue } from "$lib/utils/binding.js";
 import { merge, modulo } from "$lib/utils/index.js";
 import { key } from "$lib/utils/keyboard.js";
@@ -49,7 +49,7 @@ const defaults = {
  *
  * If js is not available then the elements have their default focus behavior.
  */
-export const Group = <T extends Constructor<Togglable & { value: string }>>(superclass: T) => {
+export const Group = <T extends Constructor<Toggleable & { value: string }>>(superclass: T) => {
   return class {
     Item: T;
     #itemsMap = new SvelteMap<HTMLElement, InstanceType<T>>();

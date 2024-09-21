@@ -1,6 +1,6 @@
-import { Togglable } from "$lib/blocks/togglable.svelte.js";
+import { Toggleable } from "$lib/blocks/toggleable.svelte.js";
 
-export class Clickable extends Togglable<"button"> {
+export class Clickable extends Toggleable<"button"> {
   constructor(options?: { active: boolean }) {
     const active = options?.active ?? false;
     super({

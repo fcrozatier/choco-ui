@@ -1,7 +1,7 @@
 import { merge } from "$lib/utils/index.js";
 import type { HTMLTag } from "chocobytes/utils/types.js";
 import type { Booleanish } from "svelte/elements";
-import { Togglable, type TogglableOptions } from "./togglable.svelte.js";
+import { Toggleable, type ToggleableOptions } from "./toggleable.svelte.js";
 
 export type TriggerableOptions = {
   /**
@@ -12,15 +12,15 @@ export type TriggerableOptions = {
    * Initial state of the target
    */
   target?: Record<string, Booleanish>;
-} & Omit<TogglableOptions, "initial">;
+} & Omit<ToggleableOptions, "initial">;
 
 const defaults = { active: false } satisfies TriggerableOptions;
 
 export class Triggerable<
   C extends HTMLTag = "button",
   T extends HTMLTag = "generic",
-> extends Togglable<C> {
-  target: Togglable<T>;
+> extends Toggleable<C> {
+  target: Toggleable<T>;
 
   constructor(options?: TriggerableOptions) {
     const opts = merge(defaults, options);
@@ -31,7 +31,7 @@ export class Triggerable<
       setActive: opts.setActive,
     });
 
-    this.target = new Togglable({
+    this.target = new Toggleable({
       initial: opts.target,
       active: opts.active,
     });
