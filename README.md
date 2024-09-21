@@ -1,6 +1,6 @@
 # Choco UI
 
-A Svelte UI-kit providing you building blocks for composable, extendable, reactive, SSR-ready UI components, headless classes and mixins.
+A UI-kit for Svelte 5 providing you with building blocks for composable, extendable, reactive, SSR-ready UI components and headless classes.
 
 ## Getting Started
 
@@ -33,13 +33,11 @@ npx chocobytes
 
 This way you own the files and can easily customize and tweak them or learn from them. Also copy-pasting examples from the documentation will just work, without adjusting the imports.
 
-4. (Optional). If you want the default styles to experiment with before using your own, you need Tailwind 4
-
 ## Architecture
 
 A few building blocks allow us to build the headless classes and corresponding UI components.
 
-These building blocks are the `Toggleable`, `Group` and `Triggerable` mixins.
+These building blocks are the `Toggleable`, `Group` and `Triggerable`.
 
 ## Credits
 
