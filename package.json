@@ -57,9 +57,9 @@
     "svelte": "^5.0.0-next.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.47.1",
+    "@playwright/test": "^1.47.2",
     "@shikijs/rehype": "^1.18.0",
-    "@sveltejs/adapter-node": "^5.2.3",
+    "@sveltejs/adapter-node": "^5.2.4",
     "@sveltejs/adapter-static": "^3.0.5",
     "@sveltejs/kit": "^2.5.28",
     "@sveltejs/package": "^2.3.5",
@@ -91,12 +91,12 @@
     "three": "^0.167.1",
     "typescript": "^5.6.2",
     "unified": "^11.0.5",
-    "vite": "^5.4.6",
+    "vite": "^5.4.7",
     "vitest": "^2.1.1"
   },
   "dependencies": {
     "@clack/prompts": "^0.7.0",
-    "@fcrozatier/ts-helpers": "^2.0.0",
+    "@fcrozatier/ts-helpers": "^2.1.0",
     "clsx": "^2.1.1",
     "estree-walker": "^3.0.3",
     "magic-string": "^0.30.11",
