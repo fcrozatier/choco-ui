@@ -72,10 +72,10 @@
       >
         {#each keys(paths) as key}
           <section class="flex flex-col pl-8">
-            <h2 class=" mb-2 font-semibold capitalize">{key}</h2>
+            <h2 class=" mb-2 font-semibold capitalize">{key.replace("_", " ")}</h2>
 
             {#each paths[key] as { href, title }}
-              {@const current = $page.url.pathname === `/${key}${href}` ? "page" : undefined}
+              {@const current = $page.url.pathname === href ? "page" : undefined}
               <div class="inline-flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@
                 >
                   <rect x="3" y="3" width="7" height="7"></rect>
                 </svg>
-                <a class="link" aria-current={current} href={`/${key}${href}`}>{title}</a>
+                <a class="link" aria-current={current} {href}>{title}</a>
               </div>
             {/each}
           </section>

@@ -1,75 +1,75 @@
 export const paths = {
   guides: [
     {
-      href: "/introduction",
+      href: "/guides/introduction",
       title: "Introduction",
     },
     {
-      href: "/getting-started",
+      href: "/guides/getting-started",
       title: "Getting Started",
     },
     {
-      href: "/preprocessor",
+      href: "/guides/preprocessor",
       title: "Preprocessor",
     },
     {
-      href: "/faq",
+      href: "/guides/faq",
       title: "FAQ",
     },
   ],
-  blocks: [
+  building_blocks: [
     {
-      href: "/chocobase",
+      href: "/blocks/chocobase",
       title: "ChocoBase",
     },
     {
-      href: "/togglable",
+      href: "/blocks/togglable",
       title: "Togglable",
     },
     {
-      href: "/triggerable",
+      href: "/blocks/triggerable",
       title: "Triggerable",
     },
     {
-      href: "/hocusable",
+      href: "/blocks/hocusable",
       title: "Hocusable",
     },
     {
-      href: "/group",
+      href: "/blocks/group",
       title: "Group",
     },
   ],
   components: [
     {
-      href: "/accordion",
+      href: "/components/accordion",
       title: "Accordion",
     },
     {
-      href: "/disclosure",
+      href: "/components/disclosure",
       title: "Disclosure",
     },
     {
-      href: "/switch",
+      href: "/components/switch",
       title: "Switch",
     },
     {
-      href: "/switch-group",
+      href: "/components/switch-group",
       title: "Switch Group",
     },
     {
-      href: "/tabs",
+      href: "/components/tabs",
       title: "Tabs",
     },
     {
-      href: "/toggle",
+      href: "/components/toggle",
       title: "Toggle",
     },
     {
-      href: "/toggle-group",
+      href: "/components/toggle-group",
       title: "Toggle Group",
     },
     {
-      href: "/tooltip",
+      href: "/components/tooltip",
       title: "Tooltip",
     },
   ],
