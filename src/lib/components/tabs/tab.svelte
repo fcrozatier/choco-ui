@@ -22,7 +22,7 @@
 
 <button
   class={cn(
-    "inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 px-3 text-sm font-medium text-gray-500 ring-offset-white transition-all hover:text-gray-700 focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 aria-selected:bg-white aria-selected:text-gray-900 aria-selected:shadow-sm",
+    "aria-selected:bg-dark-muted focus-visible:ring-dark-muted inline-flex items-center justify-center whitespace-nowrap rounded py-1.5 px-3 text-sm font-medium text-gray-500 ring-offset-white transition-all hover:text-gray-700 focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 aria-selected:text-slate-100 aria-selected:shadow-sm",
     className,
   )}
   use:choco={tab}
