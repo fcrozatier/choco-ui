@@ -63,7 +63,7 @@
 
 html,
 body {
-  @apply bg-dark text-slate-200;
+  @apply bg-dark font-extralight tracking-wide text-slate-200;
 }
 
 ::marker {
