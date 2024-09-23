@@ -135,7 +135,7 @@
       </p>
       <div class="mt-10">
         <button
-          class="bg-coral inline-block scale-100 cursor-pointer py-4 px-8 transition-transform data-[active=true]:scale-95"
+          class="bg-coral inline-block cursor-pointer py-4 px-8 transition-transform data-[active=true]:scale-95"
           onclick={() => goto("/guides/introduction")}
           use:choco={cancel}
         >
