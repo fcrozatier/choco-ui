@@ -36,9 +36,9 @@ Here's an example using the [`Accordion`](/) component. The files live inside `$
 
 ## Headless classes
 
-Each UI component is paired with a corresponding headless class built from the sharable building blocks and logic. This headless class is in charge of managing the attributes, the behavior, keyboard navigation, accessibility etc.
+Each UI component is paired with a corresponding headless class built from the building blocks. This headless class is in charge of managing the attributes, the behavior, keyboard navigation, accessibility etc.
 
-You can use these headless classes directly with the `choco` action. The [preprocessor](/guides/preprocessor) takes care of everything for you. Here's an example using the headless `ToggleButton` class to create an unstyled toggle button:
+You can use these headless classes directly with the `choco` action: the [preprocessor](/guides/preprocessor) takes care of everything for you. Here's an example using the headless `ToggleButton` class to create an unstyled toggle button:
 
 <Demo file="./headless.svelte" value="code" />
 
@@ -48,7 +48,7 @@ In the above example there is no clash between the toggle's inner `click` event 
 
 ## Building blocks
 
-The headless classes are built from a few building blocks, which allows for power code reuse and extensions. By combining these building blocks you can easily create your own headless classes. Here's an overview of these building blocks:
+The headless classes are built from a few building blocks, which allow for power code reuse and extensions. By combining these building blocks you can easily create your own headless classes. Here's an overview:
 
 - The main building block is the [`ChocoBase`](/blocks/chocobase) class. All headless classes inherit from it and its role is to set the simple contract that all components share.
 
@@ -58,9 +58,7 @@ The headless classes are built from a few building blocks, which allows for powe
 
 - The last abstraction is the [`Group`](/blocks/group) mixin. It allows us to easily group things together as in toggle groups, tabs, accordions etc; track active elements and manage keyboard navigation.
 
-What's a mixin? It's like a class decorator, but we don't officially have decorators in js yet, so mixins do the job with no additional setup or preprocessing.
-
-Actually a mixin is just a fancy word for a function taking a class and returning a decorated class with new attributes or new behavior.
+What's a mixin? It's like a class decorator, but we don't officially have decorators in js yet, so mixins do the job with no additional setup or preprocessing. It's just a fancy word for a function taking a class and returning a decorated class with new attributes or new behavior.
 
 ---
 
