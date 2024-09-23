@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import { Cancellable } from "chocobytes/blocks/cancellable.svelte.js";
   import { choco } from "chocobytes/index.js";
   import { onMount } from "svelte";
@@ -132,24 +133,17 @@
         Power your Svelte 5 UI with reactive, accessible, SSR-ready components and headless classes
         in a simple, reusable and extendable fashion.
       </p>
-      <div class="mt-12">
-        <a href="/guides/introduction" class="bg-coral rounded py-4 px-8" use:choco={cancel}
-          >Get Started</a
+      <div class="mt-10">
+        <button
+          class="bg-coral inline-block scale-100 cursor-pointer py-4 px-8 transition-transform data-[active=true]:scale-95"
+          onclick={() => goto("/guides/introduction")}
+          use:choco={cancel}
         >
+          Get Started
+        </button>
       </div>
     </div>
   </div>
 
   <div class=""></div>
 </article>
-
-<style>
-  a {
-    border-radius: var(--radius-sm);
-    transition: all 200ms ease-out;
-
-    &[data-active="true"] {
-      scale: 0.95;
-    }
-  }
-</style>
