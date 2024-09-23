@@ -92,7 +92,7 @@
                   <rect x="3" y="3" width="7" height="7"></rect>
                 </svg>
                 <a
-                  class="link text-choco-light hover:text-coral aria-[current=page]:text-coral py-1 px-3 capitalize"
+                  class="link text-choco-light hover:text-coral aria-[current=page]:text-coral py-1 px-3 capitalize aria-[current=page]:font-semibold"
                   aria-current={current}
                   {href}>{title}</a
                 >
