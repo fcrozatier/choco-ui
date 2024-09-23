@@ -70,6 +70,10 @@ body {
   @apply text-coral inline-block;
 }
 
+a {
+  @apply focus-visible:ring-coral rounded-sm border-none outline-none focus-visible:ring focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:ring-offset-transparent;
+}
+
 ul,
 ol {
   @apply list-inside ps-3 sm:ps-5 md:ps-7;
