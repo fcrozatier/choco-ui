@@ -8,18 +8,46 @@ title: Hocusable
 
 # Hocusable
 
-A special kind of [Triggerable](/mixins/toggleable) whose control is triggered on hover or focus. Useful for tooltips and controls of this type.
+A specialized [Triggerable](/mixins/toggleable) where the control is triggered on hover or focus. Useful for [Tooltips](/components/tooltip) and controls of this type.
 
 ---
 
-## Example: Tooltip
+## Simple Example: Tooltip
 
-For a simple headless disclosure we want to toggle a button's `aria-expanded` attribute on click, and toggle the target's `hidden` property accordingly.
+For a simple tooltip, we just have to extend from the `Hocusable` class. The underlying `Triggerable` will be active when hovered or focused.
 
-We can create this simple headless `Disclosure` by applying the `Triggerable` mixin as follows:
+We can add a few roles and attributes:
 
-The `initTriggerable` method added by the mixin allows to configure both the control and target initial states. The other options are similar to the [`Toggleable`](/mixins/toggleable) mixin and here we only want to toggle on click.
+<Demo file="./example.svelte" value="result" />
 
-Notice that we used the `extendAttribute` from the `ChocoBase` class. Here it allows us to programmatically add correlated attributes between the control and the target. Similarly there is an `extendAction` method on `ChocoBase` which allows to add more behavior to any class.
+Try focusing with the keyboard, pressing <kbd>ESC</kbd>, hovering over the tooltip etc. In only a few lines of code, the `Hocusable` allowed us to setup a full-featured simple tooltip.
 
-We've just created our simple headless `Disclosure` in a few lines of code, thanks to the `Triggerable` mixin. We could go further by generating the id automatically and allowing to bind options.
+## API
+
+**Constructor**
+
+A `Hocusable` is just a specialized [`Triggerable`](/mixins/toggleable), so the constructor options are the same:
+
+<dl>
+  <dt><code>control</code>?: <span class="font-mono">Record&lt;string, Booleanish></span></dt>
+  <dd>Initial booleanish state of the control</dd>
+
+  <dt><code>target</code>?: <span class="font-mono">Record&lt;string, Booleanish></span></dt>
+  <dd>Initial booleanish state of the target</dd>
+
+  <dt><code>active</code>: <span class="font-mono">boolean|()=>boolean</span></dt>
+  <dd>Boolean or getter labelling the state as active or not</dd>
+  <dd><span class="italic">Default</span>: <code>false</code></dd>
+
+  <dt><code>setActive</code>?: <span class="font-mono">(v: boolean) => void</span></dt>
+  <dd>Setter allowing to bind the active state value</dd>
+
+  <dt><code>toggle</code>?: <span class="font-mono">EventName | EventName[]</span></dt>
+  <dd>Event(s) toggling the state</dd>
+
+  <dt><code>on</code>?: <span class="font-mono">EventName | EventName[]</span></dt>
+  <dd>Event(s) triggering the active state</dd>
+
+  <dt><code>off</code>?: <span class="font-mono">EventName | EventName[]</span></dt>
+  <dd>Event(s) triggering the inactive state</dd>
+</dl>
