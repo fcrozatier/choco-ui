@@ -13,10 +13,6 @@ export class ChocoBase<T extends HTMLTag = "generic"> {
     return this.#attributes;
   }
 
-  set attributes(v: Attributes<T>) {
-    this.#attributes = v;
-  }
-
   get action(): Action<HTMLElementsMap[T]> {
     return mergeActions(...this.#actions);
   }
