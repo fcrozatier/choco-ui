@@ -93,7 +93,10 @@ function preprocessMarkdown(md, path) {
     const typeRegex = new RegExp(`${type} = {(?<type>.*?)};`, "s");
     const typeMatch = file.match(typeRegex);
 
-    if (!typeMatch) throw new Error("Couldn't find the types");
+    if (!typeMatch)
+      throw new Error(
+        `Couldn't find the types in ${dirname(path).replace("docs", "lib").replace("components", "headless") + ".svelte.ts"}`,
+      );
 
     for (const item of typeMatch.groups.type.trim().split(";")) {
       if (item === "") continue;

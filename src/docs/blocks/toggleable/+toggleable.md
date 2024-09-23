@@ -45,4 +45,4 @@ These mixins are specialized `Toggleable`:
 
 ## API
 
-<API file="toggleable.svelte.ts" type="TogglableOptions" defaults={true}/>
+<API file="toggleable.svelte.ts" type="ToggleableOptions" defaults={true}/>
