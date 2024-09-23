@@ -15,7 +15,7 @@ export type ToggleableOptions = {
   /**
    * Whether the initial state is the active state
    */
-  active: boolean | (() => boolean);
+  active?: boolean | (() => boolean);
   setActive?: (v: boolean) => void;
   /**
    * Event(s) toggling the state

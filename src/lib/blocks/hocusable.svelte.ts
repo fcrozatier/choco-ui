@@ -7,7 +7,7 @@ import {
 } from "$lib/utils/geometry/index.js";
 import { debounce, merge } from "$lib/utils/index.js";
 import { key } from "$lib/utils/keyboard.js";
-import type { HTMLTag } from "$lib/utils/types.js";
+import type { HTMLTag, Required } from "$lib/utils/types.js";
 import { Triggerable, type TriggerableOptions } from "./triggerable.svelte.js";
 
 const defaults = { active: false } satisfies TriggerableOptions;
@@ -20,7 +20,7 @@ export class Hocusable<
   T extends HTMLTag = "generic",
 > extends Triggerable<C, T> {
   #hull: Point[] | undefined;
-  #options: TriggerableOptions = $state(defaults);
+  #options: Required<TriggerableOptions, "active"> = $state(defaults);
 
   constructor(options?: TriggerableOptions) {
     const opts = merge(defaults, options);
