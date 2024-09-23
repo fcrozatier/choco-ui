@@ -93,6 +93,9 @@
         smokeMaterial.uniforms.uTime.value = elapsedTime;
       }
 
+      camera.position.x = 8 + (Math.cos(elapsedTime * 0.3) + Math.cos(elapsedTime * 0.1) ** 3);
+      camera.position.y = 8 + Math.cos(elapsedTime * 0.5);
+
       controls.update();
       renderer.render(scene, camera);
       window.requestAnimationFrame(tick);
@@ -102,6 +105,14 @@
 
     return () => {
       window.removeEventListener("resize", resize);
+      camera.clear();
+      scene.clear();
+      renderer.dispose();
+      ambientLight.clear();
+      smokeGeometry.dispose();
+      perlinTexture.dispose();
+      smokeMaterial.dispose();
+      smoke.clear();
     };
   });
 
