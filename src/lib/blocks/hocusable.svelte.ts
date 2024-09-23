@@ -56,12 +56,14 @@ export class Hocusable<
     }
 
     super.on(e);
+    this.#options.active = true;
 
     document.addEventListener("keydown", this.#handleKeydown);
   }
 
   override off = (e?: Event) => {
     super.off(e);
+    this.#options.active = false;
     document.removeEventListener("pointermove", this.#handlePointer);
     this.element.removeEventListener("focusout", this.off);
     document.removeEventListener("keydown", this.#handleKeydown);
@@ -70,6 +72,7 @@ export class Hocusable<
   #handleKeydown = (e: KeyboardEvent) => {
     if (this.active && e.key === key.ESCAPE) {
       this.active = false;
+      this.#options.active = false;
     }
 
     document.removeEventListener("keydown", this.#handleKeydown);
@@ -78,6 +81,7 @@ export class Hocusable<
   #handlePointer = debounce((e: PointerEvent) => {
     if (!pointInConvexPolygon({ x: e.clientX, y: e.clientY }, this.#hull!)) {
       this.off();
+      this.#options.active = false;
     }
   }, 100);
 }
