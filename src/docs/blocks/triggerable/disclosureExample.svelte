@@ -10,13 +10,14 @@
         control: { "aria-expanded": "false" },
         target: { hidden: true },
         active: false,
+        // here we only want to toggle on click
         toggle: "click",
       });
 
       // We can always add more attributes or new actions to a Choco class
       const targetId = "123";
-      this.extendAttributes({ "aria-controls": targetId });
       this.target.extendAttributes({ id: targetId });
+      this.extendAttributes({ "aria-controls": targetId });
     }
   }
 

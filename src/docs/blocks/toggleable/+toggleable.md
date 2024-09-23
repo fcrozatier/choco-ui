@@ -18,7 +18,7 @@ The `Toggleable` class is a building block for toggling a set of properties on s
 Let's implement an improved button that toggles a `data-active` attribute on when clicked, and off as soon as either the click is released or the pointer leaves the target element.
 
 From a user perspective, this button would better confers the "cancellability" of a click.
-We can implement this class by inheriting from `Toggleable` as follows:
+We can implement this class by extending the `Toggleable` as follows:
 
 <Highlighter file="./cancellable.svelte.ts" />
 
