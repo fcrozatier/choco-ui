@@ -12,11 +12,11 @@ title: ChocoBase
 
 This is the main class most building blocks and headless classes inherits from. It sets the stage for the `choco` action by enforcing a simple contract with just attributes and actions, as well as two additional methods for extending these.
 
+The constructor accepts an optional record of HTML attributes and a type parameter allows to constrain the class to be used on specific HTML tags.
+
 ---
 
 ## Example
-
-The constructor accepts an optional record of HTML attributes and you can restrict where the class will be used with a type parameter specifying the underlying HTML element tag.
 
 The `ChocoBase` class defines two methods, `extendAttributes` and `extendActions` which allow to specialize the attributes and behavior of the class at any point in the future. This is useful for creating specialized building blocks or headless classes.
 
@@ -26,7 +26,7 @@ The `ChocoBase` class defines two methods, `extendAttributes` and `extendActions
 
 ## API
 
-Below, `T` refers to the type the `ChocoBase<T>` class was constrained to. By default it is set to `"generic"`, which implies the available attributes are the ones of a generic `HTMLElement`.
+Below, `T` refers to the type the `ChocoBase<T>` class was constrained to. By default it is set to `"generic"`, which implies the available attributes are those of a generic `HTMLElement`.
 
 <dl>
   <dt><code>attributes</code>: <span class="font-mono">Attributes&lt;T></span></dt>

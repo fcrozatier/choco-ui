@@ -3,7 +3,7 @@
   import { addListener } from "chocobytes/actions/addListener.js";
   import { choco } from "chocobytes/index.js";
 
-  // Here we intend this to be used on buttons only
+  // Here we constrain `base` to be used on buttons only
   const base = new ChocoBase<"button">({ disabled: false, value: "ok" });
 
   // Subclasses of `ChocoBase` can add aria attributes in this way
@@ -11,7 +11,7 @@
     "data-my-attribute": "custom",
   });
 
-  // Subclasses of `ChocoBase` can extend actions to add specialized behavior
+  // Subclasses of `ChocoBase` can add specialized behavior
   base.extendActions((node) => console.log("hello", node));
 
   // `addListener` is a useful helper to create actions based on a listener
