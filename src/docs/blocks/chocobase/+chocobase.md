@@ -26,16 +26,18 @@ The `ChocoBase` class defines two methods, `extendAttributes` and `extendActions
 
 ## API
 
+Below, `T` refers to the type the `ChocoBase<T>` class was constrained to. By default it is set to `"generic"`, which implies the available attributes are the ones of a generic `HTMLElement`.
+
 <dl>
-  <dt>attributes: Attributes&lt;T></dt>
-  <dd>A getter returning the attributes.</dd>
+  <dt><code>attributes</code>: <span class="font-mono">Attributes&lt;T></span></dt>
+  <dd>A getter returning the attributes. Used internally by the <a href="/guides/preprocessor">preprocessor</a></dd>
 
-  <dt>action: Action&lt;HTMLElementsMap[T]></dt>
-  <dd>A getter merging all defined actions into a single one.</dd>
+  <dt><code>action</code>: <span class="font-mono">Action&lt;HTMLElementsMap[T]></span></dt>
+  <dd>A getter merging all defined actions into a single one. Used internally by the <a href="/guides/preprocessor">preprocessor</a></dd>
 
-  <dt>extendAttributes: (newAttributes: Attributes&lt;T>): void</dt>
+  <dt><code>extendAttributes</code>: <span class="font-mono">(newAttributes: Attributes&lt;T>): void</span></dt>
   <dd>A method allowing to add or override attributes.</dd>
 
-  <dt>extendActions: (...actions: Action&lt;HTMLElementsMap[T]>[]): void</dt>
+  <dt><code>extendActions</code>: <span class="font-mono">(...actions: Action&lt;HTMLElementsMap[T]>[]): void</span></dt>
   <dd>A method allowing to add new behavior with actions.</dd>
 </dl>
