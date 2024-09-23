@@ -56,7 +56,7 @@ The headless classes are built from a few building blocks, which allow for power
   1. The [`Toggleable`](/blocks/toggleable) class allows to toggle a set of attributes on specific events. This is quite versatile: almost every interactive component toggles attributes in some way.
   2. The [`Triggerable`](/blocks/triggerable) class helps orchestrate a control-target relation. Think Tabs, Disclosures, Accordions etc.
 
-- The last abstraction is the [`Group`](/blocks/group) mixin. It allows us to easily group things together as in toggle groups, tabs, accordions etc; track active elements and manage keyboard navigation.
+- The last main abstraction is the [`Group`](/blocks/group) mixin. It allows us to easily group things together as in toggle groups, tabs, accordions etc; track active elements and manage keyboard navigation.
 
 What's a mixin? It's like a class decorator, but we don't officially have decorators in js yet, so mixins do the job with no additional setup or preprocessing. It's just a fancy word for a function taking a class and returning a decorated class with new attributes or new behavior.
 
