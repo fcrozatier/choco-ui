@@ -91,7 +91,11 @@
                 >
                   <rect x="3" y="3" width="7" height="7"></rect>
                 </svg>
-                <a class="link" aria-current={current} {href}>{title}</a>
+                <a
+                  class="link text-choco-light hover:text-coral aria-[current=page]:text-coral py-1 px-3 capitalize"
+                  aria-current={current}
+                  {href}>{title}</a
+                >
               </div>
             {/each}
           </section>
@@ -123,17 +127,6 @@
     /* Since --breakpoint-md: 48rem */
     @media screen and (max-width: 48rem) {
       grid-template-columns: 1fr;
-    }
-  }
-
-  .link {
-    color: var(--color-choco-light);
-    text-transform: capitalize;
-    padding-block: var(--spacing-1);
-    padding-inline: var(--spacing-3);
-
-    &:is([aria-current="page"], :hover) {
-      color: var(--color-coral);
     }
   }
 </style>
