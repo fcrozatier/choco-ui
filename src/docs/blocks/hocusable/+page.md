@@ -14,13 +14,13 @@ A specialized [Triggerable](/mixins/toggleable) where the control is triggered o
 
 ## Simple Example: Tooltip
 
-For a simple tooltip, we just have to extend from the `Hocusable` class. The underlying `Triggerable` will be active when hovered or focused.
+For a simple tooltip, we want the target to open on hover and focus, to close when pressing <kbd>ESC</kbd> and to stay open when hovering its content. This is precisely the functionality the `Hocusable` class brings in.
 
-We can add a few roles and attributes:
+We only have to extend it by adding a few roles and attributes:
 
-<Demo file="./example.svelte" value="result" />
+<Demo file="./example.svelte" value="code" />
 
-Try focusing with the keyboard, pressing <kbd>ESC</kbd>, hovering over the tooltip etc. In only a few lines of code, the `Hocusable` allowed us to setup a full-featured simple tooltip.
+Try focusing with the keyboard, pressing <kbd>ESC</kbd>, hovering over the tooltip etc. In only a few lines of code, the `Hocusable` building block allowed us to setup a full-featured simple tooltip.
 
 ## API
 
