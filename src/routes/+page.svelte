@@ -111,22 +111,25 @@
 <canvas class="fixed inset-0 m-0 outline-none" bind:this={canvas}></canvas>
 
 <article
-  class="fixed inset-0 grid place-items-center content-center items-center justify-center gap-y-12 px-4 text-slate-100"
+  class="fixed inset-0 grid items-start justify-center gap-y-12 px-4 text-slate-100 sm:grid-cols-2"
 >
-  <div>
-    <h1 class="font-cursive text-4xl md:text-5xl">Choco <span class="text-coral">UI</span></h1>
+  <div class="text-center">
+    <div class="mt-20 grid place-items-center">
+      <h1 class="font-cursive text-4xl md:text-5xl">Choco <span class="text-coral">UI</span></h1>
 
-    <p class="max-w-lg text-center font-light">
-      Power your Svelte 5 UI with reactive, accessible, SSR-ready components and headless classes in
-      a simple, reusable and extendable fashion.
-    </p>
+      <p class="mt-8 max-w-lg font-light">
+        Power your Svelte 5 UI with reactive, accessible, SSR-ready components and headless classes
+        in a simple, reusable and extendable fashion.
+      </p>
+      <div class="mt-12">
+        <a href="/guides/introduction" class="bg-coral rounded py-4 px-8" use:choco={cancel}
+          >Get Started</a
+        >
+      </div>
+    </div>
   </div>
 
-  <div class="flex gap-10">
-    <a href="/guides/introduction" class="bg-coral rounded py-4 px-8" use:choco={cancel}
-      >Get Started</a
-    >
-  </div>
+  <div class=""></div>
 </article>
 
 <style>
