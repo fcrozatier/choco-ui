@@ -2,27 +2,40 @@
   import { choco } from "$lib/actions/choco.js";
   import { Cancellable } from "$lib/blocks/cancellable.svelte";
 
-  const b = new Cancellable();
+  const b1 = new Cancellable();
+  const b2 = new Cancellable();
+  const b3 = new Cancellable();
 </script>
 
 <p class="p-10">
-  <button class="py-2 px-4" use:choco={b}>Improved button Canceller</button>
+  <button class="active:bg-coral py-2 px-4 hover:bg-red-400" use:choco={b1}>button</button>
+  <button
+    class="active py-2 px-4 data-[hover=true]:bg-red-400"
+    data-hover={b2.hovered}
+    onclick={() => console.log("hi")}
+    use:choco={b2}>Improved button Canceller</button
+  >
+  <a
+    class="active inline-block py-2 px-4 data-[hover=true]:bg-red-400"
+    href="/"
+    data-hover={b3.hovered}
+    use:choco={b3}>Improved a Canceller</a
+  >
 </p>
 
-<pre>{JSON.stringify(b.attributes, null, 2)}</pre>
+<pre>{JSON.stringify(b1.attributes, null, 2)}</pre>
+<pre>{JSON.stringify(b2.attributes, null, 2)}</pre>
+<pre>{JSON.stringify(b3.attributes, null, 2)}</pre>
 
 <style>
-  button {
+  button,
+  a {
     border-radius: var(--radius-sm);
     transition: all 200ms ease-out;
+  }
 
-    &:hover {
-      background: var(--color-coral);
-    }
-
-    &[data-active="true"] {
-      background-color: var(--color-coral);
-      scale: 0.95;
-    }
+  .active[data-active="true"] {
+    background-color: var(--color-coral);
+    scale: 0.95;
   }
 </style>
