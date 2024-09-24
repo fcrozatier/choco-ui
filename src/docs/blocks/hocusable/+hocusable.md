@@ -40,7 +40,7 @@ A `Hocusable` is just a specialized [`Triggerable`](/mixins/toggleable), so the 
   <dt><code>target</code>?: <span class="font-mono">Record&lt;string, Booleanish></span></dt>
   <dd>Initial booleanish state of the target</dd>
 
-  <dt><code><strong>active</strong></code>: <span class="font-mono">boolean|()=>boolean</span></dt>
+  <dt><code><strong>active</strong></code>: <span class="font-mono">boolean | () => boolean</span></dt>
   <dd>Boolean or getter labelling the state as active or not. Can be bound</dd>
   <dd><span class="italic">Default</span>: <code>false</code></dd>
 

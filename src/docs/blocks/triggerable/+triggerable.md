@@ -47,7 +47,7 @@ The options of the `Triggerable` class are similar to those of the [`Toggleable`
   <code class="text-coral! py-1! my-1!">Omit&lt;ToggleableOptions, "initial"></code>
   </span>
 
-  <dt><code><strong>active</strong></code>: <span class="font-mono">boolean|()=>boolean</span></dt>
+  <dt><code><strong>active</strong></code>: <span class="font-mono">boolean | () => boolean</span></dt>
   <dd>Boolean or getter labelling the state as active or not. Can be bound</dd>
   <dd><span class="italic">Default</span>: <code>false</code></dd>
 

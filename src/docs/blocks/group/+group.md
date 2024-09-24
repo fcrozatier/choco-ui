@@ -65,7 +65,7 @@ Try playing around with your Arrow, Home and End keys, and check the roving tab 
   <dt><code><strong>setGroup</strong></code>?: <span class="font-mono">(v: string[]) => void</span></dt>
   <dd>Setter allowing to bind the <code>value</code>s of the active items</dd>
 
-  <dt><code>orientation</code>?: <span class="font-mono">"horizontal"|"vertical"</span></dt>
+  <dt><code>orientation</code>?: <span class="font-mono">"horizontal" | "vertical"</span></dt>
   <dd>The orientation of the group. For a vertically oriented group, the Up and Down keyboard arrows will behave as the Left and Right keys, and prevent scrolling </dd>
   <dd><span class="italic">Default</span>: <code>"horizontal"</code></dd>
 </dl>
