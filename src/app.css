@@ -70,10 +70,6 @@ body {
   @apply text-coral inline-block;
 }
 
-a {
-  @apply focus-visible:outline-coral border-none px-px outline-offset-0 focus-visible:outline-2;
-}
-
 ul,
 ol {
   @apply list-inside ps-3 sm:ps-5 md:ps-7;
@@ -177,9 +173,12 @@ ul {
     @apply bg-dark-muted/80 rounded py-0.5 px-1 text-sky-300;
   }
 
-  & a,
-  a code {
-    @apply text-coral underline underline-offset-4;
+  & a {
+    @apply focus-visible:outline-coral text-coral px-px underline underline-offset-4 outline-offset-0 focus-visible:outline-2;
+  }
+
+  & a code {
+    @apply focus-visible:outline-coral text-coral underline underline-offset-4 outline-offset-0 focus-visible:outline-2;
   }
 
   & figcaption {
