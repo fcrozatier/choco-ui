@@ -71,7 +71,7 @@ body {
 }
 
 a {
-  @apply focus-visible:outline-coral border-none outline-offset-0 focus-visible:outline-2;
+  @apply focus-visible:outline-coral border-none px-px outline-offset-0 focus-visible:outline-2;
 }
 
 ul,
