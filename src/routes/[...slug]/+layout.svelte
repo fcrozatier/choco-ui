@@ -92,7 +92,7 @@
                   <rect x="3" y="3" width="7" height="7"></rect>
                 </svg>
                 <a
-                  class="text-choco-light hover:text-coral aria-[current=page]:text-coral py-1 px-3 font-light capitalize aria-[current=page]:font-semibold"
+                  class="text-choco-light hover:text-coral aria-[current=page]:text-coral border-none py-1 px-3 font-light capitalize underline-offset-4 outline-none focus-visible:underline aria-[current=page]:font-semibold"
                   aria-current={current}
                   {href}>{title}</a
                 >
@@ -107,7 +107,7 @@
             target="_blank"
           >
             <Icon name="github" width="2rem"></Icon>
-            <span class="">GitHub</span>
+            <span class="font-normal">GitHub</span>
           </a>
         </footer>
       </nav>
