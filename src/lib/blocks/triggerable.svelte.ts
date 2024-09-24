@@ -35,6 +35,10 @@ export class Triggerable<
       initial: opts.target,
       active: opts.active,
     });
+
+    this.toggle = this.toggle.bind(this);
+    this.off = this.off.bind(this);
+    this.on = this.on.bind(this);
   }
 
   override toggle(e?: Event) {
