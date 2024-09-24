@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
   import { Cancellable } from "chocobytes/blocks/cancellable.svelte.js";
   import { choco } from "chocobytes/index.js";
   import { onMount } from "svelte";
@@ -134,13 +133,13 @@
         in a simple, reusable and extendable fashion.
       </p>
       <div class="mt-10">
-        <button
+        <a
+          href="/guides/introduction"
           class="bg-coral inline-block cursor-pointer py-4 px-8 transition-transform data-[active=true]:scale-95"
-          onclick={() => goto("/guides/introduction")}
           use:choco={cancel}
         >
           Get Started
-        </button>
+        </a>
       </div>
     </div>
   </div>
