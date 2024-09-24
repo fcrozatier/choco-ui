@@ -81,6 +81,7 @@ export class Cancellable extends Toggleable<"a" | "button" | "input"> {
     if (!(e instanceof MouseEvent)) return;
 
     if (!this.isInside(e)) {
+      e.preventDefault();
       e.stopImmediatePropagation();
     }
   };
