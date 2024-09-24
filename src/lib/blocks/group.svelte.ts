@@ -7,29 +7,32 @@ import type { Constructor, Orientation, Required } from "$lib/utils/types.js";
 import { SvelteMap } from "svelte/reactivity";
 
 export type GroupOptions = {
+  /**
+   * Specifies if the keyboard focus cycles from the last item to the first
+   */
   loop?: boolean;
   /**
-   * With roving focus, only one item in the list is in the tab sequence at a given moment. Arrows are used to focus another item of the collection
+   * Enables roving focus, where only one item in the list is in the tab sequence, and arrow keys shift focus between items
    */
   roving?: boolean;
   /**
-   * Prevents having no active elements
+   * Prevents having no active elements. Toggling off a single active item will have no effect
    */
   preventInactivation?: boolean;
   /**
-   * Whether only a single item can be active at a time.
+   * Specifies whether only one item can be active at a time
    */
   exclusive?: boolean;
   /**
-   * Whether arrows immediately activate the previous/next item. This mostly makes sense when the group is `exclusive`.
+   * Determines whether arrows immediately activate the next or previous item, typically when the group is `exclusive`
    */
   activateOnNext?: boolean;
   /**
    * The list of active values
    */
   group?: string[] | (() => string[]);
-  orientation?: Orientation;
   setGroup?: (v: string[]) => void;
+  orientation?: Orientation;
   onFocus?: <T extends HTMLElement>(from: T, to: T) => void;
 };
 
