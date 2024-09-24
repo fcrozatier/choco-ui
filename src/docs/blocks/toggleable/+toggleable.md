@@ -55,11 +55,11 @@ These classes are specialized `Toggleable`:
   <dd>Record of <code>Booleanish</code> attributes to toggle</dd>
   <dd><span class="italic">Default</span>: <code>&lbrace;}</code></dd>
 
-  <dt><code>active</code>: <span class="font-mono">boolean|()=>boolean</span></dt>
-  <dd>Boolean or getter labelling the state as active or not</dd>
+  <dt><code><strong>active</strong></code>: <span class="font-mono">boolean|()=>boolean</span></dt>
+  <dd>Boolean or getter labelling the state as active or not. Can be bound</dd>
   <dd><span class="italic">Default</span>: <code>false</code></dd>
 
-  <dt><code>setActive</code>?: <span class="font-mono">(v: boolean) => void</span></dt>
+  <dt><code><strong>setActive</strong></code>?: <span class="font-mono">(v: boolean) => void</span></dt>
   <dd>Setter allowing to bind the active state value</dd>
 
   <dt><code>toggle</code>?: <span class="font-mono">EventName | EventName[]</span></dt>
