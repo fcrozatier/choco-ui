@@ -28,12 +28,12 @@
   });
 </script>
 
-<span class="relative select-none" use:choco={tooltip}>
+<span class="relative isolate select-none" use:choco={tooltip}>
   {@render children()}
 
   <div
     class={cn(
-      "choco-tooltip pointer-events-none absolute z-10 rounded bg-gray-900 py-1 px-2 text-center text-xs text-white opacity-0 shadow",
+      "choco-tooltip pointer-events-none absolute z-10 rounded bg-slate-950 py-1 px-2 text-center text-xs text-white opacity-0 shadow",
       className,
     )}
     use:choco={tooltip.target}
