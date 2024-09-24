@@ -37,7 +37,7 @@ Try playing around with your Arrow, Home and End keys, and check the roving tab 
 
 **Constructor**
 
-<dl class="before:content-['*'] border-">
+<dl>
   <dt><code>loop</code>?: <span class="font-mono">boolean</span></dt>
   <dd>Specifies if the keyboard focus cycles from the last item to the first</dd>
   <dd><span class="italic">Default</span>: <code>false</code></dd>
@@ -68,6 +68,4 @@ Try playing around with your Arrow, Home and End keys, and check the roving tab 
   <dt><code>orientation</code>?: <span class="font-mono">"horizontal"|"vertical"</span></dt>
   <dd>The orientation of the group. For a vertically oriented group, the Up and Down keyboard arrows will behave as the Left and Right keys, and prevent scrolling </dd>
   <dd><span class="italic">Default</span>: <code>"horizontal"</code></dd>
-
-
 </dl>
