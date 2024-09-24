@@ -1,13 +1,13 @@
 import { makeFocusable } from "$lib/actions/focus.svelte.js";
-import { getValue } from "$lib/utils/binding.js";
 import {
   convexHullFromElements,
   pointInConvexPolygon,
   type Point,
 } from "$lib/utils/geometry/index.js";
-import { debounce, merge } from "$lib/utils/index.js";
+import { Debounce, merge } from "$lib/utils/index.js";
 import { key } from "$lib/utils/keyboard.js";
-import type { HTMLTag, Required } from "$lib/utils/types.js";
+import type { HTMLTag } from "$lib/utils/types.js";
+import { addListener } from "chocobytes/actions/addListener.js";
 import { Triggerable, type TriggerableOptions } from "./triggerable.svelte.js";
 
 const defaults = { active: false } satisfies TriggerableOptions;
@@ -19,69 +19,61 @@ export class Hocusable<
   C extends HTMLTag = "button",
   T extends HTMLTag = "generic",
 > extends Triggerable<C, T> {
-  #hull: Point[] | undefined;
-  #options: Required<TriggerableOptions, "active"> = $state(defaults);
+  #hull!: Point[];
+  // Debounce the pointermove handler
+  #debounce: Debounce<[PointerEvent], void>;
 
   constructor(options?: TriggerableOptions) {
     const opts = merge(defaults, options);
+    super(opts);
 
-    super({
-      ...opts,
-      on: ["pointerenter", "focusin"],
-      off: ["focusout"],
-    });
+    this.toggle = this.toggle.bind(this);
+    this.off = this.off.bind(this);
+    this.on = this.on.bind(this);
 
-    this.#options = opts;
-    // Allow hoverable text nodes
+    // Allow hoverable text nodes, also needed to fire blur events
     this.extendActions(makeFocusable);
+    this.extendActions(addListener("blur", this.off));
+    this.extendActions(addListener(["focus", "pointerenter"], this.on));
 
-    $effect(() => {
-      if (getValue(this.#options.active)) {
-        this.on();
-      } else {
-        this.off();
-      }
-    });
+    this.#debounce = new Debounce({ fn: this.#handlePointerMove, delay: 100, throttle: true });
   }
 
   override on(e?: Event) {
-    if (!this.#hull && this.element && this.target.element) {
-      this.#hull = convexHullFromElements([this.element, this.target.element]);
+    this.#hull = convexHullFromElements([this.element, this.target.element]);
+
+    if (!this.active) {
+      if (e instanceof PointerEvent) {
+        // prevent pointermove from firing immediately
+        setTimeout(() => {
+          this.#debounce.flush();
+          document.addEventListener("pointermove", this.#debounce.debounced);
+        }, 100);
+      }
+      document.addEventListener("keydown", this.#handleKeydown);
+
+      super.on(e);
     }
-
-    if (e instanceof PointerEvent && !this.active) {
-      document.addEventListener("pointermove", this.#handlePointer);
-    } else if (e instanceof FocusEvent) {
-      this.element.addEventListener("focusout", this.off);
-    }
-
-    super.on(e);
-    this.#options.active = true;
-
-    document.addEventListener("keydown", this.#handleKeydown);
   }
 
-  override off = (e?: Event) => {
-    super.off(e);
-    this.#options.active = false;
-    document.removeEventListener("pointermove", this.#handlePointer);
-    this.element.removeEventListener("focusout", this.off);
-    document.removeEventListener("keydown", this.#handleKeydown);
-  };
+  override off(e?: Event) {
+    if (this.active) {
+      super.off(e);
+      document.removeEventListener("pointermove", this.#debounce.debounced);
+      document.removeEventListener("keydown", this.#handleKeydown);
+      this.#debounce.flush();
+    }
+  }
 
   #handleKeydown = (e: KeyboardEvent) => {
     if (this.active && e.key === key.ESCAPE) {
-      this.active = false;
-      this.#options.active = false;
+      this.off();
     }
-
-    document.removeEventListener("keydown", this.#handleKeydown);
   };
 
-  #handlePointer = debounce((e: PointerEvent) => {
+  #handlePointerMove = (e: PointerEvent) => {
     if (!pointInConvexPolygon({ x: e.clientX, y: e.clientY }, this.#hull!)) {
       this.off();
-      this.#options.active = false;
     }
-  }, 100);
+  };
 }

@@ -96,7 +96,7 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.7.0",
-    "@fcrozatier/ts-helpers": "^2.1.0",
+    "@fcrozatier/ts-helpers": "^2.3.0",
     "clsx": "^2.1.1",
     "estree-walker": "^3.0.3",
     "magic-string": "^0.30.11",
