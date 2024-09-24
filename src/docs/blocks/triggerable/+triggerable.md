@@ -32,7 +32,7 @@ We've just created our simple headless `Disclosure` in a few lines of code, than
 
 **Constructor**
 
-The constructor options of the `Triggerable` are similar to those of the [`Toggleable`](/mixins/toggleable). The class has two type constraints `Triggerable<C,T>` for the control and target HTML tags. By default `C="button"` and `T="generic"` for any generic HTMLElement.
+The options of the `Triggerable` class are similar to those of the [`Toggleable`](/mixins/toggleable). The class has two type constraints `Triggerable<C,T>` for the control and target HTML tags. By default `C="button"` and `T="generic"` for any generic HTMLElement.
 
 <dl>
   <dt><code>control</code>?: <span class="font-mono">Record&lt;string, Booleanish></span></dt>
@@ -40,6 +40,12 @@ The constructor options of the `Triggerable` are similar to those of the [`Toggl
 
   <dt><code>target</code>?: <span class="font-mono">Record&lt;string, Booleanish></span></dt>
   <dd>Initial booleanish state of the target</dd>
+
+
+  <div class="border-l border-coral -ml-6 pl-6 relative">
+  <span class="absolute top-1/2 -translate-y-1/2 text-xs bg-dark -left-2.5 rotate-180 text-nowrap"  style="writing-mode: vertical-lr; text-orientation: sideways;">
+  <code class="text-coral! py-1! my-1!">Omit&lt;ToggleableOptions, "initial"></code>
+  </span>
 
   <dt><code><strong>active</strong></code>: <span class="font-mono">boolean|()=>boolean</span></dt>
   <dd>Boolean or getter labelling the state as active or not. Can be bound</dd>
@@ -56,4 +62,5 @@ The constructor options of the `Triggerable` are similar to those of the [`Toggl
 
   <dt><code>off</code>?: <span class="font-mono">EventName | EventName[]</span></dt>
   <dd>Event(s) triggering the inactive state</dd>
+  </div>
 </dl>

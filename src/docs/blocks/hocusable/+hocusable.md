@@ -29,6 +29,11 @@ Try focusing with the keyboard, pressing <kbd>ESC</kbd>, hovering over the toolt
 A `Hocusable` is just a specialized [`Triggerable`](/mixins/toggleable), so the constructor options are the same:
 
 <dl>
+  <div class="border-l border-coral -ml-6 pl-6 relative">
+  <span class="absolute top-1/2 -translate-y-1/2 text-xs bg-dark -left-2.5 rotate-180 text-nowrap"  style="writing-mode: vertical-lr; text-orientation: sideways;">
+  <code class="text-coral! py-1! my-1!">TriggerableOptions</code>
+  </span>
+
   <dt><code>control</code>?: <span class="font-mono">Record&lt;string, Booleanish></span></dt>
   <dd>Initial booleanish state of the control</dd>
 
@@ -50,4 +55,5 @@ A `Hocusable` is just a specialized [`Triggerable`](/mixins/toggleable), so the 
 
   <dt><code>off</code>?: <span class="font-mono">EventName | EventName[]</span></dt>
   <dd>Event(s) triggering the inactive state</dd>
+  </div>
 </dl>
