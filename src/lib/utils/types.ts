@@ -22,7 +22,6 @@ export type OmitSupertype<T extends S, S> = Omit<Defined<T>, keyof Defined<S>> &
 type Defined<T> = T extends undefined ? never : T;
 
 export type Orientation = "horizontal" | "vertical";
-export type Timeout = ReturnType<typeof setTimeout>;
 
 export type Required<T, K extends keyof T> = {
   [P in keyof T as P extends K ? P : never]-?: T[P];
