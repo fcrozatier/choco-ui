@@ -32,18 +32,20 @@
   const tooltip = new Tooltip();
 </script>
 
+<button>A</button>
 <div class="grid">
   <div class="relative mx-auto">
     <span use:choco={tooltip}>HTML*</span>
     <!-- `data-open` toggles the display -->
     <p
-      class="invisible absolute top-full left-1/2 -translate-1/2 whitespace-nowrap rounded bg-black px-1 text-xs leading-none data-[open=true]:visible"
+      class="invisible absolute top-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-black px-1 text-xs leading-none data-[open=true]:visible"
       use:choco={tooltip.target}
     >
       Hypertext Markup Language
     </p>
   </div>
 </div>
+<button>B</button>
 
 <!-- Just to see what's going on -->
 <div class="mt-10 grid">
