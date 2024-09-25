@@ -14,7 +14,8 @@
   // Subclasses of `ChocoBase` can add specialized behavior
   base.extendActions((node) => console.log("hello", node));
 
-  // `addListener` is a useful helper to create actions based on a listener
+  // `addListener` is a convenient helper to create an action from a listener
+  // with cleanup managed automatically
   base.extendActions(addListener("click", () => console.log("click")));
 </script>
 
