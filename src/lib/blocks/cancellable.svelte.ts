@@ -80,6 +80,9 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
       const keydown = (e: KeyboardEvent) => {
         if (e.key === key.TAB) {
           this.hadKeyboardInteraction = true;
+        } else if (e.key === key.ESCAPE) {
+          this.triggerClick = false;
+          this.active = false;
         }
       };
 
