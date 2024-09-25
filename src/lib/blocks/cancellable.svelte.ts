@@ -14,6 +14,7 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
   hovered = $state(false);
   active = $state(false);
   hadKeyboardInteraction = false;
+  triggerClick = false;
   focusVisible = $state(false);
 
   override get attributes() {
@@ -41,6 +42,8 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
         if (e.key !== key.SPACE && e.key !== key.ENTER) return;
         if (this.focusVisible) {
           this.active = true;
+          this.triggerClick = true;
+          e.preventDefault();
         }
       }),
     );
@@ -50,7 +53,13 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
         if (!(e instanceof KeyboardEvent)) return;
         if (e.key !== key.SPACE && e.key !== key.ENTER) return;
         if (this.focusVisible) {
-          this.active = false;
+          if (!this.dragging && this.triggerClick) {
+            this.element.click();
+          }
+          if (!this.dragging) {
+            this.active = false;
+          }
+          this.triggerClick = false;
         }
       }),
     );
@@ -78,6 +87,7 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
         if (this.element && e.target instanceof Node && !this.element.contains(e.target)) {
           this.active = false;
           this.hadKeyboardInteraction = false;
+          this.triggerClick = false;
         }
       };
 
@@ -125,7 +135,7 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
   #cancelClick = (e: Event) => {
     if (!(e instanceof MouseEvent)) return;
 
-    if (!this.#isInside(e) && document.activeElement !== this.element) {
+    if (!this.#isInside(e) && !(document.activeElement === this.element && this.triggerClick)) {
       e.preventDefault();
       e.stopImmediatePropagation();
     }
