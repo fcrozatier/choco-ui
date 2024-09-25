@@ -101,7 +101,6 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
     this.dragging = true;
     this.active = true;
     this.element.addEventListener("pointermove", this.#handlePointerMove);
-    this.element.addEventListener("click", this.#cancelClick);
   };
 
   off = (e: Event) => {
@@ -115,7 +114,6 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
       this.element.removeEventListener("pointermove", this.#handlePointerMove);
 
       if (this.#isInside(e)) {
-        this.element.removeEventListener("click", this.#cancelClick);
         this.element.click();
       }
     } else if (e.type === "pointermove") {
