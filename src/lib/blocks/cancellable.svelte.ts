@@ -49,7 +49,6 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
     if (e.type === "pointerup") {
       this.dragging = false;
       this.element.releasePointerCapture(e.pointerId);
-      this.element.removeEventListener("pointerenter", this.#activate);
       this.element.removeEventListener("pointermove", this.#handlePointerMove);
 
       if (this.#isInside(e)) {
@@ -58,13 +57,8 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
       }
     } else if (e.type === "pointermove") {
       if (this.dragging) {
-        this.element.addEventListener("pointerenter", this.#activate);
       }
     }
-  };
-
-  #activate = () => {
-    this.active = true;
   };
 
   #cancelClick = (e: Event) => {
@@ -82,7 +76,7 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
 
       if (this.#isInside(e)) {
         this.hovered = true;
-        this.#activate();
+        this.active = true;
       } else {
         this.hovered = false;
         this.off(e);
