@@ -153,6 +153,10 @@ ul {
     @apply mt-2;
   }
 
+  & kbd {
+    @apply bg-dark-muted ring-choco-light text-choco-light shadow-choco-light rounded py-[3px] px-1.5 font-mono text-xs font-normal ring shadow-xs;
+  }
+
   & code {
     @apply before:content-none after:content-none;
   }
