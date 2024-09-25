@@ -25,7 +25,6 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
   }
 
   constructor() {
-    console.log("constructor");
     super();
 
     this.extendActions(addListener("pointerdown", this.on));
