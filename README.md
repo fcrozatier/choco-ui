@@ -20,7 +20,6 @@ export default {
   preprocess: [chocoPreprocess(), vitePreprocess()],
   //... rest of your Svelte config
 };
-
 ```
 
 The preprocessor expands the `use:choco` shorthand syntax. [Learn more](/guides/preprocessor)

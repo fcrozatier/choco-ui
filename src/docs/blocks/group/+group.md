@@ -7,7 +7,6 @@ title: Group
   import Highlighter from "$components/Highlighter.svelte";
 </script>
 
-
 # Group
 
 The `Group` mixin lets you create a container of toggleables, track which ones are active, and manage keyboard focus easily. Tabs, Paginations, Disclosures, Accordion, Carousel etc. are all groups of [Toggleables](/blocks/toggleable).
@@ -27,7 +26,6 @@ As a convention, every group of the library defines a `createItem` function wrap
 Individual items would typically be instantiated by child components calling the `group.createItem` function. What follows is a simple demo showcasing the focus options. With these particular options the end result is almost like a radio group, except we can uncheck a checked item. But you can easily build anything with other options!
 
 Try playing around with your Arrow, Home and End keys, and check the roving tab sequence by tabbing back and forth from A to B.
-
 
 <Demo file="./toggleGroupDemo.svelte" />
 

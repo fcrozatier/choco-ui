@@ -7,7 +7,6 @@ title: ChocoBase
   import Highlighter from "$components/Highlighter.svelte";
 </script>
 
-
 # ChocoBase
 
 This is the main class most building blocks and headless classes inherits from. It sets the stage for the `choco` action by enforcing a simple contract with just attributes and actions, as well as two additional methods for extending these.

@@ -23,6 +23,7 @@ We can implement this class by extending the `Toggleable` as follows:
 <Highlighter file="./cancellable.svelte.ts" />
 
 The `Toggleable` constructor takes a few parameters:
+
 - `initial` is a record of booleanish attributes that will be toggled on the element
 - `active` labels this initial state as either the active or inactive state. Can be bound with a getter / setter pair (see API)
 - `on` event(s) triggering the active state
@@ -40,6 +41,7 @@ A `Cancellable` element styled using this `data-active` attribute instead of the
 Almost everything is a toggleable, from the [Toggle](/components/toggle) and [Switch](/components/switch) buttons to [Tabs](/components/tabs) and [Disclosures](/components/disclosure), carousels etc.
 
 These classes are specialized `Toggleable`:
+
 - `Cancellable`
 - [`Triggerable`](/blocks/triggerable)
 - `Hoverable`

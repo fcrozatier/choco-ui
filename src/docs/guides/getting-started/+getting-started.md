@@ -12,7 +12,6 @@ title: Getting Started
 
 <Highlighter file="./install.sh" />
 
-
 2. Then add the choco preprocessor to your `svelte.config.js`:
 
 <Highlighter file="./preprocessor.js" />

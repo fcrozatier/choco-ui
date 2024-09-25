@@ -12,6 +12,7 @@ title: Introduction
 Choco-ui is a UI-kit for [Svelte 5](https://svelte.dev/) to help you create reactive, accessible, SSR-ready, composable & extendable components by either using and customizing the provided components or by using the primitives they are built on to create your own.
 
 We can describe the architecture in the following way:
+
 > You own the design, and we share the logic.
 
 This is a hybrid approach where you literally own the component files and can modify them to suit your designs, and yet still get updates and bug fixes on the shared logic, headless classes and building blocks, all in a seamless way.
@@ -53,6 +54,7 @@ The headless classes are built from a few building blocks, which allow for power
 - The main building block is the [`ChocoBase`](/blocks/chocobase) class. All headless classes inherit from it and its role is to set the simple contract that all components share.
 
 - Two conceptual classes help solve recurring UI patterns:
+
   1. The [`Toggleable`](/blocks/toggleable) class allows to toggle a set of attributes on specific events. This is quite versatile: almost every interactive component toggles attributes in some way.
   2. The [`Triggerable`](/blocks/triggerable) class helps orchestrate a control-target relation. Think Tabs, Disclosures, Accordions etc.
 

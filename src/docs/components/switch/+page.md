@@ -30,5 +30,4 @@ The `active` prop is bindable.
 
 <API file="switch.svelte.ts" type="SwitchOptions" bindable={true} defaults={true}/>
 
-
 Follows the [WAI-ARIA Switch Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/switch/)
