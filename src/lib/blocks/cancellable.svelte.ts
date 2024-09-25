@@ -1,23 +1,24 @@
-import { Toggleable } from "$lib/blocks/toggleable.svelte.js";
 import { debounce } from "@fcrozatier/ts-helpers";
 import { addListener } from "chocobytes/actions/addListener.js";
+import { ChocoBase } from "./base.svelte.js";
 
 /**
  * ## Cancellable
  *
  * Adds a `data-active` attribute to normalize the `:active` state for better styling: the `data-active` attribute is removed when the cursor leaves the target (which is not the case with the CSS `:active` pseudo selector), even when it is still pressed, to convey the cancellability of the action (which will not trigger).
  */
-export class Cancellable extends Toggleable<"a" | "button" | "input"> {
+export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
   boundaries: DOMRect | undefined;
   dragging = false;
   hovered = $state(false);
+  active = $state(false);
+
+  override get attributes() {
+    return { "data-active": this.active, "data-hover": this.hovered };
+  }
 
   constructor() {
-    const active = false;
-    super({
-      initial: { "data-active": active },
-      active,
-    });
+    super();
 
     this.extendActions(addListener("pointerdown", this.on));
     this.extendActions(addListener("pointerup", this.off));
@@ -28,27 +29,27 @@ export class Cancellable extends Toggleable<"a" | "button" | "input"> {
     this.extendActions(addListener("click", this.#cancelClick));
   }
 
-  override on = (e: Event) => {
+  on = (e: Event) => {
     if (e instanceof PointerEvent) {
       e.preventDefault();
       this.element.setPointerCapture(e.pointerId);
       this.boundaries = this.element.getBoundingClientRect();
       this.dragging = true;
-      super.on();
+      this.active = true;
       this.element.addEventListener("pointermove", this.#handlePointerMove);
       this.element.addEventListener("click", this.#cancelClick);
     }
   };
 
-  override off = (e: Event) => {
+  off = (e: Event) => {
     if (!(e instanceof PointerEvent)) return;
 
-    super.off();
+    this.active = false;
 
     if (e.type === "pointerup") {
       this.dragging = false;
       this.element.releasePointerCapture(e.pointerId);
-      this.element.removeEventListener("pointerenter", this.#on);
+      this.element.removeEventListener("pointerenter", this.#activate);
       this.element.removeEventListener("pointermove", this.#handlePointerMove);
 
       if (this.#isInside(e)) {
@@ -57,13 +58,13 @@ export class Cancellable extends Toggleable<"a" | "button" | "input"> {
       }
     } else if (e.type === "pointermove") {
       if (this.dragging) {
-        this.element.addEventListener("pointerenter", this.#on);
+        this.element.addEventListener("pointerenter", this.#activate);
       }
     }
   };
 
-  #on = () => {
-    super.on();
+  #activate = () => {
+    this.active = true;
   };
 
   #cancelClick = (e: Event) => {
@@ -81,7 +82,7 @@ export class Cancellable extends Toggleable<"a" | "button" | "input"> {
 
       if (this.#isInside(e)) {
         this.hovered = true;
-        this.#on();
+        this.#activate();
       } else {
         this.hovered = false;
         this.off(e);
