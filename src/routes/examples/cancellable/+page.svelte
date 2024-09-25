@@ -9,8 +9,8 @@
 
 <p class="p-10">
   <button
-    class="active:bg-coral border-none py-2 px-4 outline-blue-300 hover:bg-red-400 focus-visible:outline-2"
-    >button</button
+    class="active:bg-coral border-none py-2 px-4 outline-blue-300 hover:bg-red-400 focus-visible:outline-2 active:scale-95"
+    onclick={() => console.log("click")}>button</button
   >
 
   <button
@@ -19,7 +19,7 @@
     use:choco={b2}>Improved button Canceller</button
   >
   <a
-    class="active inline-block py-2 px-4 outline-blue-300 focus-visible:outline-2 data-[hover=true]:bg-red-400"
+    class="data-[active=true]:bg-coral py-2 px-4 outline-blue-300 data-[active=true]:scale-95 data-[focus-visible=true]:outline-2 data-[hover=true]:bg-red-400"
     href="/"
     use:choco={b3}>Improved a Canceller</a
   >
@@ -47,10 +47,5 @@
     transition:
       background 200ms ease-out,
       scale 200ms ease-out;
-  }
-
-  .active[data-active="true"] {
-    background-color: var(--color-coral);
-    scale: 0.95;
   }
 </style>
