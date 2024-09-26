@@ -63,7 +63,6 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
           if (!this.#dragging) {
             this.active = false;
           }
-          this.#triggerClick = false;
         }
       }),
     );
@@ -131,23 +130,19 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
       this.element.releasePointerCapture(e.pointerId);
       this.element.removeEventListener("pointermove", this.#handlePointerMove);
     }
-
-    if (!this.#triggerClick) {
-      this.active = false;
-    }
   };
 
   #cancelClick = (e: Event) => {
-    if (
-      (e instanceof MouseEvent &&
-        !this.#isInside(e) &&
-        !(document.activeElement === this.element && this.#triggerClick)) ||
-      !this.active
-    ) {
-      console.log("cancel click");
+    if (!(e instanceof MouseEvent)) return;
+
+    if ((!this.#isInside(e) && !this.#triggerClick) || (this.#isInside(e) && !this.active)) {
+      console.log("cancel");
       e.preventDefault();
       e.stopImmediatePropagation();
     }
+
+    this.active = false;
+    this.#triggerClick = false;
   };
 
   #handlePointerMove = debounce(
@@ -159,6 +154,7 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
         this.active = true;
       } else {
         this.hovered = false;
+        this.active = false;
         this.#off(e);
       }
     },
