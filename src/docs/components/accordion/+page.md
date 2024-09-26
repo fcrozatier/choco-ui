@@ -20,6 +20,4 @@ The headless accordion is a [Group](/mixins/group) of [Triggerables](/mixins/tri
 
 The only additional option to is the `headingLevel` which allows you to make sure the accordion fits well in your document's heading hierarchy.
 
-<!-- <API file="accordion.svelte.ts" type="AccordionOptions" defaults={true}/> -->
-
 Satisfies the [WAI-ARIA Accordion Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/)
