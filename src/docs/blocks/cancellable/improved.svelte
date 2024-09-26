@@ -42,6 +42,14 @@
   </a>
 </div>
 
+<!-- Just to see what's going on -->
+<div class="mt-10 grid">
+  <p>Button attributes</p>
+  <pre>{JSON.stringify(cancellableButton.attributes, null, 2)}</pre>
+  <p>Anchor attributes</p>
+  <pre>{JSON.stringify(cancellableAnchor.attributes, null, 2)}</pre>
+</div>
+
 <style>
   [data-hover="true"] {
     background-color: var(--color-coral);
