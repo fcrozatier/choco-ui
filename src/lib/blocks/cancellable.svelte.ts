@@ -6,12 +6,12 @@ import { ChocoBase } from "./base.svelte.js";
 /**
  * ## Cancellable
  *
- * Adds a `data-active` attribute to normalize the `:active` state for better styling: the `data-active` attribute is removed when the cursor leaves the target (which is not the case with the CSS `:active` pseudo selector), even when it is still pressed, to convey the cancellability of the action (which will not trigger).
+ * Adds `data-hover`, `data-active` and `data-focus-visible` attributes to improve the behavior: the `data-active` attribute is removed when the cursor leaves the target (which is not the case with the CSS `:active` pseudo selector), even when it is still pressed, to convey the cancellability of the action (which will not trigger).
  */
 export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
   #boundaries: DOMRect | undefined;
   #dragging = false;
-  hovered = $state(false);
+  hover = $state(false);
   active = $state(false);
   #tabPressed = false;
   #triggerClick = false;
@@ -21,7 +21,7 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
     return {
       ...super.attributes,
       "data-active": this.active,
-      "data-hover": this.hovered,
+      "data-hover": this.hover,
       "data-focus-visible": this.focusVisible,
     };
   }
@@ -32,8 +32,8 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
     this.extendActions(addListener("pointerdown", this.#on));
     this.extendActions(addListener("pointerup", this.#off));
 
-    this.extendActions(addListener("pointerenter", () => (this.hovered = true)));
-    this.extendActions(addListener("pointerleave", () => (this.hovered = false)));
+    this.extendActions(addListener("pointerenter", () => (this.hover = true)));
+    this.extendActions(addListener("pointerleave", () => (this.hover = false)));
 
     this.extendActions(
       addListener("click", (e: Event) => {
@@ -149,10 +149,10 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
       if (!(e instanceof PointerEvent)) return;
 
       if (this.#isInside(e)) {
-        this.hovered = true;
+        this.hover = true;
         this.active = true;
       } else {
-        this.hovered = false;
+        this.hover = false;
         this.active = false;
         this.#off(e);
       }
