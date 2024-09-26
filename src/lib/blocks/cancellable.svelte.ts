@@ -35,7 +35,19 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
     this.extendActions(addListener("pointerenter", () => (this.hovered = true)));
     this.extendActions(addListener("pointerleave", () => (this.hovered = false)));
 
-    this.extendActions(addListener("click", this.#cancelClick));
+    this.extendActions(
+      addListener("click", (e: Event) => {
+        if (!(e instanceof MouseEvent)) return;
+
+        if ((!this.#isInside(e) && !this.#triggerClick) || (this.#isInside(e) && !this.active)) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+        }
+
+        this.active = false;
+        this.#triggerClick = false;
+      }),
+    );
 
     this.extendActions(
       addListener("keydown", (e) => {
@@ -130,19 +142,6 @@ export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
       this.element.releasePointerCapture(e.pointerId);
       this.element.removeEventListener("pointermove", this.#handlePointerMove);
     }
-  };
-
-  #cancelClick = (e: Event) => {
-    if (!(e instanceof MouseEvent)) return;
-
-    if ((!this.#isInside(e) && !this.#triggerClick) || (this.#isInside(e) && !this.active)) {
-      console.log("cancel");
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-
-    this.active = false;
-    this.#triggerClick = false;
   };
 
   #handlePointerMove = debounce(
