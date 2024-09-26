@@ -9,7 +9,7 @@ title: Cancellable
 
 # Cancellable
 
-The `Cancellable` building block adds three reactive attributes —`data-hover`, `data-active`, and `data-focus-visible`— to your button and anchor elements. These attributes normalize the behavior of the `:hover`, `:active` and `:focus-visible` states, offering a more consistent user experience across browsers.
+The `Cancellable` building block adds three reactive attributes —<span class="whitespace-nowrap">`data-hover`</span>, <span class="whitespace-nowrap">`data-active`</span>, and <span class="whitespace-nowrap">`data-focus-visible`</span>— to your button and anchor elements. These attributes normalize the behavior of the `:hover`, `:active` and `:focus-visible` states, offering a more consistent user experience across browsers.
 
 ---
 
