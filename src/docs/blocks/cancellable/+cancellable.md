@@ -9,7 +9,7 @@ title: Cancellable
 
 # Cancellable
 
-This building block adds three reactive attributes, `data-active`, `data-hover` and `data-focus-visible` to your button and anchor elements. These attributes provide a more consistent experience than the defaults and let you enhance and normalize your buttons and anchors states and styles across browsers.
+This building block adds three reactive attributes, `data-active`, `data-hover` and `data-focus-visible` to button and anchor elements. These attributes provide a more consistent experience than the defaults and let you enhance and normalize your buttons and anchors states and styles across browsers.
 
 ---
 
@@ -38,11 +38,11 @@ Here are a few other inconsistencies:
 
 ## Normalizing states
 
-All these inconsistencies are fixed by the `Cancellable` class, except the Safari focus problem.
+All these inconsistencies are fixed by the `Cancellable` class, except for the Safari focus problem.
 
-Here are a few manual test cases that work across browser and on both enhanced elements:
+Here are a few test cases that work across browser and on both enhanced elements:
 
-1. The primary pointer button, <kbd>Space</kbd> and <kbd>Enter</kbd> all trigger a click event and the `data-active` state
+1. The primary pointer button, <kbd>Space</kbd> and <kbd>Enter</kbd> all trigger click and the `data-active` state
 2. Holding only fires one click event, not a sequence
 3. The pointer click can be cancelled by dragging outside the target area, or pressing <kbd>Escape</kbd> while holding
 4. A keyboard click can be cancelled by pressing <kbd>Escape</kbd> while holding
