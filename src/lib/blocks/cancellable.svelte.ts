@@ -8,7 +8,7 @@ import { ChocoBase } from "./base.svelte.js";
  *
  * Adds `data-hover`, `data-active` and `data-focus-visible` attributes to improve the behavior: the `data-active` attribute is removed when the cursor leaves the target (which is not the case with the CSS `:active` pseudo selector), even when it is still pressed, to convey the cancellability of the action (which will not trigger).
  */
-export class Cancellable extends ChocoBase<"a" | "button" | "input"> {
+export class Cancellable extends ChocoBase<"a" | "button"> {
   #boundaries: DOMRect | undefined;
   #dragging = false;
   hover = $state(false);
