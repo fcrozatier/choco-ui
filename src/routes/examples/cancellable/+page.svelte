@@ -4,8 +4,8 @@
 
   const b1 = new Cancellable();
   const b2 = new Cancellable();
-  const b3 = new Cancellable();
 
+  let base = $state(0);
   let button = $state(0);
   let anchor = $state(0);
 </script>
@@ -13,7 +13,10 @@
 <p class="flex gap-4 p-10">
   <button
     class="active:bg-coral py-2 px-4 hover:bg-red-400 focus-visible:outline-2 focus-visible:outline-blue-300 active:scale-95"
-    onclick={() => console.log("click")}>button</button
+    onclick={() => {
+      console.log("click");
+      base++;
+    }}>button <span class="tabular-nums">{base}</span></button
   >
 
   <button
@@ -22,7 +25,7 @@
       console.log("hi");
       button++;
     }}
-    use:choco={b2}>Improved button Canceller <span class="tabular-nums">{button}</span></button
+    use:choco={b1}>Improved button Canceller <span class="tabular-nums">{button}</span></button
   >
   <a
     class="inline-block py-2 px-4"
@@ -31,21 +34,12 @@
       e.preventDefault();
       anchor++;
     }}
-    use:choco={b3}>Improved a Canceller <span class="tabular-nums">{anchor}</span></a
+    use:choco={b2}>Improved a Canceller <span class="tabular-nums">{anchor}</span></a
   >
 </p>
 
-<form
-  onsubmit={(e) => {
-    console.log("submit");
-    e.preventDefault();
-  }}
->
-  <button class="py-2 px-4" use:choco={b1}>Submit</button>
-</form>
-
+<pre>{JSON.stringify(b1.attributes, null, 2)}</pre>
 <pre>{JSON.stringify(b2.attributes, null, 2)}</pre>
-<pre>{JSON.stringify(b3.attributes, null, 2)}</pre>
 
 <div class="grid min-h-full"><span class="mt-auto">bottom</span></div>
 

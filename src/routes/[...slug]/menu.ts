@@ -38,6 +38,10 @@ export const paths = {
       href: "/blocks/group",
       title: "Group",
     },
+    {
+      href: "/blocks/cancellable",
+      title: "Cancellable",
+    },
   ],
   components: [
     {
