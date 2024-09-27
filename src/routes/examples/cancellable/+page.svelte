@@ -36,6 +36,14 @@
     }}
     use:choco={b2}>Improved a Canceller <span class="tabular-nums">{anchor}</span></a
   >
+
+  <button
+    class="active:bg-coral bg-red-500 py-2 px-4 outline-2 outline-offset-2 hover:bg-red-400 hover:outline-red-400 focus-visible:outline-2 focus-visible:outline-blue-300 active:scale-95"
+    onclick={() => {
+      console.log("click");
+      base++;
+    }}>button <span class="tabular-nums">{base}</span></button
+  >
 </p>
 
 <pre>{JSON.stringify(b3.attributes, null, 2)}</pre>
