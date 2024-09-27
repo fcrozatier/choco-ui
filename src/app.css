@@ -100,7 +100,7 @@ ul {
   }
 
   & h2 {
-    @apply mt-2 mb-7 text-2xl leading-none md:mt-3 md:mb-8 md:text-3xl;
+    @apply mt-2 mb-7 text-2xl md:mt-3 md:mb-8 md:text-3xl;
   }
 
   & h3 {
