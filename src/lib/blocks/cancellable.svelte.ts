@@ -11,11 +11,11 @@ import { ChocoBase } from "./base.svelte.js";
  */
 export class Cancellable extends ChocoBase<"a" | "button"> {
   #boundaries: DOMRect | undefined;
-  #dragging = $state(false);
+  #dragging = false;
   hover = $state(false);
   active = $state(false);
   #tabPressed = false;
-  #triggerClick = $state(false);
+  #triggerClick = false;
   focusVisible = $state(false);
 
   override get attributes() {
@@ -170,6 +170,9 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
           }
         }
       };
+
+      document.addEventListener("keydown", keydown);
+      document.addEventListener("pointerdown", pointerdown);
 
       return () => {
         document.removeEventListener("keydown", keydown);
