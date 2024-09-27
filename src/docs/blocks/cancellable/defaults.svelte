@@ -10,7 +10,7 @@
 
 <div class="not-prose grid grid-cols-2 gap-8">
   <button
-    class="bg-coral focus-visible:outline-coral cursor-pointer rounded py-2 px-4 outline-none transition-all hover:bg-orange-700 focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-95"
+    class="bg-coral focus-visible:outline-coral rounded py-2 px-4 outline-none transition-all hover:cursor-pointer hover:bg-orange-700 focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-95"
     onclick={() => {
       console.log("button clicked");
       button++;

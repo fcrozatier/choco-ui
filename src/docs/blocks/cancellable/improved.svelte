@@ -19,7 +19,7 @@
 
 <div class="not-prose grid grid-cols-2 gap-8">
   <button
-    class="cursor-pointer rounded py-2 px-4 outline-2 outline-slate-100 transition-all"
+    class="bg-coral rounded py-2 px-4 transition-all"
     onclick={() => {
       console.log("button clicked");
       button++;
@@ -29,7 +29,7 @@
     Button {button}
   </button>
   <a
-    class="rounded py-2 px-4 text-center text-slate-100! outline-2 outline-slate-100 transition-all"
+    class="bg-coral cursor-default rounded py-2 px-4 text-center text-slate-100! no-underline! transition-all"
     href="/"
     onclick={(e) => {
       e.preventDefault();
@@ -52,11 +52,11 @@
 
 <style>
   [data-hover="true"] {
-    background-color: var(--color-coral);
+    background-color: var(--color-orange-700);
+    cursor: pointer;
   }
 
   [data-active="true"] {
-    background-color: var(--color-orange-700);
     scale: 95%;
   }
 
