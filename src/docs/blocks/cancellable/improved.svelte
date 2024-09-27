@@ -19,7 +19,7 @@
 
 <div class="not-prose grid grid-cols-2 gap-8">
   <button
-    class="bg-coral rounded py-2 px-4 transition-all"
+    class="bg-coral rounded py-2 px-4 outline-none transition-all"
     onclick={() => {
       console.log("button clicked");
       button++;
@@ -29,7 +29,7 @@
     Button {button}
   </button>
   <a
-    class="bg-coral cursor-default rounded py-2 px-4 text-center text-slate-100! no-underline! transition-all"
+    class="bg-coral cursor-default rounded py-2 px-4 text-center text-slate-100! no-underline! outline-none! transition-all"
     href="/"
     onclick={(e) => {
       e.preventDefault();
