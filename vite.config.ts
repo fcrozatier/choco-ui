@@ -25,6 +25,7 @@ export default defineConfig({
 
   build: {
     target: "es2022",
+    emptyOutDir: true,
   },
 
   test: {
@@ -37,5 +38,6 @@ export default defineConfig({
     fs: {
       allow: [path.resolve(".")],
     },
+    host: true,
   },
 });
