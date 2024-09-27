@@ -8,7 +8,7 @@ import { on } from "svelte/events";
  */
 export const addListener = <T extends HTMLElement, K extends keyof HTMLElementEventMap>(
   events: K | K[],
-  callback: EventListener,
+  callback: (this: T, ev: HTMLElementEventMap[K]) => void,
   options?: AddEventListenerOptions,
 ) => {
   return ((node) => {
