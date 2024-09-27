@@ -8,7 +8,7 @@ title: Hocusable
 
 # Hocusable
 
-A specialized [Triggerable](/mixins/toggleable) where the control is triggered on hover or focus. Useful for [Tooltips](/components/tooltip) and controls of this type.
+A specialized [Triggerable](/blocks/toggleable) where the control is triggered on hover or focus. Useful for [Tooltips](/components/tooltip) and controls of this type.
 
 ---
 
@@ -26,7 +26,7 @@ Try focusing with the keyboard, pressing <kbd>ESC</kbd>, hovering over the toolt
 
 **Constructor**
 
-A `Hocusable` is just a specialized [`Triggerable`](/mixins/toggleable), so the constructor options are the same:
+A `Hocusable` is just a specialized [`Triggerable`](/blocks/toggleable), so the constructor options are the same:
 
 <dl>
   <div class="border-l border-coral -ml-6 pl-6 relative">
