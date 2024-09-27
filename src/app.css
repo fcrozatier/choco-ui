@@ -83,7 +83,7 @@ ul {
   @apply list-[square];
 }
 
-.prose {
+:where(.prose) {
   @apply text-slate-200 [--tw-prose-headings:var(--color-slate-100)] [--tw-prose-kbd:var(--color-slate-200)];
 
   & h1,
