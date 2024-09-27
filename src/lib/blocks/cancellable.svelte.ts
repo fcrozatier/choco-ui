@@ -5,7 +5,9 @@ import { ChocoBase } from "./base.svelte.js";
 /**
  * ## Cancellable
  *
- * Adds `data-hover`, `data-active` and `data-focus-visible` attributes to improve the behavior: the `data-active` attribute is removed when the cursor leaves the target (which is not the case with the CSS `:active` pseudo selector), even when it is still pressed, to convey the cancellability of the action (which will not trigger).
+ * Adds `data-hover`, `data-active` and `data-focus-visible` attributes to improve and normalize the behavior of button and anchors across browsers and platforms
+ *
+ * https://choco-ui.com/blocks/cancellable
  */
 export class Cancellable extends ChocoBase<"a" | "button"> {
   #boundaries: DOMRect | undefined;
@@ -29,9 +31,8 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
     super();
 
     this.extendActions(
-      addListener("pointerdown", (e: Event) => {
-        console.log("on", e.target, this.dragging, this.triggerClick);
-        if (!(e instanceof PointerEvent && e.isPrimary)) return;
+      addListener("pointerdown", (e) => {
+        if (!e.isPrimary) return;
         if (e.pointerType === "mouse" && e.button !== 0) return;
         // Prevent mouse events
         e.preventDefault();
@@ -45,17 +46,12 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
     );
     this.extendActions(
       addListener("pointerup", (e) => {
-        if (!(e instanceof PointerEvent)) return;
-        console.log("pointerup", e.target, this.dragging, this.triggerClick);
         this.element.releasePointerCapture(e.pointerId);
         this.element.removeEventListener("pointermove", this.#handlePointerMove);
         this.dragging = false;
         if (this.triggerClick) {
           this.element.click();
         }
-        // else if (e.pointerType === "touch") {
-        //   this.hover = false;
-        // }
         this.active = false;
       }),
     );
@@ -66,8 +62,9 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
     );
     this.extendActions(
       addListener("pointerleave", (e) => {
-        console.log("leave", e.target, this.dragging, this.triggerClick);
-        this.hover = false;
+        if (e.pointerType !== "touch") {
+          this.hover = false;
+        }
       }),
     );
     this.extendActions(addListener("contextmenu", (e) => e.preventDefault()));
@@ -81,22 +78,17 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
       }),
     );
     this.extendActions(
-      addListener("lostpointercapture", (e) => {
-        console.log("lost capture", e.target, this.dragging, this.triggerClick);
-      }),
-    );
-    this.extendActions(
       addListener("pointercancel", () => {
-        console.log("cancel");
+        this.dragging = false;
+        this.active = false;
+        this.hover = false;
+        this.triggerClick = false;
       }),
     );
 
     this.extendActions(
       addListener("click", (e) => {
-        console.log("click", e.target, this.dragging, this.triggerClick);
-
         if (!this.triggerClick) {
-          console.log("prevented");
           e.preventDefault();
           e.stopImmediatePropagation();
         }
@@ -108,7 +100,6 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
 
     this.extendActions(
       addListener("keydown", (e) => {
-        if (!(e instanceof KeyboardEvent)) return;
         if (e.key !== key.SPACE && e.key !== key.ENTER) return;
 
         if (this.focusVisible) {
@@ -121,7 +112,6 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
 
     this.extendActions(
       addListener("keyup", (e) => {
-        if (!(e instanceof KeyboardEvent)) return;
         if (e.key !== key.SPACE && e.key !== key.ENTER) return;
 
         if (this.focusVisible) {
@@ -166,7 +156,6 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
       };
 
       const pointerdown = (e: PointerEvent) => {
-        console.log("document pointer down");
         if (this.element && e.target instanceof Node && !this.element.contains(e.target)) {
           this.active = false;
           this.hover = false;
@@ -187,9 +176,7 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
   }
 
   #handlePointerMove = (e: Event) => {
-    console.log("move", e.target, this.dragging, this.triggerClick);
     if (!(e instanceof PointerEvent)) return;
-    // e.preventDefault();
 
     if (this.#isInside(e)) {
       this.hover = true;
