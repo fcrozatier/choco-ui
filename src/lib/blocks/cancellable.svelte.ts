@@ -11,11 +11,11 @@ import { ChocoBase } from "./base.svelte.js";
  */
 export class Cancellable extends ChocoBase<"a" | "button"> {
   #boundaries: DOMRect | undefined;
-  dragging = $state(false);
+  #dragging = $state(false);
   hover = $state(false);
   active = $state(false);
   #tabPressed = false;
-  triggerClick = $state(false);
+  #triggerClick = $state(false);
   focusVisible = $state(false);
 
   override get attributes() {
@@ -37,8 +37,8 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
         // Prevent mouse events
         e.preventDefault();
         this.active = true;
-        this.dragging = true;
-        this.triggerClick = true;
+        this.#dragging = true;
+        this.#triggerClick = true;
         this.#boundaries = this.element.getBoundingClientRect();
         this.element.setPointerCapture(e.pointerId);
         this.element.addEventListener("pointermove", this.#handlePointerMove);
@@ -48,8 +48,8 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
       addListener("pointerup", (e) => {
         this.element.releasePointerCapture(e.pointerId);
         this.element.removeEventListener("pointermove", this.#handlePointerMove);
-        this.dragging = false;
-        if (this.triggerClick) {
+        this.#dragging = false;
+        if (this.#triggerClick) {
           this.element.click();
         }
         this.active = false;
@@ -69,9 +69,9 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
     );
     this.extendActions(addListener("contextmenu", (e) => e.preventDefault()));
     this.extendActions(
-      // Needed on mobile
+      // touch-action: none
       addListener(["touchstart", "touchmove", "touchend"], (e) => {
-        // Avoid browser interventions when scrolling as they are not cancelable
+        // Avoid browser interventions when scrolling (not cancelable)
         if (e.cancelable) {
           e.preventDefault();
         }
@@ -79,22 +79,22 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
     );
     this.extendActions(
       addListener("pointercancel", () => {
-        this.dragging = false;
+        this.#dragging = false;
         this.active = false;
         this.hover = false;
-        this.triggerClick = false;
+        this.#triggerClick = false;
       }),
     );
 
     this.extendActions(
       addListener("click", (e) => {
-        if (!this.triggerClick) {
+        if (!this.#triggerClick) {
           e.preventDefault();
           e.stopImmediatePropagation();
         }
 
         this.active = false;
-        this.triggerClick = false;
+        this.#triggerClick = false;
       }),
     );
 
@@ -104,7 +104,7 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
 
         if (this.focusVisible) {
           this.active = true;
-          this.triggerClick = true;
+          this.#triggerClick = true;
           e.preventDefault();
         }
       }),
@@ -115,11 +115,11 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
         if (e.key !== key.SPACE && e.key !== key.ENTER) return;
 
         if (this.focusVisible) {
-          if (this.triggerClick) {
+          if (this.#triggerClick) {
             this.element.click();
           }
 
-          if (!this.dragging) {
+          if (!this.#dragging) {
             this.active = false;
           }
         }
@@ -143,12 +143,12 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
         if (e.key === key.TAB) {
           this.#tabPressed = true;
         } else if (e.key === key.ESCAPE) {
-          this.triggerClick = false;
           this.active = false;
           this.#tabPressed = false;
-          if (this.dragging) {
+          this.#triggerClick = false;
+          if (this.#dragging) {
             this.element.removeEventListener("pointermove", this.#handlePointerMove);
-            this.dragging = false;
+            this.#dragging = false;
           }
         } else {
           this.#tabPressed = false;
@@ -157,11 +157,14 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
 
       const pointerdown = (e: PointerEvent) => {
         if (this.element && e.target instanceof Node && !this.element.contains(e.target)) {
-          this.active = false;
           this.hover = false;
+          this.active = false;
           this.#tabPressed = false;
-          this.triggerClick = false;
-          this.dragging = false;
+          this.#triggerClick = false;
+          if (this.#dragging) {
+            this.element.removeEventListener("pointermove", this.#handlePointerMove);
+            this.#dragging = false;
+          }
         }
       };
 
@@ -181,11 +184,11 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
     if (this.#isInside(e)) {
       this.hover = true;
       this.active = true;
-      this.triggerClick = true;
+      this.#triggerClick = true;
     } else {
       this.hover = false;
       this.active = false;
-      this.triggerClick = false;
+      this.#triggerClick = false;
     }
   };
 
