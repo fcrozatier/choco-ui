@@ -1,6 +1,6 @@
 {
   "name": "chocobytes",
-  "version": "0.39.0",
+  "version": "0.40.0",
   "type": "module",
   "license": "MIT",
   "description": "A Svelte UI-kit providing reusable building blocks to implement your own UI components and headless classes",
