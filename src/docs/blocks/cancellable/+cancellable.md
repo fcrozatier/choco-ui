@@ -40,17 +40,17 @@ Other inconsistencies:
    - <span class="font-semibold">Safari</span>: Focus doesn't work on buttons by design. This won't be fixed (see [MDN's note](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#clicking_and_focus) on Safari behavior)
 5. **Anchors** <br>
    - Pressing <kbd>Enter</kbd> on an anchor does not trigger the `:active` state.
-   - Pressing <kbd>Space</kbd> on an anchor does not even fire a click and just scrolls the page. This is how anchors work and is not a problem in itself, but rather something to have in mind when normalizing behaviors for the few places where you need anchors styled as buttons
-   - On desktop, dragging the mouse cancels the click even if the pointer stays inside the element. It also removes the cursor style, and displays a small tooltip under the cursor with the link url.
+   - Pressing <kbd>Space</kbd> on an anchor does not even fire a click and just scrolls the page. This is just how anchors work and is not a problem in itself, but rather something to have in mind when normalizing behaviors for the few places where you need anchors styled as buttons
+   - On desktop, dragging the mouse cancels the click even if the pointer stays inside the anchor. It also removes the cursor style, and displays a small tooltip under the cursor with the link url.
 6. **Mobile** <br>
-   - Holding down a touch for about 300ms keeps the button in the `:hover:active` state even though the click is cancelled. This is similar to the mouse cancellability above, and releasing the touch doesn't trigger the click. It also leaves the button in the `:hover` state begging for a click somewhere else on the page to remove it
-   - A longer touch of 500ms or more on the anchor opens a context menu, and selects the text on the button if we don't set `user-select` to `none`
+   - Holding down a touch for about 300ms maintains the button in the `:hover:active` state even though the click is cancelled. This is similar to the mouse cancellability above, and releasing the touch doesn't trigger the click. It also leaves the button in the `:hover` state begging for a click somewhere else on the page to remove it
+   - A longer touch of 500ms or more on the anchor opens a context menu. On the button it selects the text if we don't set `user-select` to `none`
    - Dragging the pointer outside the button cancels the click and leaves it in the `:hover` state. For quick moves there can be a miss, the `:hover` state is not reliably applied. Dragging off the element also scrolls or reloads the page depending on the direction and on the position of the boundaries, if we forget to set the CSS `touch-action` property to `none`
    - Clicking outside the button with another finger while still pressing down cancels the click and leaves the element in a `:hover` state
 
 ---
 
-## Solving the Problem with `Cancellable`
+## Fixing the situation
 
 The `Cancellable` class normalizes these inconsistencies, providing a consistent and carefully enhanced experience across browsers and platforms. In particular it detects screen-reader synthetic clicks and is fully accessible.
 
@@ -84,7 +84,7 @@ Try out the improved version with these normalized states:
 
 ## API
 
-The `Cancellable` class provides a zero-config user experience enhancement. Simply add it to your elements as in the usage example
+The `Cancellable` class provides a zero-config user experience enhancement. Simply add it to your elements as in the usage example above
 
 **Instance properties**
 
