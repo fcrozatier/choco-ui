@@ -2,17 +2,17 @@
   import { choco } from "$lib/actions/choco.js";
   import { Cancellable } from "$lib/blocks/cancellable.svelte";
 
-  const b1 = new Cancellable();
   const b2 = new Cancellable();
+  const b3 = new Cancellable();
 
   let base = $state(0);
-  let button = $state(0);
+  let cancellable = $state(0);
   let anchor = $state(0);
 </script>
 
 <p class="flex gap-4 p-10">
   <button
-    class="active:bg-coral py-2 px-4 hover:bg-red-400 focus-visible:outline-2 focus-visible:outline-blue-300 active:scale-95"
+    class="active:bg-coral bg-red-500 py-2 px-4 outline-2 outline-offset-2 hover:bg-red-400 hover:outline-red-400 focus-visible:outline-2 focus-visible:outline-blue-300 active:scale-95"
     onclick={() => {
       console.log("click");
       base++;
@@ -20,12 +20,12 @@
   >
 
   <button
-    class="py-2 px-4"
+    class="py-2 px-4 outline-none select-none"
     onclick={() => {
-      console.log("hi");
-      button++;
+      console.log("hi", cancellable);
+      cancellable++;
     }}
-    use:choco={b1}>Improved button Canceller <span class="tabular-nums">{button}</span></button
+    use:choco={b3}>Cancellable <span class="tabular-nums">{cancellable}</span></button
   >
   <a
     class="inline-block py-2 px-4"
@@ -38,8 +38,7 @@
   >
 </p>
 
-<pre>{JSON.stringify(b1.attributes, null, 2)}</pre>
-<pre>{JSON.stringify(b2.attributes, null, 2)}</pre>
+<pre>{JSON.stringify(b3.attributes, null, 2)}</pre>
 
 <div class="grid min-h-full"><span class="mt-auto">bottom</span></div>
 
