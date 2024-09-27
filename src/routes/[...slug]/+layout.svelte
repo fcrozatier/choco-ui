@@ -77,20 +77,6 @@
             {#each paths[key] as { href, title }}
               {@const current = $page.url.pathname === href ? "page" : undefined}
               <div class="inline-flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="6"
-                  height="6"
-                  viewBox="0 0 10 10"
-                  fill="none"
-                  stroke-width="1"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="stroke-coral fill-coral invisible"
-                  class:visible={current}
-                >
-                  <rect x="3" y="3" width="7" height="7"></rect>
-                </svg>
                 <a
                   class="text-choco-light hover:text-coral aria-[current=page]:text-coral border-none py-1 px-3 font-light capitalize underline-offset-4 outline-none focus-visible:underline aria-[current=page]:font-semibold"
                   aria-current={current}
