@@ -10,7 +10,7 @@
 
 <div class="not-prose grid grid-cols-2 gap-8">
   <button
-    class="hover:bg-coral focus-visible:outline-coral cursor-pointer rounded py-2 px-4 outline-2 outline-slate-100 transition-all focus-visible:outline-offset-2 active:scale-95 active:bg-orange-700"
+    class="bg-coral focus-visible:outline-coral cursor-pointer rounded py-2 px-4 outline-none transition-all hover:bg-orange-700 focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-95"
     onclick={() => {
       console.log("button clicked");
       button++;
@@ -19,7 +19,7 @@
     Button <span class="tabular-nums">{button}</span>
   </button>
   <a
-    class="focus-visible:outline-coral hover:bg-coral inline-block rounded py-2 px-4 text-center text-slate-100! outline-2 outline-slate-100 transition-all focus-visible:outline-offset-2! active:scale-95 active:bg-orange-700"
+    class="bg-coral focus-visible:outline-coral inline-block rounded py-2 px-4 text-center text-slate-100! no-underline! transition-all hover:bg-orange-700 focus-visible:outline-2 focus-visible:outline-offset-2! active:scale-95"
     href="/"
     onclick={(e) => {
       e.preventDefault();
