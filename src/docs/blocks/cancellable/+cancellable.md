@@ -44,7 +44,7 @@ Other inconsistencies:
    - On desktop, dragging the mouse cancels the click even if the pointer stays inside the element. It also removes the cursor style, and displays a small tooltip under the cursor with the link url.
 6. **Mobile** <br>
    - Holding down a touch for about 300ms keeps the button in the `:hover:active` state even though the click is cancelled. This is similar to the mouse cancellability above, and releasing the touch doesn't trigger the click. It also leaves the button in the `:hover` state begging for a click somewhere else on the page to remove it
-   - A longer touch of 500ms or more on the anchor opens a context menu
+   - A longer touch of 500ms or more on the anchor opens a context menu, and selects the text on the button if we don't set `user-select` to `none`
    - Dragging the pointer outside the button cancels the click and leaves it in the `:hover` state. For quick moves there can be a miss, the `:hover` state is not reliably applied. Dragging off the element also scrolls or reloads the page depending on the direction and on the position of the boundaries, if we forget to set the CSS `touch-action` property to `none`
    - Clicking outside the button with another finger while still pressing down cancels the click and leaves the element in a `:hover` state
 
@@ -52,7 +52,7 @@ Other inconsistencies:
 
 ## Solving the Problem with `Cancellable`
 
-The `Cancellable` class normalizes these inconsistencies, providing a consistent and carefully enhanced experience across browsers and platforms.
+The `Cancellable` class normalizes these inconsistencies, providing a consistent and carefully enhanced experience across browsers and platforms. In particular it detects screen-reader synthetic clicks and is fully accessible.
 
 Here's what is fixes:
 
@@ -63,7 +63,7 @@ Only one click event is fired, regardless of whether the user holds the pointer 
 1. **Cancellability**
    - The pointer click can be cancelled by dragging outside the element or pressing <kbd>Escape</kbd> while holding the pointer down
    - Keyboard clicks can be cancelled by pressing <kbd>Escape</kbd> while holding <kbd>Space</kbd> or <kbd>Enter</kbd>
-   - On mobile, dragging outside the element or tapping outside it with another finger cancels the click, without scrolling or reloading the page and without opening the context menu. The final `data-hover` state is only set if the interaction happened, not if the click was cancelled.
+   - On mobile, dragging outside the element or tapping outside it with another finger cancels the click, without scrolling or reloading the page and without opening the context menu or selecting the text. The final `data-hover` state is only set if the interaction happened, not if the click was cancelled.
 2. **Active State Restoration** <br>
  The `data-active` state turns off when the pointer is dragged outside the element and turns back on if the pointer re-enters the target area while holding the click
 
