@@ -29,7 +29,8 @@
     Button {button}
   </button>
   <a
-    class="bg-coral cursor-default rounded py-2 px-4 text-center text-slate-100! no-underline! outline-none! transition-all"
+    class="bg-coral cursor-default rounded py-2 px-4 text-center text-slate-100! no-underline! transition-all"
+    style="outline: 2px solid transparent; outline-offset: 2px;"
     href="/"
     onclick={(e) => {
       e.preventDefault();
@@ -61,7 +62,6 @@
   }
 
   [data-focus-visible="true"] {
-    outline: 2px solid var(--color-coral);
-    outline-offset: 2px;
+    outline-color: var(--color-coral) !important;
   }
 </style>
