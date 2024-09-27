@@ -16,7 +16,7 @@ An element that allows users to switch between different views within the same s
 
 ## Headless component
 
-This is a [Group](/mixins/group) of [Triggerables](/mixins/triggerable) where each Tab is a control and each corresponding Panel a target.
+This is a [Group](/blocks/group) of [Triggerables](/blocks/triggerable) where each Tab is a control and each corresponding Panel a target.
 
 Roving focus is enabled by default,
 

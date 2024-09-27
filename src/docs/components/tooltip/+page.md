@@ -18,6 +18,6 @@ The tooltip itself can be hovered without closing.
 
 ## Headless component
 
-The headless component is just a [Hocusable](/mixins/hocusable). The `active` option is bindable.
+The headless component is just a [Hocusable](/blocks/hocusable). The `active` option is bindable.
 
 Adheres to the [WAI ARIA Tooltip pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/)

@@ -8,7 +8,7 @@ title: Triggerable
 
 # Triggerable
 
-A specialized [Toggleable](/mixins/toggleable) which also controls a target element. This control-target pattern govern things like [Tabs](/components/tabs), [Accordion](/components/accordion), [Disclosure](/components/disclosure), Popover, Carousel etc.
+A specialized [Toggleable](/blocks/toggleable) which also controls a target element. This control-target pattern govern things like [Tabs](/components/tabs), [Accordion](/components/accordion), [Disclosure](/components/disclosure), Popover, Carousel etc.
 
 Both the control and target element have attributes that can be correlated and triggered on and off, and the `Triggerable` class help create headless components orchestrating this.
 
@@ -32,7 +32,7 @@ We've just created our simple headless `Disclosure` in a few lines of code, than
 
 **Constructor**
 
-The options of the `Triggerable` class are similar to those of the [`Toggleable`](/mixins/toggleable). The class has two type constraints `Triggerable<C,T>` for the control and target HTML tags. By default `C="button"` and `T="generic"` for any generic HTMLElement.
+The options of the `Triggerable` class are similar to those of the [`Toggleable`](/blocks/toggleable). The class has two type constraints `Triggerable<C,T>` for the control and target HTML tags. By default `C="button"` and `T="generic"` for any generic HTMLElement.
 
 <dl>
   <dt><code>control</code>?: <span class="font-mono">Record&lt;string, Booleanish></span></dt>
