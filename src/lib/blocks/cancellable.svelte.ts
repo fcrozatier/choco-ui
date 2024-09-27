@@ -40,6 +40,7 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
         this.#dragging = true;
         this.#triggerClick = true;
         this.#boundaries = this.element.getBoundingClientRect();
+        this.element.focus();
         this.element.setPointerCapture(e.pointerId);
         this.element.addEventListener("pointermove", this.#handlePointerMove);
       }),
@@ -88,7 +89,9 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
 
     this.extendActions(
       addListener("click", (e) => {
-        if (!this.#triggerClick) {
+        // Don't prevent sr-only clicks
+        const srClick = e.detail === 0 || ("mozInputSource" in e && e.mozInputSource === 0);
+        if (!this.#triggerClick && !srClick) {
           e.preventDefault();
           e.stopImmediatePropagation();
         }
@@ -167,9 +170,6 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
           }
         }
       };
-
-      document.addEventListener("keydown", keydown);
-      document.addEventListener("pointerdown", pointerdown);
 
       return () => {
         document.removeEventListener("keydown", keydown);
