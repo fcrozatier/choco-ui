@@ -39,5 +39,6 @@ export default defineConfig({
       allow: [path.resolve(".")],
     },
     host: true,
+    open: true,
   },
 });
