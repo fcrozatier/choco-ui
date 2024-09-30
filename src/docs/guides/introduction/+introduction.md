@@ -49,7 +49,7 @@ In the above example there is no clash between the toggle's inner `click` event 
 
 ## Building blocks
 
-The headless classes are built from a few building blocks, which allow for power code reuse and extensions. By combining these building blocks you can easily create your own headless classes. Here's an overview:
+The headless classes are built from a few building blocks, which allow for powerful code reuse and extensions. By combining these building blocks you can easily create your own headless classes. Here's an overview:
 
 - The main building block is the [`ChocoBase`](/blocks/chocobase) class. All headless classes inherit from it and its role is to set the simple contract that all components share.
 
