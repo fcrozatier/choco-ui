@@ -9,7 +9,7 @@
   let cancellableAnchor = new Cancellable();
 </script>
 
-<p class="mt-0! mb-10! text-balance text-center">
+<p class="mt-0 mb-10 text-balance text-center">
   Styling with the <code class="whitespace-nowrap">data-hover</code>,
   <code class="whitespace-nowrap">data-active</code>
   and
@@ -29,8 +29,7 @@
     Button {button}
   </button>
   <a
-    class="bg-coral cursor-default rounded py-2 px-4 text-center text-slate-100! no-underline! transition-all"
-    style="outline: 2px solid transparent; outline-offset: 2px;"
+    class="bg-coral cursor-default rounded py-2 px-4 text-center text-slate-100 no-underline outline-none transition-all"
     href="/"
     onclick={(e) => {
       e.preventDefault();
@@ -62,6 +61,6 @@
   }
 
   [data-focus-visible="true"] {
-    outline-color: var(--color-coral) !important;
+    outline-color: var(--color-coral);
   }
 </style>

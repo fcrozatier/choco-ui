@@ -11,7 +11,7 @@
 </script>
 
 <article class="prose">
-  <p class="flex gap-4 p-10">
+  <p class="not-prose flex gap-4 p-10">
     <button
       class="active:bg-coral bg-red-500 py-2 px-4 outline-2 outline-offset-2 hover:bg-red-400 hover:outline-red-400 focus-visible:outline-2 focus-visible:outline-blue-300 active:scale-95"
       onclick={() => {
@@ -29,7 +29,7 @@
       use:choco={b3}>Cancellable <span class="tabular-nums">{cancellable}</span></button
     >
     <a
-      class="not-prose inline-block py-2 px-4 outline-none focus:outline-none!"
+      class="inline-block py-2 px-4 outline-none focus:outline-none"
       href="/"
       onclick={(e) => {
         e.preventDefault();
@@ -72,6 +72,6 @@
   }
 
   [data-focus-visible="true"] {
-    outline: 2px solid var(--color-blue-300) !important;
+    outline: 2px solid var(--color-blue-300);
   }
 </style>
