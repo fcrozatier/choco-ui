@@ -103,7 +103,7 @@ img {
     & h4,
     & h5,
     & h6 {
-      @apply font-cursive text-center;
+      @apply font-cursive text-balance text-center;
     }
 
     & h1 {
@@ -135,6 +135,10 @@ img {
       @apply my-5 leading-6;
     }
 
+    & p {
+      @apply text-pretty;
+    }
+
     &:is(p, h1, h2, h3, h4, h5, h6) {
       /* Line break inside words instead of overflowing */
       overflow-wrap: break-word;
@@ -145,7 +149,18 @@ img {
     }
 
     & blockquote {
-      @apply border-coral border-l-2 text-center text-slate-100;
+      @apply border-coral relative isolate mx-auto max-w-xl border-l-0 text-center text-xl font-extralight text-slate-100;
+
+      & > :first-child::before,
+      & > :last-child::after {
+        @apply font-cursive text-coral absolute -z-10 inline-block text-6xl;
+      }
+      & > :first-child::before {
+        @apply top-0 -left-4 -translate-y-4 content-[open-quote];
+      }
+      & > :last-child::after {
+        @apply top-full right-0 -translate-y-4 content-[close-quote];
+      }
     }
 
     & .lead {
