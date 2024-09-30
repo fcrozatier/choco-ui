@@ -3,8 +3,14 @@
 
 /* Preflight */
 /* https://github.com/tailwindlabs/tailwindcss/blob/master/src/css/preflight.css */
+
+/* Typography */
+/* https://gist.github.com/adamwathan/41dcab602afd07ac8ba243eb186c324a */
+@layer base, theme, components, plugin, utilities;
+
 @import "tailwindcss";
-@plugin '@tailwindcss/typography';
+/* @plugin '@tailwindcss/typography'; */
+@import "./prose.css" layer(plugin);
 
 @theme {
   /* Colors */
@@ -83,139 +89,145 @@ ul {
   @apply list-[square];
 }
 
-:where(.prose) {
-  @apply text-slate-200 [--tw-prose-headings:var(--color-slate-100)] [--tw-prose-kbd:var(--color-slate-200)];
+img {
+  @apply italic;
+}
 
-  & h1,
-  & h2,
-  & h3,
-  & h4,
-  & h5,
-  & h6 {
-    @apply font-cursive text-center;
-  }
+@layer plugin {
+  .prose {
+    @apply text-slate-200 [--tw-prose-headings:var(--color-slate-100)] [--tw-prose-kbd:var(--color-slate-200)];
 
-  & h1 {
-    @apply mt-2 mb-7 text-3xl leading-none md:mt-3 md:mb-8 md:text-4xl;
-  }
-
-  & h2 {
-    @apply mt-2 mb-7 text-2xl md:mt-3 md:mb-8 md:text-3xl;
-  }
-
-  & h3 {
-    @apply mt-2 mb-6 text-xl md:mt-3 md:mb-7 md:text-2xl;
-  }
-
-  & h4 {
-    @apply mt-2 mb-5 text-lg md:mt-3 md:mb-6 md:text-xl;
-  }
-
-  & h5 {
-    @apply mt-2 mb-5 text-lg font-bold md:mt-3;
-  }
-
-  & h6 {
-    @apply mt-2 mb-5 text-base font-bold md:mt-3;
-  }
-
-  & p,
-  & ul {
-    @apply my-5 leading-6;
-  }
-
-  &:is(p, h1, h2, h3, h4, h5, h6) {
-    /* Line break inside words instead of overflowing */
-    overflow-wrap: break-word;
-  }
-
-  & strong {
-    @apply text-rose-300;
-  }
-
-  & blockquote {
-    @apply border-coral border-l-2 text-center text-slate-100;
-  }
-
-  & .lead {
-    @apply text-coral leading-normal;
-  }
-
-  & li {
-    @apply mr-4 mb-2;
-  }
-
-  & li > p:first-child {
-    @apply inline;
-  }
-
-  & :is(ul, ol) :is(ul, ol) {
-    @apply mt-2;
-  }
-
-  & kbd {
-    @apply bg-dark-muted ring-choco-light text-choco-light shadow-choco-light rounded py-[3px] px-1.5 font-mono text-xs font-normal ring shadow-xs;
-  }
-
-  & code {
-    @apply before:content-none after:content-none;
-  }
-
-  & .shiki {
-    @apply mt-0 overflow-x-auto rounded px-8;
-
-    &.dark-plus {
-      background-color: color-mix(
-        in srgb,
-        var(--color-dark-muted, #342e2a) 80%,
-        transparent
-      ) !important;
-    }
-  }
-
-  & :where(:not(.shiki, pre)) > code {
-    @apply bg-dark-muted/80 rounded py-0.5 px-1 text-sky-300;
-  }
-
-  & a {
-    @apply focus-visible:outline-coral text-coral px-px underline underline-offset-4 outline-offset-0 focus-visible:outline-2;
-  }
-
-  & a code {
-    @apply focus-visible:outline-coral text-coral underline underline-offset-4 outline-offset-0 focus-visible:outline-2;
-  }
-
-  & figcaption {
-    @apply mt-2 mx-auto max-w-[80%] text-center text-xs text-gray-100;
-  }
-
-  & hr {
-    @apply border-coral my-8 md:my-12;
-  }
-
-  & .table-container {
-    @apply w-full overflow-auto px-1;
-  }
-
-  & table {
-    @apply rounded text-sm outline outline-1 outline-gray-200;
-
-    & thead {
-      @apply border-b;
+    & h1,
+    & h2,
+    & h3,
+    & h4,
+    & h5,
+    & h6 {
+      @apply font-cursive text-center;
     }
 
-    & th {
-      @apply text-left font-medium;
+    & h1 {
+      @apply mt-2 mb-7 text-3xl leading-none md:mt-3 md:mb-8 md:text-4xl;
     }
-    & td,
-    & th {
-      @apply py-3.5 px-4;
+
+    & h2 {
+      @apply mt-2 mb-7 text-2xl md:mt-3 md:mb-8 md:text-3xl;
     }
-    & tbody tr:not(:last-of-type) {
-      @apply border-b;
+
+    & h3 {
+      @apply mt-2 mb-6 text-xl md:mt-3 md:mb-7 md:text-2xl;
     }
-    & tbody tr:hover {
-      @apply text-dark bg-gray-100 opacity-90;
+
+    & h4 {
+      @apply mt-2 mb-5 text-lg md:mt-3 md:mb-6 md:text-xl;
+    }
+
+    & h5 {
+      @apply mt-2 mb-5 text-lg font-bold md:mt-3;
+    }
+
+    & h6 {
+      @apply mt-2 mb-5 text-base font-bold md:mt-3;
+    }
+
+    & p,
+    & ul {
+      @apply my-5 leading-6;
+    }
+
+    &:is(p, h1, h2, h3, h4, h5, h6) {
+      /* Line break inside words instead of overflowing */
+      overflow-wrap: break-word;
+    }
+
+    & strong {
+      @apply text-rose-300;
+    }
+
+    & blockquote {
+      @apply border-coral border-l-2 text-center text-slate-100;
+    }
+
+    & .lead {
+      @apply text-coral leading-normal;
+    }
+
+    & li {
+      @apply mr-4 mb-2;
+    }
+
+    & li > p:first-child {
+      @apply inline;
+    }
+
+    & :is(ul, ol) :is(ul, ol) {
+      @apply mt-2;
+    }
+
+    & kbd {
+      @apply bg-dark-muted ring-choco-light text-choco-light shadow-choco-light rounded py-[3px] px-1.5 font-mono text-xs font-normal ring shadow-xs;
+    }
+
+    & code {
+      @apply before:content-none after:content-none;
+    }
+
+    & .shiki {
+      @apply mt-0 overflow-x-auto rounded px-8;
+
+      &.dark-plus {
+        background-color: color-mix(
+          in srgb,
+          var(--color-dark-muted, #342e2a) 80%,
+          transparent
+        ) !important;
+      }
+    }
+
+    & :where(:not(.shiki, pre)) > code {
+      @apply bg-dark-muted/80 rounded py-0.5 px-1 text-sky-300;
+    }
+
+    & a {
+      @apply focus-visible:outline-coral text-coral px-px underline underline-offset-4 outline-offset-0 focus-visible:outline-2;
+    }
+
+    & a code {
+      @apply focus-visible:outline-coral text-coral underline underline-offset-4 outline-offset-0 focus-visible:outline-2;
+    }
+
+    & figcaption {
+      @apply mt-2 mx-auto max-w-[80%] text-center text-xs text-gray-100;
+    }
+
+    & hr {
+      @apply border-coral my-8 md:my-12;
+    }
+
+    & .table-container {
+      @apply w-full overflow-auto px-1;
+    }
+
+    & table {
+      @apply rounded text-sm outline outline-1 outline-gray-200;
+
+      & thead {
+        @apply border-b;
+      }
+
+      & th {
+        @apply text-left font-medium;
+      }
+      & td,
+      & th {
+        @apply py-3.5 px-4;
+      }
+      & tbody tr:not(:last-of-type) {
+        @apply border-b;
+      }
+      & tbody tr:hover {
+        @apply text-dark bg-gray-100 opacity-90;
+      }
     }
   }
 }
