@@ -95,7 +95,7 @@ img {
 
 @layer plugin {
   .prose {
-    @apply text-slate-200 [--tw-prose-headings:var(--color-slate-100)] [--tw-prose-kbd:var(--color-slate-200)];
+    @apply text-slate-200 [--tw-prose-code:var(--color-sky-300)] [--tw-prose-headings:var(--color-slate-100)] [--tw-prose-kbd:var(--color-slate-200)];
 
     & h1,
     & h2,
@@ -146,6 +146,10 @@ img {
 
     & strong {
       @apply text-rose-300;
+
+      & * {
+        @apply text-inherit;
+      }
     }
 
     & blockquote {
@@ -200,7 +204,7 @@ img {
     }
 
     & :where(:not(.shiki, pre)) > code {
-      @apply bg-dark-muted/80 rounded py-0.5 px-1 text-sky-300;
+      @apply bg-dark-muted/80 rounded py-0.5 px-1;
     }
 
     & a {
