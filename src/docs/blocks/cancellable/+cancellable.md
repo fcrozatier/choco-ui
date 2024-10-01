@@ -82,9 +82,27 @@ Try out the improved version with these normalized states:
 
 ---
 
+## Progressive enhancement
+
+`Cancellable` allows you to progressively enhance your buttons and anchor buttons by adding an `.enhanced` CSS class when JS is available. This ensures graceful degradation as users without JS can still have a functional experience with basic styles. You can define fallback styles by targeting the non-enhanced states with selectors like `:not(.enhanced):hover`. When JS is active, the full experience is unlocked with styles targeting attributes such as `[data-hover="true"]`.
+
+The Button component (coming soon!) provides a fully progressively enhanced implementation.
+
+---
+
 ## API
 
-The `Cancellable` class provides a zero-config user experience enhancement. Simply add it to your elements as in the usage example above
+The `Cancellable` class provides a progressive enhancement to the user experience. Simply add it to your elements as in the usage example above
+
+**Constructor `CancellableOptions`**
+
+<dl>
+  <dt><code>allowContextMenus</code>?: <span class="font-mono">boolean</span></dt>
+  <dd>
+  Whether to display context menus on mobile. If <code>true</code>, a long press on an anchor displays the context menu allowing users to copy the link, open it in a new tab etc. On buttons, a long press will display the copy text context menu if the CSS <code>user-select</code> property is not <code>none</code>
+  </dd>
+  <dd><span class="italic">Default</span>: <code>false</code></dd>
+</dl>
 
 **Instance properties**
 

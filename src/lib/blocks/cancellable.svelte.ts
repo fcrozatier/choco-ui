@@ -2,6 +2,13 @@ import { addListener } from "chocobytes/actions/addListener.js";
 import { key } from "chocobytes/utils/keyboard.js";
 import { ChocoBase } from "./base.svelte.js";
 
+type CancellableOptions = {
+  /**
+   * Whether to display context menus on long press
+   */
+  allowContextMenus?: boolean;
+};
+
 /**
  * ## Cancellable
  *
@@ -27,8 +34,12 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
     };
   }
 
-  constructor() {
+  constructor(options?: CancellableOptions) {
     super();
+
+    if (!options?.allowContextMenus) {
+      this.extendActions(addListener("contextmenu", (e) => e.preventDefault()));
+    }
 
     this.extendActions(
       addListener("pointerdown", (e) => {
@@ -68,12 +79,12 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
         }
       }),
     );
-    this.extendActions(addListener("contextmenu", (e) => e.preventDefault()));
+
     this.extendActions(
       // touch-action: none
       addListener(["touchstart", "touchmove", "touchend"], (e) => {
         // Avoid browser interventions when scrolling (not cancelable)
-        if (e.cancelable) {
+        if (e.cancelable && !options?.allowContextMenus) {
           e.preventDefault();
         }
       }),
@@ -140,6 +151,9 @@ export class Cancellable extends ChocoBase<"a" | "button"> {
         this.focusVisible = false;
       }),
     );
+
+    // For progressive enhancement
+    this.extendActions((node) => node.classList.add("enhanced"));
 
     $effect(() => {
       const keydown = (e: KeyboardEvent) => {

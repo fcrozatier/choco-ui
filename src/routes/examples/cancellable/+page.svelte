@@ -2,8 +2,8 @@
   import { choco } from "$lib/actions/choco.js";
   import { Cancellable } from "$lib/blocks/cancellable.svelte";
 
-  const b2 = new Cancellable();
-  const b3 = new Cancellable();
+  const b2 = new Cancellable({ allowContextMenus: true });
+  const b3 = new Cancellable({ allowContextMenus: true });
 
   let base = $state(0);
   let cancellable = $state(0);
@@ -21,7 +21,7 @@
     >
 
     <button
-      class="py-2 px-4 outline-none"
+      class="py-2 px-4 outline-none select-none"
       onclick={() => {
         console.log("hi", cancellable);
         cancellable++;
